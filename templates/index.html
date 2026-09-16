@@ -1,0 +1,296 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="space-y-12 pb-16">
+
+  <!-- 1. Stories Carousel (Pat?rt? style circular story buttons) -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
+    <div class="flex items-center gap-6 overflow-x-auto pb-4 no-scrollbar">
+      
+      <a href="/fabrics?category=all" class="flex flex-col items-center gap-2 flex-shrink-0 group">
+        <div class="story-ring rounded-full p-1 group-hover:scale-105 transition-transform shadow-sm">
+          <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-slate-900 border-2 border-white flex items-center justify-center text-white">
+            <i data-lucide="sparkles" class="w-8 h-8 text-amber-400"></i>
+          </div>
+        </div>
+        <span class="text-xs font-bold text-slate-800 text-center">T?m Desenler</span>
+      </a>
+
+      <a href="/fabrics?fabric=pamuk-poplin" class="flex flex-col items-center gap-2 flex-shrink-0 group">
+        <div class="story-ring rounded-full p-1 group-hover:scale-105 transition-transform shadow-sm">
+          <img src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?w=200&auto=format&fit=crop&q=80" class="w-16 h-16 sm:w-20 sm:h-20 rounded-full object-cover border-2 border-white" alt="">
+        </div>
+        <span class="text-xs font-bold text-slate-800 text-center">Pamuk Poplin</span>
+      </a>
+
+      <a href="/fabrics?category=floral" class="flex flex-col items-center gap-2 flex-shrink-0 group">
+        <div class="story-ring rounded-full p-1 group-hover:scale-105 transition-transform shadow-sm">
+          <img src="https://images.unsplash.com/photo-1518895949257-7621c3c786d7?w=200&auto=format&fit=crop&q=80" class="w-16 h-16 sm:w-20 sm:h-20 rounded-full object-cover border-2 border-white" alt="">
+        </div>
+        <span class="text-xs font-bold text-slate-800 text-center">Bahar ?i?ekleri</span>
+      </a>
+
+      <a href="/fabrics?fabric=ipek-saten" class="flex flex-col items-center gap-2 flex-shrink-0 group">
+        <div class="story-ring rounded-full p-1 group-hover:scale-105 transition-transform shadow-sm">
+          <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=200&auto=format&fit=crop&q=80" class="w-16 h-16 sm:w-20 sm:h-20 rounded-full object-cover border-2 border-white" alt="">
+        </div>
+        <span class="text-xs font-bold text-slate-800 text-center">?pek Saten</span>
+      </a>
+
+      <a href="/fabrics?category=kids" class="flex flex-col items-center gap-2 flex-shrink-0 group">
+        <div class="story-ring rounded-full p-1 group-hover:scale-105 transition-transform shadow-sm">
+          <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=200&auto=format&fit=crop&q=80" class="w-16 h-16 sm:w-20 sm:h-20 rounded-full object-cover border-2 border-white" alt="">
+        </div>
+        <span class="text-xs font-bold text-slate-800 text-center">Bebek & M?slin</span>
+      </a>
+
+      <a href="/fabrics?category=ethnic" class="flex flex-col items-center gap-2 flex-shrink-0 group">
+        <div class="story-ring rounded-full p-1 group-hover:scale-105 transition-transform shadow-sm">
+          <img src="https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=200&auto=format&fit=crop&q=80" class="w-16 h-16 sm:w-20 sm:h-20 rounded-full object-cover border-2 border-white" alt="">
+        </div>
+        <span class="text-xs font-bold text-slate-800 text-center">?ini & Bohem</span>
+      </a>
+
+      <a href="/fabrics?category=abstract" class="flex flex-col items-center gap-2 flex-shrink-0 group">
+        <div class="story-ring rounded-full p-1 group-hover:scale-105 transition-transform shadow-sm">
+          <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=200&auto=format&fit=crop&q=80" class="w-16 h-16 sm:w-20 sm:h-20 rounded-full object-cover border-2 border-white" alt="">
+        </div>
+        <span class="text-xs font-bold text-slate-800 text-center">Mermer & Alt?n</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- 2. Hero Banner (Jextle & Desenix luxury vibe) -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="relative rounded-3xl overflow-hidden bg-gradient-to-r from-slate-950 via-emerald-950 to-slate-900 text-white shadow-2xl border border-slate-800 min-h-[460px] flex items-center">
+      
+      <!-- Ambient pattern background -->
+      <div class="absolute inset-0 opacity-20 mix-blend-overlay pointer-events-none bg-[radial-gradient(#10b981_1px,transparent_1px)] [background-size:16px_16px]"></div>
+      
+      <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 p-8 sm:p-12 items-center w-full">
+        <div class="lg:col-span-7 space-y-6">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/20 border border-emerald-400/30 text-emerald-300 text-xs font-semibold backdrop-blur-sm">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            Trenddesen Yeni Sezon Dijital Kuma? Bask? Koleksiyonu
+          </div>
+          
+          <h1 class="font-serif-title text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.15]">
+            Hayalindeki Deseni <br><span class="text-emerald-400">?stedi?in Kuma?a</span> Bast?r.
+          </h1>
+          
+          <p class="text-slate-300 text-base sm:text-lg max-w-xl font-normal leading-relaxed">
+            Y?zlerce trend desen aras?ndan se?iminizi yap?n; Pamuk Poplin, ?pek Saten, Viskon veya M?slin kuma??n?za diledi?iniz metrajda y?ksek kalitede basal?m.
+          </p>
+          
+          <div class="flex flex-wrap items-center gap-4 pt-2">
+            <a href="/fabrics" class="px-8 py-3.5 bg-emerald-700 text-white font-bold rounded-2xl shadow-lg hover:bg-emerald-800 hover:shadow-emerald-900/50 hover:scale-[1.02] transition-all flex items-center gap-2">
+              <span>Desenleri Ke?fet</span>
+              <i data-lucide="arrow-right" class="w-5 h-5"></i>
+            </a>
+            <a href="#how-it-works" class="px-6 py-3.5 bg-white/10 hover:bg-white/20 text-white font-semibold rounded-2xl border border-white/20 backdrop-blur-sm transition flex items-center gap-2">
+              <i data-lucide="play-circle" class="w-5 h-5 text-amber-400"></i>
+              <span>Nas?l ?al???r?</span>
+            </a>
+          </div>
+
+          <!-- Feature badges -->
+          <div class="grid grid-cols-3 gap-4 pt-6 border-t border-slate-800 text-xs text-slate-300">
+            <div class="flex items-center gap-2">
+              <i data-lucide="shield-check" class="w-4 h-4 text-emerald-400"></i>
+              <span>OEKO-TEX? Eko Boya</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <i data-lucide="maximize" class="w-4 h-4 text-emerald-400"></i>
+              <span>1 Metreden ?tibaren</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <i data-lucide="zap" class="w-4 h-4 text-emerald-400"></i>
+              <span>3 G?nde Teslimat</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-5 hidden lg:block relative">
+          <div class="relative mx-auto w-full max-w-sm">
+            <div class="absolute -inset-4 bg-emerald-500/20 rounded-3xl blur-2xl"></div>
+            <div class="relative bg-slate-900 border border-slate-700 rounded-3xl p-4 shadow-2xl space-y-4">
+              <img src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?w=600&auto=format&fit=crop&q=80" class="w-full h-64 object-cover rounded-2xl border border-slate-800" alt="">
+              <div class="flex justify-between items-center px-2">
+                <div>
+                  <h4 class="font-bold text-white text-sm">?akay?k & Botanik</h4>
+                  <p class="text-xs text-emerald-400 font-semibold">100% Pamuk Poplin</p>
+                </div>
+                <div class="text-right">
+                  <span class="text-xs text-slate-400">Metre Fiyat?</span>
+                  <p class="text-base font-extrabold text-white">185 ?</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Trend Desenler / ?ok Satanlar Grid (Desenix + Pat?rt? stili) -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+      <div>
+        <div class="flex items-center gap-2 text-emerald-700 font-bold text-xs uppercase tracking-wider mb-1">
+          <i data-lucide="flame" class="w-4 h-4 text-amber-500"></i>
+          Trenddesen ?ok Satanlar
+        </div>
+        <h2 class="font-serif-title text-2xl sm:text-3xl font-extrabold text-slate-900">
+          En Pop?ler Kuma? & Desen Koleksiyonu
+        </h2>
+      </div>
+      <a href="/fabrics" class="inline-flex items-center gap-1.5 text-sm font-bold text-emerald-800 hover:text-emerald-950 transition">
+        <span>T?m Katalo?u ?ncele</span>
+        <i data-lucide="chevron-right" class="w-4 h-4"></i>
+      </a>
+    </div>
+
+    <!-- Product Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      {% for product in products %}
+      <div class="group bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-xl hover:border-emerald-200 transition-all duration-300 flex flex-col">
+        
+        <!-- Image & Badges -->
+        <div class="relative pattern-zoom-container bg-slate-100 aspect-square">
+          <img src="{{ product.image }}" alt="{{ product.title }}" class="w-full h-full object-cover">
+          
+          <!-- Badges -->
+          <div class="absolute top-3 left-3 flex flex-col gap-1.5 z-10">
+            {% if product.is_new %}
+            <span class="px-2.5 py-1 bg-emerald-700 text-white rounded-lg text-[10px] font-extrabold tracking-wide uppercase shadow-sm">Yeni</span>
+            {% endif %}
+            {% if product.discount_pct > 0 %}
+            <span class="px-2.5 py-1 bg-rose-600 text-white rounded-lg text-[10px] font-extrabold tracking-wide uppercase shadow-sm">%{{ product.discount_pct }} ?ndirim</span>
+            {% endif %}
+          </div>
+
+          <div class="absolute top-3 right-3 z-10">
+            <span class="px-2 py-1 bg-white/90 backdrop-blur-sm text-slate-700 rounded-lg text-[10px] font-bold shadow-sm">
+              {{ product.code }}
+            </span>
+          </div>
+
+          <!-- Color dots preview -->
+          <div class="absolute bottom-3 left-3 flex items-center gap-1 bg-white/90 backdrop-blur-sm px-2 py-1 rounded-full shadow-sm">
+            {% for color in product.colors %}
+            <span class="w-2.5 h-2.5 rounded-full border border-black/10" style="background-color: {{ color }};"></span>
+            {% endfor %}
+          </div>
+        </div>
+
+        <!-- Content -->
+        <div class="p-4 flex-1 flex flex-col justify-between space-y-3">
+          <div>
+            <div class="flex items-center justify-between text-xs text-slate-400 mb-1">
+              <span>{{ product.category_name }}</span>
+              <div class="flex items-center text-amber-500 font-bold">
+                <i data-lucide="star" class="w-3 h-3 fill-amber-400 mr-1"></i>
+                <span>{{ product.rating }}</span>
+                <span class="text-slate-400 font-normal ml-0.5">({{ product.reviews_count }})</span>
+              </div>
+            </div>
+            <h3 class="font-bold text-slate-900 text-sm group-hover:text-emerald-700 transition line-clamp-1">
+              {{ product.title }}
+            </h3>
+          </div>
+
+          <div class="pt-2 border-t border-slate-100 flex items-center justify-between">
+            <div>
+              <span class="text-[10px] text-slate-400 block">Ba?lang??</span>
+              <div class="flex items-baseline gap-1">
+                <span class="text-base font-extrabold text-slate-900">{{ product.base_price }} ?</span>
+                <span class="text-[10px] text-slate-500 font-semibold">/ metre</span>
+              </div>
+            </div>
+
+            <a href="/product/{{ product.id }}" class="px-4 py-2 bg-slate-900 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold transition flex items-center gap-1 shadow-sm">
+              <span>Kuma? Se?</span>
+              <i data-lucide="arrow-right" class="w-3 h-3"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+
+  <!-- 4. How It Works Section (Desenix & Trenddesen ?zel Bask? S?reci) -->
+  <section id="how-it-works" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
+    <div class="bg-gradient-to-br from-slate-900 via-slate-900 to-emerald-950 rounded-3xl p-8 sm:p-12 text-white border border-slate-800 shadow-xl">
+      <div class="text-center max-w-2xl mx-auto mb-12 space-y-3">
+        <span class="text-xs font-bold text-emerald-400 uppercase tracking-widest">Kolay ve H?zl? Sipari?</span>
+        <h2 class="font-serif-title text-2xl sm:text-4xl font-extrabold">Nas?l ?al???r?</h2>
+        <p class="text-slate-400 text-sm">Trenddesen kalitesiyle diledi?iniz kuma?? 4 kolay ad?mda kap?n?za kadar getirin.</p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div class="bg-white/5 border border-white/10 rounded-2xl p-6 text-center space-y-3 hover:bg-white/10 transition">
+          <div class="w-12 h-12 bg-emerald-600/30 text-emerald-400 rounded-2xl flex items-center justify-center mx-auto text-lg font-bold border border-emerald-500/30">
+            1
+          </div>
+          <h4 class="font-bold text-base text-white">Deseni Se?</h4>
+          <p class="text-xs text-slate-400 leading-relaxed">Geni? katalo?umuzdan veya tarz?n?za uygun kategoriden be?endi?iniz deseni belirleyin.</p>
+        </div>
+
+        <div class="bg-white/5 border border-white/10 rounded-2xl p-6 text-center space-y-3 hover:bg-white/10 transition">
+          <div class="w-12 h-12 bg-emerald-600/30 text-emerald-400 rounded-2xl flex items-center justify-center mx-auto text-lg font-bold border border-emerald-500/30">
+            2
+          </div>
+          <h4 class="font-bold text-base text-white">Kuma? T?r?n? Belirle</h4>
+          <p class="text-xs text-slate-400 leading-relaxed">Poplin, ?pek Saten, Viskon, ?ifon veya M?slin gibi projenize en uygun kuma?? se?in.</p>
+        </div>
+
+        <div class="bg-white/5 border border-white/10 rounded-2xl p-6 text-center space-y-3 hover:bg-white/10 transition">
+          <div class="w-12 h-12 bg-emerald-600/30 text-emerald-400 rounded-2xl flex items-center justify-center mx-auto text-lg font-bold border border-emerald-500/30">
+            3
+          </div>
+          <h4 class="font-bold text-base text-white">Metraj?n? Gir</h4>
+          <p class="text-xs text-slate-400 leading-relaxed">Minimum 1 metreden ba?layarak diledi?iniz miktar? se?in, canl? tutar? an?nda g?r?n.</p>
+        </div>
+
+        <div class="bg-white/5 border border-white/10 rounded-2xl p-6 text-center space-y-3 hover:bg-white/10 transition">
+          <div class="w-12 h-12 bg-emerald-600/30 text-emerald-400 rounded-2xl flex items-center justify-center mx-auto text-lg font-bold border border-emerald-500/30">
+            4
+          </div>
+          <h4 class="font-bold text-base text-white">Bask? & H?zl? Kargo</h4>
+          <p class="text-xs text-slate-400 leading-relaxed">Sipari?iniz ekolojik sertifikal? boyalarla y?ksek ??z?n?rl?kte bas?larak kargoya verilir.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Kuma? T?rleri Bilgilendirme Grid -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
+    <div class="mb-8">
+      <span class="text-xs font-bold text-emerald-700 uppercase tracking-wider">Kuma? ?e?itleri</span>
+      <h2 class="font-serif-title text-2xl sm:text-3xl font-extrabold text-slate-900 mt-1">Bask? Yap?lan Kuma? T?rleri</h2>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {% for f in fabrics %}
+      <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:border-emerald-300 hover:shadow-md transition">
+        <div class="flex justify-between items-start mb-3">
+          <div>
+            <h3 class="font-bold text-slate-900 text-base">{{ f.name }}</h3>
+            <span class="text-xs text-slate-400">{{ f.composition }}</span>
+          </div>
+          <span class="px-2.5 py-1 bg-emerald-50 text-emerald-800 font-bold text-xs rounded-lg border border-emerald-100">{{ f.price_per_meter }} ? / m</span>
+        </div>
+        <p class="text-xs text-slate-600 leading-relaxed mb-4">{{ f.description }}</p>
+        <div class="flex flex-wrap gap-1.5 pt-2 border-t border-slate-100">
+          {% for u in f.usage %}
+          <span class="px-2 py-0.5 bg-slate-100 text-slate-600 rounded text-[10px] font-semibold">{{ u }}</span>
+          {% endfor %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+
+</div>
+{% endblock %}

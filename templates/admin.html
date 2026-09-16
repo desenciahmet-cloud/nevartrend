@@ -1,0 +1,404 @@
+{% extends "base.html" %}
+
+{% block title %}Y?netim Paneli | nevartrend by Trenddesen{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+
+  <!-- Header -->
+  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-200">
+    <div>
+      <div class="flex items-center gap-2">
+        <span class="px-2 py-0.5 bg-emerald-700 text-white font-bold text-[10px] rounded uppercase tracking-wider">Trenddesen Panel</span>
+        <span class="text-xs text-slate-400">T?rk?e Karakter & ?r?n Y?netim Merkezi</span>
+      </div>
+      <h1 class="font-serif-title text-2xl sm:text-3xl font-extrabold text-slate-900 mt-1">
+        nevartrend Ma?aza ve ??erik Y?netimi
+      </h1>
+    </div>
+
+    <div class="flex items-center gap-3">
+      <!-- One-click Turkish character fixer -->
+      <form action="/api/admin/fix-turkish" method="POST">
+        <button type="submit" class="px-4 py-2.5 bg-amber-500 hover:bg-amber-600 text-slate-950 text-xs font-extrabold rounded-xl shadow-sm transition flex items-center gap-1.5" title="Bozuk T?rk?e karakterleri otomatik onar?r">
+          <i data-lucide="wand-2" class="w-4 h-4"></i>
+          <span>T?rk?e Karakterleri Otomatik Onar</span>
+        </button>
+      </form>
+
+      <a href="/fabrics" target="_blank" class="px-4 py-2.5 bg-slate-900 hover:bg-black text-white text-xs font-bold rounded-xl transition flex items-center gap-1.5 shadow-sm">
+        <i data-lucide="external-link" class="w-4 h-4 text-emerald-400"></i>
+        <span>Canl? Ma?azay? A?</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Notification Alert Banner -->
+  {% if msg == 'added' %}
+  <div class="p-4 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-2xl flex items-center gap-2 text-xs font-bold">
+    <i data-lucide="check-circle-2" class="w-4 h-4"></i>
+    <span>Yeni desen ba?ar?yla eklendi!</span>
+  </div>
+  {% elif msg == 'edited' %}
+  <div class="p-4 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-2xl flex items-center gap-2 text-xs font-bold">
+    <i data-lucide="check-circle-2" class="w-4 h-4"></i>
+    <span>Desen ve T?rk?e metinler ba?ar?yla g?ncellendi!</span>
+  </div>
+  {% elif msg == 'deleted' %}
+  <div class="p-4 bg-rose-50 border border-rose-200 text-rose-800 rounded-2xl flex items-center gap-2 text-xs font-bold">
+    <i data-lucide="trash-2" class="w-4 h-4"></i>
+    <span>Desen katalogdan silindi.</span>
+  </div>
+  {% elif msg == 'fabric_updated' %}
+  <div class="p-4 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-2xl flex items-center gap-2 text-xs font-bold">
+    <i data-lucide="check-circle-2" class="w-4 h-4"></i>
+    <span>Kuma? t?r? ve fiyat? g?ncellendi!</span>
+  </div>
+  {% elif msg == 'turkish_fixed' %}
+  <div class="p-4 bg-amber-50 border border-amber-200 text-amber-900 rounded-2xl flex items-center gap-2 text-xs font-bold">
+    <i data-lucide="sparkles" class="w-4 h-4 text-amber-600"></i>
+    <span>T?m veritaban?ndaki T?rk?e karakterler (?, ?, ?, ?, ?, ?) ba?ar?yla tarand? ve onar?ld?!</span>
+  </div>
+  {% endif %}
+
+  <!-- Stats Grid -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-2">
+      <span class="text-xs text-slate-400 font-semibold">Toplam Ciro</span>
+      <p class="text-2xl font-extrabold text-slate-900">{{ total_sales|round(2) }} ?</p>
+      <span class="text-[10px] text-emerald-600 font-bold">Trenddesen Sat??lar?</span>
+    </div>
+    <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-2">
+      <span class="text-xs text-slate-400 font-semibold">Aktif Desen Say?s?</span>
+      <p class="text-2xl font-extrabold text-slate-900">{{ products|length }} Desen</p>
+      <span class="text-[10px] text-slate-500 font-bold">Katalogda Yay?nda</span>
+    </div>
+    <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-2">
+      <span class="text-xs text-slate-400 font-semibold">Toplam Sipari?</span>
+      <p class="text-2xl font-extrabold text-slate-900">{{ orders|length }} Sipari?</p>
+      <span class="text-[10px] text-emerald-600 font-bold">Bask? & Kargoda</span>
+    </div>
+    <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-2">
+      <span class="text-xs text-slate-400 font-semibold">Kuma? ?e?itleri</span>
+      <p class="text-2xl font-extrabold text-slate-900">{{ fabrics|length }} Kuma?</span>
+      <span class="text-[10px] text-slate-500 font-bold">Poplin, Saten, Viskon...</span>
+    </div>
+  </div>
+
+  <!-- SECTION 1: Desen Y?netimi & T?rk?e ?sim D?zenleme Tablosu -->
+  <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-6">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-4">
+      <div>
+        <h3 class="font-bold text-slate-900 text-base flex items-center gap-2">
+          <i data-lucide="palette" class="w-5 h-5 text-emerald-700"></i>
+          <span>Desen Katalo?u & T?rk?e ?sim / A??klama D?zenleme</span>
+        </h3>
+        <p class="text-xs text-slate-400 mt-0.5">Yaz?m hatas? veya T?rk?e karakter bozuklu?u olan desenleri <strong>D?zenle</strong> butonuna basarak an?nda d?zeltebilirsiniz.</p>
+      </div>
+      <button onclick="openAddModal()" class="px-4 py-2 bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold rounded-xl transition flex items-center gap-1.5 shadow-sm">
+        <i data-lucide="plus" class="w-4 h-4"></i>
+        <span>Yeni Desen Ekle</span>
+      </button>
+    </div>
+
+    <div class="overflow-x-auto">
+      <table class="w-full text-left text-xs">
+        <thead>
+          <tr class="border-b border-slate-200 bg-slate-50 text-slate-500 font-bold uppercase tracking-wider">
+            <th class="py-3 px-3">G?rsel</th>
+            <th class="py-3 px-3">Kod</th>
+            <th class="py-3 px-3">Desen Ba?l??? (T?rk?e)</th>
+            <th class="py-3 px-3">Kategori</th>
+            <th class="py-3 px-3">Ba?lang?? Fiyat?</th>
+            <th class="py-3 px-3 text-right">??lemler</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-slate-100">
+          {% for p in products %}
+          <tr class="hover:bg-slate-50/60 transition">
+            <td class="py-3 px-3">
+              <img src="{{ p.image }}" class="w-12 h-12 rounded-xl object-cover border" alt="">
+            </td>
+            <td class="py-3 px-3 font-mono font-bold text-slate-700">{{ p.code }}</td>
+            <td class="py-3 px-3">
+              <strong class="text-slate-900 text-sm block">{{ p.title }}</strong>
+              <span class="text-[11px] text-slate-500 line-clamp-1 max-w-md">{{ p.description }}</span>
+            </td>
+            <td class="py-3 px-3">
+              <span class="px-2 py-1 bg-slate-100 text-slate-700 rounded-lg text-[11px] font-semibold">{{ p.category_name }}</span>
+            </td>
+            <td class="py-3 px-3 font-extrabold text-emerald-800 text-sm">{{ p.base_price }} ?</td>
+            <td class="py-3 px-3 text-right">
+              <div class="flex items-center justify-end gap-2">
+                <button 
+                  onclick="openEditModal('{{ p.id }}', '{{ p.code }}', '{{ p.title }}', '{{ p.category }}', {{ p.base_price }}, '{{ p.description }}', '{{ p.image }}')" 
+                  class="px-3 py-1.5 bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 rounded-lg font-bold text-xs transition flex items-center gap-1"
+                >
+                  <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
+                  <span>D?zenle</span>
+                </button>
+                <form action="/api/admin/products/delete" method="POST" onsubmit="return confirm('Bu deseni silmek istedi?inize emin misiniz?');">
+                  <input type="hidden" name="product_id" value="{{ p.id }}">
+                  <button type="submit" class="p-1.5 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition">
+                    <i data-lucide="trash-2" class="w-4 h-4"></i>
+                  </button>
+                </form>
+              </div>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- SECTION 2: Kuma? T?rleri ve Metre Fiyatlar? Y?netimi -->
+  <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-6">
+    <div class="border-b border-slate-100 pb-3">
+      <h3 class="font-bold text-slate-900 text-base flex items-center gap-2">
+        <i data-lucide="layers" class="w-5 h-5 text-emerald-700"></i>
+        <span>Kuma? T?rleri, ?simleri ve Metre Fiyatlar?</span>
+      </h3>
+      <p class="text-xs text-slate-400 mt-0.5">Kuma?lar?n T?rk?e isimlerini, a??klamalar?n? ve metre ba?? sat?? fiyatlar?n? g?ncelleyebilirsiniz.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {% for f in fabrics %}
+      <form action="/api/admin/fabrics/edit" method="POST" class="p-5 bg-slate-50 border border-slate-200 rounded-2xl space-y-3 text-xs">
+        <input type="hidden" name="fabric_id" value="{{ f.id }}">
+        
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Kuma? Ad? (T?rk?e) *</label>
+          <input type="text" name="name" value="{{ f.name }}" required class="w-full bg-white border border-slate-200 rounded-xl p-2.5 font-bold text-slate-900 focus:ring-2 focus:ring-emerald-600">
+        </div>
+
+        <div class="grid grid-cols-2 gap-2">
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">Metre Fiyat? (?) *</label>
+            <input type="number" step="1" name="price_per_meter" value="{{ f.price_per_meter }}" required class="w-full bg-white border border-slate-200 rounded-xl p-2.5 font-extrabold text-emerald-800">
+          </div>
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">En (Geni?lik) *</label>
+            <input type="text" name="width" value="{{ f.width }}" required class="w-full bg-white border border-slate-200 rounded-xl p-2.5">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-2">
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">Gramaj (gr/m?)</label>
+            <input type="text" name="weight" value="{{ f.weight }}" required class="w-full bg-white border border-slate-200 rounded-xl p-2.5">
+          </div>
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">??erik / Kompozisyon</label>
+            <input type="text" name="composition" value="{{ f.composition }}" required class="w-full bg-white border border-slate-200 rounded-xl p-2.5">
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Kuma? A??klamas?</label>
+          <textarea name="description" rows="2" class="w-full bg-white border border-slate-200 rounded-xl p-2.5">{{ f.description }}</textarea>
+        </div>
+
+        <button type="submit" class="w-full py-2 bg-slate-900 hover:bg-emerald-700 text-white rounded-xl font-bold transition flex items-center justify-center gap-1">
+          <i data-lucide="save" class="w-3.5 h-3.5"></i>
+          <span>Kuma?? Kaydet</span>
+        </button>
+      </form>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- SECTION 3: Gelen Sipari?ler -->
+  <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-4">
+    <h3 class="font-bold text-slate-900 text-base border-b border-slate-100 pb-3 flex items-center gap-2">
+      <i data-lucide="truck" class="w-5 h-5 text-emerald-700"></i>
+      <span>Gelen Sipari?ler & Bask? Takibi</span>
+    </h3>
+    
+    <div class="overflow-x-auto">
+      <table class="w-full text-left text-xs">
+        <thead>
+          <tr class="border-b border-slate-200 bg-slate-50 text-slate-500 font-bold uppercase tracking-wider">
+            <th class="py-3 px-3">Sipari? No</th>
+            <th class="py-3 px-3">M??teri</th>
+            <th class="py-3 px-3">Kargo ?irketi</th>
+            <th class="py-3 px-3">Tutar</th>
+            <th class="py-3 px-3">Durum</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-slate-100">
+          {% for o in orders %}
+          <tr>
+            <td class="py-3 px-3 font-mono font-bold text-slate-800">{{ o.id }}</td>
+            <td class="py-3 px-3">
+              <strong class="text-slate-900">{{ o.customer_name }}</strong>
+              <span class="text-[10px] text-slate-400 block">{{ o.customer_email }}</span>
+            </td>
+            <td class="py-3 px-3 text-slate-600">{{ o.cargo_company }}</td>
+            <td class="py-3 px-3 font-bold text-emerald-800">{{ o.total_amount }} ?</td>
+            <td class="py-3 px-3">
+              <span class="px-2.5 py-1 bg-emerald-50 text-emerald-800 rounded-lg font-bold text-[10px]">{{ o.status }}</span>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<!-- EDIT PRODUCT MODAL -->
+<div id="edit-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+  <div class="bg-white rounded-3xl max-w-xl w-full p-6 sm:p-8 shadow-2xl space-y-5 border border-slate-200 max-h-[90vh] overflow-y-auto">
+    <div class="flex justify-between items-center border-b border-slate-100 pb-3">
+      <h3 class="font-bold text-slate-900 text-base flex items-center gap-2">
+        <i data-lucide="edit-3" class="w-5 h-5 text-emerald-700"></i>
+        <span>Desen & T?rk?e Metinleri D?zenle</span>
+      </h3>
+      <button onclick="closeEditModal()" class="p-1.5 text-slate-400 hover:text-slate-700 rounded-lg">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+    </div>
+
+    <form action="/api/admin/products/edit" method="POST" class="space-y-4 text-xs">
+      <input type="hidden" id="edit-product-id" name="product_id">
+      
+      <div>
+        <label class="block font-bold text-slate-700 mb-1">Desen Ad? / Ba?l??? (T?rk?e) *</label>
+        <input type="text" id="edit-title" name="title" required class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 font-bold text-sm text-slate-900 focus:ring-2 focus:ring-emerald-600">
+        <span class="text-[10px] text-slate-400 mt-1 block">?rnek: ?akay?k ?i?ekli Botanik Bah?e</span>
+      </div>
+
+      <div class="grid grid-cols-2 gap-3">
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Desen Kodu *</label>
+          <input type="text" id="edit-code" name="code" required class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 uppercase font-mono font-bold">
+        </div>
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Kategori *</label>
+          <select id="edit-category" name="category" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 font-medium">
+            {% for cat in categories %}
+            {% if cat.id != 'all' %}
+            <option value="{{ cat.id }}">{{ cat.name }}</option>
+            {% endif %}
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <label class="block font-bold text-slate-700 mb-1">Ba?lang?? Metre Fiyat? (?) *</label>
+        <input type="number" id="edit-price" name="base_price" required class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 font-bold text-emerald-800">
+      </div>
+
+      <div>
+        <label class="block font-bold text-slate-700 mb-1">G?rsel URL</label>
+        <input type="url" id="edit-image" name="image_url" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3">
+      </div>
+
+      <div>
+        <label class="block font-bold text-slate-700 mb-1">Desen Detayl? A??klamas? (T?rk?e)</label>
+        <textarea id="edit-description" name="description" rows="3" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 font-medium text-slate-800"></textarea>
+      </div>
+
+      <div class="flex gap-3 pt-2">
+        <button type="button" onclick="closeEditModal()" class="flex-1 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl transition">?ptal</button>
+        <button type="submit" class="flex-1 py-3 bg-emerald-700 hover:bg-emerald-800 text-white font-bold rounded-xl transition shadow-md flex items-center justify-center gap-1">
+          <i data-lucide="check" class="w-4 h-4"></i>
+          <span>De?i?iklikleri Kaydet</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ADD PRODUCT MODAL -->
+<div id="add-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+  <div class="bg-white rounded-3xl max-w-xl w-full p-6 sm:p-8 shadow-2xl space-y-5 border border-slate-200 max-h-[90vh] overflow-y-auto">
+    <div class="flex justify-between items-center border-b border-slate-100 pb-3">
+      <h3 class="font-bold text-slate-900 text-base flex items-center gap-2">
+        <i data-lucide="plus-circle" class="w-5 h-5 text-emerald-700"></i>
+        <span>Yeni Desen Ekle</span>
+      </h3>
+      <button onclick="closeAddModal()" class="p-1.5 text-slate-400 hover:text-slate-700 rounded-lg">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+    </div>
+
+    <form action="/api/admin/products" method="POST" class="space-y-4 text-xs">
+      <div>
+        <label class="block font-bold text-slate-700 mb-1">Desen Ad? (T?rk?e) *</label>
+        <input type="text" name="title" required placeholder="?rn: Akdeniz Limon Bah?esi" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 font-bold text-sm focus:ring-2 focus:ring-emerald-600">
+      </div>
+
+      <div class="grid grid-cols-2 gap-3">
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Desen Kodu *</label>
+          <input type="text" name="code" required placeholder="TD-109" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 uppercase font-mono font-bold">
+        </div>
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Kategori *</label>
+          <select name="category" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 font-medium">
+            {% for cat in categories %}
+            {% if cat.id != 'all' %}
+            <option value="{{ cat.id }}">{{ cat.name }}</option>
+            {% endif %}
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <label class="block font-bold text-slate-700 mb-1">Ba?lang?? Metre Fiyat? (?) *</label>
+        <input type="number" name="base_price" required value="185" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 font-bold text-emerald-800">
+      </div>
+
+      <div>
+        <label class="block font-bold text-slate-700 mb-1">G?rsel URL *</label>
+        <input type="url" name="image_url" required value="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?w=800&auto=format&fit=crop&q=80" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3">
+      </div>
+
+      <div>
+        <label class="block font-bold text-slate-700 mb-1">A??klama</label>
+        <textarea name="description" rows="3" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 font-medium">Trenddesen yeni sezon ?zel dijital bask? deseni.</textarea>
+      </div>
+
+      <div class="flex gap-3 pt-2">
+        <button type="button" onclick="closeAddModal()" class="flex-1 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl transition">?ptal</button>
+        <button type="submit" class="flex-1 py-3 bg-emerald-700 hover:bg-emerald-800 text-white font-bold rounded-xl transition shadow-md">
+          Deseni Katalo?a Ekle
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+  function openEditModal(id, code, title, category, price, desc, img) {
+    document.getElementById('edit-product-id').value = id;
+    document.getElementById('edit-code').value = code;
+    document.getElementById('edit-title').value = title;
+    document.getElementById('edit-category').value = category;
+    document.getElementById('edit-price').value = price;
+    document.getElementById('edit-description').value = desc;
+    document.getElementById('edit-image').value = img;
+    
+    document.getElementById('edit-modal').classList.remove('hidden');
+    if (window.lucide) lucide.createIcons();
+  }
+
+  function closeEditModal() {
+    document.getElementById('edit-modal').classList.add('hidden');
+  }
+
+  function openAddModal() {
+    document.getElementById('add-modal').classList.remove('hidden');
+    if (window.lucide) lucide.createIcons();
+  }
+
+  function closeAddModal() {
+    document.getElementById('add-modal').classList.add('hidden');
+  }
+</script>
+{% endblock %}

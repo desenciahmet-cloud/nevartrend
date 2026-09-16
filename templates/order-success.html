@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block title %}Sipari?iniz Al?nd? | nevartrend{% endblock %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center space-y-8">
+
+  <div class="w-20 h-20 bg-emerald-100 text-emerald-700 rounded-3xl flex items-center justify-center mx-auto shadow-lg">
+    <i data-lucide="check" class="w-10 h-10"></i>
+  </div>
+
+  <div class="space-y-2">
+    <span class="px-3 py-1 bg-emerald-50 text-emerald-800 text-xs font-bold rounded-full border border-emerald-200">Sipari? Ba?ar?yla Olu?turuldu</span>
+    <h1 class="font-serif-title text-3xl sm:text-4xl font-extrabold text-slate-900">
+      Te?ekk?r Ederiz, Sipari?iniz Al?nd?!
+    </h1>
+    <p class="text-sm text-slate-500">
+      Sipari? Kodunuz: <strong class="text-slate-900 font-mono">{{ order.id }}</strong>
+    </p>
+  </div>
+
+  <!-- Order Receipt Card -->
+  <div class="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-sm text-left space-y-6">
+    <div class="flex justify-between items-center border-b border-slate-100 pb-4">
+      <div>
+        <h4 class="font-bold text-slate-900 text-sm">Sipari? ?zeti</h4>
+        <p class="text-xs text-slate-400">{{ order.created_at }}</p>
+      </div>
+      <span class="px-3 py-1 bg-amber-50 text-amber-800 text-xs font-bold rounded-xl border border-amber-200">{{ order.status }}</span>
+    </div>
+
+    <div class="grid grid-cols-2 gap-4 text-xs">
+      <div>
+        <span class="text-slate-400 block">Teslim Al?c?:</span>
+        <strong class="text-slate-800">{{ order.customer_name }}</strong>
+      </div>
+      <div>
+        <span class="text-slate-400 block">Kargo Firmas?:</span>
+        <strong class="text-slate-800">{{ order.cargo_company }}</strong>
+      </div>
+      <div>
+        <span class="text-slate-400 block">?deme Tutar?:</span>
+        <strong class="text-emerald-800 font-extrabold text-sm">{{ order.total_amount }} ?</strong>
+      </div>
+      <div>
+        <span class="text-slate-400 block">E-Posta Bildirimi:</span>
+        <strong class="text-slate-800">{{ order.customer_email }}</strong>
+      </div>
+    </div>
+
+    <div class="p-4 bg-emerald-50/60 rounded-2xl border border-emerald-100 text-xs text-emerald-900 flex items-center gap-3">
+      <i data-lucide="sparkles" class="w-5 h-5 text-emerald-700 flex-shrink-0"></i>
+      <span>Kuma?lar?n?z <strong>Trenddesen</strong> tesislerinde y?ksek ??z?n?rl?kl? dijital bask?ya al?nm??t?r. Kargo takip kodunuz SMS ve e-posta ile iletilecektir.</span>
+    </div>
+  </div>
+
+  <div class="flex justify-center gap-4">
+    <a href="/" class="px-6 py-3 bg-slate-900 hover:bg-black text-white text-xs font-bold rounded-2xl transition">Ana Sayfaya D?n</a>
+    <a href="/fabrics" class="px-6 py-3 bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold rounded-2xl transition">Al??veri?e Devam Et</a>
+  </div>
+
+</div>
+{% endblock %}

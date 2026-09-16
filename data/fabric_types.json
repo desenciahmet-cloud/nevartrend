@@ -1,0 +1,128 @@
+[
+  {
+    "id": "pamuk-poplin",
+    "name": "100% Pamuk Poplin",
+    "price_per_meter": 185,
+    "width": "145 cm",
+    "weight": "125 gr/m²",
+    "composition": "100% Doğal Pamuk",
+    "description": "Nefes alan, yumuşak tuşeli doğal pamuklu kumaş. Gömlek, elbise, bebek giyim ve nevresim için idealdir.",
+    "usage": [
+      "Gömlek",
+      "Elbise",
+      "Bebek Giyim",
+      "Nevresim"
+    ],
+    "badge": "En Çok Satan",
+    "texture_feel": "Yumuşak & Mat",
+    "shrinkage": "%2 - %3"
+  },
+  {
+    "id": "ipek-saten",
+    "name": "Lüks İpek Saten",
+    "price_per_meter": 290,
+    "width": "140 cm",
+    "weight": "110 gr/m²",
+    "composition": "100% İpek Tuşeli Polyester",
+    "description": "Işıltılı, pürüzsüz ve dökümlü lüks kumaş. Gece elbiseleri, fular, pijama takımları ve şık bluzlar için mükemmeldir.",
+    "usage": [
+      "Gece Elbisesi",
+      "Fular & Şal",
+      "Pijama",
+      "Bluz"
+    ],
+    "badge": "Lüks Seri",
+    "texture_feel": "Parlak & Kaygan",
+    "shrinkage": "%0"
+  },
+  {
+    "id": "viskon-keten",
+    "name": "Viskon Keten Karışım",
+    "price_per_meter": 240,
+    "width": "145 cm",
+    "weight": "165 gr/m²",
+    "composition": "70% Viskon, 30% Doğal Keten",
+    "description": "Doğal dökümlü, kırışmaya karşı dayanıklı ve serin tutan doku. Kimono, pantolon, tunik ve yazlık elbiseler için en iyi seçim.",
+    "usage": [
+      "Kimono",
+      "Tunik",
+      "Pantolon",
+      "Yazlık Elbise"
+    ],
+    "badge": "Trend Kumaş",
+    "texture_feel": "Doğal Dokulu & Serin",
+    "shrinkage": "%2"
+  },
+  {
+    "id": "sifon",
+    "name": "Uçuşan Şifon",
+    "price_per_meter": 160,
+    "width": "150 cm",
+    "weight": "75 gr/m²",
+    "composition": "100% Şifon Vual",
+    "description": "Hafif, yarı şeffaf ve rüzgarla dans eden zarif kumaş. Elbise kaplamaları, eşarp, pareo ve tül detaylar için uygundur.",
+    "usage": [
+      "Eşarp & Şal",
+      "Pareo",
+      "Elbise Detayı",
+      "Tül Perde"
+    ],
+    "badge": "Hafif & Şeffaf",
+    "texture_feel": "Hafif & Uçuşan",
+    "shrinkage": "%0"
+  },
+  {
+    "id": "muslin-cift-kat",
+    "name": "Organik Çift Kat Müslin",
+    "price_per_meter": 195,
+    "width": "140 cm",
+    "weight": "135 gr/m²",
+    "composition": "100% Organik Ege Pamuğu",
+    "description": "Kareli kabartma dokulu, süper emici ve yumuşacık. Bebek ürünleri, plaj elbiseleri, pike ve salaş yazlık giyimde liderdir.",
+    "usage": [
+      "Bebek Kundak & Giyim",
+      "Plaj Elbisesi",
+      "Pike",
+      "Salaş Gömlek"
+    ],
+    "badge": "%100 Organik",
+    "texture_feel": "Kabartmalı & Yumuşak",
+    "shrinkage": "%3 - %4"
+  },
+  {
+    "id": "scuba-dalgic",
+    "name": "Likralı Scuba (Dalgıç)",
+    "price_per_meter": 260,
+    "width": "150 cm",
+    "weight": "280 gr/m²",
+    "composition": "92% Polyester, 8% Elastan",
+    "description": "Tok duruşlu, 4 yana esnek ve formu bozulmayan modern kumaş. Ceket, etek, tayt ve kışlık elbiseler için uygundur.",
+    "usage": [
+      "Ceket & Etek",
+      "Kalem Elbise",
+      "Spor Giyim",
+      "Kırlent"
+    ],
+    "badge": "Form Koruyucu",
+    "texture_feel": "Esnek & Tok",
+    "shrinkage": "%0"
+  },
+  {
+    "id": "kadife-dosemelik",
+    "name": "Soft Kadife / Döşemelik",
+    "price_per_meter": 340,
+    "width": "145 cm",
+    "weight": "320 gr/m²",
+    "composition": "100% Dokuma Kadife",
+    "description": "Yumuşacık tüylü yüzey, leke tutmaz apreli lüks kumaş. Koltuk, kırlent, fon perde ve kaban yapımında harikadır.",
+    "usage": [
+      "Fon Perde",
+      "Kırlent & Minder",
+      "Döşemelik",
+      "Kaban"
+    ],
+    "badge": "Ev Tekstili Lüks",
+    "texture_feel": "Kadifemsi & Kalın",
+    "shrinkage": "%0"
+  }
+]

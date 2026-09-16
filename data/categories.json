@@ -1,0 +1,46 @@
+[
+  {
+    "id": "all",
+    "name": "Tüm Desenler",
+    "icon": "grid",
+    "count": 16
+  },
+  {
+    "id": "floral",
+    "name": "Çiçekli & Botanik",
+    "icon": "flower-2",
+    "count": 5,
+    "badge": "Çok Satan"
+  },
+  {
+    "id": "geometric",
+    "name": "Geometrik & Minimalist",
+    "icon": "shapes",
+    "count": 3
+  },
+  {
+    "id": "ethnic",
+    "name": "Etnik & Bohem",
+    "icon": "sparkles",
+    "count": 3,
+    "badge": "Yeni"
+  },
+  {
+    "id": "kids",
+    "name": "Bebek & Çocuk",
+    "icon": "baby",
+    "count": 2
+  },
+  {
+    "id": "animal",
+    "name": "Hayvan Desenleri",
+    "icon": "paw-print",
+    "count": 2
+  },
+  {
+    "id": "abstract",
+    "name": "Soyut & Mermer",
+    "icon": "palette",
+    "count": 1
+  }
+]

@@ -1,0 +1,172 @@
+{% extends "base.html" %}
+
+{% block title %}Kuma? & Desen Katalo?u | nevartrend{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
+
+  <!-- Breadcrumb -->
+  <nav class="flex text-xs text-slate-500 gap-2 items-center">
+    <a href="/" class="hover:text-emerald-700">Ana Sayfa</a>
+    <span>/</span>
+    <span class="font-bold text-slate-800">Kuma? & Desen Katalo?u</span>
+  </nav>
+
+  <!-- Page Title & Stats -->
+  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-200">
+    <div>
+      <h1 class="font-serif-title text-2xl sm:text-3xl font-extrabold text-slate-900">
+        Bask? Kuma? & Desen Katalo?u
+      </h1>
+      <p class="text-xs text-slate-500 mt-1">
+        Toplam <strong class="text-slate-800">{{ products|length }}</strong> ?zel desen listeleniyor.
+      </p>
+    </div>
+
+    <!-- Sorting bar -->
+    <div class="flex items-center gap-3">
+      <label class="text-xs text-slate-500 font-semibold">S?ralama:</label>
+      <form id="sort-form" method="GET" class="flex items-center gap-2">
+        <input type="hidden" name="category" value="{{ selected_category }}">
+        <select name="sort" onchange="this.form.submit()" class="bg-white border border-slate-300 rounded-xl px-3 py-2 text-xs font-semibold text-slate-700 focus:outline-none focus:ring-2 focus:ring-emerald-600">
+          <option value="popular" {% if selected_sort == 'popular' %}selected{% endif %}>En ?ok Satanlar</option>
+          <option value="price_asc" {% if selected_sort == 'price_asc' %}selected{% endif %}>Fiyat: D???kten Y?kse?e</option>
+          <option value="price_desc" {% if selected_sort == 'price_desc' %}selected{% endif %}>Fiyat: Y?ksekten D????e</option>
+          <option value="rating" {% if selected_sort == 'rating' %}selected{% endif %}>En Y?ksek Puanl?lar</option>
+        </select>
+      </form>
+    </div>
+  </div>
+
+  <!-- Layout: Sidebar Filters + Main Grid -->
+  <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+    
+    <!-- Sidebar Filters (Desenix stili) -->
+    <aside class="space-y-6">
+      
+      <!-- Category Filter -->
+      <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+        <h3 class="font-bold text-slate-900 text-sm flex items-center justify-between">
+          <span>Koleksiyon / Kategori</span>
+          <i data-lucide="tag" class="w-4 h-4 text-slate-400"></i>
+        </h3>
+        <div class="space-y-1 text-xs">
+          {% for cat in categories %}
+          <a href="/fabrics?category={{ cat.id }}" class="flex items-center justify-between p-2 rounded-xl transition font-medium {% if selected_category == cat.id %}bg-emerald-700 text-white font-bold{% else %}text-slate-600 hover:bg-slate-100 hover:text-slate-900{% endif %}">
+            <span>{{ cat.name }}</span>
+            <span class="text-[10px] px-2 py-0.5 rounded-full {% if selected_category == cat.id %}bg-emerald-800 text-white{% else %}bg-slate-100 text-slate-500{% endif %}">{{ cat.count }}</span>
+          </a>
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- Fabric Base Types Reference Filter -->
+      <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+        <h3 class="font-bold text-slate-900 text-sm flex items-center justify-between">
+          <span>Kuma? T?r? Fiyatlar?</span>
+          <i data-lucide="layers" class="w-4 h-4 text-slate-400"></i>
+        </h3>
+        <p class="text-[11px] text-slate-500">T?m desenler diledi?iniz kuma? t?r?ne bas?labilir:</p>
+        <div class="space-y-2">
+          {% for f in fabrics %}
+          <div class="p-2.5 rounded-xl border border-slate-100 bg-slate-50 flex items-center justify-between text-xs">
+            <div>
+              <p class="font-bold text-slate-800">{{ f.name }}</p>
+              <p class="text-[10px] text-slate-400">{{ f.width }} ? {{ f.weight }}</p>
+            </div>
+            <span class="font-bold text-emerald-800 text-xs">{{ f.price_per_meter }} ?</span>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- Trust Badge Box -->
+      <div class="bg-emerald-900 text-white p-5 rounded-2xl shadow-sm space-y-3">
+        <div class="flex items-center gap-2">
+          <i data-lucide="shield-check" class="w-5 h-5 text-emerald-400"></i>
+          <h4 class="font-bold text-sm">Trenddesen Garantisi</h4>
+        </div>
+        <p class="text-xs text-emerald-200 leading-relaxed">
+          T?m kuma?lar?m?z OEKO-TEX sertifikal?, solmayan reaktif ve dispers dijital bask? teknolojisi ile ?retilmektedir.
+        </p>
+      </div>
+
+    </aside>
+
+    <!-- Main Grid -->
+    <main class="lg:col-span-3">
+      {% if products|length == 0 %}
+      <div class="bg-white rounded-2xl border border-slate-200 p-12 text-center">
+        <i data-lucide="search-x" class="w-12 h-12 text-slate-400 mx-auto mb-3"></i>
+        <h3 class="text-lg font-bold text-slate-800">Desen Bulunamad?</h3>
+        <p class="text-xs text-slate-500 mt-1">Arama kriterlerinizi de?i?tirerek tekrar deneyebilirsiniz.</p>
+        <a href="/fabrics" class="inline-block mt-4 px-6 py-2.5 bg-emerald-800 text-white rounded-xl text-xs font-bold hover:bg-emerald-900 transition">T?m Desenleri G?r</a>
+      </div>
+      {% else %}
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {% for product in products %}
+        <div class="group bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-xl hover:border-emerald-300 transition-all duration-300 flex flex-col">
+          
+          <!-- Image Container -->
+          <div class="relative pattern-zoom-container bg-slate-100 aspect-square">
+            <img src="{{ product.image }}" alt="{{ product.title }}" class="w-full h-full object-cover">
+            
+            <div class="absolute top-3 left-3 flex flex-col gap-1.5 z-10">
+              {% if product.is_new %}
+              <span class="px-2.5 py-1 bg-emerald-700 text-white rounded-lg text-[10px] font-extrabold uppercase shadow-sm">Yeni</span>
+              {% endif %}
+              {% if product.discount_pct > 0 %}
+              <span class="px-2.5 py-1 bg-rose-600 text-white rounded-lg text-[10px] font-extrabold uppercase shadow-sm">%{{ product.discount_pct }} ?ndirim</span>
+              {% endif %}
+            </div>
+
+            <div class="absolute top-3 right-3 z-10">
+              <span class="px-2 py-1 bg-white/90 backdrop-blur-sm text-slate-700 rounded-lg text-[10px] font-bold shadow-sm">
+                {{ product.code }}
+              </span>
+            </div>
+
+            <!-- Color Palette preview -->
+            <div class="absolute bottom-3 left-3 flex items-center gap-1 bg-white/90 backdrop-blur-sm px-2 py-1 rounded-full shadow-sm">
+              {% for color in product.colors %}
+              <span class="w-2.5 h-2.5 rounded-full border border-black/10" style="background-color: {{ color }};"></span>
+              {% endfor %}
+            </div>
+          </div>
+
+          <!-- Product Details -->
+          <div class="p-4 flex-1 flex flex-col justify-between space-y-3">
+            <div>
+              <div class="flex items-center justify-between text-xs text-slate-400 mb-1">
+                <span>{{ product.category_name }}</span>
+                <div class="flex items-center text-amber-500 font-bold">
+                  <i data-lucide="star" class="w-3 h-3 fill-amber-400 mr-1"></i>
+                  <span>{{ product.rating }}</span>
+                </div>
+              </div>
+              <h3 class="font-bold text-slate-900 text-sm group-hover:text-emerald-700 transition line-clamp-1">
+                {{ product.title }}
+              </h3>
+            </div>
+
+            <div class="pt-2 border-t border-slate-100 flex items-center justify-between">
+              <div>
+                <span class="text-[10px] text-slate-400 block">Ba?lang??</span>
+                <span class="text-base font-extrabold text-slate-900">{{ product.base_price }} ? <span class="text-[10px] text-slate-500 font-normal">/ m</span></span>
+              </div>
+
+              <a href="/product/{{ product.id }}" class="px-4 py-2 bg-slate-900 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold transition flex items-center gap-1 shadow-sm">
+                <span>Kuma? Se?</span>
+                <i data-lucide="arrow-right" class="w-3 h-3"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </main>
+
+  </div>
+</div>
+{% endblock %}

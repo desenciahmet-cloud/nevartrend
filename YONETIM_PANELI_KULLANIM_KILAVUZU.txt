@@ -1,0 +1,45 @@
+nevartrend YONETIM PANELI (ADMIN DASHBOARD) KULLANIM KILAVUZU
+================================================================
+
+nevartrend e-ticaret platformunuzun yonetim paneline su adresten ulasabilirsiniz:
+?? http://127.0.0.1:8000/admin
+
+
+1. DESEN DUZENLEME & TURKCE YAZIM HATALARINI DUZELTME
+------------------------------------------------------
+- Admin panelindeki "Desen Katalogu" tablosunda duzeltmek istediginiz desenin yanindaki "Duzenle" butonuna basin.
+- Baslik, aciklama veya fiyat alanlarini Turkce karakterlerle (c, g, i, o, s, u, C, G, I, O, S, U) yazin.
+- "Degisiklikleri Kaydet" butonuna tiklayin.
+- Sag ustteki sari renkli "Turkce Karakterleri Otomatik Onar" butonu tum veritabanini tek tikla temizler.
+
+
+2. YENI DESEN EKLEME
+--------------------
+- "Desen Katalogu" bolumunun ustundeki "+ Yeni Desen Ekle" butonuna basin.
+- Desen Adi, Kodu (orn: TD-109), Kategorisi, Metre Fiyati, Gorsel URL ve Aciklamasini girip kaydedin.
+
+
+3. KUMAS TURLERI VE METRE FIYATLARI YONETIMI
+--------------------------------------------
+- Paneldeki "Kumas Turleri" kartlarindan istediginiz kumasi (Poplin, Ipek Saten, Viscon, Muslin vb.) secin.
+- Metre basina satis fiyatini, kumas enini (genisligini), gramajini ve aciklamasini degistirip "Kumasi Kaydet"e basin.
+- Sitedeki tum desenlerin fiyatlari bu kumas secimine gore aninda otomatik guncellenir.
+
+
+4. GELEN SIPARISLER VE BASKI TAKIBI
+------------------------------------
+- Musteriler siparis verdiginde paneldeki "Gelen Siparisler & Baski Takibi" tablosuna aninda duser.
+- Siparis Numarasi, Musteri Adi/E-Postasi, Kargo Firmasi ve Tutarini buradan takip edebilirsiniz.
+
+
+5. AKTIF INDIRIM KUPONLARI
+---------------------------
+- TREND10  : %10 Indirim
+- NEVAR20  : %20 Tanisma Indirimi
+- KARGO    : Ucretsiz Kargo
+
+
+6. SUNUCUYU BASLATMA VE KAPATMA
+--------------------------------
+- Projeyi baslatmak icin klasordeki "baslat.bat" dosyasina cift tiklayin.
+- Kapatmak icin komut istemi penceresini kapatin.

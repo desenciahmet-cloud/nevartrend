@@ -1,0 +1,240 @@
+{% extends "base.html" %}
+
+{% block title %}G?venli ?deme & Sipari? | nevartrend{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+
+  <nav class="flex text-xs text-slate-500 gap-2 items-center">
+    <a href="/" class="hover:text-emerald-700">Ana Sayfa</a>
+    <span>/</span>
+    <a href="/cart" class="hover:text-emerald-700">Sepet</a>
+    <span>/</span>
+    <span class="font-bold text-slate-800">Sipari?i Tamamla</span>
+  </nav>
+
+  <h1 class="font-serif-title text-2xl sm:text-3xl font-extrabold text-slate-900">
+    G?venli Sipari? ve ?deme
+  </h1>
+
+  <form id="checkout-form" onsubmit="submitOrder(event)" class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+    
+    <!-- Left Column: Forms (Address & Payment) -->
+    <div class="lg:col-span-8 space-y-6">
+      
+      <!-- Step 1: Delivery Information -->
+      <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-4">
+        <div class="flex items-center gap-2 text-slate-900 font-bold text-sm border-b border-slate-100 pb-3">
+          <span class="w-6 h-6 rounded-full bg-emerald-700 text-white flex items-center justify-center text-xs">1</span>
+          <h3>Teslimat ve Fatura Bilgileri</h3>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">Ad Soyad *</label>
+            <input type="text" id="cust-name" required value="Selin Y?lmaz" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-emerald-600 font-medium">
+          </div>
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">E-Posta Adresi *</label>
+            <input type="email" id="cust-email" required value="selin@example.com" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-emerald-600 font-medium">
+          </div>
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">Telefon Numaras? *</label>
+            <input type="tel" id="cust-phone" required value="0532 000 00 00" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-emerald-600 font-medium">
+          </div>
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">?l *</label>
+            <input type="text" id="cust-city" required value="?stanbul" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-emerald-600 font-medium">
+          </div>
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">?l?e *</label>
+            <input type="text" id="cust-district" required value="Kad?k?y" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-emerald-600 font-medium">
+          </div>
+          <div class="sm:col-span-2">
+            <label class="block font-bold text-slate-700 mb-1">A??k Adres (Mahalle, Cadde, No) *</label>
+            <textarea id="cust-address" required rows="2" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-emerald-600 font-medium">Moda Cad. No: 42 Daire: 5</textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 2: Shipping Option -->
+      <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-4">
+        <div class="flex items-center gap-2 text-slate-900 font-bold text-sm border-b border-slate-100 pb-3">
+          <span class="w-6 h-6 rounded-full bg-emerald-700 text-white flex items-center justify-center text-xs">2</span>
+          <h3>Kargo ?irketi Se?imi</h3>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <label class="flex items-center gap-3 p-3.5 border-2 border-emerald-600 bg-emerald-50/40 rounded-2xl cursor-pointer">
+            <input type="radio" name="cargo" value="Yurti?i Kargo" checked class="text-emerald-600 focus:ring-emerald-600">
+            <div>
+              <p class="font-bold text-xs text-slate-900">Yurti?i Kargo</p>
+              <p class="text-[10px] text-emerald-700 font-semibold">Tavsiye Edilen (H?zl?)</p>
+            </div>
+          </label>
+          <label class="flex items-center gap-3 p-3.5 border border-slate-200 rounded-2xl cursor-pointer hover:border-slate-300">
+            <input type="radio" name="cargo" value="MNG Kargo" class="text-emerald-600 focus:ring-emerald-600">
+            <div>
+              <p class="font-bold text-xs text-slate-900">MNG Kargo</p>
+              <p class="text-[10px] text-slate-400">Standart Teslimat</p>
+            </div>
+          </label>
+          <label class="flex items-center gap-3 p-3.5 border border-slate-200 rounded-2xl cursor-pointer hover:border-slate-300">
+            <input type="radio" name="cargo" value="Aras Kargo" class="text-emerald-600 focus:ring-emerald-600">
+            <div>
+              <p class="font-bold text-xs text-slate-900">Aras Kargo</p>
+              <p class="text-[10px] text-slate-400">Standart Teslimat</p>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <!-- Step 3: Payment Method (iyzico / 3D Secure simulator) -->
+      <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-4">
+        <div class="flex items-center gap-2 text-slate-900 font-bold text-sm border-b border-slate-100 pb-3">
+          <span class="w-6 h-6 rounded-full bg-emerald-700 text-white flex items-center justify-center text-xs">3</span>
+          <h3>?deme Y?ntemi (iyzico G?venli Altyap?)</h3>
+        </div>
+
+        <div class="space-y-4">
+          <div class="flex gap-4 border-b border-slate-100 pb-3 text-xs">
+            <label class="flex items-center gap-2 font-bold text-slate-800 cursor-pointer">
+              <input type="radio" name="payment_method" value="Kredi Kart? (3D Secure)" checked class="text-emerald-600">
+              <span>Kredi / Banka Kart?</span>
+            </label>
+            <label class="flex items-center gap-2 font-bold text-slate-600 cursor-pointer">
+              <input type="radio" name="payment_method" value="Havale / EFT" class="text-emerald-600">
+              <span>Havale / EFT (%3 ?ndirimli)</span>
+            </label>
+          </div>
+
+          <!-- Card Inputs -->
+          <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-3 text-xs">
+            <div>
+              <label class="block font-bold text-slate-700 mb-1">Kart ?zerindeki ?sim</label>
+              <input type="text" value="SEL?N YILMAZ" class="w-full bg-white border border-slate-200 rounded-xl p-2.5 font-medium uppercase">
+            </div>
+            <div>
+              <label class="block font-bold text-slate-700 mb-1">Kart Numaras?</label>
+              <input type="text" value="**** **** **** 4092" class="w-full bg-white border border-slate-200 rounded-xl p-2.5 font-mono">
+            </div>
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="block font-bold text-slate-700 mb-1">Son Kullanma (AA/YY)</label>
+                <input type="text" value="12/28" class="w-full bg-white border border-slate-200 rounded-xl p-2.5 text-center font-mono">
+              </div>
+              <div>
+                <label class="block font-bold text-slate-700 mb-1">G?venlik Kodu (CVV)</label>
+                <input type="password" value="***" class="w-full bg-white border border-slate-200 rounded-xl p-2.5 text-center font-mono">
+              </div>
+            </div>
+            <div class="flex items-center gap-2 text-[11px] text-emerald-800 font-semibold pt-1">
+              <i data-lucide="shield-check" class="w-4 h-4"></i>
+              <span>256-Bit SSL ile G?venli 3D Secure ?deme Sim?lasyonu</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Right Column: Summary & Place Order -->
+    <div class="lg:col-span-4 space-y-4">
+      <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-4 sticky top-28">
+        <h3 class="font-bold text-slate-900 text-base border-b border-slate-100 pb-3">Sipari? Onay?</h3>
+        
+        <div class="space-y-2.5 text-xs">
+          <div class="flex justify-between text-slate-600">
+            <span>Ara Toplam:</span>
+            <span class="font-bold text-slate-800 summary-subtotal">0 ?</span>
+          </div>
+          <div class="flex justify-between text-emerald-700 font-semibold">
+            <span>?ndirim:</span>
+            <span class="summary-discount">0 ?</span>
+          </div>
+          <div class="flex justify-between text-slate-600">
+            <span>Kargo ?creti:</span>
+            <span class="font-bold text-slate-800 summary-shipping">?cretsiz</span>
+          </div>
+        </div>
+
+        <div class="pt-3 border-t border-slate-200 flex justify-between items-baseline">
+          <span class="font-extrabold text-slate-900 text-base">?denecek Tutar:</span>
+          <span class="font-extrabold text-2xl text-emerald-800 summary-grandtotal">0 ?</span>
+        </div>
+
+        <div class="pt-2 text-[11px] text-slate-500 space-y-2">
+          <label class="flex items-start gap-2 cursor-pointer">
+            <input type="checkbox" required checked class="mt-0.5 rounded text-emerald-600 focus:ring-emerald-600">
+            <span><a href="#" class="text-emerald-700 underline">?n Bilgilendirme Formu</a> ve <a href="#" class="text-emerald-700 underline">Mesafeli Sat?? S?zle?mesi</a>'ni okudum, onayl?yorum.</span>
+          </label>
+        </div>
+
+        <button type="submit" id="submit-btn" class="w-full py-4 bg-emerald-700 hover:bg-emerald-800 text-white font-extrabold rounded-2xl shadow-xl transition flex items-center justify-center gap-2">
+          <i data-lucide="lock" class="w-4 h-4"></i>
+          <span>Sipari?i Onayla & ?de</span>
+        </button>
+      </div>
+    </div>
+
+  </form>
+
+</div>
+
+<script>
+  async function submitOrder(e) {
+    e.preventDefault();
+    const cart = CartEngine.getCart();
+    if (cart.length === 0) {
+      alert('Sepetiniz bo? oldu?u i?in sipari? verilemez.');
+      window.location.href = '/fabrics';
+      return;
+    }
+
+    const btn = document.getElementById('submit-btn');
+    btn.disabled = true;
+    btn.innerHTML = '<i data-lucide="loader" class="w-4 h-4 animate-spin"></i> Sipari? Olu?turuluyor...';
+    if (window.lucide) lucide.createIcons();
+
+    const cargoEl = document.querySelector('input[name="cargo"]:checked');
+    const paymentEl = document.querySelector('input[name="payment_method"]:checked');
+
+    const payload = {
+      customer_name: document.getElementById('cust-name').value,
+      customer_email: document.getElementById('cust-email').value,
+      customer_phone: document.getElementById('cust-phone').value,
+      city: document.getElementById('cust-city').value,
+      district: document.getElementById('cust-district').value,
+      address: document.getElementById('cust-address').value,
+      cargo_company: cargoEl ? cargoEl.value : 'Yurti?i Kargo',
+      payment_method: paymentEl ? paymentEl.value : 'Kredi Kart?',
+      items: cart,
+      subtotal: CartEngine.getSubtotal(),
+      discount: CartEngine.getDiscount(),
+      shipping_fee: CartEngine.getShippingFee(),
+      total_amount: CartEngine.getTotal()
+    };
+
+    try {
+      const res = await fetch('/api/orders', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      const data = await res.json();
+      if (data.success) {
+        CartEngine.clearCart();
+        window.location.href = '/order-success/' + data.order_id;
+      } else {
+        alert('Sipari? olu?turulamad?: ' + data.message);
+        btn.disabled = false;
+        btn.textContent = 'Tekrar Dene';
+      }
+    } catch(err) {
+      alert('Ba?lant? hatas? olu?tu.');
+      btn.disabled = false;
+      btn.textContent = 'Tekrar Dene';
+    }
+  }
+</script>
+{% endblock %}

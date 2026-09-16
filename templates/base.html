@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="tr" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}nevartrend | Trenddesen E-Ticaret Platformu{% endblock %}</title>
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#ecfdf5',
+              100: '#d1fae5',
+              500: '#10b981',
+              600: '#059669',
+              700: '#047857',
+              800: '#065f46',
+              900: '#064e3b',
+              dark: '#0f172a',
+              gold: '#d97706'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <link rel="stylesheet" href="/static/css/custom.css">
+</head>
+<body class="flex flex-col min-h-full bg-slate-50 text-slate-900 antialiased">
+
+  <!-- Top Announcement Bar (Pat?rt? style) -->
+  <div class="bg-slate-900 text-slate-200 text-xs py-2 px-4 border-b border-slate-800">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
+      <div class="flex items-center gap-2">
+        <span class="px-2 py-0.5 bg-emerald-700 text-white rounded font-bold text-[10px] uppercase tracking-wider">Trenddesen G?vencesi</span>
+        <span>? 1.000 TL ve ?zeri Sipari?lerde <strong>Kargo ?cretsiz!</strong></span>
+      </div>
+      <div class="flex items-center gap-4 text-[11px] text-slate-400">
+        <a href="/admin" class="hover:text-amber-400 flex items-center gap-1 transition"><i data-lucide="shield" class="w-3 h-3"></i> Y?netici Paneli</a>
+        <span>?</span>
+        <span class="flex items-center gap-1"><i data-lucide="phone-call" class="w-3 h-3"></i> 0850 300 00 00</span>
+        <span>?</span>
+        <span class="flex items-center gap-1"><i data-lucide="truck" class="w-3 h-3"></i> H?zl? & Sigortal? Teslimat</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Sticky Navigation -->
+  <header class="sticky top-0 z-40 glass-header border-b border-slate-200 shadow-sm transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20 gap-4">
+        
+        <!-- Logo -->
+        <a href="/" class="flex items-center gap-2 group flex-shrink-0">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-800 to-emerald-600 flex items-center justify-center text-white font-bold text-xl shadow-md group-hover:scale-105 transition-transform">
+            N
+          </div>
+          <div>
+            <div class="flex items-center gap-1.5">
+              <span class="font-extrabold text-2xl tracking-tight text-slate-900">nevar<span class="text-emerald-700">trend</span></span>
+            </div>
+            <span class="text-[10px] font-semibold text-slate-400 uppercase tracking-widest block -mt-1">by Trenddesen</span>
+          </div>
+        </a>
+
+        <!-- Search Bar -->
+        <div class="hidden md:flex flex-1 max-w-lg mx-6">
+          <form action="/fabrics" method="GET" class="w-full relative">
+            <input 
+              type="text" 
+              name="q" 
+              placeholder="Desen ad?, desen kodu veya tarz ara (?rn: ?akay?k, TD-101)..." 
+              class="w-full pl-11 pr-24 py-2.5 bg-slate-100/80 border border-slate-200 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:bg-white transition"
+            >
+            <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-4 top-3.5"></i>
+            <button type="submit" class="absolute right-1.5 top-1.5 bottom-1.5 px-4 bg-emerald-800 text-white rounded-full text-xs font-semibold hover:bg-emerald-900 transition flex items-center gap-1">
+              Ara
+            </button>
+          </form>
+        </div>
+
+        <!-- Right Action Icons -->
+        <div class="flex items-center gap-3 sm:gap-4">
+          <a href="/fabrics" class="hidden sm:flex items-center gap-1.5 px-3 py-2 text-sm font-semibold text-slate-700 hover:text-emerald-700 hover:bg-slate-100 rounded-lg transition">
+            <i data-lucide="layers" class="w-4 h-4 text-emerald-700"></i>
+            <span>T?m Kuma?lar</span>
+          </a>
+
+          <!-- Cart Drawer Button -->
+          <button onclick="CartEngine.openDrawer()" class="relative p-2.5 text-slate-700 hover:text-emerald-700 hover:bg-slate-100 rounded-xl transition flex items-center gap-2 border border-slate-200 bg-white">
+            <div class="relative">
+              <i data-lucide="shopping-bag" class="w-5 h-5"></i>
+              <span class="cart-count-badge absolute -top-2 -right-2 bg-emerald-600 text-white text-[10px] font-bold rounded-full w-5 h-5 flex items-center justify-center border-2 border-white" style="display:none;">0</span>
+            </div>
+            <span class="hidden lg:inline text-xs font-bold text-slate-800 summary-subtotal">0 ?</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Quick Category Nav (Desenix & Pat?rt? stili) -->
+      <nav class="hidden md:flex items-center gap-8 py-2.5 border-t border-slate-100 text-xs font-semibold text-slate-600 overflow-x-auto">
+        <a href="/fabrics?category=all" class="hover:text-emerald-700 flex items-center gap-1.5 transition py-1 text-slate-900 font-bold"><i data-lucide="sparkles" class="w-3.5 h-3.5 text-amber-500"></i> ?zel Bask? Desenler</a>
+        <a href="/fabrics?category=floral" class="hover:text-emerald-700 transition py-1">?i?ekli & Botanik</a>
+        <a href="/fabrics?category=geometric" class="hover:text-emerald-700 transition py-1">Geometrik & Minimal</a>
+        <a href="/fabrics?category=ethnic" class="hover:text-emerald-700 transition py-1">Etnik & Bohem</a>
+        <a href="/fabrics?category=kids" class="hover:text-emerald-700 transition py-1">Bebek & ?ocuk</a>
+        <a href="/fabrics?category=animal" class="hover:text-emerald-700 transition py-1">Hayvan Desenleri</a>
+        <a href="/fabrics?category=abstract" class="hover:text-emerald-700 transition py-1">Soyut & Mermer</a>
+        <span class="text-slate-300">|</span>
+        <a href="/fabrics?fabric=pamuk-poplin" class="text-emerald-700 hover:underline transition py-1 font-bold">Poplin</a>
+        <a href="/fabrics?fabric=ipek-saten" class="text-emerald-700 hover:underline transition py-1 font-bold">?pek Saten</a>
+        <a href="/fabrics?fabric=muslin-cift-kat" class="text-emerald-700 hover:underline transition py-1 font-bold">M?slin</a>
+        <a href="/fabrics?fabric=viskon-keten" class="text-emerald-700 hover:underline transition py-1 font-bold">Viskon Keten</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content Body -->
+  <main class="flex-1">
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- Slide-over Cart Drawer -->
+  <div id="cart-drawer-overlay" onclick="CartEngine.closeDrawer()" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 hidden opacity-0 transition-opacity duration-300"></div>
+  <aside id="cart-drawer" class="fixed top-0 right-0 h-full w-full max-w-md bg-white z-50 shadow-2xl flex flex-col transform translate-x-full transition-transform duration-300 ease-in-out">
+    <div class="p-4 border-b border-slate-100 flex items-center justify-between bg-slate-50">
+      <div class="flex items-center gap-2">
+        <i data-lucide="shopping-bag" class="w-5 h-5 text-emerald-700"></i>
+        <h3 class="font-bold text-slate-800 text-base">Al??veri? Sepetim</h3>
+      </div>
+      <button onclick="CartEngine.closeDrawer()" class="p-1.5 text-slate-400 hover:text-slate-700 rounded-lg hover:bg-slate-200 transition">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+    </div>
+
+    <!-- Free Shipping Progress Bar -->
+    <div class="p-4 bg-emerald-50/70 border-b border-emerald-100">
+      <div class="text-xs font-medium text-slate-700 mb-1.5" id="free-shipping-text">
+        ?cretsiz Kargo i?in <strong class="text-emerald-700">1000 ?</strong> daha ekleyin!
+      </div>
+      <div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
+        <div id="free-shipping-progress" class="bg-emerald-600 h-full rounded-full transition-all duration-500" style="width: 0%;"></div>
+      </div>
+    </div>
+
+    <!-- Drawer Item List -->
+    <div id="cart-drawer-items" class="flex-1 overflow-y-auto p-4 space-y-3">
+    </div>
+
+    <!-- Drawer Footer -->
+    <div class="p-4 border-t border-slate-100 bg-slate-50 space-y-3">
+      <div class="flex justify-between items-center text-sm">
+        <span class="text-slate-500">Ara Toplam:</span>
+        <span class="font-bold text-slate-900 text-lg" id="drawer-subtotal">0 ?</span>
+      </div>
+      
+      <div class="grid grid-cols-2 gap-2">
+        <a href="/cart" class="px-4 py-2.5 bg-white border border-slate-300 text-slate-700 text-center rounded-xl text-xs font-bold hover:bg-slate-100 transition flex items-center justify-center gap-1">
+          Sepete Git
+        </a>
+        <a href="/checkout" class="px-4 py-2.5 bg-emerald-800 text-white text-center rounded-xl text-xs font-bold hover:bg-emerald-900 shadow-md transition flex items-center justify-center gap-1.5">
+          <span>Sipari?i Tamamla</span>
+          <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+        </a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="fixed bottom-6 right-6 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+  <!-- Footer (Trenddesen Corporate) -->
+  <footer class="bg-slate-950 text-slate-300 pt-16 pb-12 border-t border-slate-800 mt-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-slate-800">
+        
+        <div class="lg:col-span-2 space-y-4">
+          <div class="flex items-center gap-2">
+            <div class="w-8 h-8 rounded-lg bg-emerald-700 flex items-center justify-center text-white font-bold text-lg">N</div>
+            <span class="font-extrabold text-2xl text-white">nevar<span class="text-emerald-500">trend</span></span>
+          </div>
+          <p class="text-slate-400 text-sm leading-relaxed max-w-sm">
+            <strong>Trenddesen</strong> g?vencesiyle y?ksek ??z?n?rl?kl? dijital bask? kuma? teknolojisi. ?stedi?iniz deseni diledi?iniz kuma? t?r?ne metre baz?nda bast?r?n.
+          </p>
+          <div class="flex items-center gap-3 pt-2 text-slate-400">
+            <span class="p-2 bg-slate-900 rounded-lg hover:text-white transition"><i data-lucide="instagram" class="w-4 h-4"></i></span>
+            <span class="p-2 bg-slate-900 rounded-lg hover:text-white transition"><i data-lucide="facebook" class="w-4 h-4"></i></span>
+            <span class="p-2 bg-slate-900 rounded-lg hover:text-white transition"><i data-lucide="mail" class="w-4 h-4"></i></span>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="text-white font-bold text-sm mb-4 uppercase tracking-wider">Kuma? T?rleri</h4>
+          <ul class="space-y-2.5 text-xs text-slate-400">
+            <li><a href="/fabrics?fabric=pamuk-poplin" class="hover:text-emerald-400 transition">100% Pamuk Poplin</a></li>
+            <li><a href="/fabrics?fabric=ipek-saten" class="hover:text-emerald-400 transition">L?ks ?pek Saten</a></li>
+            <li><a href="/fabrics?fabric=viskon-keten" class="hover:text-emerald-400 transition">Viskon Keten</a></li>
+            <li><a href="/fabrics?fabric=sifon" class="hover:text-emerald-400 transition">U?u?an ?ifon</a></li>
+            <li><a href="/fabrics?fabric=muslin-cift-kat" class="hover:text-emerald-400 transition">?ift Kat M?slin</a></li>
+            <li><a href="/fabrics?fabric=scuba-dalgic" class="hover:text-emerald-400 transition">Likral? Scuba</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-white font-bold text-sm mb-4 uppercase tracking-wider">Koleksiyonlar</h4>
+          <ul class="space-y-2.5 text-xs text-slate-400">
+            <li><a href="/fabrics?category=floral" class="hover:text-emerald-400 transition">?i?ekli & Botanik</a></li>
+            <li><a href="/fabrics?category=geometric" class="hover:text-emerald-400 transition">Geometrik & Retro</a></li>
+            <li><a href="/fabrics?category=ethnic" class="hover:text-emerald-400 transition">Etnik & ?ini Sanat?</a></li>
+            <li><a href="/fabrics?category=kids" class="hover:text-emerald-400 transition">Organik Bebek Desenleri</a></li>
+            <li><a href="/fabrics?category=animal" class="hover:text-emerald-400 transition">Leopar & Hayvan</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-white font-bold text-sm mb-4 uppercase tracking-wider">G?venli Al??veri?</h4>
+          <ul class="space-y-2.5 text-xs text-slate-400">
+            <li><a href="#" class="hover:text-emerald-400 transition">Mesafeli Sat?? S?zle?mesi</a></li>
+            <li><a href="#" class="hover:text-emerald-400 transition">KVKK & Gizlilik Politikas?</a></li>
+            <li><a href="#" class="hover:text-emerald-400 transition">?ptal & ?ade Ko?ullar?</a></li>
+            <li><a href="#" class="hover:text-emerald-400 transition">Bask? & Numune K?lavuzu</a></li>
+            <li><a href="#" class="hover:text-emerald-400 transition">Kargo & Teslimat Bilgisi</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+        <p>? 2026 nevartrend. T?m haklar? sakl?d?r. Bir <strong>Trenddesen</strong> i?tirakidir.</p>
+        <div class="flex items-center gap-3">
+          <span class="px-2 py-1 bg-slate-900 border border-slate-800 rounded font-semibold text-[10px] text-slate-300">256-bit SSL</span>
+          <span class="px-2 py-1 bg-slate-900 border border-slate-800 rounded font-semibold text-[10px] text-slate-300">3D Secure</span>
+          <span class="px-2 py-1 bg-slate-900 border border-slate-800 rounded font-semibold text-[10px] text-slate-300">OEKO-TEX? Eko Bask?</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/static/js/app.js"></script>
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+</html>
