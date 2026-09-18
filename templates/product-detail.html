@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}{{ product.title }} - Kuma? & Desen Sipari?i | nevartrend{% endblock %}
+{% block title %}{{ product.title }} - Kumaş & Desen Siparişşi | nevartrend{% endblock %}
 
 {% block content %}
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
@@ -9,7 +9,7 @@
   <nav class="flex text-xs text-slate-500 gap-2 items-center">
     <a href="/" class="hover:text-emerald-700">Ana Sayfa</a>
     <span>/</span>
-    <a href="/fabrics" class="hover:text-emerald-700">Kuma? & Desen Katalo?u</a>
+    <a href="/fabrics" class="hover:text-emerald-700">Kumaş & Desen Kataloğu</a>
     <span>/</span>
     <span class="font-bold text-slate-800">{{ product.title }}</span>
   </nav>
@@ -34,23 +34,23 @@
           </span>
         </div>
 
-        <!-- Scale Preview Selector (K???k Desen / Standart / B?y?k Desen) -->
+        <!-- Scale Preview Selector (Küçük Desen / Standart / Büyük Desen) -->
         <div class="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur-md p-2.5 rounded-2xl shadow-lg border border-slate-200 flex items-center justify-between">
           <span class="text-xs font-bold text-slate-700 flex items-center gap-1.5">
             <i data-lucide="eye" class="w-4 h-4 text-emerald-700"></i>
-            Canl? ?nizleme Modu:
+            Canlı Önizleme Modu:
           </span>
           <div class="flex items-center gap-1">
             <button type="button" onclick="switchMockup('pattern')" class="mockup-tab-btn active px-3 py-1 text-xs font-semibold rounded-lg bg-emerald-800 text-white transition">Desen</button>
             <button type="button" onclick="switchMockup('dress')" class="mockup-tab-btn px-3 py-1 text-xs font-semibold rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200 transition">Elbise</button>
-            <button type="button" onclick="switchMockup('cushion')" class="mockup-tab-btn px-3 py-1 text-xs font-semibold rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200 transition">K?rlent</button>
+            <button type="button" onclick="switchMockup('cushion')" class="mockup-tab-btn px-3 py-1 text-xs font-semibold rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200 transition">Kırlent</button>
           </div>
         </div>
       </div>
 
       <!-- Color Palette Used -->
       <div class="bg-white p-4 rounded-2xl border border-slate-200 flex items-center justify-between">
-        <span class="text-xs font-bold text-slate-700">Desende Kullan?lan Renk Paleti:</span>
+        <span class="text-xs font-bold text-slate-700">Desende Kullanılan Renk Paleti:</span>
         <div class="flex items-center gap-2">
           {% for color in product.colors %}
           <div class="flex items-center gap-1.5 px-2 py-1 rounded-lg border border-slate-200 text-[10px] font-mono font-semibold text-slate-600 bg-slate-50">
@@ -66,11 +66,11 @@
     <div class="lg:col-span-6 space-y-6">
       <div>
         <div class="flex items-center justify-between">
-          <span class="text-xs font-bold text-emerald-800 uppercase tracking-wider">Trenddesen ?zel Bask? Serisi</span>
+          <span class="text-xs font-bold text-emerald-800 uppercase tracking-wider">Trenddesen Özel Baskı Serisi</span>
           <div class="flex items-center text-amber-500 font-bold text-sm">
             <i data-lucide="star" class="w-4 h-4 fill-amber-400 mr-1"></i>
             <span>{{ product.rating }}</span>
-            <span class="text-slate-400 font-normal ml-1">({{ product.reviews_count }} De?erlendirme)</span>
+            <span class="text-slate-400 font-normal ml-1">({{ product.reviews_count }} Değerlendirme)</span>
           </div>
         </div>
         <h1 class="font-serif-title text-2xl sm:text-3xl font-extrabold text-slate-900 mt-1">
@@ -84,8 +84,8 @@
       <!-- Step 1: Fabric Base Type Selector Cards -->
       <div class="space-y-3">
         <label class="block text-xs font-bold text-slate-900 uppercase tracking-wider flex items-center justify-between">
-          <span>1. Ad?m: Bask? Yap?lacak Kuma?? Se?in</span>
-          <span class="text-emerald-700 lowercase font-normal">*fiyat kuma?a g?re de?i?ir</span>
+          <span>1. Adım: Baskı Yapılacak Kumaşı Seçin</span>
+          <span class="text-emerald-700 lowercase font-normal">*fiyat kumaşa göre değişir</span>
         </label>
         
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 max-h-72 overflow-y-auto pr-1">
@@ -98,9 +98,9 @@
             <div class="flex justify-between items-start">
               <div>
                 <h4 class="font-bold text-slate-900 text-xs">{{ f.name }}</h4>
-                <p class="text-[10px] text-slate-500 mt-0.5">{{ f.composition }} ? {{ f.width }}</p>
+                <p class="text-[10px] text-slate-500 mt-0.5">{{ f.composition }} | {{ f.width }}</p>
               </div>
-              <span class="font-extrabold text-emerald-800 text-xs">{{ f.price_per_meter }} ? <span class="text-[9px] font-normal text-slate-400">/ m</span></span>
+              <span class="font-extrabold text-emerald-800 text-xs">{{ f.price_per_meter }} ₺ <span class="text-[9px] font-normal text-slate-400">/ m</span></span>
             </div>
           </div>
           {% endfor %}
@@ -110,7 +110,7 @@
       <!-- Selected Fabric Specs Bar -->
       <div id="fabric-info-bar" class="p-3 bg-slate-100 rounded-xl text-xs text-slate-700 flex justify-between items-center border border-slate-200">
         <div>
-          <span class="text-slate-400">Se?ilen Kuma?:</span> 
+          <span class="text-slate-400">Seçilen Kumaş:</span> 
           <strong id="selected-fabric-name" class="text-slate-900 font-bold ml-1">{{ fabrics[0].name }}</strong>
         </div>
         <div class="text-right">
@@ -121,7 +121,7 @@
       <!-- Step 2: Metre Calculation & Quantity -->
       <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-4">
         <label class="block text-xs font-bold text-slate-900 uppercase tracking-wider">
-          2. Ad?m: Ka? Metre Kuma? ?stiyorsunuz?
+          2. Adım: Kaç Metre Kumaş İstiyorsunuz?
         </label>
         
         <div class="flex items-center gap-4">
@@ -155,8 +155,8 @@
           <div>
             <span class="text-xs text-slate-400 block">Hesaplanan Toplam Tutar:</span>
             <div class="flex items-baseline gap-2">
-              <span id="calculated-total-price" class="text-2xl sm:text-3xl font-extrabold text-slate-900">370 ?</span>
-              <span id="calculated-breakdown" class="text-xs text-slate-500 font-semibold">(2.0 m ? 185 ?)</span>
+              <span id="calculated-total-price" class="text-2xl sm:text-3xl font-extrabold text-slate-900">370 ₺</span>
+              <span id="calculated-breakdown" class="text-xs text-slate-500 font-semibold">(2.0 m × 185 ₺)</span>
             </div>
           </div>
           <span class="px-3 py-1 bg-emerald-100 text-emerald-800 rounded-lg text-xs font-bold">KDV Dahil</span>
@@ -179,14 +179,14 @@
           class="w-full py-4 bg-slate-900 hover:bg-black text-white font-extrabold rounded-2xl shadow-lg transition flex items-center justify-center gap-2"
         >
           <i data-lucide="zap" class="w-5 h-5 text-amber-400"></i>
-          <span>Hemen Sat?n Al</span>
+          <span>Hemen Satın Al</span>
         </button>
       </div>
 
       <!-- Production & Shipping Notice -->
       <div class="p-4 bg-slate-50 border border-slate-200 rounded-2xl flex items-center gap-3 text-xs text-slate-600">
         <i data-lucide="truck" class="w-5 h-5 text-emerald-700 flex-shrink-0"></i>
-        <span>Sipari?iniz Trenddesen tesislerinde size ?zel bas?l?r ve <strong>2-3 i? g?n?</strong> i?erisinde kargoya verilir.</span>
+        <span>Siparişiniz Trenddesen tesislerinde size özel basılır ve <strong>2-3 iş günü</strong> içerisinde kargoya verilir.</span>
       </div>
 
     </div>
@@ -204,7 +204,7 @@
         <div class="p-3">
           <p class="text-[10px] text-slate-400">{{ rel.code }}</p>
           <h4 class="font-bold text-xs text-slate-900 truncate">{{ rel.title }}</h4>
-          <span class="text-xs font-extrabold text-emerald-800 mt-1 block">{{ rel.base_price }} ? / m</span>
+          <span class="text-xs font-extrabold text-emerald-800 mt-1 block">{{ rel.base_price }} ₺ / m</span>
         </div>
       </a>
       {% endfor %}
@@ -251,18 +251,18 @@
     }
   }
 
-  function selectFabric(id, name, price, width, weight, comp) {
-    selectedFabric = { id, name, price, width, weight, composition: comp };
+  function selectFabric(id, name, price, width, weight, composition) {
+    selectedFabric = { id, name, price, width, weight, composition };
     
-    document.querySelectorAll('.fabric-card').forEach(c => {
-      c.classList.remove('border-emerald-600', 'bg-emerald-50/50', 'shadow-sm');
-      c.classList.add('border-slate-200', 'bg-white');
+    document.querySelectorAll('.fabric-card').forEach(el => {
+      el.classList.remove('border-emerald-600', 'bg-emerald-50/50', 'shadow-sm');
+      el.classList.add('border-slate-200', 'bg-white');
     });
 
     const activeCard = document.getElementById('fabric-card-' + id);
     if (activeCard) {
-      activeCard.classList.add('border-emerald-600', 'bg-emerald-50/50', 'shadow-sm');
       activeCard.classList.remove('border-slate-200', 'bg-white');
+      activeCard.classList.add('border-emerald-600', 'bg-emerald-50/50', 'shadow-sm');
     }
 
     document.getElementById('selected-fabric-name').textContent = name;
@@ -273,8 +273,8 @@
   function adjustMeter(delta) {
     const input = document.getElementById('meter-input');
     let current = parseFloat(input.value) || 1;
-    current = Math.max(0.5, parseFloat((current + delta).toFixed(1)));
-    input.value = current;
+    let updated = Math.max(0.5, current + delta);
+    input.value = updated.toFixed(1);
     calculateTotal();
   }
 
@@ -288,8 +288,8 @@
     const meters = Math.max(0.5, parseFloat(input.value) || 1);
     const total = Math.round(meters * selectedFabric.price);
     
-    document.getElementById('calculated-total-price').textContent = total.toLocaleString('tr-TR') + ' ?';
-    document.getElementById('calculated-breakdown').textContent = '(' + meters + ' m ? ' + selectedFabric.price + ' ?)';
+    document.getElementById('calculated-total-price').textContent = total.toLocaleString('tr-TR') + ' ₺';
+    document.getElementById('calculated-breakdown').textContent = '(' + meters + ' m × ' + selectedFabric.price + ' ₺)';
   }
 
   function handleAddToCart() {

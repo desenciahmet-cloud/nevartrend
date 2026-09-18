@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Sipari?iniz Al?nd? | nevartrend{% endblock %}
+{% block title %}SiparişşÇiniz Al?nd? | nevartrend{% endblock %}
 
 {% block content %}
 <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center space-y-8">
@@ -10,12 +10,12 @@
   </div>
 
   <div class="space-y-2">
-    <span class="px-3 py-1 bg-emerald-50 text-emerald-800 text-xs font-bold rounded-full border border-emerald-200">Sipari? Ba?ar?yla Olu?turuldu</span>
+    <span class="px-3 py-1 bg-emerald-50 text-emerald-800 text-xs font-bold rounded-full border border-emerald-200">Siparişş Ba?ar?yla Olu?turuldu</span>
     <h1 class="font-serif-title text-3xl sm:text-4xl font-extrabold text-slate-900">
-      Te?ekk?r Ederiz, Sipari?iniz Al?nd?!
+      Te?ekk?r Ederiz, SiparişşÇiniz Al?nd?!
     </h1>
     <p class="text-sm text-slate-500">
-      Sipari? Kodunuz: <strong class="text-slate-900 font-mono">{{ order.id }}</strong>
+      Siparişş Kodunuz: <strong class="text-slate-900 font-mono">{{ order.id }}</strong>
     </p>
   </div>
 
@@ -23,7 +23,7 @@
   <div class="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-sm text-left space-y-6">
     <div class="flex justify-between items-center border-b border-slate-100 pb-4">
       <div>
-        <h4 class="font-bold text-slate-900 text-sm">Sipari? ?zeti</h4>
+        <h4 class="font-bold text-slate-900 text-sm">Siparişş Özeti</h4>
         <p class="text-xs text-slate-400">{{ order.created_at }}</p>
       </div>
       <span class="px-3 py-1 bg-amber-50 text-amber-800 text-xs font-bold rounded-xl border border-amber-200">{{ order.status }}</span>
@@ -39,7 +39,7 @@
         <strong class="text-slate-800">{{ order.cargo_company }}</strong>
       </div>
       <div>
-        <span class="text-slate-400 block">?deme Tutar?:</span>
+        <span class="text-slate-400 block">ÖÖdeme Tutar?:</span>
         <strong class="text-emerald-800 font-extrabold text-sm">{{ order.total_amount }} ?</strong>
       </div>
       <div>
@@ -50,7 +50,7 @@
 
     <div class="p-4 bg-emerald-50/60 rounded-2xl border border-emerald-100 text-xs text-emerald-900 flex items-center gap-3">
       <i data-lucide="sparkles" class="w-5 h-5 text-emerald-700 flex-shrink-0"></i>
-      <span>Kuma?lar?n?z <strong>Trenddesen</strong> tesislerinde y?ksek ??z?n?rl?kl? dijital bask?ya al?nm??t?r. Kargo takip kodunuz SMS ve e-posta ile iletilecektir.</span>
+      <span>Kumaşlar?n?z <strong>Trenddesen</strong> tesislerinde yüksek çözünürlüklü dijital baskıya al?nm??t?r. Kargo takip kodunuz SMS ve e-posta ile iletilecektir.</span>
     </div>
   </div>
 

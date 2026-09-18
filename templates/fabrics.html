@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Kuma? & Desen Katalo?u | nevartrend{% endblock %}
+{% block title %}Kumaş & Desen Kataloğu | nevartrend{% endblock %}
 
 {% block content %}
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
@@ -9,30 +9,30 @@
   <nav class="flex text-xs text-slate-500 gap-2 items-center">
     <a href="/" class="hover:text-emerald-700">Ana Sayfa</a>
     <span>/</span>
-    <span class="font-bold text-slate-800">Kuma? & Desen Katalo?u</span>
+    <span class="font-bold text-slate-800">Kumaş & Desen Kataloğu</span>
   </nav>
 
   <!-- Page Title & Stats -->
   <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-200">
     <div>
       <h1 class="font-serif-title text-2xl sm:text-3xl font-extrabold text-slate-900">
-        Bask? Kuma? & Desen Katalo?u
+        Baskı Kumaş & Desen Kataloğu
       </h1>
       <p class="text-xs text-slate-500 mt-1">
-        Toplam <strong class="text-slate-800">{{ products|length }}</strong> ?zel desen listeleniyor.
+        Toplam <strong class="text-slate-800">{{ products|length }}</strong> özel desen listeleniyor.
       </p>
     </div>
 
     <!-- Sorting bar -->
     <div class="flex items-center gap-3">
-      <label class="text-xs text-slate-500 font-semibold">S?ralama:</label>
+      <label class="text-xs text-slate-500 font-semibold">Sıralama:</label>
       <form id="sort-form" method="GET" class="flex items-center gap-2">
         <input type="hidden" name="category" value="{{ selected_category }}">
         <select name="sort" onchange="this.form.submit()" class="bg-white border border-slate-300 rounded-xl px-3 py-2 text-xs font-semibold text-slate-700 focus:outline-none focus:ring-2 focus:ring-emerald-600">
-          <option value="popular" {% if selected_sort == 'popular' %}selected{% endif %}>En ?ok Satanlar</option>
-          <option value="price_asc" {% if selected_sort == 'price_asc' %}selected{% endif %}>Fiyat: D???kten Y?kse?e</option>
-          <option value="price_desc" {% if selected_sort == 'price_desc' %}selected{% endif %}>Fiyat: Y?ksekten D????e</option>
-          <option value="rating" {% if selected_sort == 'rating' %}selected{% endif %}>En Y?ksek Puanl?lar</option>
+          <option value="popular" {% if selected_sort == 'popular' %}selected{% endif %}>En Çok Satanlar</option>
+          <option value="price_asc" {% if selected_sort == 'price_asc' %}selected{% endif %}>Fiyat: Düşükten Yükseğe</option>
+          <option value="price_desc" {% if selected_sort == 'price_desc' %}selected{% endif %}>Fiyat: Yüksekten Düşüğe</option>
+          <option value="rating" {% if selected_sort == 'rating' %}selected{% endif %}>En Yüksek Puanlılar</option>
         </select>
       </form>
     </div>
@@ -63,18 +63,18 @@
       <!-- Fabric Base Types Reference Filter -->
       <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
         <h3 class="font-bold text-slate-900 text-sm flex items-center justify-between">
-          <span>Kuma? T?r? Fiyatlar?</span>
+          <span>Kumaş Türü Fiyatları</span>
           <i data-lucide="layers" class="w-4 h-4 text-slate-400"></i>
         </h3>
-        <p class="text-[11px] text-slate-500">T?m desenler diledi?iniz kuma? t?r?ne bas?labilir:</p>
+        <p class="text-[11px] text-slate-500">Tüm desenler dilediğiniz kumaş türüne basılabilir:</p>
         <div class="space-y-2">
           {% for f in fabrics %}
           <div class="p-2.5 rounded-xl border border-slate-100 bg-slate-50 flex items-center justify-between text-xs">
             <div>
               <p class="font-bold text-slate-800">{{ f.name }}</p>
-              <p class="text-[10px] text-slate-400">{{ f.width }} ? {{ f.weight }}</p>
+              <p class="text-[10px] text-slate-400">{{ f.width }} cm | {{ f.weight }}</p>
             </div>
-            <span class="font-bold text-emerald-800 text-xs">{{ f.price_per_meter }} ?</span>
+            <span class="font-bold text-emerald-800 text-xs">{{ f.price_per_meter }} ₺</span>
           </div>
           {% endfor %}
         </div>
@@ -87,7 +87,7 @@
           <h4 class="font-bold text-sm">Trenddesen Garantisi</h4>
         </div>
         <p class="text-xs text-emerald-200 leading-relaxed">
-          T?m kuma?lar?m?z OEKO-TEX sertifikal?, solmayan reaktif ve dispers dijital bask? teknolojisi ile ?retilmektedir.
+          Tüm kumaşlarımız OEKO-TEX sertifikalı, solmayan reaktif ve dispers dijital baskı teknolojisi ile üretilmektedir.
         </p>
       </div>
 
@@ -98,9 +98,9 @@
       {% if products|length == 0 %}
       <div class="bg-white rounded-2xl border border-slate-200 p-12 text-center">
         <i data-lucide="search-x" class="w-12 h-12 text-slate-400 mx-auto mb-3"></i>
-        <h3 class="text-lg font-bold text-slate-800">Desen Bulunamad?</h3>
-        <p class="text-xs text-slate-500 mt-1">Arama kriterlerinizi de?i?tirerek tekrar deneyebilirsiniz.</p>
-        <a href="/fabrics" class="inline-block mt-4 px-6 py-2.5 bg-emerald-800 text-white rounded-xl text-xs font-bold hover:bg-emerald-900 transition">T?m Desenleri G?r</a>
+        <h3 class="text-lg font-bold text-slate-800">Desen Bulunamadı</h3>
+        <p class="text-xs text-slate-500 mt-1">Arama kriterlerinizi değiştirerek tekrar deneyebilirsiniz.</p>
+        <a href="/fabrics" class="inline-block mt-4 px-6 py-2.5 bg-emerald-800 text-white rounded-xl text-xs font-bold hover:bg-emerald-900 transition">Tüm Desenleri Gör</a>
       </div>
       {% else %}
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -116,7 +116,7 @@
               <span class="px-2.5 py-1 bg-emerald-700 text-white rounded-lg text-[10px] font-extrabold uppercase shadow-sm">Yeni</span>
               {% endif %}
               {% if product.discount_pct > 0 %}
-              <span class="px-2.5 py-1 bg-rose-600 text-white rounded-lg text-[10px] font-extrabold uppercase shadow-sm">%{{ product.discount_pct }} ?ndirim</span>
+              <span class="px-2.5 py-1 bg-rose-600 text-white rounded-lg text-[10px] font-extrabold uppercase shadow-sm">%{{ product.discount_pct }} İndirim</span>
               {% endif %}
             </div>
 
@@ -151,12 +151,12 @@
 
             <div class="pt-2 border-t border-slate-100 flex items-center justify-between">
               <div>
-                <span class="text-[10px] text-slate-400 block">Ba?lang??</span>
-                <span class="text-base font-extrabold text-slate-900">{{ product.base_price }} ? <span class="text-[10px] text-slate-500 font-normal">/ m</span></span>
+                <span class="text-[10px] text-slate-400 block">Başlangıç</span>
+                <span class="text-base font-extrabold text-slate-900">{{ product.base_price }} ₺ <span class="text-[10px] text-slate-500 font-normal">/ m</span></span>
               </div>
 
               <a href="/product/{{ product.id }}" class="px-4 py-2 bg-slate-900 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold transition flex items-center gap-1 shadow-sm">
-                <span>Kuma? Se?</span>
+                <span>Kumaş Seç</span>
                 <i data-lucide="arrow-right" class="w-3 h-3"></i>
               </a>
             </div>
