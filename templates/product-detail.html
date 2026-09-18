@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}{{ product.title }} - Kumaş & Desen Siparişşi | nevartrend{% endblock %}
+{% block title %}{{ product.title }} - Kumaş & Desen Siparişi | nevartrend{% endblock %}
 
 {% block content %}
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
@@ -100,7 +100,7 @@
                 <h4 class="font-bold text-slate-900 text-xs">{{ f.name }}</h4>
                 <p class="text-[10px] text-slate-500 mt-0.5">{{ f.composition }} | {{ f.width }}</p>
               </div>
-              <span class="font-extrabold text-emerald-800 text-xs">{{ f.price_per_meter }} ₺ <span class="text-[9px] font-normal text-slate-400">/ m</span></span>
+              <span class="font-extrabold text-emerald-800 text-xs">{{ f.price_per_meter }} TL <span class="text-[9px] font-normal text-slate-400">/ m</span></span>
             </div>
           </div>
           {% endfor %}
@@ -155,8 +155,8 @@
           <div>
             <span class="text-xs text-slate-400 block">Hesaplanan Toplam Tutar:</span>
             <div class="flex items-baseline gap-2">
-              <span id="calculated-total-price" class="text-2xl sm:text-3xl font-extrabold text-slate-900">370 ₺</span>
-              <span id="calculated-breakdown" class="text-xs text-slate-500 font-semibold">(2.0 m × 185 ₺)</span>
+              <span id="calculated-total-price" class="text-2xl sm:text-3xl font-extrabold text-slate-900">370 TL</span>
+              <span id="calculated-breakdown" class="text-xs text-slate-500 font-semibold">(2.0 m × 185 TL)</span>
             </div>
           </div>
           <span class="px-3 py-1 bg-emerald-100 text-emerald-800 rounded-lg text-xs font-bold">KDV Dahil</span>
@@ -199,12 +199,12 @@
       {% for rel in related_products %}
       <a href="/product/{{ rel.id }}" class="group bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-md transition">
         <div class="aspect-square bg-slate-100 overflow-hidden">
-          <img src="{{ rel.image }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300" alt="">
+          <img src="{{ rel.image }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300" alt="{{ rel.title }}">
         </div>
         <div class="p-3">
           <p class="text-[10px] text-slate-400">{{ rel.code }}</p>
           <h4 class="font-bold text-xs text-slate-900 truncate">{{ rel.title }}</h4>
-          <span class="text-xs font-extrabold text-emerald-800 mt-1 block">{{ rel.base_price }} ₺ / m</span>
+          <span class="text-xs font-extrabold text-emerald-800 mt-1 block">{{ rel.base_price }} TL / m</span>
         </div>
       </a>
       {% endfor %}
@@ -288,8 +288,8 @@
     const meters = Math.max(0.5, parseFloat(input.value) || 1);
     const total = Math.round(meters * selectedFabric.price);
     
-    document.getElementById('calculated-total-price').textContent = total.toLocaleString('tr-TR') + ' ₺';
-    document.getElementById('calculated-breakdown').textContent = '(' + meters + ' m × ' + selectedFabric.price + ' ₺)';
+    document.getElementById('calculated-total-price').textContent = total.toLocaleString('tr-TR') + ' TL';
+    document.getElementById('calculated-breakdown').textContent = '(' + meters + ' m × ' + selectedFabric.price + ' TL)';
   }
 
   function handleAddToCart() {

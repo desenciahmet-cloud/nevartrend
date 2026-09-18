@@ -1,16 +1,16 @@
 [
   {
     "id": "NVT-B3AD01",
-    "customer_name": "Test M?teri",
+    "customer_name": "Test Müşteri",
     "customer_email": "test@nevartrend.com",
     "customer_phone": "0555 111 22 33",
-    "address_full": "Alsancak Mah. No:1 Konak/?zmir",
-    "cargo_company": "Yurti?i Kargo",
-    "payment_method": "Kredi Kart?",
+    "address_full": "Alsancak Mah. No:1 Konak/İzmir",
+    "cargo_company": "Yurtiçi Kargo",
+    "payment_method": "Kredi Kartı",
     "items": [
       {
         "product_id": "TD-101",
-        "product_title": "Pastel ?akay?k & Botanik Bah?e",
+        "product_title": "Pastel Şakayık & Botanik Bahçe",
         "fabric_id": "pamuk-poplin",
         "fabric_name": "100% Pamuk Poplin",
         "meters": 3.0,

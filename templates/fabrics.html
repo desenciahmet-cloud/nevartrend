@@ -74,7 +74,7 @@
               <p class="font-bold text-slate-800">{{ f.name }}</p>
               <p class="text-[10px] text-slate-400">{{ f.width }} cm | {{ f.weight }}</p>
             </div>
-            <span class="font-bold text-emerald-800 text-xs">{{ f.price_per_meter }} ₺</span>
+            <span class="font-bold text-emerald-800 text-xs">{{ f.price_per_meter }} TL</span>
           </div>
           {% endfor %}
         </div>
@@ -152,7 +152,7 @@
             <div class="pt-2 border-t border-slate-100 flex items-center justify-between">
               <div>
                 <span class="text-[10px] text-slate-400 block">Başlangıç</span>
-                <span class="text-base font-extrabold text-slate-900">{{ product.base_price }} ₺ <span class="text-[10px] text-slate-500 font-normal">/ m</span></span>
+                <span class="text-base font-extrabold text-slate-900">{{ product.base_price }} TL <span class="text-[10px] text-slate-500 font-normal">/ m</span></span>
               </div>
 
               <a href="/product/{{ product.id }}" class="px-4 py-2 bg-slate-900 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold transition flex items-center gap-1 shadow-sm">

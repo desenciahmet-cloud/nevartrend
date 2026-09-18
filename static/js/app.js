@@ -41,14 +41,14 @@ const CartEngine = {
 
     this.saveCart(cart);
     this.openDrawer();
-    this.showToast('Desen ve kuma? sepetinize eklendi!', 'success');
+    this.showToast('Desen ve kumaş sepetinize eklendi!', 'success');
   },
 
   removeItem: function(index) {
     const cart = this.getCart();
     cart.splice(index, 1);
     this.saveCart(cart);
-    this.showToast('?r?n sepetten ??kar?ld?.', 'info');
+    this.showToast('Ürün sepetten çıkarıldı.', 'info');
   },
 
   updateMeters: function(index, meters) {
@@ -131,16 +131,16 @@ const CartEngine = {
             <div class="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-3 text-slate-400">
               <i data-lucide="shopping-bag" class="w-8 h-8"></i>
             </div>
-            <p class="font-medium text-slate-700">Sepetiniz Hen?z Bo?</p>
-            <p class="text-xs text-slate-500 mt-1">Be?endi?iniz desenleri istedi?iniz kuma?a bast?r?n.</p>
-            <a href="/fabrics" class="inline-block mt-4 px-5 py-2 bg-emerald-700 text-white rounded-lg text-sm font-semibold hover:bg-emerald-800 transition">Kuma?lar? Ke?fet</a>
+            <p class="font-medium text-slate-700">Sepetiniz Henüz Boş</p>
+            <p class="text-xs text-slate-500 mt-1">Beğendiğiniz desenleri istediğiniz kumaşa bastırın.</p>
+            <a href="/fabrics" class="inline-block mt-4 px-5 py-2 bg-emerald-700 text-white rounded-lg text-sm font-semibold hover:bg-emerald-800 transition">Kumaşları Keşfet</a>
           </div>
         `;
       } else {
         drawerList.innerHTML = cart.map(function(item, idx) {
           return `
             <div class="flex items-center gap-3 p-3 bg-white border border-slate-200 rounded-xl shadow-sm mb-2.5">
-              <img src="${item.image}" class="w-16 h-16 object-cover rounded-lg flex-shrink-0 border">
+              <img src="${item.image}" class="w-16 h-16 object-cover rounded-lg flex-shrink-0 border" alt="${item.product_title}">
               <div class="flex-1 min-w-0">
                 <div class="flex justify-between items-start">
                   <h4 class="text-sm font-semibold text-slate-800 truncate pr-2">${item.product_title}</h4>
@@ -155,7 +155,7 @@ const CartEngine = {
                     <span class="px-2 py-0.5 text-xs font-semibold text-slate-800">${item.meters} m</span>
                     <button onclick="CartEngine.updateMeters(${idx}, ${item.meters + 0.5})" class="px-2 py-0.5 bg-slate-50 hover:bg-slate-100 text-slate-600 text-xs font-bold">+</button>
                   </div>
-                  <span class="text-sm font-bold text-slate-900">${item.total_price.toLocaleString('tr-TR')} ?</span>
+                  <span class="text-sm font-bold text-slate-900">${item.total_price.toLocaleString('tr-TR')} TL</span>
                 </div>
               </div>
             </div>
@@ -165,7 +165,7 @@ const CartEngine = {
     }
 
     const drawerSubtotal = document.getElementById('drawer-subtotal');
-    if (drawerSubtotal) drawerSubtotal.textContent = subtotal.toLocaleString('tr-TR') + ' ?';
+    if (drawerSubtotal) drawerSubtotal.textContent = subtotal.toLocaleString('tr-TR') + ' TL';
 
     const freeShippingThreshold = 1000;
     const remainingForFree = Math.max(0, freeShippingThreshold - subtotal);
@@ -176,23 +176,23 @@ const CartEngine = {
     if (progressBar) progressBar.style.width = freeShippingProgress + '%';
     if (freeShippingText) {
       if (subtotal >= freeShippingThreshold) {
-        freeShippingText.innerHTML = '<span class="text-emerald-600 font-bold flex items-center gap-1"><i data-lucide="check-circle-2" class="w-4 h-4"></i> Harika! ?cretsiz Kargo Kazand?n?z!</span>';
+        freeShippingText.innerHTML = '<span class="text-emerald-600 font-bold flex items-center gap-1"><i data-lucide="check-circle-2" class="w-4 h-4"></i> Harika! Ücretsiz Kargo Kazandınız!</span>';
       } else {
-        freeShippingText.innerHTML = '?cretsiz Kargo i?in <strong class="text-emerald-700">' + remainingForFree.toFixed(0) + ' ?</strong> daha ekleyin!';
+        freeShippingText.innerHTML = 'Ücretsiz Kargo için <strong class="text-emerald-700">' + remainingForFree.toFixed(0) + ' TL</strong> daha ekleyin!';
       }
     }
 
     const cartTableBody = document.getElementById('cart-page-items');
     if (cartTableBody) {
       if (cart.length === 0) {
-        cartTableBody.innerHTML = '<tr><td colspan="6" class="text-center py-12 text-slate-500">Sepetinizde ?r?n bulunmamaktad?r.</td></tr>';
+        cartTableBody.innerHTML = '<tr><td colspan="6" class="text-center py-12 text-slate-500">Sepetinizde ürün bulunmamaktadır.</td></tr>';
       } else {
         cartTableBody.innerHTML = cart.map(function(item, idx) {
           return `
             <tr class="border-b border-slate-100 hover:bg-slate-50/50">
               <td class="py-4 px-4">
                 <div class="flex items-center gap-3">
-                  <img src="${item.image}" class="w-16 h-16 rounded-xl object-cover border">
+                  <img src="${item.image}" class="w-16 h-16 rounded-xl object-cover border" alt="${item.product_title}">
                   <div>
                     <a href="/product/${item.product_id}" class="font-bold text-slate-800 hover:text-emerald-700 text-sm block">${item.product_title}</a>
                     <span class="text-xs text-slate-400">Kod: ${item.product_code}</span>
@@ -202,7 +202,7 @@ const CartEngine = {
               <td class="py-4 px-4 text-sm font-medium text-slate-700">
                 <span class="px-2.5 py-1 bg-emerald-50 text-emerald-800 rounded-md text-xs font-semibold border border-emerald-100">${item.fabric_name}</span>
               </td>
-              <td class="py-4 px-4 text-sm text-slate-600 font-semibold">${item.unit_price} ? / m</td>
+              <td class="py-4 px-4 text-sm text-slate-600 font-semibold">${item.unit_price} TL / m</td>
               <td class="py-4 px-4">
                 <div class="inline-flex items-center border border-slate-200 rounded-lg bg-white">
                   <button onclick="CartEngine.updateMeters(${idx}, ${item.meters - 0.5})" class="px-3 py-1 text-slate-500 hover:bg-slate-100">-</button>
@@ -210,7 +210,7 @@ const CartEngine = {
                   <button onclick="CartEngine.updateMeters(${idx}, ${item.meters + 0.5})" class="px-3 py-1 text-slate-500 hover:bg-slate-100">+</button>
                 </div>
               </td>
-              <td class="py-4 px-4 font-bold text-slate-900 text-base">${item.total_price.toLocaleString('tr-TR')} ?</td>
+              <td class="py-4 px-4 font-bold text-slate-900 text-base">${item.total_price.toLocaleString('tr-TR')} TL</td>
               <td class="py-4 px-4 text-right">
                 <button onclick="CartEngine.removeItem(${idx})" class="text-slate-400 hover:text-red-600 p-2 rounded-lg hover:bg-red-50 transition">
                   <i data-lucide="trash-2" class="w-4 h-4"></i>
@@ -222,10 +222,10 @@ const CartEngine = {
       }
     }
 
-    document.querySelectorAll('.summary-subtotal').forEach(function(el) { el.textContent = subtotal.toLocaleString('tr-TR') + ' ?'; });
-    document.querySelectorAll('.summary-discount').forEach(function(el) { el.textContent = discount > 0 ? '-' + discount.toLocaleString('tr-TR') + ' ?' : '0 ?'; });
-    document.querySelectorAll('.summary-shipping').forEach(function(el) { el.textContent = shipping === 0 ? '?cretsiz' : shipping.toFixed(2) + ' ?'; });
-    document.querySelectorAll('.summary-grandtotal').forEach(function(el) { el.textContent = grandTotal.toLocaleString('tr-TR') + ' ?'; });
+    document.querySelectorAll('.summary-subtotal').forEach(function(el) { el.textContent = subtotal.toLocaleString('tr-TR') + ' TL'; });
+    document.querySelectorAll('.summary-discount').forEach(function(el) { el.textContent = discount > 0 ? '-' + discount.toLocaleString('tr-TR') + ' TL' : '0 TL'; });
+    document.querySelectorAll('.summary-shipping').forEach(function(el) { el.textContent = shipping === 0 ? 'Ücretsiz' : shipping.toFixed(2) + ' TL'; });
+    document.querySelectorAll('.summary-grandtotal').forEach(function(el) { el.textContent = grandTotal.toLocaleString('tr-TR') + ' TL'; });
 
     if (window.lucide) {
       lucide.createIcons();
