@@ -4,7 +4,7 @@ import uuid
 from datetime import datetime
 from typing import Optional, List
 from fastapi import FastAPI, Request, Form, HTTPException, Query
-from fastapi.responses import HTMLResponse, JSONResponse, RedirectResponse
+from fastapi.responses import HTMLResponse, JSONResponse, RedirectResponse, FileResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from pydantic import BaseModel
@@ -16,6 +16,12 @@ DATA_DIR = os.path.join(BASE_DIR, "data")
 
 app.mount("/static", StaticFiles(directory=os.path.join(BASE_DIR, "static")), name="static")
 templates = Jinja2Templates(directory=os.path.join(BASE_DIR, "templates"))
+
+@app.get("/favicon.ico", include_in_schema=False)
+async def favicon():
+    fav_path = os.path.join(BASE_DIR, "static", "img", "favicon.svg")
+    return FileResponse(fav_path, media_type="image/svg+xml")
+
 
 def load_json(filename):
     path = os.path.join(DATA_DIR, filename)
