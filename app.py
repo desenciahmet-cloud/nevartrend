@@ -51,7 +51,9 @@ def save_json(filename, data):
 def render(request: Request, template_name: str, context: dict = None):
     ctx = context or {}
     ctx["request"] = request
+    ctx["is_admin"] = is_admin(request)
     return templates.TemplateResponse(request=request, name=template_name, context=ctx)
+
 
 # --- Web Pages ---
 
@@ -176,8 +178,48 @@ async def order_success_page(request: Request, order_id: str):
         "active_page": "home"
     })
 
+ADMIN_USERS = {
+    "admin": os.getenv("ADMIN_PASSWORD", "nevartrend2026"),
+    "moderator": os.getenv("MODERATOR_PASSWORD", "trend2026")
+}
+ADMIN_SESSION_TOKEN = "nevartrend_secret_admin_token_2026"
+
+def is_admin(request: Request) -> bool:
+    token = request.cookies.get("nevartrend_admin_auth")
+    return token == ADMIN_SESSION_TOKEN
+
+@app.get("/admin/login", response_class=HTMLResponse)
+async def admin_login_page(request: Request, error: Optional[str] = None):
+    if is_admin(request):
+        return RedirectResponse(url="/admin", status_code=302)
+    return render(request, "admin-login.html", {"error": error})
+
+@app.post("/admin/login")
+async def admin_login_submit(request: Request, username: str = Form(...), password: str = Form(...)):
+    u = username.strip().lower()
+    if u in ADMIN_USERS and ADMIN_USERS[u] == password:
+        response = RedirectResponse(url="/admin", status_code=302)
+        response.set_cookie(
+            key="nevartrend_admin_auth",
+            value=ADMIN_SESSION_TOKEN,
+            max_age=60 * 60 * 24 * 7,
+            httponly=True,
+            samesite="lax"
+        )
+        return response
+    return render(request, "admin-login.html", {"error": "Yetkili kullanıcı adı veya şifre hatalı!"})
+
+
+@app.get("/admin/logout")
+async def admin_logout():
+    response = RedirectResponse(url="/admin/login", status_code=302)
+    response.delete_cookie("nevartrend_admin_auth")
+    return response
+
 @app.get("/admin", response_class=HTMLResponse)
 async def admin_dashboard(request: Request, msg: Optional[str] = None):
+    if not is_admin(request):
+        return RedirectResponse(url="/admin/login", status_code=302)
     products = load_json("products.json")
     fabrics = load_json("fabric_types.json")
     orders = load_json("orders.json")
@@ -193,6 +235,7 @@ async def admin_dashboard(request: Request, msg: Optional[str] = None):
         "msg": msg,
         "active_page": "admin"
     })
+
 
 # --- APIs ---
 
@@ -249,6 +292,7 @@ async def create_order(req: CreateOrderRequest):
 
 @app.post("/api/admin/products")
 async def add_product(
+    request: Request,
     title: str = Form(...),
     code: str = Form(...),
     category: str = Form(...),
@@ -256,6 +300,8 @@ async def add_product(
     image_url: str = Form(...),
     description: str = Form("")
 ):
+    if not is_admin(request):
+        return RedirectResponse(url="/admin/login", status_code=303)
     products = load_json("products.json")
     categories = load_json("categories.json")
     cat_obj = next((c for c in categories if c["id"] == category), {"name": "Genel"})
@@ -287,6 +333,7 @@ async def add_product(
 
 @app.post("/api/admin/products/edit")
 async def edit_product(
+    request: Request,
     product_id: str = Form(...),
     title: str = Form(...),
     code: str = Form(...),
@@ -295,6 +342,8 @@ async def edit_product(
     description: str = Form(""),
     image_url: Optional[str] = Form(None)
 ):
+    if not is_admin(request):
+        return RedirectResponse(url="/admin/login", status_code=303)
     products = load_json("products.json")
     categories = load_json("categories.json")
     cat_obj = next((c for c in categories if c["id"] == category), {"name": "Genel"})
@@ -316,7 +365,9 @@ async def edit_product(
     return RedirectResponse(url="/admin?msg=edited", status_code=303)
 
 @app.post("/api/admin/products/delete")
-async def delete_product(product_id: str = Form(...)):
+async def delete_product(request: Request, product_id: str = Form(...)):
+    if not is_admin(request):
+        return RedirectResponse(url="/admin/login", status_code=303)
     products = load_json("products.json")
     products = [p for p in products if p["id"] != product_id]
     save_json("products.json", products)
@@ -324,6 +375,7 @@ async def delete_product(product_id: str = Form(...)):
 
 @app.post("/api/admin/fabrics/edit")
 async def edit_fabric(
+    request: Request,
     fabric_id: str = Form(...),
     name: str = Form(...),
     price_per_meter: float = Form(...),
@@ -332,6 +384,8 @@ async def edit_fabric(
     composition: str = Form(...),
     description: str = Form("")
 ):
+    if not is_admin(request):
+        return RedirectResponse(url="/admin/login", status_code=303)
     fabrics = load_json("fabric_types.json")
     for f in fabrics:
         if f["id"] == fabric_id:
@@ -346,7 +400,10 @@ async def edit_fabric(
     return RedirectResponse(url="/admin?msg=fabric_updated", status_code=303)
 
 @app.post("/api/admin/fix-turkish")
-async def fix_turkish_characters():
+async def fix_turkish_characters(request: Request):
+    if not is_admin(request):
+        return RedirectResponse(url="/admin/login", status_code=303)
+
     fixes = {
         "?akay?k": "Şakayık",
         "?i?ek": "Çiçek",
