@@ -19,8 +19,21 @@ templates = Jinja2Templates(directory=os.path.join(BASE_DIR, "templates"))
 
 @app.get("/favicon.ico", include_in_schema=False)
 async def favicon():
+    ico_path = os.path.join(BASE_DIR, "static", "img", "favicon.ico")
+    if os.path.exists(ico_path):
+        return FileResponse(ico_path, media_type="image/x-icon")
     fav_path = os.path.join(BASE_DIR, "static", "img", "favicon.svg")
     return FileResponse(fav_path, media_type="image/svg+xml")
+
+@app.get("/manifest.json", include_in_schema=False)
+async def manifest_json():
+    return FileResponse(os.path.join(BASE_DIR, "static", "manifest.json"), media_type="application/manifest+json")
+
+@app.get("/sw.js", include_in_schema=False)
+async def service_worker():
+    return FileResponse(os.path.join(BASE_DIR, "static", "sw.js"), media_type="application/javascript")
+
+
 
 
 def load_json(filename):

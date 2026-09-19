@@ -4,11 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{% block title %}nevartrend | Trenddesen E-Ticaret Platformu{% endblock %}</title>
-  
-  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/static/img/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/static/img/favicon-32x32.png">
+  <link rel="apple-touch-icon" href="/static/img/apple-touch-icon.png">
   <link rel="icon" type="image/svg+xml" href="/static/img/favicon.svg">
-  <link rel="alternate icon" href="/static/img/favicon.svg">
-  <link rel="shortcut icon" href="/static/img/favicon.svg">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#059669">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="nevartrend">
   
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -241,9 +245,63 @@
     </div>
   </footer>
 
+  <!-- PWA Mobile App Install Prompt -->
+  <div id="pwa-install-banner" class="hidden fixed bottom-4 left-4 right-4 sm:left-auto sm:right-6 sm:max-w-md bg-slate-900/95 text-white backdrop-blur-md p-4 rounded-2xl shadow-2xl border border-emerald-500/30 z-50 transition-all duration-300">
+    <div class="flex items-center gap-3">
+      <img src="/static/img/icon-192.png" alt="nevartrend App" class="w-12 h-12 rounded-xl shadow border border-emerald-400/40">
+      <div class="flex-1 min-w-0">
+        <h4 class="text-xs font-bold text-white flex items-center gap-1.5">
+          <span>nevartrend Cep Uygulaması</span>
+          <span class="px-1.5 py-0.5 bg-emerald-600 text-[9px] rounded font-bold uppercase tracking-wider">Mobil</span>
+        </h4>
+        <p class="text-[11px] text-slate-300 truncate">Ana ekranınıza ekleyin, tek tıkla açın.</p>
+      </div>
+      <button id="pwa-install-btn" class="px-3 py-1.5 bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-extrabold text-xs rounded-xl shadow transition whitespace-nowrap">
+        Yükle
+      </button>
+      <button onclick="document.getElementById('pwa-install-banner').classList.add('hidden')" class="p-1 text-slate-400 hover:text-white" title="Kapat">
+        ✕
+      </button>
+    </div>
+  </div>
+
   <script src="/static/js/app.js"></script>
   <script>
     lucide.createIcons();
+    
+    // Register Service Worker for PWA
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js').then(reg => {
+          console.log('nevartrend PWA Service Worker Registered:', reg.scope);
+        }).catch(err => {
+          console.log('SW registration failed:', err);
+        });
+      });
+    }
+
+    // PWA Install prompt handler
+    let deferredPrompt;
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      const banner = document.getElementById('pwa-install-banner');
+      if (banner) banner.classList.remove('hidden');
+    });
+
+    const installBtn = document.getElementById('pwa-install-btn');
+    if (installBtn) {
+      installBtn.addEventListener('click', async () => {
+        if (deferredPrompt) {
+          deferredPrompt.prompt();
+          const { outcome } = await deferredPrompt.userChoice;
+          console.log(`User response to install prompt: ${outcome}`);
+          deferredPrompt = null;
+          document.getElementById('pwa-install-banner').classList.add('hidden');
+        }
+      });
+    }
   </script>
 </body>
 </html>
+
