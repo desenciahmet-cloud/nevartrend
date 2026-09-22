@@ -115,7 +115,7 @@
               {% if product.is_new %}
               <span class="px-2.5 py-1 bg-emerald-700 text-white rounded-lg text-[10px] font-extrabold uppercase shadow-sm">Yeni</span>
               {% endif %}
-              {% if product.discount_pct > 0 %}
+              {% if product.discount_pct and product.discount_pct > 0 %}
               <span class="px-2.5 py-1 bg-rose-600 text-white rounded-lg text-[10px] font-extrabold uppercase shadow-sm">%{{ product.discount_pct }} İndirim</span>
               {% endif %}
             </div>
