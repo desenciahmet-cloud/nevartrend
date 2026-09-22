@@ -1,0 +1,759 @@
+{% extends "base.html" %}
+
+{% block title %}Nevartrend by Trenddesen | Dijital Kumaş Baskı & Profesyonel Desen Stüdyosu{% endblock %}
+
+{% block content %}
+<!-- HERO & INTERACTIVE PATTERNBANK STUDIO SECTION -->
+<section class="py-8 bg-slate-50 border-b border-slate-200 relative">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <!-- Header Title & Custom Upload -->
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
+      <div>
+        <div class="flex items-center gap-2 mb-2">
+          <span class="px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-300 flex items-center gap-1 shadow-sm">
+            <i data-lucide="sparkles" class="w-3.5 h-3.5 text-emerald-600"></i> TRENDDESEN CANLI DRAPAJ STÜDYOSU
+          </span>
+          <span class="px-2.5 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-800 border border-amber-300 flex items-center gap-1 shadow-sm">
+            <i data-lucide="layers" class="w-3.5 h-3.5 text-amber-600"></i> ANATOMİK KUMAŞ GİYDİRME
+          </span>
+        </div>
+        <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+          Profesyonel Model & Kumaş Giydirme Stüdyosu
+        </h1>
+        <p class="text-sm text-slate-600 mt-1 max-w-2xl">
+          Patternbank standardında <strong>Askıda Kimono, Kadın Tunik, Tayt, Plaj Çantası, Kırlent, İpek Şal ve Kumaş Rulosu</strong> üzerinde deseni anında canlı görün!
+        </p>
+      </div>
+
+      <!-- Kendi Desenini Yükle Butonu -->
+      <div class="flex items-center gap-3">
+        <label for="customPatternInput" class="cursor-pointer inline-flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-bold text-white bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 shadow-md hover:shadow-lg transition-all transform active:scale-95">
+          <i data-lucide="upload-cloud" class="w-5 h-5"></i>
+          <span>Kendi Desenini Yükle & Canlı Gör</span>
+        </label>
+        <input type="file" id="customPatternInput" accept="image/*" class="hidden">
+      </div>
+    </div>
+
+    <!-- MAIN STUDIO INTERACTIVE GRID -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      
+      <!-- LEFT: CANVAS VIEWPORT & CAROUSEL (7 COLS) -->
+      <div class="lg:col-span-7 space-y-4">
+        <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-200">
+          
+          <!-- Interactive Stage / Canvas Container -->
+          <div class="relative w-full aspect-square bg-[#ffffff] rounded-xl overflow-hidden border border-slate-100 flex items-center justify-center shadow-inner group">
+            
+            <!-- Active Mockup Title Badge -->
+            <div class="absolute top-3 left-3 z-20 bg-slate-900/80 backdrop-blur-md text-white text-xs font-semibold px-3 py-1.5 rounded-lg flex items-center gap-1.5 shadow-md">
+              <i data-lucide="shirt" id="activeBadgeIcon" class="w-3.5 h-3.5 text-emerald-400"></i>
+              <span id="activeMockupTitle">1. Askıda Kimono & Bluz</span>
+            </div>
+
+            <!-- Top Right Action Controls (Rotate & HD Download) -->
+            <div class="absolute top-3 right-3 z-20 flex items-center gap-2">
+              <button type="button" id="btnRotatePattern" class="bg-white/90 hover:bg-white text-slate-800 p-2 rounded-lg text-xs font-bold shadow-md hover:shadow-lg transition-all flex items-center gap-1.5 border border-slate-200" title="Deseni 90° Döndür">
+                <i data-lucide="rotate-cw" class="w-3.5 h-3.5 text-slate-700"></i>
+                <span id="rotLabel">0°</span>
+              </button>
+              <button type="button" id="btnDownloadMockup" class="bg-slate-900/90 hover:bg-slate-900 text-white p-2 px-3 rounded-lg text-xs font-semibold shadow-md hover:shadow-lg transition-all flex items-center gap-1.5" title="Yüksek Çözünürlüklü İndir">
+                <i data-lucide="download" class="w-3.5 h-3.5 text-emerald-400"></i>
+                <span>HD İndir</span>
+              </button>
+            </div>
+
+            <!-- Master Draping Canvas -->
+            <canvas id="studioCanvas" width="800" height="800" class="w-full h-full object-contain cursor-crosshair"></canvas>
+
+            <!-- Loading Spinner Overlay -->
+            <div id="canvasSpinner" class="absolute inset-0 bg-white/70 backdrop-blur-sm flex flex-col items-center justify-center gap-2 z-30 transition-opacity duration-300 opacity-0 pointer-events-none">
+              <div class="w-10 h-10 border-4 border-emerald-600 border-t-transparent rounded-full animate-spin"></div>
+              <span class="text-xs font-bold text-slate-700">Drapaj Hesaplanıyor...</span>
+            </div>
+
+            <!-- Previous / Next Carousel Buttons -->
+            <button type="button" id="btnPrevMockup" class="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/90 hover:bg-white text-slate-700 hover:text-slate-900 shadow-lg flex items-center justify-center transition-all z-20 border border-slate-200">
+              <i data-lucide="chevron-left" class="w-5 h-5"></i>
+            </button>
+            <button type="button" id="btnNextMockup" class="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/90 hover:bg-white text-slate-700 hover:text-slate-900 shadow-lg flex items-center justify-center transition-all z-20 border border-slate-200">
+              <i data-lucide="chevron-right" class="w-5 h-5"></i>
+            </button>
+
+            <!-- Bottom Active Pattern Legend -->
+            <div class="absolute bottom-3 left-3 right-3 z-20 flex items-center justify-between bg-slate-900/80 backdrop-blur-md px-3.5 py-2 rounded-xl text-white shadow-lg pointer-events-none">
+              <div class="flex items-center gap-2.5 truncate">
+                <img id="legendThumb" src="" class="w-7 h-7 rounded-lg object-cover border border-white/20" alt="Desen">
+                <div class="truncate">
+                  <div id="legendName" class="text-xs font-bold truncate">Desen Seçiniz</div>
+                  <div id="legendType" class="text-[10px] text-slate-300 truncate">Reaktif / Pigment Dijital Baskı (Dikişsiz Rapor)</div>
+                </div>
+              </div>
+              <span class="text-[10px] uppercase tracking-wider font-extrabold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                CANLI DRAPAJ
+              </span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: CUSTOMIZATION CONTROLS & ORDERING (5 COLS) -->
+      <div class="lg:col-span-5 space-y-5">
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
+          
+          <!-- Selected Pattern Info -->
+          <div class="border-b border-slate-100 pb-4 mb-4">
+            <span class="text-xs font-bold text-emerald-600 uppercase tracking-wider">TRENDDESEN KOLEKSİYONU</span>
+            <h2 id="activePatternHeading" class="text-xl font-bold text-slate-900 mt-0.5">Şakayık & Botanik Çiçek Deseni</h2>
+            <p id="activePatternSub" class="text-xs text-slate-500 mt-0.5 flex items-center gap-2">
+              <span>Desen Kodu: <strong id="activePatternCode">TD-BOTANIC-01</strong></span>
+              <span class="inline-flex items-center gap-1 text-emerald-600 font-semibold"><i data-lucide="check-circle" class="w-3.5 h-3.5"></i> Dikişsiz Rapor</span>
+            </p>
+          </div>
+
+          <!-- Quick Pattern Swatches -->
+          <div class="space-y-2 mb-5">
+            <label class="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center justify-between">
+              <span>Desen Değiştir:</span>
+              <span class="text-[11px] text-slate-500 font-normal">Katalogdan Hızlı Seç</span>
+            </label>
+            <div id="patternSwatchContainer" class="flex flex-wrap gap-2 pt-1">
+              <!-- Swatches injected by JS -->
+            </div>
+          </div>
+
+          <!-- Pattern Scale / Size Controls -->
+          <div class="space-y-2 mb-5">
+            <div class="flex items-center justify-between text-xs">
+              <span class="font-bold text-slate-700 uppercase tracking-wider">Rapor Ölçeği (Desen Boyutu):</span>
+              <span id="scaleLabel" class="font-bold text-emerald-600">25 cm (Standart)</span>
+            </div>
+            <div class="grid grid-cols-3 gap-2">
+              <button type="button" class="btn-scale px-3 py-2 rounded-xl text-xs font-bold border border-slate-200 hover:border-slate-300 transition-all text-slate-700" data-scale="small">
+                Ufak (10cm)
+              </button>
+              <button type="button" class="btn-scale px-3 py-2 rounded-xl text-xs font-bold border-2 border-emerald-600 bg-emerald-50 text-emerald-800 transition-all shadow-sm" data-scale="medium">
+                Orta (25cm)
+              </button>
+              <button type="button" class="btn-scale px-3 py-2 rounded-xl text-xs font-bold border border-slate-200 hover:border-slate-300 transition-all text-slate-700" data-scale="large">
+                Büyük (50cm)
+              </button>
+            </div>
+          </div>
+
+          <!-- Fabric Material Selector -->
+          <div class="space-y-2 mb-5">
+            <label for="fabricSelect" class="text-xs font-bold text-slate-700 uppercase tracking-wider">
+              Uygulanacak Kumaş:
+            </label>
+            <select id="fabricSelect" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs font-bold text-slate-800 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500">
+              <option value="viskon-keten">Viskon Keten (%70 Viskon %30 Keten – 160 gr/m²)</option>
+              <option value="poplin">Pamuk Poplin (%100 Pamuk – 120 gr/m²)</option>
+              <option value="ipek-saten">İpek Saten Düşes (%100 Polyester İpek Tuşe – 140 gr/m²)</option>
+              <option value="muslin">Çift Kat Organik Müslin (%100 Pamuk – 135 gr/m²)</option>
+              <option value="kanvas">Ham Pamuk Kanvas (%100 Pamuk – 280 gr/m²)</option>
+              <option value="scuba">Likralı Scuba & Dalgıç Kumaş (%95 Poly %5 Likra – 240 gr/m²)</option>
+            </select>
+          </div>
+
+          <!-- Order Meter Quantity -->
+          <div class="space-y-2 mb-6">
+            <label for="orderMeterSelect" class="text-xs font-bold text-slate-700 uppercase tracking-wider">
+              Sipariş Metrajı:
+            </label>
+            <select id="orderMeterSelect" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs font-bold text-slate-800 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500">
+              <option value="1">1 Metre (Numune Baskı)</option>
+              <option value="5" selected>5 Metre (Standart)</option>
+              <option value="10">10 Metre</option>
+              <option value="25">25 Metre (Küçük Seri)</option>
+              <option value="50">50 Metre</option>
+              <option value="100">100 Metre (Toptan Fiyat Avantajı)</option>
+              <option value="500">500+ Metre (Endüstriyel Top Baskı)</option>
+            </select>
+          </div>
+
+          <!-- CTA Buttons -->
+          <div class="space-y-2.5">
+            <button type="button" id="btnOrderWhatsapp" class="w-full py-3.5 px-4 rounded-xl text-sm font-extrabold text-white bg-emerald-600 hover:bg-emerald-700 shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2">
+              <i data-lucide="message-circle" class="w-5 h-5"></i>
+              <span>Bu Modeli & Kumaşı Sipariş Ver</span>
+            </button>
+          </div>
+
+          <!-- Security Badges -->
+          <div class="mt-4 pt-4 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500">
+            <span class="flex items-center gap-1"><i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-600"></i> Reaktif / Pigment</span>
+            <span class="flex items-center gap-1"><i data-lucide="droplet" class="w-3.5 h-3.5 text-emerald-600"></i> 4–5 Yıkama Haslığı</span>
+            <span class="flex items-center gap-1"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-600"></i> Dikişsiz Rapor</span>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 8-PRODUCT THUMBNAIL CAROUSEL BAR (PATTERNBANK STYLE) -->
+    <div class="mt-8 pt-6 border-t border-slate-200">
+      <div class="flex items-center justify-between mb-3">
+        <h3 class="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center gap-1.5">
+          <i data-lucide="layout-grid" class="w-4 h-4 text-emerald-600"></i>
+          MODEL & ÜRÜN GALERİSİ (SEÇMEK İÇİN TIKLAYIN):
+        </h3>
+        <span class="text-[11px] text-slate-500 font-medium">8 Gerçekçi Kumaş & Ürün Şablonu</span>
+      </div>
+
+      <div class="grid grid-cols-4 sm:grid-cols-8 gap-3" id="mockupThumbnailGrid">
+        
+        <!-- 1. Askıda Kimono -->
+        <button type="button" class="mockup-thumb-btn flex flex-col items-center gap-1.5 p-2 rounded-xl border-2 transition-all border-emerald-600 bg-white shadow-md ring-2 ring-emerald-400/40" data-index="0">
+          <div class="w-full aspect-square bg-slate-100 rounded-lg overflow-hidden flex items-center justify-center p-1 border border-slate-200">
+            <img src="/static/images/mockups/studio_kimono_shade.png" class="w-full h-full object-contain" alt="Askıda Kimono">
+          </div>
+          <span class="text-[10px] font-bold text-slate-800 text-center leading-tight">Askıda Kimono</span>
+        </button>
+
+        <!-- 2. Terzi Mankeni -->
+        <button type="button" class="mockup-thumb-btn flex flex-col items-center gap-1.5 p-2 rounded-xl border-2 transition-all border-slate-200 bg-white hover:border-slate-300" data-index="1">
+          <div class="w-full aspect-square bg-slate-100 rounded-lg overflow-hidden flex items-center justify-center p-1 border border-slate-200">
+            <img src="/static/images/mockups/studio_dress_shade.png" class="w-full h-full object-contain" alt="Kadın Tunik">
+          </div>
+          <span class="text-[10px] font-bold text-slate-800 text-center leading-tight">Terzi Mankeni</span>
+        </button>
+
+        <!-- 3. Kadın Tayt -->
+        <button type="button" class="mockup-thumb-btn flex flex-col items-center gap-1.5 p-2 rounded-xl border-2 transition-all border-slate-200 bg-white hover:border-slate-300" data-index="2">
+          <div class="w-full aspect-square bg-slate-100 rounded-lg overflow-hidden flex items-center justify-center p-1 border border-slate-200">
+            <img src="/static/images/mockups/studio_leggings_shade.png" class="w-full h-full object-contain" alt="Kadın Tayt">
+          </div>
+          <span class="text-[10px] font-bold text-slate-800 text-center leading-tight">Kadın Tayt</span>
+        </button>
+
+        <!-- 4. Plaj Çantası -->
+        <button type="button" class="mockup-thumb-btn flex flex-col items-center gap-1.5 p-2 rounded-xl border-2 transition-all border-slate-200 bg-white hover:border-slate-300" data-index="3">
+          <div class="w-full aspect-square bg-slate-100 rounded-lg overflow-hidden flex items-center justify-center p-1 border border-slate-200">
+            <img src="/static/images/mockups/studio_bag_shade.png" class="w-full h-full object-contain" alt="Plaj Çantası">
+          </div>
+          <span class="text-[10px] font-bold text-slate-800 text-center leading-tight">Plaj Çantası</span>
+        </button>
+
+        <!-- 5. İpek Şal -->
+        <button type="button" class="mockup-thumb-btn flex flex-col items-center gap-1.5 p-2 rounded-xl border-2 transition-all border-slate-200 bg-white hover:border-slate-300" data-index="4">
+          <div class="w-full aspect-square bg-slate-100 rounded-lg overflow-hidden flex items-center justify-center p-1 border border-slate-200">
+            <img src="/static/images/mockups/studio_silk_shade.png" class="w-full h-full object-contain" alt="İpek Fular">
+          </div>
+          <span class="text-[10px] font-bold text-slate-800 text-center leading-tight">İpek Fular</span>
+        </button>
+
+        <!-- 6. Salon Kırlenti -->
+        <button type="button" class="mockup-thumb-btn flex flex-col items-center gap-1.5 p-2 rounded-xl border-2 transition-all border-slate-200 bg-white hover:border-slate-300" data-index="5">
+          <div class="w-full aspect-square bg-slate-100 rounded-lg overflow-hidden flex items-center justify-center p-1 border border-slate-200">
+            <img src="/static/images/mockups/studio_cushion_shade.png" class="w-full h-full object-contain" alt="Salon Kırlenti">
+          </div>
+          <span class="text-[10px] font-bold text-slate-800 text-center leading-tight">Salon Kırlenti</span>
+        </button>
+
+        <!-- 7. Kumaş Rulosu -->
+        <button type="button" class="mockup-thumb-btn flex flex-col items-center gap-1.5 p-2 rounded-xl border-2 transition-all border-slate-200 bg-white hover:border-slate-300" data-index="6">
+          <div class="w-full aspect-square bg-slate-100 rounded-lg overflow-hidden flex items-center justify-center p-1 border border-slate-200">
+            <img src="/static/images/mockups/studio_fabric_shade.png" class="w-full h-full object-contain" alt="Kumaş Rulosu">
+          </div>
+          <span class="text-[10px] font-bold text-slate-800 text-center leading-tight">Kumaş Rulosu</span>
+        </button>
+
+        <!-- 8. Canlı Büyüteç -->
+        <button type="button" class="mockup-thumb-btn flex flex-col items-center gap-1.5 p-2 rounded-xl border-2 transition-all border-slate-200 bg-white hover:border-slate-300" data-index="7">
+          <div class="w-full aspect-square bg-slate-900 rounded-lg overflow-hidden flex items-center justify-center p-1 border border-slate-700 text-emerald-400">
+            <i data-lucide="zoom-in" class="w-6 h-6"></i>
+          </div>
+          <span class="text-[10px] font-bold text-slate-800 text-center leading-tight">Canlı Büyüteç</span>
+        </button>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PRODUCTS CATALOG SECTION -->
+<section class="py-12 bg-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between mb-8">
+      <div>
+        <h2 class="text-xl font-bold text-slate-900">Öne Çıkan Trend Desenler</h2>
+        <p class="text-xs text-slate-500 mt-1">Tek tıkla stüdyoda tüm manken ve ürünlerde anında canlı görün.</p>
+      </div>
+      <a href="/fabrics" class="text-xs font-bold text-emerald-600 hover:text-emerald-700 flex items-center gap-1">
+        Tüm Kataloğu Gör <i data-lucide="chevron-right" class="w-4 h-4"></i>
+      </a>
+    </div>
+
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
+      {% for product in products %}
+      <div class="group bg-white rounded-2xl border border-slate-200 overflow-hidden hover:shadow-lg transition-all flex flex-col">
+        <div class="aspect-square bg-slate-100 relative overflow-hidden">
+          <img src="{{ product.image or product.image_url }}" alt="{{ product.title or product.name }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+          <span class="absolute top-2 left-2 px-2 py-1 rounded-md text-[10px] font-bold bg-slate-900/80 text-white backdrop-blur-sm">
+            {{ product.code or 'TD-DESEN' }}
+          </span>
+        </div>
+        <div class="p-4 flex flex-col flex-grow justify-between">
+          <div>
+            <h3 class="text-xs font-bold text-slate-900 line-clamp-1">{{ product.title or product.name }}</h3>
+            <p class="text-[11px] text-slate-500 mt-0.5 line-clamp-1">{{ product.category_title or product.category or 'Dijital Baskı Deseni' }}</p>
+          </div>
+          <div class="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between">
+            <span class="text-xs font-extrabold text-slate-900">
+              {{ product.price_per_meter or 180 }} TL <span class="text-[10px] font-normal text-slate-500">/mt</span>
+            </span>
+            <button type="button" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 transition-colors btn-apply-to-studio" data-name="{{ product.title or product.name }}" data-code="{{ product.code or 'TD-PAT' }}" data-img="{{ product.image or product.image_url }}">
+              Canlı Gör
+            </button>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- MASTER JAVASCRIPT STUDIO ENGINE -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  if (typeof lucide !== 'undefined') {
+    lucide.createIcons();
+  }
+
+  const canvas = document.getElementById('studioCanvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const spinner = document.getElementById('canvasSpinner');
+
+  // MOCKUP DEFINITIONS
+  const MOCKUPS = {
+    kimono: {
+      name: '1. Askıda Kimono & Bluz',
+      shade: '/static/images/mockups/pb_kimono_shade.png',
+      mask: '/static/images/mockups/pb_kimono_mask.png',
+      fg: '/static/images/mockups/pb_kimono_fg.png'
+    },
+    dress: {
+      name: '2. Terzi Mankeni Üzerinde Tunik & Elbise',
+      shade: '/static/images/mockups/pb_dress_shade.png',
+      mask: '/static/images/mockups/pb_dress_mask.png',
+      fg: '/static/images/mockups/pb_dress_fg.png'
+    },
+    leggings: {
+      name: '3. Tayt Giyen Kadın Model',
+      shade: '/static/images/mockups/pb_leggings_shade.png',
+      mask: '/static/images/mockups/pb_leggings_mask.png',
+      fg: '/static/images/mockups/pb_leggings_fg.png'
+    },
+    bag: {
+      name: '4. Kanvas Plaj & Alışveriş Çantası',
+      shade: '/static/images/mockups/pb_bag_shade.png',
+      mask: '/static/images/mockups/pb_bag_mask.png',
+      fg: '/static/images/mockups/pb_bag_fg.png'
+    },
+    silk: {
+      name: '5. İpek Fular & Şal Drapajı',
+      shade: '/static/images/mockups/pb_silk_shade.png',
+      mask: '/static/images/mockups/pb_silk_mask.png',
+      fg: null
+    },
+    cushion: {
+      name: '6. Dekoratif Salon Kırlenti',
+      shade: '/static/images/mockups/pb_cushion_shade.png',
+      mask: '/static/images/mockups/pb_cushion_mask.png',
+      fg: null
+    },
+    fabric: {
+      name: '7. Kumaş Rulosu & Metraj Drape',
+      shade: '/static/images/mockups/pb_fabric_shade.png',
+      mask: '/static/images/mockups/pb_fabric_mask.png',
+      fg: '/static/images/mockups/pb_fabric_fg.png'
+    },
+    repeat: {
+      name: '8. Dikişsiz Desen Tekrarı & Büyüteç',
+      shade: null,
+      mask: null,
+      fg: null
+    }
+  };
+
+  const mockupKeys = Object.keys(MOCKUPS);
+  let currentMockupIndex = 0;
+  let currentScaleMode = 'medium'; // small, medium, large
+  let currentPatternAngle = 0; // 0, 90, 180, 270
+  let currentPatternImage = null;
+  let currentPatternData = {
+    name: 'Şakayık & Botanik Çiçek Deseni',
+    code: 'TD-BOTANIC-01',
+    url: 'https://images.unsplash.com/photo-1550684848-fac1c5b4e853?w=800'
+  };
+
+  const imgCache = {};
+
+  function loadImage(src) {
+    if (!src) return Promise.resolve(null);
+    if (imgCache[src]) return Promise.resolve(imgCache[src]);
+    return new Promise(resolve => {
+      const img = new Image();
+      img.crossOrigin = 'anonymous';
+      img.onload = () => { imgCache[src] = img; resolve(img); };
+      img.onerror = () => resolve(null);
+      img.src = src;
+    });
+  }
+
+  // Preload all mockup assets into cache
+  mockupKeys.forEach(k => {
+    const m = MOCKUPS[k];
+    if (m.shade) loadImage(m.shade);
+    if (m.mask) loadImage(m.mask);
+    if (m.fg) loadImage(m.fg);
+  });
+
+  // Catalog Swatches
+  const catalogPatterns = [
+    { name: 'Şakayık Botanik Çiçek', code: 'TD-BOTANIC-01', url: 'https://images.unsplash.com/photo-1550684848-fac1c5b4e853?w=800' },
+    { name: 'Pastel Bahar Çiçekleri', code: 'TD-SPRING-02', url: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800' },
+    { name: 'Etnik Anadolu Geometri', code: 'TD-ETHNIC-03', url: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800' },
+    { name: 'Modern Akrilik Mermer', code: 'TD-MARBLE-04', url: 'https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=800' }
+  ];
+
+  const swatchContainer = document.getElementById('patternSwatchContainer');
+  if (swatchContainer) {
+    swatchContainer.innerHTML = '';
+    catalogPatterns.forEach((p, idx) => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = `w-12 h-12 rounded-xl border-2 overflow-hidden relative swatch-btn transition-all ${idx === 0 ? 'border-emerald-600 shadow-md ring-2 ring-emerald-400/50' : 'border-slate-200 hover:border-slate-400'}`;
+      btn.innerHTML = `<img src="${p.url}" class="w-full h-full object-cover" alt="${p.name}">`;
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.swatch-btn').forEach(b => {
+          b.className = 'w-12 h-12 rounded-xl border-2 border-slate-200 hover:border-slate-400 overflow-hidden relative swatch-btn transition-all';
+        });
+        btn.className = 'w-12 h-12 rounded-xl border-2 border-emerald-600 shadow-md ring-2 ring-emerald-400/50 overflow-hidden relative swatch-btn transition-all';
+        setPattern(p);
+      });
+      swatchContainer.appendChild(btn);
+    });
+  }
+
+  function setPattern(pData) {
+    currentPatternData = pData;
+    const heading = document.getElementById('activePatternHeading');
+    const codeEl = document.getElementById('activePatternCode');
+    const legendName = document.getElementById('legendName');
+    const legendThumb = document.getElementById('legendThumb');
+
+    if (heading) heading.textContent = pData.name;
+    if (codeEl) codeEl.textContent = pData.code;
+    if (legendName) legendName.textContent = pData.name;
+    if (legendThumb) legendThumb.src = pData.url;
+
+    if (spinner) spinner.style.opacity = '1';
+
+    loadImage(pData.url).then(img => {
+      currentPatternImage = img;
+      if (spinner) spinner.style.opacity = '0';
+      renderMockup();
+    });
+  }
+
+  function createTransformedPattern(tileSize, angleDeg) {
+    const pCanvas = document.createElement('canvas');
+    pCanvas.width = tileSize;
+    pCanvas.height = tileSize;
+    const pCtx = pCanvas.getContext('2d');
+
+    pCtx.save();
+    pCtx.translate(tileSize / 2, tileSize / 2);
+    pCtx.rotate((angleDeg * Math.PI) / 180);
+    pCtx.drawImage(currentPatternImage, -tileSize / 2, -tileSize / 2, tileSize, tileSize);
+    pCtx.restore();
+    return pCanvas;
+  }
+
+  // Mouse coordinates for Loupe
+  const mousePos = { x: -1, y: -1, active: false };
+  canvas.addEventListener('mousemove', e => {
+    const rect = canvas.getBoundingClientRect();
+    mousePos.x = (e.clientX - rect.left) * (canvas.width / rect.width);
+    mousePos.y = (e.clientY - rect.top) * (canvas.height / rect.height);
+    mousePos.active = true;
+    if (mockupKeys[currentMockupIndex] === 'repeat') {
+      renderMockup();
+    }
+  });
+
+  canvas.addEventListener('mouseleave', () => {
+    mousePos.active = false;
+    if (mockupKeys[currentMockupIndex] === 'repeat') {
+      renderMockup();
+    }
+  });
+
+  function updateActiveMockupUI() {
+    const key = mockupKeys[currentMockupIndex];
+    const mInfo = MOCKUPS[key];
+
+    const titleEl = document.getElementById('activeMockupTitle');
+    if (titleEl) titleEl.textContent = mInfo.name;
+
+    const btns = document.querySelectorAll('.mockup-thumb-btn');
+    btns.forEach((btn, idx) => {
+      if (idx === currentMockupIndex) {
+        btn.className = 'mockup-thumb-btn flex flex-col items-center gap-1.5 p-2 rounded-xl border-2 transition-all border-emerald-600 bg-white shadow-md ring-2 ring-emerald-400/40';
+      } else {
+        btn.className = 'mockup-thumb-btn flex flex-col items-center gap-1.5 p-2 rounded-xl border-2 transition-all border-slate-200 bg-white hover:border-slate-300';
+      }
+    });
+
+    renderMockup();
+  }
+
+  async function renderMockup() {
+    const key = mockupKeys[currentMockupIndex];
+    const mInfo = MOCKUPS[key];
+
+    canvas.width = 800;
+    canvas.height = 800;
+
+    let tilePx = 140;
+    if (currentScaleMode === 'small') tilePx = 90;
+    if (currentScaleMode === 'large') tilePx = 250;
+
+    // 1. REPEAT / ZOOM LOUPE MODE
+    if (key === 'repeat') {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      if (currentPatternImage && currentPatternImage.complete && currentPatternImage.naturalWidth > 0) {
+        const pCanvas = createTransformedPattern(tilePx, currentPatternAngle);
+        const ptrn = ctx.createPattern(pCanvas, 'repeat');
+        ctx.fillStyle = ptrn;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        // Subtle grid lines
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.25)';
+        ctx.lineWidth = 1;
+        for (let x = 0; x < canvas.width; x += tilePx) {
+          ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, canvas.height); ctx.stroke();
+        }
+        for (let y = 0; y < canvas.height; y += tilePx) {
+          ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvas.width, y); ctx.stroke();
+        }
+
+        // Loupe
+        if (mousePos.active && mousePos.x >= 0 && mousePos.y >= 0) {
+          const loupeR = 140;
+          ctx.save();
+          ctx.beginPath();
+          ctx.arc(mousePos.x, mousePos.y, loupeR, 0, Math.PI * 2);
+          ctx.clip();
+          
+          const zoom = 2.5;
+          ctx.fillStyle = '#ffffff';
+          ctx.fill();
+          ctx.drawImage(
+            canvas,
+            mousePos.x - loupeR / zoom, mousePos.y - loupeR / zoom, (loupeR * 2) / zoom, (loupeR * 2) / zoom,
+            mousePos.x - loupeR, mousePos.y - loupeR, loupeR * 2, loupeR * 2
+          );
+
+          ctx.restore();
+          ctx.beginPath();
+          ctx.arc(mousePos.x, mousePos.y, loupeR, 0, Math.PI * 2);
+          ctx.lineWidth = 4;
+          ctx.strokeStyle = '#ffffff';
+          ctx.stroke();
+          ctx.lineWidth = 2;
+          ctx.strokeStyle = '#059669';
+          ctx.stroke();
+        }
+      } else {
+        ctx.fillStyle = '#f8fafc';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = '#94a3b8';
+        ctx.font = '16px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('Desen yükleniyor...', canvas.width/2, canvas.height/2);
+      }
+      return;
+    }
+
+    // 2. PATTERNBANK MODEL MOCKUP MODES (1-7)
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Clean pure white studio background
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    const [shadeImg, maskImg, fgImg] = await Promise.all([
+      loadImage(mInfo.shade),
+      loadImage(mInfo.mask),
+      loadImage(mInfo.fg)
+    ]);
+
+    if (shadeImg && shadeImg.complete && maskImg && maskImg.complete && currentPatternImage && currentPatternImage.complete) {
+      
+      const bufCanvas = document.createElement('canvas');
+      bufCanvas.width = canvas.width;
+      bufCanvas.height = canvas.height;
+      const bufCtx = bufCanvas.getContext('2d');
+
+      // A. Pattern fill
+      const pStandard = createTransformedPattern(tilePx, currentPatternAngle);
+      bufCtx.fillStyle = bufCtx.createPattern(pStandard, 'repeat');
+      bufCtx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // B. Multiply realistic fabric shadows & creases from base photo
+      bufCtx.globalCompositeOperation = 'multiply';
+      bufCtx.drawImage(shadeImg, 0, 0, canvas.width, canvas.height);
+
+      // C. Mask strictly to garment shape
+      bufCtx.globalCompositeOperation = 'destination-in';
+      bufCtx.drawImage(maskImg, 0, 0, canvas.width, canvas.height);
+
+      // D. Composite shaded garment onto main canvas
+      ctx.drawImage(bufCanvas, 0, 0);
+
+      // E. Draw foreground details (wooden hanger, mannequin neck, rope handles, bare legs)
+      if (fgImg && fgImg.complete) {
+        ctx.drawImage(fgImg, 0, 0, canvas.width, canvas.height);
+      }
+    } else {
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = '#94a3b8';
+      ctx.font = '16px sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('Desen & Kumaş Dokusu Yükleniyor...', canvas.width/2, canvas.height/2);
+    }
+  }
+
+  // Event Listeners for Thumbnails
+  document.querySelectorAll('.mockup-thumb-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const idx = parseInt(btn.getAttribute('data-index'));
+      currentMockupIndex = idx;
+      updateActiveMockupUI();
+    });
+  });
+
+  // Next / Prev buttons
+  const btnPrev = document.getElementById('btnPrevMockup');
+  const btnNext = document.getElementById('btnNextMockup');
+  if (btnPrev) {
+    btnPrev.addEventListener('click', () => {
+      currentMockupIndex = (currentMockupIndex - 1 + mockupKeys.length) % mockupKeys.length;
+      updateActiveMockupUI();
+    });
+  }
+  if (btnNext) {
+    btnNext.addEventListener('click', () => {
+      currentMockupIndex = (currentMockupIndex + 1) % mockupKeys.length;
+      updateActiveMockupUI();
+    });
+  }
+
+  // Rotate button
+  const btnRotate = document.getElementById('btnRotatePattern');
+  if (btnRotate) {
+    btnRotate.addEventListener('click', () => {
+      currentPatternAngle = (currentPatternAngle + 90) % 360;
+      const rotLabel = document.getElementById('rotLabel');
+      if (rotLabel) rotLabel.textContent = currentPatternAngle + '°';
+      renderMockup();
+    });
+  }
+
+  // Scale buttons
+  document.querySelectorAll('.btn-scale').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.btn-scale').forEach(b => {
+        b.className = 'btn-scale px-3 py-2 rounded-xl text-xs font-bold border border-slate-200 hover:border-slate-300 transition-all text-slate-700';
+      });
+      btn.className = 'btn-scale px-3 py-2 rounded-xl text-xs font-bold border-2 border-emerald-600 bg-emerald-50 text-emerald-800 transition-all shadow-sm';
+      currentScaleMode = btn.getAttribute('data-scale');
+      const scaleLabel = document.getElementById('scaleLabel');
+      if (scaleLabel) {
+        if (currentScaleMode === 'small') scaleLabel.textContent = '10 cm (Ufak)';
+        if (currentScaleMode === 'medium') scaleLabel.textContent = '25 cm (Standart)';
+        if (currentScaleMode === 'large') scaleLabel.textContent = '50 cm (Büyük)';
+      }
+      renderMockup();
+    });
+  });
+
+  // Custom Pattern Upload
+  const customInput = document.getElementById('customPatternInput');
+  if (customInput) {
+    customInput.addEventListener('change', e => {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = ev => {
+        setPattern({
+          name: file.name.replace(/\.[^/.]+$/, ""),
+          code: 'ÖZEL YÜKLEME',
+          url: ev.target.result
+        });
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  // Apply to Studio buttons on catalog cards
+  document.querySelectorAll('.btn-apply-to-studio').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const name = btn.getAttribute('data-name');
+      const code = btn.getAttribute('data-code');
+      const img = btn.getAttribute('data-img');
+      setPattern({ name, code, url: img });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });
+
+  // Download Mockup Button
+  const btnDownload = document.getElementById('btnDownloadMockup');
+  if (btnDownload) {
+    btnDownload.addEventListener('click', () => {
+      const link = document.createElement('a');
+      link.download = `nevartrend-mockup-${mockupKeys[currentMockupIndex]}-${currentPatternData.code || 'desen'}.png`;
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    });
+  }
+
+  // Order Whatsapp Button
+  const btnWhatsapp = document.getElementById('btnOrderWhatsapp');
+  if (btnWhatsapp) {
+    btnWhatsapp.addEventListener('click', () => {
+      const mInfo = MOCKUPS[mockupKeys[currentMockupIndex]];
+      const fabricEl = document.getElementById('fabricSelect');
+      const fabricText = fabricEl ? fabricEl.options[fabricEl.selectedIndex].text : '';
+      const meterEl = document.getElementById('orderMeterSelect');
+      const meterText = meterEl ? meterEl.value + ' Metre' : '';
+      const msg = `Merhaba Trenddesen / Nevartrend ekibi,\n\nWeb sitenizdeki Profesyonel Drapaj Stüdyosunda incelediğim desen için sipariş oluşturmak istiyorum:\n\n🎨 *Desen:* ${currentPatternData.name} (${currentPatternData.code})\n👗 *İncelenen Model:* ${mInfo.name}\n🧵 *Kumaş:* ${fabricText}\n📏 *Metraj:* ${meterText}\n\nÜretim süreci ve ödeme bilgisi alabilir miyim?`;
+      window.open(`https://wa.me/905320000000?text=${encodeURIComponent(msg)}`, '_blank');
+    });
+  }
+
+    // URL Query Param Support for direct slide preview
+  const urlParams = new URLSearchParams(window.location.search);
+  const slideParam = urlParams.get('slide');
+  if (slideParam !== null) {
+    const sIdx = parseInt(slideParam);
+    if (!isNaN(sIdx) && sIdx >= 0 && sIdx < mockupKeys.length) {
+      currentMockupIndex = sIdx;
+      updateActiveMockupUI();
+    }
+  }
+
+  // Initial Load
+  setPattern(catalogPatterns[0]);
+});
+</script>
+{% endblock %}
