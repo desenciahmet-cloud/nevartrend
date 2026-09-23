@@ -529,6 +529,33 @@ document.addEventListener('DOMContentLoaded', function() {
     renderMockup();
   }
 
+  // Helper: Prepare robust alpha mask in realtime
+  const alphaMaskCache = {};
+  function getPreparedMask(maskImg, w, h) {
+    const key = (maskImg.src || 'mask') + '_' + w + 'x' + h;
+    if (alphaMaskCache[key]) return alphaMaskCache[key];
+
+    const mCanvas = document.createElement('canvas');
+    mCanvas.width = w;
+    mCanvas.height = h;
+    const mCtx = mCanvas.getContext('2d');
+    mCtx.drawImage(maskImg, 0, 0, w, h);
+
+    const imgData = mCtx.getImageData(0, 0, w, h);
+    const data = imgData.data;
+
+    for (let i = 0; i < data.length; i += 4) {
+      const brightness = (data[i] + data[i+1] + data[i+2]) / 3;
+      data[i+3] = Math.round((brightness * data[i+3]) / 255);
+      data[i] = 255;
+      data[i+1] = 255;
+      data[i+2] = 255;
+    }
+    mCtx.putImageData(imgData, 0, 0);
+    alphaMaskCache[key] = mCanvas;
+    return mCanvas;
+  }
+
   async function renderMockup() {
     const key = mockupKeys[currentMockupIndex];
     const mInfo = MOCKUPS[key];
@@ -597,12 +624,8 @@ document.addEventListener('DOMContentLoaded', function() {
       return;
     }
 
-    // 2. PATTERNBANK MODEL MOCKUP MODES (1-7)
+    // 2. REALISTIC PATTERNBANK MODEL MOCKUP MODES (1-8)
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    // Clean pure white studio background
-    ctx.fillStyle = '#ffffff';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     const [shadeImg, maskImg, fgImg] = await Promise.all([
       loadImage(mInfo.shade),
@@ -612,6 +635,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (shadeImg && shadeImg.complete && maskImg && maskImg.complete && currentPatternImage && currentPatternImage.complete) {
       
+      // Step 1: Draw the base real photo (model face, skin, hair, arms, background)
+      ctx.drawImage(shadeImg, 0, 0, canvas.width, canvas.height);
+
+      // Step 2: Render draped pattern buffer
       const bufCanvas = document.createElement('canvas');
       bufCanvas.width = canvas.width;
       bufCanvas.height = canvas.height;
@@ -626,14 +653,15 @@ document.addEventListener('DOMContentLoaded', function() {
       bufCtx.globalCompositeOperation = 'multiply';
       bufCtx.drawImage(shadeImg, 0, 0, canvas.width, canvas.height);
 
-      // C. Mask strictly to garment shape
+      // C. Mask strictly to garment shape using prepared alpha mask
+      const preparedMask = getPreparedMask(maskImg, canvas.width, canvas.height);
       bufCtx.globalCompositeOperation = 'destination-in';
-      bufCtx.drawImage(maskImg, 0, 0, canvas.width, canvas.height);
+      bufCtx.drawImage(preparedMask, 0, 0, canvas.width, canvas.height);
 
-      // D. Composite shaded garment onto main canvas
+      // Step 3: Composite draped garment onto base model photo
       ctx.drawImage(bufCanvas, 0, 0);
 
-      // E. Draw foreground details (wooden hanger, mannequin neck, rope handles, bare legs)
+      // Step 4: Draw foreground details on top (hanger hook, bag ropes, logo)
       if (fgImg && fgImg.complete) {
         ctx.drawImage(fgImg, 0, 0, canvas.width, canvas.height);
       }
