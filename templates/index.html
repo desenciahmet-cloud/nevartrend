@@ -196,74 +196,82 @@
 
     <!-- 8-PRODUCT THUMBNAIL CAROUSEL BAR (PATTERNBANK STYLE) -->
     <div class="mt-8 pt-6 border-t border-slate-200">
-      <div class="flex items-center justify-between mb-3">
+      <div class="flex items-center justify-between mb-4">
         <h3 class="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center gap-1.5">
           <i data-lucide="layout-grid" class="w-4 h-4 text-emerald-600"></i>
-          MODEL & ÜRÜN GALERİSİ (SEÇMEK İÇİN TIKLAYIN):
+          PROFESYONEL MODEL & ÜRÜN GALERİSİ:
         </h3>
-        <span class="text-[11px] text-slate-500 font-medium">8 Gerçekçi Kumaş & Ürün Şablonu</span>
+        <span class="text-[11px] text-slate-500 font-medium">9 Gerçekçi Kumaş & Ürün Şablonu</span>
       </div>
 
-      <div class="grid grid-cols-4 sm:grid-cols-8 gap-3" id="mockupThumbnailGrid">
+      <div class="grid grid-cols-3 sm:grid-cols-5 lg:grid-cols-9 gap-2.5" id="mockupThumbnailGrid">
         
-        <!-- 1. Askıda Kimono -->
-        <button type="button" class="mockup-thumb-btn flex flex-col items-center gap-1.5 p-2 rounded-xl border-2 transition-all border-emerald-600 bg-white shadow-md ring-2 ring-emerald-400/40" data-index="0">
+        <!-- 1. Askıda Kartela -->
+        <button type="button" class="mockup-thumb-btn flex flex-col items-center gap-1 p-2 rounded-xl border-2 transition-all border-emerald-600 bg-white shadow-md ring-2 ring-emerald-400/40" data-index="0">
           <div class="w-full aspect-square bg-slate-100 rounded-lg overflow-hidden flex items-center justify-center p-1 border border-slate-200">
-            <img src="/static/images/mockups/pb_kimono_shade.png" class="w-full h-full object-contain" alt="Askıda Kimono">
+            <img src="/static/images/mockups/pb_kartela_shade.png" class="w-full h-full object-contain" alt="Askıda Kartela">
           </div>
-          <span class="text-[10px] font-bold text-slate-800 text-center leading-tight">Askıda Kimono</span>
+          <span class="text-[10px] font-bold text-slate-800 text-center leading-tight">Askıda Kartela</span>
         </button>
 
-        <!-- 2. Terzi Mankeni -->
-        <button type="button" class="mockup-thumb-btn flex flex-col items-center gap-1.5 p-2 rounded-xl border-2 transition-all border-slate-200 bg-white hover:border-slate-300" data-index="1">
+        <!-- 2. Kadın Elbise -->
+        <button type="button" class="mockup-thumb-btn flex flex-col items-center gap-1 p-2 rounded-xl border-2 transition-all border-slate-200 bg-white hover:border-slate-300" data-index="1">
           <div class="w-full aspect-square bg-slate-100 rounded-lg overflow-hidden flex items-center justify-center p-1 border border-slate-200">
-            <img src="/static/images/mockups/pb_dress_shade.png" class="w-full h-full object-contain" alt="Kadın Tunik">
+            <img src="/static/images/mockups/pb_woman_dress_shade.png" class="w-full h-full object-contain" alt="Kadın Elbise">
           </div>
-          <span class="text-[10px] font-bold text-slate-800 text-center leading-tight">Terzi Mankeni</span>
+          <span class="text-[10px] font-bold text-slate-800 text-center leading-tight">Kadın Elbise</span>
         </button>
 
-        <!-- 3. Kadın Tayt -->
-        <button type="button" class="mockup-thumb-btn flex flex-col items-center gap-1.5 p-2 rounded-xl border-2 transition-all border-slate-200 bg-white hover:border-slate-300" data-index="2">
+        <!-- 3. Erkek Tişört -->
+        <button type="button" class="mockup-thumb-btn flex flex-col items-center gap-1 p-2 rounded-xl border-2 transition-all border-slate-200 bg-white hover:border-slate-300" data-index="2">
+          <div class="w-full aspect-square bg-slate-100 rounded-lg overflow-hidden flex items-center justify-center p-1 border border-slate-200">
+            <img src="/static/images/mockups/pb_men_tshirt_shade.png" class="w-full h-full object-contain" alt="Erkek Tişört">
+          </div>
+          <span class="text-[10px] font-bold text-slate-800 text-center leading-tight">Erkek Tişört</span>
+        </button>
+
+        <!-- 4. Kadın Tişört -->
+        <button type="button" class="mockup-thumb-btn flex flex-col items-center gap-1 p-2 rounded-xl border-2 transition-all border-slate-200 bg-white hover:border-slate-300" data-index="3">
+          <div class="w-full aspect-square bg-slate-100 rounded-lg overflow-hidden flex items-center justify-center p-1 border border-slate-200">
+            <img src="/static/images/mockups/pb_women_tshirt_shade.png" class="w-full h-full object-contain" alt="Kadın Tişört">
+          </div>
+          <span class="text-[10px] font-bold text-slate-800 text-center leading-tight">Kadın Tişört</span>
+        </button>
+
+        <!-- 5. Kadın Tayt -->
+        <button type="button" class="mockup-thumb-btn flex flex-col items-center gap-1 p-2 rounded-xl border-2 transition-all border-slate-200 bg-white hover:border-slate-300" data-index="4">
           <div class="w-full aspect-square bg-slate-100 rounded-lg overflow-hidden flex items-center justify-center p-1 border border-slate-200">
             <img src="/static/images/mockups/pb_leggings_shade.png" class="w-full h-full object-contain" alt="Kadın Tayt">
           </div>
           <span class="text-[10px] font-bold text-slate-800 text-center leading-tight">Kadın Tayt</span>
         </button>
 
-        <!-- 4. Plaj Çantası -->
-        <button type="button" class="mockup-thumb-btn flex flex-col items-center gap-1.5 p-2 rounded-xl border-2 transition-all border-slate-200 bg-white hover:border-slate-300" data-index="3">
+        <!-- 6. Plaj & El Çantası -->
+        <button type="button" class="mockup-thumb-btn flex flex-col items-center gap-1 p-2 rounded-xl border-2 transition-all border-slate-200 bg-white hover:border-slate-300" data-index="5">
           <div class="w-full aspect-square bg-slate-100 rounded-lg overflow-hidden flex items-center justify-center p-1 border border-slate-200">
-            <img src="/static/images/mockups/pb_bag_shade.png" class="w-full h-full object-contain" alt="Plaj Çantası">
+            <img src="/static/images/mockups/pb_bag_shade.png" class="w-full h-full object-contain" alt="Plaj & El Çantası">
           </div>
           <span class="text-[10px] font-bold text-slate-800 text-center leading-tight">Plaj Çantası</span>
         </button>
 
-        <!-- 5. İpek Şal -->
-        <button type="button" class="mockup-thumb-btn flex flex-col items-center gap-1.5 p-2 rounded-xl border-2 transition-all border-slate-200 bg-white hover:border-slate-300" data-index="4">
-          <div class="w-full aspect-square bg-slate-100 rounded-lg overflow-hidden flex items-center justify-center p-1 border border-slate-200">
-            <img src="/static/images/mockups/pb_silk_shade.png" class="w-full h-full object-contain" alt="İpek Fular">
-          </div>
-          <span class="text-[10px] font-bold text-slate-800 text-center leading-tight">İpek Fular</span>
-        </button>
-
-        <!-- 6. Salon Kırlenti -->
-        <button type="button" class="mockup-thumb-btn flex flex-col items-center gap-1.5 p-2 rounded-xl border-2 transition-all border-slate-200 bg-white hover:border-slate-300" data-index="5">
+        <!-- 7. Salon Kırlenti -->
+        <button type="button" class="mockup-thumb-btn flex flex-col items-center gap-1 p-2 rounded-xl border-2 transition-all border-slate-200 bg-white hover:border-slate-300" data-index="6">
           <div class="w-full aspect-square bg-slate-100 rounded-lg overflow-hidden flex items-center justify-center p-1 border border-slate-200">
             <img src="/static/images/mockups/pb_cushion_shade.png" class="w-full h-full object-contain" alt="Salon Kırlenti">
           </div>
           <span class="text-[10px] font-bold text-slate-800 text-center leading-tight">Salon Kırlenti</span>
         </button>
 
-        <!-- 7. Kumaş Rulosu -->
-        <button type="button" class="mockup-thumb-btn flex flex-col items-center gap-1.5 p-2 rounded-xl border-2 transition-all border-slate-200 bg-white hover:border-slate-300" data-index="6">
+        <!-- 8. İpek Şal & Fular -->
+        <button type="button" class="mockup-thumb-btn flex flex-col items-center gap-1 p-2 rounded-xl border-2 transition-all border-slate-200 bg-white hover:border-slate-300" data-index="7">
           <div class="w-full aspect-square bg-slate-100 rounded-lg overflow-hidden flex items-center justify-center p-1 border border-slate-200">
-            <img src="/static/images/mockups/pb_fabric_shade.png" class="w-full h-full object-contain" alt="Kumaş Rulosu">
+            <img src="/static/images/mockups/pb_silk_shade.png" class="w-full h-full object-contain" alt="İpek Şal">
           </div>
-          <span class="text-[10px] font-bold text-slate-800 text-center leading-tight">Kumaş Rulosu</span>
+          <span class="text-[10px] font-bold text-slate-800 text-center leading-tight">İpek Şal</span>
         </button>
 
-        <!-- 8. Canlı Büyüteç -->
-        <button type="button" class="mockup-thumb-btn flex flex-col items-center gap-1.5 p-2 rounded-xl border-2 transition-all border-slate-200 bg-white hover:border-slate-300" data-index="7">
+        <!-- 9. Canlı Büyüteç -->
+        <button type="button" class="mockup-thumb-btn flex flex-col items-center gap-1 p-2 rounded-xl border-2 transition-all border-slate-200 bg-white hover:border-slate-300" data-index="8">
           <div class="w-full aspect-square bg-slate-900 rounded-lg overflow-hidden flex items-center justify-center p-1 border border-slate-700 text-emerald-400">
             <i data-lucide="zoom-in" class="w-6 h-6"></i>
           </div>
@@ -332,50 +340,56 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // MOCKUP DEFINITIONS
   const MOCKUPS = {
-    kimono: {
-      name: '1. Askıda Kimono & Bluz',
-      shade: '/static/images/mockups/pb_kimono_shade.png',
-      mask: '/static/images/mockups/pb_kimono_mask.png',
-      fg: '/static/images/mockups/pb_kimono_fg.png'
+    kartela: {
+      name: '1. Askıda Kumaş Kartelası',
+      shade: '/static/images/mockups/pb_kartela_shade.png',
+      mask: '/static/images/mockups/pb_kartela_mask.png',
+      fg: '/static/images/mockups/pb_kartela_fg.png'
     },
-    dress: {
-      name: '2. Terzi Mankeni Üzerinde Tunik & Elbise',
-      shade: '/static/images/mockups/pb_dress_shade.png',
-      mask: '/static/images/mockups/pb_dress_mask.png',
-      fg: '/static/images/mockups/pb_dress_fg.png'
+    woman_dress: {
+      name: '2. Kadın Model Elbise',
+      shade: '/static/images/mockups/pb_woman_dress_shade.png',
+      mask: '/static/images/mockups/pb_woman_dress_mask.png',
+      fg: null
+    },
+    men_tshirt: {
+      name: '3. Manken Üzerinde Erkek Tişört',
+      shade: '/static/images/mockups/pb_men_tshirt_shade.png',
+      mask: '/static/images/mockups/pb_men_tshirt_mask.png',
+      fg: null
+    },
+    women_tshirt: {
+      name: '4. Manken Üzerinde Kadın Tişört',
+      shade: '/static/images/mockups/pb_women_tshirt_shade.png',
+      mask: '/static/images/mockups/pb_women_tshirt_mask.png',
+      fg: null
     },
     leggings: {
-      name: '3. Tayt Giyen Kadın Model',
+      name: '5. Tayt Giyen Kadın Model',
       shade: '/static/images/mockups/pb_leggings_shade.png',
       mask: '/static/images/mockups/pb_leggings_mask.png',
-      fg: '/static/images/mockups/pb_leggings_fg.png'
+      fg: null
     },
     bag: {
-      name: '4. Kanvas Plaj & Alışveriş Çantası',
+      name: '6. Kanvas Plaj & El Çantası',
       shade: '/static/images/mockups/pb_bag_shade.png',
       mask: '/static/images/mockups/pb_bag_mask.png',
       fg: '/static/images/mockups/pb_bag_fg.png'
     },
-    silk: {
-      name: '5. İpek Fular & Şal Drapajı',
-      shade: '/static/images/mockups/pb_silk_shade.png',
-      mask: '/static/images/mockups/pb_silk_mask.png',
-      fg: null
-    },
     cushion: {
-      name: '6. Dekoratif Salon Kırlenti',
+      name: '7. Dekoratif Salon Kırlenti',
       shade: '/static/images/mockups/pb_cushion_shade.png',
       mask: '/static/images/mockups/pb_cushion_mask.png',
       fg: null
     },
-    fabric: {
-      name: '7. Kumaş Rulosu & Metraj Drape',
-      shade: '/static/images/mockups/pb_fabric_shade.png',
-      mask: '/static/images/mockups/pb_fabric_mask.png',
-      fg: '/static/images/mockups/pb_fabric_fg.png'
+    silk: {
+      name: '8. İpek Fular & Şal Drapajı',
+      shade: '/static/images/mockups/pb_silk_shade.png',
+      mask: '/static/images/mockups/pb_silk_mask.png',
+      fg: null
     },
     repeat: {
-      name: '8. Dikişsiz Desen Tekrarı & Büyüteç',
+      name: '9. Dikişsiz Desen Tekrarı & Büyüteç',
       shade: null,
       mask: null,
       fg: null
