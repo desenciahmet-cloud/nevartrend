@@ -1,0 +1,197 @@
+[
+  {
+    "id": "NT_006",
+    "code": "NT_006",
+    "title": "Leopar Zincir Deseni",
+    "category": "leopar-hayvan",
+    "category_name": "Barok, Kemer, Zincir, Dekoratif Hayvan Desenleri",
+    "print_type": "Emprime & Dijital Uyumlu",
+    "separation_ready": true,
+    "screen_count": 6,
+    "base_price": 185.0,
+    "rating": 5.0,
+    "reviews_count": 14,
+    "tags": [
+      "Yeni",
+      "Leopar",
+      "Zincir",
+      "Barok",
+      "Kemer"
+    ],
+    "image": "/static/images/NT_006.jpg",
+    "pattern_tile": "/static/images/NT_006.jpg",
+    "description": "Trenddesen yeni sezon özel dijital baskı deseni. Barok kemer, zincir ve vahşi doğa leopar motifli yüksek çözünürlüklü kumaş deseni.",
+    "colors": [
+      "#d97706",
+      "#1e293b",
+      "#047857",
+      "#fef08a"
+    ],
+    "featured": true,
+    "is_new": true,
+    "discount_pct": 0,
+    "sales_count": 48
+  },
+  {
+    "id": "NT_005",
+    "code": "NT_005",
+    "title": "Kırık Cam Deseni",
+    "category": "soyut-mermer",
+    "category_name": "Batik, - Eskitme Değişik dokular",
+    "print_type": "Dijital & Emprime Uyumlu",
+    "separation_ready": true,
+    "screen_count": 5,
+    "base_price": 185.0,
+    "rating": 5.0,
+    "reviews_count": 19,
+    "tags": [
+      "Yeni",
+      "Kırık Cam",
+      "Soyut",
+      "Mermer",
+      "Batik"
+    ],
+    "image": "/static/images/NT_005.jpg",
+    "pattern_tile": "/static/images/NT_005.jpg",
+    "description": "Trenddesen yeni sezon özel dijital baskı deseni. Modern soyut kırık cam ve eskitme batik doku.",
+    "colors": [
+      "#f97316",
+      "#06b6d4",
+      "#64748b",
+      "#f8fafc"
+    ],
+    "featured": true,
+    "is_new": true,
+    "discount_pct": 0,
+    "sales_count": 62
+  },
+  {
+    "id": "NT_004",
+    "code": "NT_004_60980536",
+    "title": "Bahar Çiçekleri",
+    "category": "desenler",
+    "category_name": "Çiçekli & Botanik",
+    "print_type": "Dijital & Emprime Uyumlu",
+    "separation_ready": true,
+    "screen_count": 6,
+    "base_price": 185.0,
+    "rating": 5.0,
+    "reviews_count": 28,
+    "tags": [
+      "Yeni",
+      "Bahar Çiçekleri",
+      "Botanik",
+      "Çiçekli"
+    ],
+    "image": "/static/images/NT_004.jpg",
+    "pattern_tile": "/static/images/NT_004.jpg",
+    "description": "Trenddesen yeni sezon özel dijital baskı deseni. Bahar çiçekleri ve pastel yaprak tonları.",
+    "colors": [
+      "#ec4899",
+      "#10b981",
+      "#f59e0b",
+      "#38bdf8"
+    ],
+    "featured": true,
+    "is_new": true,
+    "discount_pct": 0,
+    "sales_count": 84
+  },
+  {
+    "id": "NT_003",
+    "code": "NT_003_85328767",
+    "title": "Mor Gül Bahçesi",
+    "category": "desenler",
+    "category_name": "Çiçekli & Botanik",
+    "print_type": "Dijital & Emprime Uyumlu",
+    "separation_ready": true,
+    "screen_count": 5,
+    "base_price": 185.0,
+    "rating": 5.0,
+    "reviews_count": 31,
+    "tags": [
+      "Yeni",
+      "Mor Gül",
+      "Çiçekli",
+      "Zarif"
+    ],
+    "image": "/static/images/NT_003.jpg",
+    "pattern_tile": "/static/images/NT_003.jpg",
+    "description": "Trenddesen yeni sezon özel dijital baskı deseni. Siyah zemin üzerinde koyu ve açık mor güller.",
+    "colors": [
+      "#a855f7",
+      "#0f172a",
+      "#22c55e",
+      "#f43f5e"
+    ],
+    "featured": true,
+    "is_new": true,
+    "discount_pct": 0,
+    "sales_count": 95
+  },
+  {
+    "id": "NT_002",
+    "code": "NT_002_60980536",
+    "title": "Papatya Bahçesi",
+    "category": "desenler",
+    "category_name": "Çiçekli & Botanik",
+    "print_type": "Dijital & Emprime Uyumlu",
+    "separation_ready": true,
+    "screen_count": 4,
+    "base_price": 185.0,
+    "rating": 5.0,
+    "reviews_count": 42,
+    "tags": [
+      "Yeni",
+      "Papatya",
+      "Çiçekli",
+      "Sarı",
+      "Beyaz"
+    ],
+    "image": "/static/images/NT_002.jpg",
+    "pattern_tile": "/static/images/NT_002.jpg",
+    "description": "Trenddesen yeni sezon özel dijital baskı deseni. Sarı ve beyaz papatyalarla dolu canlı bahçe deseni.",
+    "colors": [
+      "#eab308",
+      "#ffffff",
+      "#15803d",
+      "#78350f"
+    ],
+    "featured": true,
+    "is_new": true,
+    "discount_pct": 0,
+    "sales_count": 110
+  },
+  {
+    "id": "NT_001",
+    "code": "NT_001",
+    "title": "Sulu Boya Çiçek Bahçesi",
+    "category": "desenler",
+    "category_name": "Çiçekli & Botanik",
+    "print_type": "Dijital & Emprime Uyumlu",
+    "separation_ready": true,
+    "screen_count": 5,
+    "base_price": 185.0,
+    "rating": 5.0,
+    "reviews_count": 37,
+    "tags": [
+      "Yeni",
+      "Suluboya",
+      "Kırmızı Gül",
+      "Çiçekli"
+    ],
+    "image": "/static/images/NT_001.jpg",
+    "pattern_tile": "/static/images/NT_001.jpg",
+    "description": "Trenddesen yeni sezon özel dijital baskı deseni. Krem zemin üzerine sulu boya tekniğiyle hazırlanmış kırmızı ve pembe çiçekler.",
+    "colors": [
+      "#ef4444",
+      "#fef08a",
+      "#16a34a",
+      "#f43f5e"
+    ],
+    "featured": true,
+    "is_new": true,
+    "discount_pct": 0,
+    "sales_count": 125
+  }
+]
