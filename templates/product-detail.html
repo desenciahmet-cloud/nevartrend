@@ -570,9 +570,16 @@
     if (imgCache[src]) return Promise.resolve(imgCache[src]);
     return new Promise((resolve) => {
       const img = new Image();
-      img.crossOrigin = "anonymous";
+      if (src.startsWith('http://') || src.startsWith('https://')) {
+        img.crossOrigin = 'anonymous';
+      }
       img.onload = () => { imgCache[src] = img; resolve(img); };
-      img.onerror = () => resolve(null);
+      img.onerror = () => {
+        const retry = new Image();
+        retry.onload = () => { imgCache[src] = retry; resolve(retry); };
+        retry.onerror = () => resolve(null);
+        retry.src = src;
+      };
       img.src = src;
     });
   }
@@ -706,30 +713,40 @@
   }
 
   function createTransformedPattern(tileSize, angleDeg) {
+    // 1. Create filtered source tile (force pixel rasterization)
+    const fCanvas = document.createElement('canvas');
+    fCanvas.width = tileSize;
+    fCanvas.height = tileSize;
+    const fCtx = fCanvas.getContext('2d');
+
+    let filterStr = `hue-rotate(${variantState.hue}deg) saturate(${variantState.saturate}%) brightness(${variantState.brightness}%) contrast(${variantState.contrast}%)`;
+    if (variantState.grayscale > 0) filterStr += ` grayscale(${variantState.grayscale}%)`;
+    if (variantState.sepia > 0) filterStr += ` sepia(${variantState.sepia}%)`;
+    
+    fCtx.filter = filterStr;
+    fCtx.drawImage(patternImage, 0, 0, tileSize, tileSize);
+    fCtx.filter = 'none';
+
+    if (variantState.tintAlpha > 0) {
+      fCtx.save();
+      fCtx.globalAlpha = variantState.tintAlpha / 100;
+      fCtx.globalCompositeOperation = 'color';
+      fCtx.fillStyle = variantState.tintColor;
+      fCtx.fillRect(0, 0, tileSize, tileSize);
+      fCtx.restore();
+    }
+
+    // 2. Rotate onto final pattern tile
     const pCanvas = document.createElement('canvas');
     pCanvas.width = tileSize;
     pCanvas.height = tileSize;
     const pCtx = pCanvas.getContext('2d');
 
     pCtx.save();
-    let filterStr = `hue-rotate(${variantState.hue}deg) saturate(${variantState.saturate}%) brightness(${variantState.brightness}%) contrast(${variantState.contrast}%)`;
-    if (variantState.grayscale > 0) filterStr += ` grayscale(${variantState.grayscale}%)`;
-    if (variantState.sepia > 0) filterStr += ` sepia(${variantState.sepia}%)`;
-    pCtx.filter = filterStr;
-
     pCtx.translate(tileSize / 2, tileSize / 2);
     pCtx.rotate((angleDeg * Math.PI) / 180);
-    pCtx.drawImage(patternImage, -tileSize / 2, -tileSize / 2, tileSize, tileSize);
+    pCtx.drawImage(fCanvas, -tileSize / 2, -tileSize / 2, tileSize, tileSize);
     pCtx.restore();
-
-    if (variantState.tintAlpha > 0) {
-      pCtx.save();
-      pCtx.globalAlpha = variantState.tintAlpha / 100;
-      pCtx.globalCompositeOperation = 'color';
-      pCtx.fillStyle = variantState.tintColor;
-      pCtx.fillRect(0, 0, tileSize, tileSize);
-      pCtx.restore();
-    }
 
     return pCanvas;
   }
@@ -797,8 +814,14 @@
       if (patternImage && patternImage.complete) {
         const pCanvas = createTransformedPattern(tilePx, currentAngle);
         const ptrn = ctx.createPattern(pCanvas, 'repeat');
+        ctx.save();
+        let filterStr = `hue-rotate(${variantState.hue}deg) saturate(${variantState.saturate}%) brightness(${variantState.brightness}%) contrast(${variantState.contrast}%)`;
+        if (variantState.grayscale > 0) filterStr += ` grayscale(${variantState.grayscale}%)`;
+        if (variantState.sepia > 0) filterStr += ` sepia(${variantState.sepia}%)`;
+        ctx.filter = filterStr;
         ctx.fillStyle = ptrn;
         ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.restore();
 
         // Grid
         ctx.strokeStyle = 'rgba(255, 255, 255, 0.25)';
@@ -862,8 +885,14 @@
       const bufCtx = bufCanvas.getContext('2d');
 
       const pStandard = createTransformedPattern(tilePx, currentAngle);
+      bufCtx.save();
+      let filterStr = `hue-rotate(${variantState.hue}deg) saturate(${variantState.saturate}%) brightness(${variantState.brightness}%) contrast(${variantState.contrast}%)`;
+      if (variantState.grayscale > 0) filterStr += ` grayscale(${variantState.grayscale}%)`;
+      if (variantState.sepia > 0) filterStr += ` sepia(${variantState.sepia}%)`;
+      bufCtx.filter = filterStr;
       bufCtx.fillStyle = bufCtx.createPattern(pStandard, 'repeat');
       bufCtx.fillRect(0, 0, canvas.width, canvas.height);
+      bufCtx.restore();
 
       // Mask clipping
       bufCtx.globalCompositeOperation = 'destination-in';

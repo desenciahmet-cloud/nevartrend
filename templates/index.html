@@ -124,33 +124,77 @@
             </div>
           </div>
 
-          <!-- Quick Variant Colorways -->
-          <div class="space-y-2 mb-5">
-            <div class="flex items-center justify-between text-xs">
-              <span class="font-bold text-slate-700 uppercase tracking-wider flex items-center gap-1">
-                <i data-lucide="palette" class="w-3.5 h-3.5 text-emerald-700"></i>
-                Canlı Renk Yolu (Varyant):
+          <!-- Full Variant Colorway & Hue Tuning Studio Box -->
+          <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-3 mb-5 shadow-xs">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-slate-800 uppercase tracking-wider flex items-center gap-1.5">
+                <i data-lucide="palette" class="w-4 h-4 text-emerald-700"></i>
+                Canlı Renk Varyantı & Hue Çarkı:
               </span>
-              <span id="homeVariantLabel" class="font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded text-[10px]">Orijinal</span>
+              <span id="homeVariantLabel" class="font-bold text-emerald-800 bg-emerald-100 px-2.5 py-0.5 rounded text-[11px]">Orijinal</span>
             </div>
+
+            <!-- Quick Presets -->
             <div class="grid grid-cols-4 gap-1.5" id="homeVariantPills">
               <button type="button" onclick="setHomeVariant('original')" id="hvp-original" class="home-var-btn active px-2 py-1.5 rounded-lg border-2 border-emerald-600 bg-emerald-50 text-emerald-800 text-[10px] font-bold flex items-center gap-1 justify-center transition">
-                <span class="w-2.5 h-2.5 rounded-full bg-gradient-to-tr from-amber-500 via-rose-500 to-emerald-500"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-gradient-to-tr from-amber-500 via-rose-500 to-emerald-500 flex-shrink-0"></span>
                 <span>Orijinal</span>
               </button>
               <button type="button" onclick="setHomeVariant('midnight')" id="hvp-midnight" class="home-var-btn px-2 py-1.5 rounded-lg border border-slate-200 bg-white text-slate-700 hover:border-slate-300 text-[10px] font-bold flex items-center gap-1 justify-center transition">
-                <span class="w-2.5 h-2.5 rounded-full bg-blue-900"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-blue-900 flex-shrink-0"></span>
                 <span>Gece</span>
               </button>
               <button type="button" onclick="setHomeVariant('autumn')" id="hvp-autumn" class="home-var-btn px-2 py-1.5 rounded-lg border border-slate-200 bg-white text-slate-700 hover:border-slate-300 text-[10px] font-bold flex items-center gap-1 justify-center transition">
-                <span class="w-2.5 h-2.5 rounded-full bg-amber-700"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-amber-700 flex-shrink-0"></span>
                 <span>Sonbahar</span>
               </button>
               <button type="button" onclick="setHomeVariant('emerald')" id="hvp-emerald" class="home-var-btn px-2 py-1.5 rounded-lg border border-slate-200 bg-white text-slate-700 hover:border-slate-300 text-[10px] font-bold flex items-center gap-1 justify-center transition">
-                <span class="w-2.5 h-2.5 rounded-full bg-emerald-800"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-800 flex-shrink-0"></span>
                 <span>Zümrüt</span>
               </button>
             </div>
+
+            <!-- Hue & Saturation Sliders -->
+            <div class="space-y-2.5 pt-2 border-t border-slate-200">
+              <!-- Hue Slider -->
+              <div class="space-y-1">
+                <div class="flex justify-between text-[11px] text-slate-700">
+                  <span class="font-bold flex items-center gap-1">
+                    <i data-lucide="sliders" class="w-3.5 h-3.5 text-emerald-700"></i>
+                    Renk Tonu (Hue Rotate):
+                  </span>
+                  <span id="homeHueVal" class="font-mono font-extrabold text-emerald-800 bg-white px-2 py-0.5 rounded border border-slate-200 text-xs">0°</span>
+                </div>
+                <input 
+                  type="range" 
+                  min="0" 
+                  max="360" 
+                  value="0" 
+                  id="homeHueSlider" 
+                  oninput="updateHomeHueFromSlider()" 
+                  class="w-full h-2 bg-gradient-to-r from-red-500 via-yellow-500 via-green-500 via-cyan-500 via-blue-500 via-purple-500 to-red-500 rounded-lg appearance-none cursor-pointer"
+                >
+              </div>
+
+              <!-- Saturation & Brightness in 2 cols -->
+              <div class="grid grid-cols-2 gap-2.5">
+                <div class="space-y-1">
+                  <div class="flex justify-between text-[10px] text-slate-600">
+                    <span class="font-semibold">Doygunluk:</span>
+                    <span id="homeSatVal" class="font-mono font-bold text-slate-900">100%</span>
+                  </div>
+                  <input type="range" min="0" max="200" value="100" id="homeSatSlider" oninput="updateHomeHueFromSlider()" class="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-emerald-600">
+                </div>
+                <div class="space-y-1">
+                  <div class="flex justify-between text-[10px] text-slate-600">
+                    <span class="font-semibold">Parlaklık:</span>
+                    <span id="homeBrightVal" class="font-mono font-bold text-slate-900">100%</span>
+                  </div>
+                  <input type="range" min="50" max="150" value="100" id="homeBrightSlider" oninput="updateHomeHueFromSlider()" class="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-emerald-600">
+                </div>
+              </div>
+            </div>
+
           </div>
 
           <!-- Pattern Scale / Size Controls -->
@@ -455,9 +499,16 @@ document.addEventListener('DOMContentLoaded', function() {
     if (imgCache[src]) return Promise.resolve(imgCache[src]);
     return new Promise(resolve => {
       const img = new Image();
-      img.crossOrigin = 'anonymous';
+      if (src.startsWith('http://') || src.startsWith('https://')) {
+        img.crossOrigin = 'anonymous';
+      }
       img.onload = () => { imgCache[src] = img; resolve(img); };
-      img.onerror = () => resolve(null);
+      img.onerror = () => {
+        const retry = new Image();
+        retry.onload = () => { imgCache[src] = retry; resolve(retry); };
+        retry.onerror = () => resolve(null);
+        retry.src = src;
+      };
       img.src = src;
     });
   }
@@ -513,19 +564,45 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Home Page Variant State
   const HOME_VARIANTS = {
-    original: { name: 'Orijinal', filter: 'none' },
-    midnight: { name: 'Gece Laciverti', filter: 'hue-rotate(215deg) saturate(125%) brightness(90%)' },
-    autumn: { name: 'Sıcak Sonbahar', filter: 'hue-rotate(35deg) saturate(135%) brightness(100%)' },
-    emerald: { name: 'Zümrüt Yeşili', filter: 'hue-rotate(125deg) saturate(130%) brightness(95%)' }
+    original: { name: 'Orijinal', hue: 0, saturate: 100, brightness: 100 },
+    midnight: { name: 'Gece Laciverti', hue: 215, saturate: 125, brightness: 90 },
+    autumn: { name: 'Sıcak Sonbahar', hue: 35, saturate: 135, brightness: 100 },
+    emerald: { name: 'Zümrüt Yeşili', hue: 125, saturate: 130, brightness: 95 }
   };
-  let currentHomeVariantKey = 'original';
+  let homeVariantState = { hue: 0, saturate: 100, brightness: 100 };
 
-  function setHomeVariant(key) {
+  window.updateHomeHueFromSlider = function() {
+    homeVariantState.hue = parseInt(document.getElementById('homeHueSlider').value) || 0;
+    homeVariantState.saturate = parseInt(document.getElementById('homeSatSlider').value) || 100;
+    homeVariantState.brightness = parseInt(document.getElementById('homeBrightSlider').value) || 100;
+
+    document.getElementById('homeHueVal').textContent = homeVariantState.hue + '°';
+    document.getElementById('homeSatVal').textContent = homeVariantState.saturate + '%';
+    document.getElementById('homeBrightVal').textContent = homeVariantState.brightness + '%';
+    document.getElementById('homeVariantLabel').textContent = 'Özel (' + homeVariantState.hue + '°)';
+
+    document.querySelectorAll('.home-var-btn').forEach(btn => {
+      btn.className = 'home-var-btn px-2 py-1.5 rounded-lg border border-slate-200 bg-white text-slate-700 hover:border-slate-300 text-[10px] font-bold flex items-center gap-1 justify-center transition';
+    });
+
+    renderMockup();
+  };
+
+  window.setHomeVariant = function(key) {
     if (!HOME_VARIANTS[key]) return;
-    currentHomeVariantKey = key;
+    const v = HOME_VARIANTS[key];
+    homeVariantState.hue = v.hue;
+    homeVariantState.saturate = v.saturate;
+    homeVariantState.brightness = v.brightness;
 
-    const label = document.getElementById('homeVariantLabel');
-    if (label) label.textContent = HOME_VARIANTS[key].name;
+    document.getElementById('homeHueSlider').value = homeVariantState.hue;
+    document.getElementById('homeSatSlider').value = homeVariantState.saturate;
+    document.getElementById('homeBrightSlider').value = homeVariantState.brightness;
+
+    document.getElementById('homeHueVal').textContent = homeVariantState.hue + '°';
+    document.getElementById('homeSatVal').textContent = homeVariantState.saturate + '%';
+    document.getElementById('homeBrightVal').textContent = homeVariantState.brightness + '%';
+    document.getElementById('homeVariantLabel').textContent = v.name;
 
     document.querySelectorAll('.home-var-btn').forEach(btn => {
       btn.className = 'home-var-btn px-2 py-1.5 rounded-lg border border-slate-200 bg-white text-slate-700 hover:border-slate-300 text-[10px] font-bold flex items-center gap-1 justify-center transition';
@@ -536,22 +613,29 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     renderMockup();
-  }
+  };
 
   function createTransformedPattern(tileSize, angleDeg) {
+    const fCanvas = document.createElement('canvas');
+    fCanvas.width = tileSize;
+    fCanvas.height = tileSize;
+    const fCtx = fCanvas.getContext('2d');
+
+    fCtx.filter = `hue-rotate(${homeVariantState.hue}deg) saturate(${homeVariantState.saturate}%) brightness(${homeVariantState.brightness}%)`;
+    fCtx.drawImage(currentPatternImage, 0, 0, tileSize, tileSize);
+    fCtx.filter = 'none';
+
     const pCanvas = document.createElement('canvas');
     pCanvas.width = tileSize;
     pCanvas.height = tileSize;
     const pCtx = pCanvas.getContext('2d');
 
     pCtx.save();
-    if (currentHomeVariantKey && HOME_VARIANTS[currentHomeVariantKey]) {
-      pCtx.filter = HOME_VARIANTS[currentHomeVariantKey].filter;
-    }
     pCtx.translate(tileSize / 2, tileSize / 2);
     pCtx.rotate((angleDeg * Math.PI) / 180);
-    pCtx.drawImage(currentPatternImage, -tileSize / 2, -tileSize / 2, tileSize, tileSize);
+    pCtx.drawImage(fCanvas, -tileSize / 2, -tileSize / 2, tileSize, tileSize);
     pCtx.restore();
+
     return pCanvas;
   }
 
@@ -637,8 +721,11 @@ document.addEventListener('DOMContentLoaded', function() {
       if (currentPatternImage && currentPatternImage.complete && currentPatternImage.naturalWidth > 0) {
         const pCanvas = createTransformedPattern(tilePx, currentPatternAngle);
         const ptrn = ctx.createPattern(pCanvas, 'repeat');
+        ctx.save();
+        ctx.filter = `hue-rotate(${homeVariantState.hue}deg) saturate(${homeVariantState.saturate}%) brightness(${homeVariantState.brightness}%)`;
         ctx.fillStyle = ptrn;
         ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.restore();
 
         // Subtle grid lines
         ctx.strokeStyle = 'rgba(255, 255, 255, 0.25)';
@@ -708,10 +795,13 @@ document.addEventListener('DOMContentLoaded', function() {
       bufCanvas.height = canvas.height;
       const bufCtx = bufCanvas.getContext('2d');
 
-      // A. Pattern fill
+      // A. Pattern fill with hardware-accelerated variant filter
       const pStandard = createTransformedPattern(tilePx, currentPatternAngle);
+      bufCtx.save();
+      bufCtx.filter = `hue-rotate(${homeVariantState.hue}deg) saturate(${homeVariantState.saturate}%) brightness(${homeVariantState.brightness}%)`;
       bufCtx.fillStyle = bufCtx.createPattern(pStandard, 'repeat');
       bufCtx.fillRect(0, 0, canvas.width, canvas.height);
+      bufCtx.restore();
 
       // B. Multiply realistic fabric shadows & creases from base photo
       bufCtx.globalCompositeOperation = 'multiply';
