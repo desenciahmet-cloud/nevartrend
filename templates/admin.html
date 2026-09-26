@@ -54,6 +54,16 @@
     <i data-lucide="trash-2" class="w-4 h-4"></i>
     <span>Desen katalogdan silindi.</span>
   </div>
+  {% elif msg == 'cat_added' %}
+  <div class="p-4 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-2xl flex items-center gap-2 text-xs font-bold">
+    <i data-lucide="check-circle-2" class="w-4 h-4"></i>
+    <span>Yeni kategori başarıyla eklendi ve kataloğa tanımlandı!</span>
+  </div>
+  {% elif msg == 'cat_deleted' %}
+  <div class="p-4 bg-rose-50 border border-rose-200 text-rose-800 rounded-2xl flex items-center gap-2 text-xs font-bold">
+    <i data-lucide="trash-2" class="w-4 h-4"></i>
+    <span>Kategori sistemden silindi.</span>
+  </div>
   {% elif msg == 'fabric_updated' %}
   <div class="p-4 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-2xl flex items-center gap-2 text-xs font-bold">
     <i data-lucide="check-circle-2" class="w-4 h-4"></i>
@@ -79,9 +89,9 @@
       <span class="text-[10px] text-slate-500 font-bold">Katalogda Yayında</span>
     </div>
     <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-2">
-      <span class="text-xs text-slate-400 font-semibold">Toplam Sipariş</span>
-      <p class="text-2xl font-extrabold text-slate-900">{{ orders|length }} Sipariş</p>
-      <span class="text-[10px] text-emerald-600 font-bold">Baskı & Kargoda</span>
+      <span class="text-xs text-slate-400 font-semibold">Kategori Sayısı</span>
+      <p class="text-2xl font-extrabold text-slate-900">{{ categories|length }} Kategori</p>
+      <span class="text-[10px] text-emerald-600 font-bold">Özelleştirilebilir</span>
     </div>
     <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-2">
       <span class="text-xs text-slate-400 font-semibold">Kumaş Çeşitleri</span>
@@ -157,7 +167,77 @@
     </div>
   </div>
 
-  <!-- SECTION 2: Kumaş Türleri ve Metre Fiyatları Yönetimi -->
+  <!-- SECTION 2: Kategori Yönetimi (Yeni Kategori Ekleme / Silme) -->
+  <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-6">
+    <div class="border-b border-slate-100 pb-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+      <div>
+        <h3 class="font-bold text-slate-900 text-base flex items-center gap-2">
+          <i data-lucide="folder-plus" class="w-5 h-5 text-emerald-700"></i>
+          <span>Kategori Yönetimi & Yeni Kategori Ekle</span>
+        </h3>
+        <p class="text-xs text-slate-400 mt-0.5">Desenlerinizi gruplandırmak için dilediğiniz kadar yeni kategori oluşturabilir veya silebilirsiniz.</p>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <!-- Yeni Kategori Ekleme Formu -->
+      <form action="/api/admin/categories/add" method="POST" class="p-5 bg-emerald-50/50 border border-emerald-200 rounded-2xl space-y-3 text-xs">
+        <h4 class="font-bold text-emerald-950 text-sm flex items-center gap-1.5">
+          <i data-lucide="plus-circle" class="w-4 h-4 text-emerald-700"></i>
+          <span>Yeni Kategori Oluştur</span>
+        </h4>
+        
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Kategori Adı *</label>
+          <input type="text" name="name" required placeholder="Örn: Leopar & Hayvan Motifleri" class="w-full bg-white border border-slate-200 rounded-xl p-2.5 font-bold text-slate-900 focus:ring-2 focus:ring-emerald-600">
+        </div>
+
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Rozet / Etiket (İsteğe Bağlı)</label>
+          <input type="text" name="badge" placeholder="Örn: Trend Koleksiyon" value="Yeni" class="w-full bg-white border border-slate-200 rounded-xl p-2.5">
+        </div>
+
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Kategori Açıklaması</label>
+          <textarea name="description" rows="2" placeholder="Kategoriye ait kısa tanıtım..." class="w-full bg-white border border-slate-200 rounded-xl p-2.5"></textarea>
+        </div>
+
+        <button type="submit" class="w-full py-2.5 bg-emerald-700 hover:bg-emerald-800 text-white rounded-xl font-bold transition flex items-center justify-center gap-1.5 shadow-sm">
+          <i data-lucide="check" class="w-4 h-4"></i>
+          <span>Kategoriyi Ekle</span>
+        </button>
+      </form>
+
+      <!-- Mevcut Kategoriler Listesi -->
+      <div class="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-[350px] overflow-y-auto p-1">
+        {% for cat in categories %}
+        {% if cat.id != 'all' %}
+        <div class="p-4 bg-slate-50 border border-slate-200 rounded-2xl flex items-center justify-between gap-3 text-xs hover:border-emerald-300 transition">
+          <div class="space-y-1">
+            <div class="flex items-center gap-1.5">
+              <span class="font-bold text-slate-900">{{ cat.name }}</span>
+              {% if cat.badge %}
+              <span class="px-1.5 py-0.5 bg-emerald-100 text-emerald-800 text-[9px] font-extrabold rounded">{{ cat.badge }}</span>
+              {% endif %}
+            </div>
+            <span class="text-[10px] text-slate-400 font-mono block">id: {{ cat.id }}</span>
+            <p class="text-[11px] text-slate-500 line-clamp-1">{{ cat.description }}</p>
+          </div>
+          
+          <form action="/api/admin/categories/delete" method="POST" onsubmit="return confirm('Bu kategoriyi silmek istediğinize emin misiniz?');">
+            <input type="hidden" name="category_id" value="{{ cat.id }}">
+            <button type="submit" class="p-2 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-xl transition" title="Kategoriyi Sil">
+              <i data-lucide="trash-2" class="w-4 h-4"></i>
+            </button>
+          </form>
+        </div>
+        {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 3: Kumaş Türleri ve Metre Fiyatları Yönetimi -->
   <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-6">
     <div class="border-b border-slate-100 pb-3">
       <h3 class="font-bold text-slate-900 text-base flex items-center gap-2">
@@ -213,7 +293,7 @@
     </div>
   </div>
 
-  <!-- SECTION 3: Gelen Siparişler -->
+  <!-- SECTION 4: Gelen Siparişler -->
   <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-4">
     <h3 class="font-bold text-slate-900 text-base border-b border-slate-100 pb-3 flex items-center gap-2">
       <i data-lucide="truck" class="w-5 h-5 text-emerald-700"></i>
@@ -282,13 +362,18 @@
         </div>
         <div>
           <label class="block font-bold text-slate-700 mb-1">Kategori *</label>
-          <select id="edit-category" name="category" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 font-medium">
+          <select id="edit-category" name="category" onchange="toggleCategoryInput(this, 'edit-custom-cat-wrapper')" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 font-medium">
             {% for cat in categories %}
             {% if cat.id != 'all' %}
             <option value="{{ cat.id }}">{{ cat.name }}</option>
             {% endif %}
             {% endfor %}
+            <option value="__new__" class="font-bold text-emerald-700 bg-emerald-50">➕ + Yeni Kategori Tanımla...</option>
           </select>
+          <div id="edit-custom-cat-wrapper" class="hidden mt-2 p-2.5 bg-emerald-50 border border-emerald-200 rounded-xl space-y-1">
+            <label class="block font-bold text-emerald-900 text-[11px]">Yeni Kategori Adı:</label>
+            <input type="text" id="edit-new-category-name" name="new_category_name" placeholder="Örn: Leopar & Hayvan Motifleri" class="w-full bg-white border border-emerald-300 rounded-lg p-2 font-bold text-slate-900 focus:ring-2 focus:ring-emerald-600">
+          </div>
         </div>
       </div>
 
@@ -355,23 +440,29 @@
     <form action="/api/admin/products" method="POST" enctype="multipart/form-data" class="space-y-4 text-xs">
       <div>
         <label class="block font-bold text-slate-700 mb-1">Desen Adı (Türkçe) *</label>
-        <input type="text" name="title" required placeholder="Örn: Akdeniz Limon Bahçesi" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 font-bold text-sm focus:ring-2 focus:ring-emerald-600">
+        <input type="text" name="title" required placeholder="Örn: Zincir ve kemer motifli leopar deseni" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 font-bold text-sm focus:ring-2 focus:ring-emerald-600">
       </div>
 
       <div class="grid grid-cols-2 gap-3">
         <div>
           <label class="block font-bold text-slate-700 mb-1">Desen Kodu *</label>
-          <input type="text" name="code" required placeholder="TD-109" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 uppercase font-mono font-bold">
+          <input type="text" name="code" required placeholder="NT_005" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 uppercase font-mono font-bold">
         </div>
         <div>
           <label class="block font-bold text-slate-700 mb-1">Kategori *</label>
-          <select name="category" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 font-medium">
+          <select id="add-category" name="category" onchange="toggleCategoryInput(this, 'add-custom-cat-wrapper')" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 font-medium">
             {% for cat in categories %}
             {% if cat.id != 'all' %}
             <option value="{{ cat.id }}">{{ cat.name }}</option>
             {% endif %}
             {% endfor %}
+            <option value="__new__" class="font-bold text-emerald-700 bg-emerald-50">➕ + Yeni Kategori Tanımla...</option>
           </select>
+          <div id="add-custom-cat-wrapper" class="hidden mt-2 p-2.5 bg-emerald-50 border border-emerald-200 rounded-xl space-y-1">
+            <label class="block font-bold text-emerald-900 text-[11px]">Yeni Kategori Adını Yazın:</label>
+            <input type="text" id="add-new-category-name" name="new_category_name" placeholder="Örn: Leopar & Hayvan Motifleri" class="w-full bg-white border border-emerald-300 rounded-lg p-2 font-bold text-slate-900 focus:ring-2 focus:ring-emerald-600">
+            <span class="text-[10px] text-emerald-700 block">Yeni kategoriniz deseni eklediğinizde sisteme otomatik kaydedilir.</span>
+          </div>
         </div>
       </div>
 
@@ -424,6 +515,17 @@
 </div>
 
 <script>
+  function toggleCategoryInput(selectElem, wrapperId) {
+    const wrapper = document.getElementById(wrapperId);
+    if (selectElem.value === '__new__') {
+      wrapper.classList.remove('hidden');
+      const input = wrapper.querySelector('input');
+      if (input) input.focus();
+    } else {
+      wrapper.classList.add('hidden');
+    }
+  }
+
   function previewAddImage(input) {
     if (input.files && input.files[0]) {
       const file = input.files[0];
@@ -460,10 +562,14 @@
     document.getElementById('edit-product-id').value = id;
     document.getElementById('edit-code').value = code;
     document.getElementById('edit-title').value = title;
-    document.getElementById('edit-category').value = category;
     document.getElementById('edit-price').value = price;
     document.getElementById('edit-description').value = desc;
     document.getElementById('edit-image').value = img || '';
+    
+    const catSelect = document.getElementById('edit-category');
+    catSelect.value = category;
+    const catWrapper = document.getElementById('edit-custom-cat-wrapper');
+    if (catWrapper) catWrapper.classList.add('hidden');
     
     // Reset file preview
     document.getElementById('edit_image_file').value = '';
@@ -481,12 +587,19 @@
   }
 
   function openAddModal() {
-    // Reset add form previews
+    // Reset add form previews and category
     document.getElementById('add_image_file').value = '';
     document.getElementById('add-upload-placeholder').classList.remove('hidden');
     const prev = document.getElementById('add-preview-container');
     prev.classList.add('hidden');
     prev.classList.remove('flex');
+    
+    const catWrapper = document.getElementById('add-custom-cat-wrapper');
+    if (catWrapper) {
+      catWrapper.classList.add('hidden');
+      const input = catWrapper.querySelector('input');
+      if (input) input.value = '';
+    }
     
     document.getElementById('add-modal').classList.remove('hidden');
     if (window.lucide) lucide.createIcons();
