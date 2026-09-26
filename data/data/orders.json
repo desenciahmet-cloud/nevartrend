@@ -1,0 +1,66 @@
+[
+  {
+    "id": "NVT-B3AD01",
+    "customer_name": "Test Müşteri",
+    "customer_email": "test@nevartrend.com",
+    "customer_phone": "0555 111 22 33",
+    "address_full": "Alsancak Mah. No:1 Konak/İzmir",
+    "cargo_company": "Yurtiçi Kargo",
+    "payment_method": "Kredi Kartı",
+    "items": [
+      {
+        "product_id": "TD-101",
+        "product_title": "Pastel Şakayık & Botanik Bahçe",
+        "fabric_id": "pamuk-poplin",
+        "fabric_name": "100% Pamuk Poplin",
+        "meters": 3.0,
+        "unit_price": 185.0,
+        "total_price": 555.0,
+        "image": ""
+      }
+    ],
+    "subtotal": 555.0,
+    "discount": 55.5,
+    "shipping_fee": 0.0,
+    "total_amount": 499.5,
+    "status": "Baskı Sırasına Alındı",
+    "cargo_code": "Hazırlanıyor",
+    "created_at": "2026-09-15 14:32"
+  },
+  {
+    "id": "NVT-9042",
+    "customer_name": "Ayşe Yılmaz",
+    "customer_email": "ayse@example.com",
+    "items": [
+      {
+        "product_title": "Pastel Şakayık & Botanik Bahçe",
+        "fabric_name": "100% Pamuk Poplin",
+        "meters": 3.5,
+        "total_price": 647.5
+      }
+    ],
+    "total_amount": 647.5,
+    "status": "Kargoya Verildi",
+    "cargo_company": "Yurtiçi Kargo",
+    "cargo_code": "YK-88492019",
+    "created_at": "2026-09-14 11:20"
+  },
+  {
+    "id": "NVT-9041",
+    "customer_name": "Mehmet Demir",
+    "customer_email": "mehmet@example.com",
+    "items": [
+      {
+        "product_title": "Altın Damarlı Zümrüt Mermer",
+        "fabric_name": "Soft Kadife / Döşemelik",
+        "meters": 6.0,
+        "total_price": 2040.0
+      }
+    ],
+    "total_amount": 2040.0,
+    "status": "Baskı Aşamasında",
+    "cargo_company": "Aras Kargo",
+    "cargo_code": "Hazırlanıyor",
+    "created_at": "2026-09-15 09:45"
+  }
+]

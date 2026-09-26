@@ -1,0 +1,72 @@
+[
+  {
+    "id": "desenler",
+    "name": "Çiçekli & Botanik",
+    "short_title": "Çiçekli Desenler",
+    "icon": "palette",
+    "count": 28,
+    "badge": "En Çok Satan",
+    "description": "Şakayık, gül, bahar dalları ve tropikal botanik yaprak desenleri.",
+    "image": "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?w=800"
+  },
+  {
+    "id": "leopar-hayvan",
+    "name": "Leopar & Hayvan Motifleri",
+    "short_title": "Hayvan & Safari",
+    "icon": "sparkles",
+    "count": 12,
+    "badge": "Trend",
+    "description": "Zincir, kemer, leopar, zebra ve vahşi doğa safari desen koleksiyonu.",
+    "image": "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=800"
+  },
+  {
+    "id": "geometrik-etnik",
+    "name": "Geometrik & Etnik",
+    "short_title": "Geometri & Çini",
+    "icon": "split",
+    "count": 18,
+    "badge": "Özel Tasarım",
+    "description": "Anadolu çini motifleri, çizgili, etnik ve modern geometrik formlar.",
+    "image": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800"
+  },
+  {
+    "id": "soyut-mermer",
+    "name": "Soyut & Mermer Desenler",
+    "short_title": "Soyut & Ebru",
+    "icon": "layers",
+    "count": 15,
+    "badge": "Modern",
+    "description": "Mermer damarları, suluboya geçişleri ve çağdaş soyut dokular.",
+    "image": "https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=800"
+  },
+  {
+    "id": "dijital-baski",
+    "name": "DİJİTAL BASKI",
+    "short_title": "Metrajlı Baskı",
+    "icon": "printer",
+    "count": 18,
+    "badge": "Metrajlı Üretim",
+    "description": "Doğal ve sentetik kumaşlara OEKO-TEX sertifikalı, yüksek çözünürlüklü dijital baskı hizmeti.",
+    "image": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800"
+  },
+  {
+    "id": "emprime-renk-ayrimi",
+    "name": "EMPRİME RENK AYRIMI VE FİLM ÇIKTISI",
+    "short_title": "Renk Ayrımı & Film",
+    "icon": "film",
+    "count": 15,
+    "badge": "Uzman Stüdyo",
+    "description": "Tekstil emprime baskı için simüle proses, CMYK ve yüksek densiteli film çıkışı.",
+    "image": "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=800"
+  },
+  {
+    "id": "diger-trend-urunler",
+    "name": "DİĞER TREND ÜRÜNLER",
+    "short_title": "Hazır Tekstil",
+    "icon": "sparkles",
+    "count": 16,
+    "badge": "Hazır Koleksiyon",
+    "description": "Kırlent kılıfı, masa örtüsü, runner, ipek fular, bez çanta ve hazır ürünler.",
+    "image": "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=800"
+  }
+]
