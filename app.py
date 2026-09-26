@@ -3,7 +3,7 @@ import json
 import uuid
 from datetime import datetime
 from typing import Optional, List
-from fastapi import FastAPI, Request, Form, HTTPException, Query
+from fastapi import FastAPI, Request, Form, File, UploadFile, HTTPException, Query
 from fastapi.responses import HTMLResponse, JSONResponse, RedirectResponse, FileResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
@@ -13,6 +13,8 @@ app = FastAPI(title="nevartrend | Trenddesen E-Ticaret")
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_DIR = os.path.join(BASE_DIR, "data")
+UPLOAD_DIR = os.path.join(BASE_DIR, "static", "uploads", "patterns")
+os.makedirs(UPLOAD_DIR, exist_ok=True)
 
 app.mount("/static", StaticFiles(directory=os.path.join(BASE_DIR, "static")), name="static")
 templates = Jinja2Templates(directory=os.path.join(BASE_DIR, "templates"))
@@ -290,36 +292,106 @@ async def create_order(req: CreateOrderRequest):
     save_json("orders.json", orders)
     return {"success": True, "order_id": order_id}
 
+def save_uploaded_pattern_file(upload_file: Optional[UploadFile]) -> Optional[str]:
+    if not upload_file or not upload_file.filename:
+        return None
+    try:
+        content = upload_file.file.read()
+        if not content:
+            return None
+        orig_name = os.path.basename(upload_file.filename).replace(" ", "_")
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        safe_name = f"{timestamp}_{orig_name}"
+        save_path = os.path.join(UPLOAD_DIR, safe_name)
+        with open(save_path, "wb") as f:
+            f.write(content)
+        return f"/static/uploads/patterns/{safe_name}"
+    except Exception as e:
+        print(f"File upload error: {e}")
+        return None
+
+import re
+
+def slugify(text: str) -> str:
+    if not text:
+        return "kategori"
+    tr_map = {
+        'ı': 'i', 'I': 'i', 'İ': 'i', 'ğ': 'g', 'Ğ': 'g',
+        'ü': 'u', 'Ü': 'u', 'ş': 's', 'Ş': 's',
+        'ö': 'o', 'Ö': 'o', 'ç': 'c', 'Ç': 'c'
+    }
+    for tr, en in tr_map.items():
+        text = text.replace(tr, en)
+    text = re.sub(r'[^a-zA-Z0-9\s-]', '', text).strip().lower()
+    text = re.sub(r'[\s+]+', '-', text)
+    return text or "kategori"
+
 @app.post("/api/admin/products")
 async def add_product(
     request: Request,
     title: str = Form(...),
     code: str = Form(...),
     category: str = Form(...),
+    new_category_name: Optional[str] = Form(None),
     base_price: float = Form(...),
-    image_url: str = Form(...),
+    image_url: Optional[str] = Form(None),
+    image_file: Optional[UploadFile] = File(None),
     description: str = Form("")
 ):
     if not is_admin(request):
         return RedirectResponse(url="/admin/login", status_code=303)
+    
+    final_image = None
+    if image_file and image_file.filename:
+        saved_url = save_uploaded_pattern_file(image_file)
+        if saved_url:
+            final_image = saved_url
+            
+    if not final_image and image_url and image_url.strip():
+        final_image = image_url.strip()
+        
+    if not final_image:
+        final_image = "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?w=800&auto=format&fit=crop&q=80"
+
     products = load_json("products.json")
     categories = load_json("categories.json")
-    cat_obj = next((c for c in categories if c["id"] == category), {"name": "Genel"})
+
+    # Handle dynamic / new category
+    if (category in ["__new__", "new", ""]) and new_category_name and new_category_name.strip():
+        clean_cat = new_category_name.strip()
+        cat_id = slugify(clean_cat)
+        cat_obj = next((c for c in categories if c["id"] == cat_id), None)
+        if not cat_obj:
+            cat_obj = {
+                "id": cat_id,
+                "name": clean_cat,
+                "short_title": clean_cat,
+                "icon": "palette",
+                "count": 1,
+                "badge": "Yeni Kategori",
+                "description": f"{clean_cat} desen ve kumaş koleksiyonu.",
+                "image": final_image
+            }
+            categories.append(cat_obj)
+            save_json("categories.json", categories)
+        category = cat_id
+    else:
+        cat_obj = next((c for c in categories if c["id"] == category), {"name": category.title()})
 
     new_prod = {
         "id": code.upper().strip(),
         "code": code.upper().strip(),
         "title": title.strip(),
         "category": category,
-        "category_name": cat_obj["name"],
+        "category_name": cat_obj.get("name", category),
         "base_price": base_price,
         "rating": 5.0,
         "reviews_count": 1,
-        "tags": ["Yeni", cat_obj["name"]],
-        "image": image_url,
+        "tags": ["Yeni", cat_obj.get("name", category)],
+        "image": final_image,
         "mockup_dress": "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=800&auto=format&fit=crop&q=80",
         "mockup_cushion": "https://images.unsplash.com/photo-1584100936595-c0654b55a2e2?w=800&auto=format&fit=crop&q=80",
-        "pattern_tile": image_url,
+        "pattern_tile": final_image,
         "description": description or f"Trenddesen {title} özel tasarım dijital kumaş baskı deseni.",
         "colors": ["#10b981", "#3b82f6", "#f59e0b", "#64748b"],
         "featured": True,
@@ -338,31 +410,99 @@ async def edit_product(
     title: str = Form(...),
     code: str = Form(...),
     category: str = Form(...),
+    new_category_name: Optional[str] = Form(None),
     base_price: float = Form(...),
     description: str = Form(""),
-    image_url: Optional[str] = Form(None)
+    image_url: Optional[str] = Form(None),
+    image_file: Optional[UploadFile] = File(None)
 ):
     if not is_admin(request):
         return RedirectResponse(url="/admin/login", status_code=303)
+    
+    new_image = None
+    if image_file and image_file.filename:
+        saved_url = save_uploaded_pattern_file(image_file)
+        if saved_url:
+            new_image = saved_url
+            
+    if not new_image and image_url and image_url.strip():
+        new_image = image_url.strip()
+
     products = load_json("products.json")
     categories = load_json("categories.json")
-    cat_obj = next((c for c in categories if c["id"] == category), {"name": "Genel"})
+
+    # Handle dynamic / new category
+    if (category in ["__new__", "new", ""]) and new_category_name and new_category_name.strip():
+        clean_cat = new_category_name.strip()
+        cat_id = slugify(clean_cat)
+        cat_obj = next((c for c in categories if c["id"] == cat_id), None)
+        if not cat_obj:
+            cat_obj = {
+                "id": cat_id,
+                "name": clean_cat,
+                "short_title": clean_cat,
+                "icon": "palette",
+                "count": 1,
+                "badge": "Yeni Kategori",
+                "description": f"{clean_cat} desen ve kumaş koleksiyonu.",
+                "image": "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?w=800"
+            }
+            categories.append(cat_obj)
+            save_json("categories.json", categories)
+        category = cat_id
+    else:
+        cat_obj = next((c for c in categories if c["id"] == category), {"name": category.title()})
 
     for p in products:
         if p["id"] == product_id:
             p["title"] = title.strip()
             p["code"] = code.upper().strip()
             p["category"] = category
-            p["category_name"] = cat_obj["name"]
+            p["category_name"] = cat_obj.get("name", category)
             p["base_price"] = base_price
             p["description"] = description.strip()
-            if image_url:
-                p["image"] = image_url
-                p["pattern_tile"] = image_url
+            if new_image:
+                p["image"] = new_image
+                p["pattern_tile"] = new_image
             break
 
     save_json("products.json", products)
     return RedirectResponse(url="/admin?msg=edited", status_code=303)
+
+@app.post("/api/admin/categories/add")
+async def add_category(
+    request: Request,
+    name: str = Form(...),
+    badge: Optional[str] = Form("Koleksiyon"),
+    description: Optional[str] = Form("")
+):
+    if not is_admin(request):
+        return RedirectResponse(url="/admin/login", status_code=303)
+    categories = load_json("categories.json")
+    clean_name = name.strip()
+    cat_id = slugify(clean_name)
+    if not any(c["id"] == cat_id for c in categories):
+        categories.append({
+            "id": cat_id,
+            "name": clean_name,
+            "short_title": clean_name,
+            "icon": "folder",
+            "count": 0,
+            "badge": badge.strip() if badge else "Koleksiyon",
+            "description": description.strip() if description else f"{clean_name} kategorisine ait desen ve kumaşlar.",
+            "image": "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?w=800"
+        })
+        save_json("categories.json", categories)
+    return RedirectResponse(url="/admin?msg=cat_added", status_code=303)
+
+@app.post("/api/admin/categories/delete")
+async def delete_category(request: Request, category_id: str = Form(...)):
+    if not is_admin(request):
+        return RedirectResponse(url="/admin/login", status_code=303)
+    categories = load_json("categories.json")
+    categories = [c for c in categories if c["id"] != category_id]
+    save_json("categories.json", categories)
+    return RedirectResponse(url="/admin?msg=cat_deleted", status_code=303)
 
 @app.post("/api/admin/products/delete")
 async def delete_product(request: Request, product_id: str = Form(...)):
