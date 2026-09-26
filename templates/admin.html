@@ -266,7 +266,7 @@
       </button>
     </div>
 
-    <form action="/api/admin/products/edit" method="POST" class="space-y-4 text-xs">
+    <form action="/api/admin/products/edit" method="POST" enctype="multipart/form-data" class="space-y-4 text-xs">
       <input type="hidden" id="edit-product-id" name="product_id">
       
       <div>
@@ -298,8 +298,29 @@
       </div>
 
       <div>
-        <label class="block font-bold text-slate-700 mb-1">Görsel URL</label>
-        <input type="url" id="edit-image" name="image_url" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3">
+        <label class="block font-bold text-slate-700 mb-1">Desen Görseli (Bilgisayardan Yükle veya Değiştir)</label>
+        <div class="border-2 border-dashed border-slate-300 hover:border-emerald-500 rounded-2xl p-4 bg-slate-50 transition text-center cursor-pointer relative" onclick="document.getElementById('edit_image_file').click()">
+          <input type="file" id="edit_image_file" name="image_file" accept="image/*" class="hidden" onchange="previewEditImage(this)">
+          <div id="edit-upload-placeholder" class="space-y-1">
+            <div class="w-8 h-8 mx-auto bg-slate-200 text-slate-700 rounded-full flex items-center justify-center">
+              <i data-lucide="upload" class="w-4 h-4"></i>
+            </div>
+            <span class="font-bold text-slate-700 text-xs block">Bilgisayardan Yeni Görsel Seçin</span>
+            <span class="text-[10px] text-slate-400">Görseli değiştirmek istemiyorsanız boş bırakabilirsiniz</span>
+          </div>
+          <div id="edit-preview-container" class="hidden items-center justify-center gap-3">
+            <img id="edit-preview-img" src="" class="w-14 h-14 object-cover rounded-xl border border-slate-300 shadow-sm">
+            <div class="text-left">
+              <span id="edit-file-name" class="font-bold text-slate-800 block text-xs truncate max-w-[200px]"></span>
+              <span class="text-[10px] text-emerald-600 font-bold">Yeni görsel seçildi ✓</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-2 flex items-center gap-2">
+          <span class="text-[10px] text-slate-400 font-semibold whitespace-nowrap">veya Görsel URL:</span>
+          <input type="url" id="edit-image" name="image_url" placeholder="https://..." class="w-full bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-xs">
+        </div>
       </div>
 
       <div>
@@ -331,7 +352,7 @@
       </button>
     </div>
 
-    <form action="/api/admin/products" method="POST" class="space-y-4 text-xs">
+    <form action="/api/admin/products" method="POST" enctype="multipart/form-data" class="space-y-4 text-xs">
       <div>
         <label class="block font-bold text-slate-700 mb-1">Desen Adı (Türkçe) *</label>
         <input type="text" name="title" required placeholder="Örn: Akdeniz Limon Bahçesi" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 font-bold text-sm focus:ring-2 focus:ring-emerald-600">
@@ -360,8 +381,31 @@
       </div>
 
       <div>
-        <label class="block font-bold text-slate-700 mb-1">Görsel URL *</label>
-        <input type="url" name="image_url" required value="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?w=800&auto=format&fit=crop&q=80" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3">
+        <label class="block font-bold text-slate-700 mb-1">Desen Görseli (Bilgisayarınızdan Seçin) *</label>
+        <div class="border-2 border-dashed border-slate-300 hover:border-emerald-500 rounded-2xl p-4 bg-slate-50 transition text-center cursor-pointer relative" onclick="document.getElementById('add_image_file').click()">
+          <input type="file" id="add_image_file" name="image_file" accept="image/*" class="hidden" onchange="previewAddImage(this)">
+          <div id="add-upload-placeholder" class="space-y-2">
+            <div class="w-10 h-10 mx-auto bg-emerald-100 text-emerald-700 rounded-full flex items-center justify-center">
+              <i data-lucide="upload-cloud" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <span class="font-bold text-slate-800 text-xs block">Bilgisayarınızdan Desen Görselini Seçin</span>
+              <span class="text-[10px] text-slate-400">PNG, JPG, JPEG, WEBP dosyası seçmek için tıklayın</span>
+            </div>
+          </div>
+          <div id="add-preview-container" class="hidden items-center justify-center gap-3">
+            <img id="add-preview-img" src="" class="w-16 h-16 object-cover rounded-xl border border-slate-300 shadow-sm">
+            <div class="text-left">
+              <span id="add-file-name" class="font-bold text-slate-800 block text-xs truncate max-w-[200px]"></span>
+              <span class="text-[10px] text-emerald-600 font-bold">Görsel seçildi ✓</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-2 flex items-center gap-2">
+          <span class="text-[10px] text-slate-400 font-semibold whitespace-nowrap">veya Web Görsel Linki:</span>
+          <input type="url" name="image_url" placeholder="https://... (isteğe bağlı)" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-xs">
+        </div>
       </div>
 
       <div>
@@ -380,6 +424,38 @@
 </div>
 
 <script>
+  function previewAddImage(input) {
+    if (input.files && input.files[0]) {
+      const file = input.files[0];
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        document.getElementById('add-preview-img').src = e.target.result;
+        document.getElementById('add-file-name').textContent = file.name;
+        document.getElementById('add-upload-placeholder').classList.add('hidden');
+        const prev = document.getElementById('add-preview-container');
+        prev.classList.remove('hidden');
+        prev.classList.add('flex');
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
+  function previewEditImage(input) {
+    if (input.files && input.files[0]) {
+      const file = input.files[0];
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        document.getElementById('edit-preview-img').src = e.target.result;
+        document.getElementById('edit-file-name').textContent = file.name;
+        document.getElementById('edit-upload-placeholder').classList.add('hidden');
+        const prev = document.getElementById('edit-preview-container');
+        prev.classList.remove('hidden');
+        prev.classList.add('flex');
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
   function openEditModal(id, code, title, category, price, desc, img) {
     document.getElementById('edit-product-id').value = id;
     document.getElementById('edit-code').value = code;
@@ -387,7 +463,14 @@
     document.getElementById('edit-category').value = category;
     document.getElementById('edit-price').value = price;
     document.getElementById('edit-description').value = desc;
-    document.getElementById('edit-image').value = img;
+    document.getElementById('edit-image').value = img || '';
+    
+    // Reset file preview
+    document.getElementById('edit_image_file').value = '';
+    document.getElementById('edit-upload-placeholder').classList.remove('hidden');
+    const prev = document.getElementById('edit-preview-container');
+    prev.classList.add('hidden');
+    prev.classList.remove('flex');
     
     document.getElementById('edit-modal').classList.remove('hidden');
     if (window.lucide) lucide.createIcons();
@@ -398,6 +481,13 @@
   }
 
   function openAddModal() {
+    // Reset add form previews
+    document.getElementById('add_image_file').value = '';
+    document.getElementById('add-upload-placeholder').classList.remove('hidden');
+    const prev = document.getElementById('add-preview-container');
+    prev.classList.add('hidden');
+    prev.classList.remove('flex');
+    
     document.getElementById('add-modal').classList.remove('hidden');
     if (window.lucide) lucide.createIcons();
   }
