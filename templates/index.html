@@ -124,6 +124,35 @@
             </div>
           </div>
 
+          <!-- Quick Variant Colorways -->
+          <div class="space-y-2 mb-5">
+            <div class="flex items-center justify-between text-xs">
+              <span class="font-bold text-slate-700 uppercase tracking-wider flex items-center gap-1">
+                <i data-lucide="palette" class="w-3.5 h-3.5 text-emerald-700"></i>
+                Canlı Renk Yolu (Varyant):
+              </span>
+              <span id="homeVariantLabel" class="font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded text-[10px]">Orijinal</span>
+            </div>
+            <div class="grid grid-cols-4 gap-1.5" id="homeVariantPills">
+              <button type="button" onclick="setHomeVariant('original')" id="hvp-original" class="home-var-btn active px-2 py-1.5 rounded-lg border-2 border-emerald-600 bg-emerald-50 text-emerald-800 text-[10px] font-bold flex items-center gap-1 justify-center transition">
+                <span class="w-2.5 h-2.5 rounded-full bg-gradient-to-tr from-amber-500 via-rose-500 to-emerald-500"></span>
+                <span>Orijinal</span>
+              </button>
+              <button type="button" onclick="setHomeVariant('midnight')" id="hvp-midnight" class="home-var-btn px-2 py-1.5 rounded-lg border border-slate-200 bg-white text-slate-700 hover:border-slate-300 text-[10px] font-bold flex items-center gap-1 justify-center transition">
+                <span class="w-2.5 h-2.5 rounded-full bg-blue-900"></span>
+                <span>Gece</span>
+              </button>
+              <button type="button" onclick="setHomeVariant('autumn')" id="hvp-autumn" class="home-var-btn px-2 py-1.5 rounded-lg border border-slate-200 bg-white text-slate-700 hover:border-slate-300 text-[10px] font-bold flex items-center gap-1 justify-center transition">
+                <span class="w-2.5 h-2.5 rounded-full bg-amber-700"></span>
+                <span>Sonbahar</span>
+              </button>
+              <button type="button" onclick="setHomeVariant('emerald')" id="hvp-emerald" class="home-var-btn px-2 py-1.5 rounded-lg border border-slate-200 bg-white text-slate-700 hover:border-slate-300 text-[10px] font-bold flex items-center gap-1 justify-center transition">
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-800"></span>
+                <span>Zümrüt</span>
+              </button>
+            </div>
+          </div>
+
           <!-- Pattern Scale / Size Controls -->
           <div class="space-y-2 mb-5">
             <div class="flex items-center justify-between text-xs">
@@ -401,14 +430,26 @@ document.addEventListener('DOMContentLoaded', function() {
   let currentScaleMode = 'medium'; // small, medium, large
   let currentPatternAngle = 0; // 0, 90, 180, 270
   let currentPatternImage = null;
-  let currentPatternData = {
-    name: 'Şakayık & Botanik Çiçek Deseni',
-    code: 'TD-BOTANIC-01',
-    url: 'https://images.unsplash.com/photo-1550684848-fac1c5b4e853?w=800'
+  // Dynamic Catalog Patterns from Database
+  const catalogPatterns = [
+    {% for p in products %}
+    {
+      id: "{{ p.id }}",
+      name: "{{ p.title }}",
+      code: "{{ p.code }}",
+      url: "{{ p.image }}",
+      category: "{{ p.category_name }}"
+    },
+    {% endfor %}
+  ];
+
+  let currentPatternData = catalogPatterns.length > 0 ? catalogPatterns[0] : {
+    name: 'Desen',
+    code: 'NT_001',
+    url: '/static/images/NT_001.jpg'
   };
 
   const imgCache = {};
-
   function loadImage(src) {
     if (!src) return Promise.resolve(null);
     if (imgCache[src]) return Promise.resolve(imgCache[src]);
@@ -429,14 +470,6 @@ document.addEventListener('DOMContentLoaded', function() {
     if (m.fg) loadImage(m.fg);
   });
 
-  // Catalog Swatches
-  const catalogPatterns = [
-    { name: 'Şakayık Botanik Çiçek', code: 'TD-BOTANIC-01', url: 'https://images.unsplash.com/photo-1550684848-fac1c5b4e853?w=800' },
-    { name: 'Pastel Bahar Çiçekleri', code: 'TD-SPRING-02', url: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800' },
-    { name: 'Etnik Anadolu Geometri', code: 'TD-ETHNIC-03', url: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800' },
-    { name: 'Modern Akrilik Mermer', code: 'TD-MARBLE-04', url: 'https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=800' }
-  ];
-
   const swatchContainer = document.getElementById('patternSwatchContainer');
   if (swatchContainer) {
     swatchContainer.innerHTML = '';
@@ -445,6 +478,7 @@ document.addEventListener('DOMContentLoaded', function() {
       btn.type = 'button';
       btn.className = `w-12 h-12 rounded-xl border-2 overflow-hidden relative swatch-btn transition-all ${idx === 0 ? 'border-emerald-600 shadow-md ring-2 ring-emerald-400/50' : 'border-slate-200 hover:border-slate-400'}`;
       btn.innerHTML = `<img src="${p.url}" class="w-full h-full object-cover" alt="${p.name}">`;
+      btn.title = `${p.code} - ${p.name}`;
       btn.addEventListener('click', () => {
         document.querySelectorAll('.swatch-btn').forEach(b => {
           b.className = 'w-12 h-12 rounded-xl border-2 border-slate-200 hover:border-slate-400 overflow-hidden relative swatch-btn transition-all';
@@ -477,6 +511,33 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
+  // Home Page Variant State
+  const HOME_VARIANTS = {
+    original: { name: 'Orijinal', filter: 'none' },
+    midnight: { name: 'Gece Laciverti', filter: 'hue-rotate(215deg) saturate(125%) brightness(90%)' },
+    autumn: { name: 'Sıcak Sonbahar', filter: 'hue-rotate(35deg) saturate(135%) brightness(100%)' },
+    emerald: { name: 'Zümrüt Yeşili', filter: 'hue-rotate(125deg) saturate(130%) brightness(95%)' }
+  };
+  let currentHomeVariantKey = 'original';
+
+  function setHomeVariant(key) {
+    if (!HOME_VARIANTS[key]) return;
+    currentHomeVariantKey = key;
+
+    const label = document.getElementById('homeVariantLabel');
+    if (label) label.textContent = HOME_VARIANTS[key].name;
+
+    document.querySelectorAll('.home-var-btn').forEach(btn => {
+      btn.className = 'home-var-btn px-2 py-1.5 rounded-lg border border-slate-200 bg-white text-slate-700 hover:border-slate-300 text-[10px] font-bold flex items-center gap-1 justify-center transition';
+    });
+    const activeBtn = document.getElementById('hvp-' + key);
+    if (activeBtn) {
+      activeBtn.className = 'home-var-btn active px-2 py-1.5 rounded-lg border-2 border-emerald-600 bg-emerald-50 text-emerald-800 text-[10px] font-bold flex items-center gap-1 justify-center transition';
+    }
+
+    renderMockup();
+  }
+
   function createTransformedPattern(tileSize, angleDeg) {
     const pCanvas = document.createElement('canvas');
     pCanvas.width = tileSize;
@@ -484,6 +545,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const pCtx = pCanvas.getContext('2d');
 
     pCtx.save();
+    if (currentHomeVariantKey && HOME_VARIANTS[currentHomeVariantKey]) {
+      pCtx.filter = HOME_VARIANTS[currentHomeVariantKey].filter;
+    }
     pCtx.translate(tileSize / 2, tileSize / 2);
     pCtx.rotate((angleDeg * Math.PI) / 180);
     pCtx.drawImage(currentPatternImage, -tileSize / 2, -tileSize / 2, tileSize, tileSize);

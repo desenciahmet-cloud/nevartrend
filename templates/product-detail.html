@@ -161,6 +161,141 @@
         </div>
       </div>
 
+      <!-- LIVE COLORWAY & VARIANT SIMULATOR STUDIO CARD -->
+      <div class="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2.5">
+            <span class="p-2 bg-emerald-100 text-emerald-800 rounded-xl">
+              <i data-lucide="palette" class="w-4 h-4"></i>
+            </span>
+            <div>
+              <h3 class="text-xs font-extrabold text-slate-900 uppercase tracking-wider">Canlı Renk Varyantı (Colorway) Stüdyosu</h3>
+              <p class="text-[11px] text-slate-500">Desenin rengini değiştirin, anında mankende görün</p>
+            </div>
+          </div>
+          <button type="button" onclick="resetVariant()" class="px-2.5 py-1 text-[11px] font-bold text-slate-600 hover:text-slate-900 bg-slate-100 hover:bg-slate-200 rounded-lg transition flex items-center gap-1">
+            <i data-lucide="rotate-ccw" class="w-3 h-3"></i>
+            <span>Sıfırla</span>
+          </button>
+        </div>
+
+        <!-- Preset Colorways (Hazır Renk Yolları) -->
+        <div class="space-y-1.5">
+          <div class="flex items-center justify-between">
+            <span class="text-[11px] font-bold text-slate-700">Hazır Renk Yolu Varyantları:</span>
+            <span id="activePresetBadge" class="text-[10px] font-bold text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded-md">Orijinal</span>
+          </div>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-1.5" id="variantPresetButtons">
+            <button type="button" onclick="applyVariantPreset('original')" id="vp-btn-original" class="variant-preset-btn active px-2.5 py-1.5 rounded-xl border text-[11px] font-bold flex items-center gap-1.5 bg-emerald-50 border-emerald-600 text-emerald-800 shadow-xs transition">
+              <span class="w-3.5 h-3.5 rounded-full bg-gradient-to-tr from-amber-500 via-rose-500 to-emerald-500 border border-black/10 flex-shrink-0"></span>
+              <span class="truncate">Orijinal</span>
+            </button>
+            <button type="button" onclick="applyVariantPreset('midnight')" id="vp-btn-midnight" class="variant-preset-btn px-2.5 py-1.5 rounded-xl border border-slate-200 text-[11px] font-bold flex items-center gap-1.5 bg-white text-slate-700 hover:border-slate-300 transition">
+              <span class="w-3.5 h-3.5 rounded-full bg-blue-900 border border-black/10 flex-shrink-0"></span>
+              <span class="truncate">Gece Laciverti</span>
+            </button>
+            <button type="button" onclick="applyVariantPreset('autumn')" id="vp-btn-autumn" class="variant-preset-btn px-2.5 py-1.5 rounded-xl border border-slate-200 text-[11px] font-bold flex items-center gap-1.5 bg-white text-slate-700 hover:border-slate-300 transition">
+              <span class="w-3.5 h-3.5 rounded-full bg-amber-700 border border-black/10 flex-shrink-0"></span>
+              <span class="truncate">Sıcak Sonbahar</span>
+            </button>
+            <button type="button" onclick="applyVariantPreset('blush')" id="vp-btn-blush" class="variant-preset-btn px-2.5 py-1.5 rounded-xl border border-slate-200 text-[11px] font-bold flex items-center gap-1.5 bg-white text-slate-700 hover:border-slate-300 transition">
+              <span class="w-3.5 h-3.5 rounded-full bg-rose-400 border border-black/10 flex-shrink-0"></span>
+              <span class="truncate">Pudra & Gül</span>
+            </button>
+            <button type="button" onclick="applyVariantPreset('emerald')" id="vp-btn-emerald" class="variant-preset-btn px-2.5 py-1.5 rounded-xl border border-slate-200 text-[11px] font-bold flex items-center gap-1.5 bg-white text-slate-700 hover:border-slate-300 transition">
+              <span class="w-3.5 h-3.5 rounded-full bg-emerald-800 border border-black/10 flex-shrink-0"></span>
+              <span class="truncate">Zümrüt Yeşili</span>
+            </button>
+            <button type="button" onclick="applyVariantPreset('monochrome')" id="vp-btn-monochrome" class="variant-preset-btn px-2.5 py-1.5 rounded-xl border border-slate-200 text-[11px] font-bold flex items-center gap-1.5 bg-white text-slate-700 hover:border-slate-300 transition">
+              <span class="w-3.5 h-3.5 rounded-full bg-slate-900 border border-black/10 flex-shrink-0"></span>
+              <span class="truncate">Asil Monokrom</span>
+            </button>
+            <button type="button" onclick="applyVariantPreset('cyber')" id="vp-btn-cyber" class="variant-preset-btn px-2.5 py-1.5 rounded-xl border border-slate-200 text-[11px] font-bold flex items-center gap-1.5 bg-white text-slate-700 hover:border-slate-300 transition">
+              <span class="w-3.5 h-3.5 rounded-full bg-purple-600 border border-black/10 flex-shrink-0"></span>
+              <span class="truncate">Cyber Fuşya</span>
+            </button>
+            <button type="button" onclick="applyVariantPreset('sepia')" id="vp-btn-sepia" class="variant-preset-btn px-2.5 py-1.5 rounded-xl border border-slate-200 text-[11px] font-bold flex items-center gap-1.5 bg-white text-slate-700 hover:border-slate-300 transition">
+              <span class="w-3.5 h-3.5 rounded-full bg-amber-900 border border-black/10 flex-shrink-0"></span>
+              <span class="truncate">Vintage Sepya</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Fine-Tuning Sliders -->
+        <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200 space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="text-[11px] font-bold text-slate-700 flex items-center gap-1">
+              <i data-lucide="sliders" class="w-3 h-3 text-emerald-700"></i>
+              Hassas Renk & Ton Ayarları:
+            </span>
+            <span class="text-[10px] text-slate-400">Canlı Değişim</span>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <!-- Hue Rotate -->
+            <div class="space-y-1">
+              <div class="flex justify-between text-[11px] text-slate-600">
+                <span class="font-medium">Renk Tonu (Hue):</span>
+                <span id="val-hue" class="font-mono font-bold text-slate-900">0°</span>
+              </div>
+              <input type="range" min="0" max="360" value="0" id="slider-hue" oninput="updateVariantFromSliders()" class="w-full h-1.5 bg-gradient-to-r from-red-500 via-green-500 via-blue-500 to-red-500 rounded-lg appearance-none cursor-pointer">
+            </div>
+
+            <!-- Saturation -->
+            <div class="space-y-1">
+              <div class="flex justify-between text-[11px] text-slate-600">
+                <span class="font-medium">Doygunluk:</span>
+                <span id="val-sat" class="font-mono font-bold text-slate-900">100%</span>
+              </div>
+              <input type="range" min="0" max="200" value="100" id="slider-sat" oninput="updateVariantFromSliders()" class="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-emerald-600">
+            </div>
+
+            <!-- Brightness -->
+            <div class="space-y-1">
+              <div class="flex justify-between text-[11px] text-slate-600">
+                <span class="font-medium">Parlaklık:</span>
+                <span id="val-bright" class="font-mono font-bold text-slate-900">100%</span>
+              </div>
+              <input type="range" min="50" max="150" value="100" id="slider-bright" oninput="updateVariantFromSliders()" class="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-emerald-600">
+            </div>
+
+            <!-- Contrast -->
+            <div class="space-y-1">
+              <div class="flex justify-between text-[11px] text-slate-600">
+                <span class="font-medium">Kontrast:</span>
+                <span id="val-contrast" class="font-mono font-bold text-slate-900">100%</span>
+              </div>
+              <input type="range" min="50" max="150" value="100" id="slider-contrast" oninput="updateVariantFromSliders()" class="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-emerald-600">
+            </div>
+          </div>
+
+          <!-- Color Tint Overlay Filter -->
+          <div class="pt-2 border-t border-slate-200/80 flex flex-wrap items-center justify-between gap-2">
+            <div class="flex items-center gap-2">
+              <span class="text-[11px] font-medium text-slate-600">Özel Renk Yıkama (Tint):</span>
+              <input type="color" id="tintColorInput" value="#059669" oninput="updateVariantFromSliders()" class="w-6 h-6 rounded border border-slate-300 cursor-pointer p-0">
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-[10px] text-slate-500">Şeffaflık:</span>
+              <input type="range" min="0" max="100" value="0" id="slider-tint-alpha" oninput="updateVariantFromSliders()" class="w-20 h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-emerald-600">
+              <span id="val-tint-alpha" class="text-[10px] font-mono font-bold text-slate-700">0%</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Action Buttons: Download Variant & Request Quote -->
+        <div class="flex flex-wrap items-center gap-2 pt-1">
+          <button type="button" onclick="downloadCurrentVariant()" class="flex-1 py-2.5 px-3 bg-slate-900 hover:bg-black text-white text-xs font-bold rounded-xl transition flex items-center justify-center gap-1.5 shadow-sm">
+            <i data-lucide="download" class="w-3.5 h-3.5 text-emerald-400"></i>
+            <span>Bu Varyantı HD Desen İndir (.PNG)</span>
+          </button>
+          <button type="button" onclick="shareVariantWhatsapp()" class="py-2.5 px-3 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-xl transition flex items-center justify-center gap-1.5 shadow-sm">
+            <i data-lucide="message-circle" class="w-3.5 h-3.5"></i>
+            <span>Varyant Teklifi Al</span>
+          </button>
+        </div>
+      </div>
+
       <!-- Color Palette Used -->
       <div class="bg-white p-4 rounded-2xl border border-slate-200 flex items-center justify-between">
         <span class="text-xs font-bold text-slate-700">Desende Kullanılan Renk Paleti:</span>
@@ -442,6 +577,134 @@
     });
   }
 
+  // ==========================================
+  // VARIANT SIMULATOR ENGINE (COLORWAY STUDIO)
+  // ==========================================
+  const VARIANT_PRESETS = {
+    original: { name: 'Orijinal', hue: 0, saturate: 100, brightness: 100, contrast: 100, grayscale: 0, sepia: 0, tintColor: '#059669', tintAlpha: 0 },
+    midnight: { name: 'Gece Laciverti', hue: 215, saturate: 125, brightness: 90, contrast: 110, grayscale: 0, sepia: 0, tintColor: '#1e3a8a', tintAlpha: 0 },
+    autumn: { name: 'Sıcak Sonbahar', hue: 35, saturate: 135, brightness: 100, contrast: 105, grayscale: 0, sepia: 0, tintColor: '#c2410c', tintAlpha: 0 },
+    blush: { name: 'Pudra & Gül', hue: 325, saturate: 95, brightness: 110, contrast: 100, grayscale: 0, sepia: 0, tintColor: '#fb7185', tintAlpha: 0 },
+    emerald: { name: 'Zümrüt Yeşili', hue: 125, saturate: 130, brightness: 95, contrast: 105, grayscale: 0, sepia: 0, tintColor: '#065f46', tintAlpha: 0 },
+    monochrome: { name: 'Asil Monokrom', hue: 0, saturate: 0, brightness: 105, contrast: 130, grayscale: 100, sepia: 0, tintColor: '#000000', tintAlpha: 0 },
+    cyber: { name: 'Cyber Fuşya', hue: 280, saturate: 155, brightness: 105, contrast: 110, grayscale: 0, sepia: 0, tintColor: '#a855f7', tintAlpha: 0 },
+    sepia: { name: 'Vintage Sepya', hue: 20, saturate: 110, brightness: 95, contrast: 100, grayscale: 0, sepia: 85, tintColor: '#78350f', tintAlpha: 0 }
+  };
+
+  let variantState = { ...VARIANT_PRESETS.original };
+  let currentPresetKey = 'original';
+
+  function applyVariantPreset(key) {
+    if (!VARIANT_PRESETS[key]) return;
+    currentPresetKey = key;
+    variantState = { ...VARIANT_PRESETS[key] };
+
+    // Update UI controls
+    document.getElementById('slider-hue').value = variantState.hue;
+    document.getElementById('val-hue').textContent = variantState.hue + '°';
+
+    document.getElementById('slider-sat').value = variantState.saturate;
+    document.getElementById('val-sat').textContent = variantState.saturate + '%';
+
+    document.getElementById('slider-bright').value = variantState.brightness;
+    document.getElementById('val-bright').textContent = variantState.brightness + '%';
+
+    document.getElementById('slider-contrast').value = variantState.contrast;
+    document.getElementById('val-contrast').textContent = variantState.contrast + '%';
+
+    document.getElementById('slider-tint-alpha').value = variantState.tintAlpha;
+    document.getElementById('val-tint-alpha').textContent = variantState.tintAlpha + '%';
+
+    document.getElementById('activePresetBadge').textContent = variantState.name;
+
+    // Update preset buttons styling
+    document.querySelectorAll('.variant-preset-btn').forEach(btn => {
+      btn.className = 'variant-preset-btn px-2.5 py-1.5 rounded-xl border border-slate-200 text-[11px] font-bold flex items-center gap-1.5 bg-white text-slate-700 hover:border-slate-300 transition';
+    });
+    const activeBtn = document.getElementById('vp-btn-' + key);
+    if (activeBtn) {
+      activeBtn.className = 'variant-preset-btn active px-2.5 py-1.5 rounded-xl border text-[11px] font-bold flex items-center gap-1.5 bg-emerald-50 border-emerald-600 text-emerald-800 shadow-xs transition';
+    }
+
+    renderMockup();
+  }
+
+  function updateVariantFromSliders() {
+    currentPresetKey = 'custom';
+    variantState.hue = parseInt(document.getElementById('slider-hue').value) || 0;
+    variantState.saturate = parseInt(document.getElementById('slider-sat').value) || 100;
+    variantState.brightness = parseInt(document.getElementById('slider-bright').value) || 100;
+    variantState.contrast = parseInt(document.getElementById('slider-contrast').value) || 100;
+    variantState.tintColor = document.getElementById('tintColorInput').value || '#059669';
+    variantState.tintAlpha = parseInt(document.getElementById('slider-tint-alpha').value) || 0;
+    variantState.grayscale = 0;
+    variantState.sepia = 0;
+
+    document.getElementById('val-hue').textContent = variantState.hue + '°';
+    document.getElementById('val-sat').textContent = variantState.saturate + '%';
+    document.getElementById('val-bright').textContent = variantState.brightness + '%';
+    document.getElementById('val-contrast').textContent = variantState.contrast + '%';
+    document.getElementById('val-tint-alpha').textContent = variantState.tintAlpha + '%';
+    document.getElementById('activePresetBadge').textContent = 'Özel Renk Ayarı';
+
+    document.querySelectorAll('.variant-preset-btn').forEach(btn => {
+      btn.className = 'variant-preset-btn px-2.5 py-1.5 rounded-xl border border-slate-200 text-[11px] font-bold flex items-center gap-1.5 bg-white text-slate-700 hover:border-slate-300 transition';
+    });
+
+    renderMockup();
+  }
+
+  function resetVariant() {
+    applyVariantPreset('original');
+  }
+
+  function downloadCurrentVariant() {
+    if (!patternImage || !patternImage.complete) {
+      alert('Desen görseli henüz yüklenmedi.');
+      return;
+    }
+
+    const exportCanvas = document.createElement('canvas');
+    const w = patternImage.naturalWidth || 1200;
+    const h = patternImage.naturalHeight || 1200;
+    exportCanvas.width = w;
+    exportCanvas.height = h;
+    const expCtx = exportCanvas.getContext('2d');
+
+    let filterStr = `hue-rotate(${variantState.hue}deg) saturate(${variantState.saturate}%) brightness(${variantState.brightness}%) contrast(${variantState.contrast}%)`;
+    if (variantState.grayscale > 0) filterStr += ` grayscale(${variantState.grayscale}%)`;
+    if (variantState.sepia > 0) filterStr += ` sepia(${variantState.sepia}%)`;
+    
+    expCtx.filter = filterStr;
+    expCtx.drawImage(patternImage, 0, 0, w, h);
+    expCtx.filter = 'none';
+
+    if (variantState.tintAlpha > 0) {
+      expCtx.save();
+      expCtx.globalAlpha = variantState.tintAlpha / 100;
+      expCtx.globalCompositeOperation = 'color';
+      expCtx.fillStyle = variantState.tintColor;
+      expCtx.fillRect(0, 0, w, h);
+      expCtx.restore();
+    }
+
+    const presetSlug = (currentPresetKey === 'custom') ? `hue_${variantState.hue}` : currentPresetKey;
+    const filename = `${patternCode}_varyant_${presetSlug}.png`;
+    const link = document.createElement('a');
+    link.download = filename;
+    link.href = exportCanvas.toDataURL('image/png');
+    link.click();
+  }
+
+  function shareVariantWhatsapp() {
+    const presetName = (currentPresetKey === 'custom') 
+      ? `Özel Ayar (Ton: ${variantState.hue}°, Doygunluk: ${variantState.saturate}%, Parlaklık: ${variantState.brightness}%)`
+      : variantState.name;
+
+    const text = encodeURIComponent(`Merhaba Trenddesen, "${patternTitle}" (${patternCode}) deseninin "${presetName}" renk varyantı için metre/numune kumaş baskı teklifi almak istiyorum.`);
+    window.open(`https://wa.me/905321234567?text=${text}`, '_blank');
+  }
+
   function createTransformedPattern(tileSize, angleDeg) {
     const pCanvas = document.createElement('canvas');
     pCanvas.width = tileSize;
@@ -449,10 +712,25 @@
     const pCtx = pCanvas.getContext('2d');
 
     pCtx.save();
+    let filterStr = `hue-rotate(${variantState.hue}deg) saturate(${variantState.saturate}%) brightness(${variantState.brightness}%) contrast(${variantState.contrast}%)`;
+    if (variantState.grayscale > 0) filterStr += ` grayscale(${variantState.grayscale}%)`;
+    if (variantState.sepia > 0) filterStr += ` sepia(${variantState.sepia}%)`;
+    pCtx.filter = filterStr;
+
     pCtx.translate(tileSize / 2, tileSize / 2);
     pCtx.rotate((angleDeg * Math.PI) / 180);
     pCtx.drawImage(patternImage, -tileSize / 2, -tileSize / 2, tileSize, tileSize);
     pCtx.restore();
+
+    if (variantState.tintAlpha > 0) {
+      pCtx.save();
+      pCtx.globalAlpha = variantState.tintAlpha / 100;
+      pCtx.globalCompositeOperation = 'color';
+      pCtx.fillStyle = variantState.tintColor;
+      pCtx.fillRect(0, 0, tileSize, tileSize);
+      pCtx.restore();
+    }
+
     return pCanvas;
   }
 
@@ -690,9 +968,11 @@
 
   function handleAddToCart() {
     const meters = Math.max(0.5, parseFloat(document.getElementById('meter-input').value) || 1);
+    const variantNote = (currentPresetKey !== 'original') ? ` [Varyant: ${document.getElementById('activePresetBadge').textContent}]` : '';
+    
     CartEngine.addItem({
       product_id: productId,
-      product_title: patternTitle,
+      product_title: patternTitle + variantNote,
       product_code: patternCode,
       fabric_id: selectedFabric.id,
       fabric_name: selectedFabric.name,
