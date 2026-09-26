@@ -406,6 +406,19 @@ def save_json(filename, data):
     with open(path, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
 
+ADMIN_USERS = {
+    "admin": os.getenv("ADMIN_PASSWORD", "nevartrend2026"),
+    "moderator": os.getenv("MODERATOR_PASSWORD", "trend2026")
+}
+ADMIN_SESSION_TOKEN = "nevartrend_secret_admin_token_2026"
+
+def is_admin(request: Request) -> bool:
+    try:
+        token = request.cookies.get("nevartrend_admin_auth")
+        return token == ADMIN_SESSION_TOKEN
+    except Exception:
+        return False
+
 def render(request: Request, template_name: str, context: dict = None):
     ctx = context or {}
     ctx["request"] = request
@@ -542,16 +555,6 @@ async def order_success_page(request: Request, order_id: str):
         "order": order,
         "active_page": "home"
     })
-
-ADMIN_USERS = {
-    "admin": os.getenv("ADMIN_PASSWORD", "nevartrend2026"),
-    "moderator": os.getenv("MODERATOR_PASSWORD", "trend2026")
-}
-ADMIN_SESSION_TOKEN = "nevartrend_secret_admin_token_2026"
-
-def is_admin(request: Request) -> bool:
-    token = request.cookies.get("nevartrend_admin_auth")
-    return token == ADMIN_SESSION_TOKEN
 
 @app.get("/admin/login", response_class=HTMLResponse)
 async def admin_login_page(request: Request, error: Optional[str] = None):
