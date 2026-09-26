@@ -513,6 +513,44 @@ async def delete_product(request: Request, product_id: str = Form(...)):
     save_json("products.json", products)
     return RedirectResponse(url="/admin?msg=deleted", status_code=303)
 
+@app.get("/api/admin/download-products")
+async def download_products(request: Request):
+    if not is_admin(request):
+        return RedirectResponse(url="/admin/login", status_code=303)
+    p_path = os.path.join(DATA_DIR, "products.json")
+    return FileResponse(p_path, filename="products.json", media_type="application/json")
+
+@app.get("/api/admin/download-categories")
+async def download_categories(request: Request):
+    if not is_admin(request):
+        return RedirectResponse(url="/admin/login", status_code=303)
+    c_path = os.path.join(DATA_DIR, "categories.json")
+    return FileResponse(c_path, filename="categories.json", media_type="application/json")
+
+@app.post("/api/admin/import-data")
+async def import_json_data(
+    request: Request,
+    json_file: UploadFile = File(...)
+):
+    if not is_admin(request):
+        return RedirectResponse(url="/admin/login", status_code=303)
+    try:
+        content = json_file.file.read()
+        parsed = json.loads(content)
+        fname = (json_file.filename or "").lower()
+        if "product" in fname:
+            save_json("products.json", parsed)
+        elif "cat" in fname:
+            save_json("categories.json", parsed)
+        elif "fabric" in fname:
+            save_json("fabric_types.json", parsed)
+        else:
+            save_json("products.json", parsed)
+        return RedirectResponse(url="/admin?msg=imported", status_code=303)
+    except Exception as e:
+        print(f"Import error: {e}")
+        return RedirectResponse(url="/admin?msg=import_error", status_code=303)
+
 @app.post("/api/admin/fabrics/edit")
 async def edit_fabric(
     request: Request,
