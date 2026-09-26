@@ -38,14 +38,251 @@ async def service_worker():
 
 
 
+DEFAULT_PRODUCTS = [
+  {
+    "id": "NT_007",
+    "code": "NT_007",
+    "title": "Vintage Çizgili Bordo Gül Deseni",
+    "category": "cicekli-botanik",
+    "category_name": "Çiçekli & Botanik",
+    "print_type": "Emprime & Dijital Uyumlu",
+    "separation_ready": True,
+    "screen_count": 6,
+    "base_price": 185.0,
+    "rating": 5.0,
+    "reviews_count": 16,
+    "tags": ["Yeni", "Gül", "Çizgili", "Vintage", "Bordo", "Altın Kontür"],
+    "image": "/static/images/NT_007.jpg",
+    "pattern_tile": "/static/images/NT_007.jpg",
+    "description": "Trenddesen yeni sezon özel tasarımı. Çizgili zemin üzerinde lüks bordo güller, altın kontürlü yapraklar ve goncalar içeren yüksek çözünürlüklü dijital baskı kumaş deseni.",
+    "colors": ["#d9d5c1", "#9f907b", "#7c5851", "#3f4040"],
+    "featured": True,
+    "is_new": True,
+    "discount_pct": 0,
+    "sales_count": 35
+  },
+  {
+    "id": "NT_008",
+    "code": "NT_008",
+    "title": "Pastel Çizgili Papatya & Boncuk Deseni",
+    "category": "cicekli-botanik",
+    "category_name": "Çiçekli & Botanik",
+    "print_type": "Emprime & Dijital Uyumlu",
+    "separation_ready": True,
+    "screen_count": 6,
+    "base_price": 185.0,
+    "rating": 5.0,
+    "reviews_count": 16,
+    "tags": ["Yeni", "Pastel", "Papatya", "Çizgili", "Pembe & Mint", "Yazlık"],
+    "image": "/static/images/NT_008.jpg",
+    "pattern_tile": "/static/images/NT_008.jpg",
+    "description": "Trenddesen yeni sezon özel tasarımı. Pastel pembe ve nane yeşili dikey çizgiler, boncuk dizileri ve stilize papatya motifleriyle bezenmiş ferah kumaş deseni.",
+    "colors": ["#fcfefe", "#f2efe9", "#ddcbc1", "#bc9d8d"],
+    "featured": True,
+    "is_new": True,
+    "discount_pct": 0,
+    "sales_count": 35
+  },
+  {
+    "id": "NT_009",
+    "code": "NT_009",
+    "title": "Barok Altın Varak Saray Çiçeği Deseni",
+    "category": "leopar-hayvan",
+    "category_name": "Barok, Kemer, Zincir, Dekoratif Hayvan Desenleri",
+    "print_type": "Emprime & Dijital Uyumlu",
+    "separation_ready": True,
+    "screen_count": 6,
+    "base_price": 185.0,
+    "rating": 5.0,
+    "reviews_count": 16,
+    "tags": ["Yeni", "Barok", "Altın Varak", "Gold", "Saray Çiçeği", "Lüks"],
+    "image": "/static/images/NT_009.jpg",
+    "pattern_tile": "/static/images/NT_009.jpg",
+    "description": "Trenddesen yeni sezon özel tasarımı. Siyah zemin üzerine lüks altın yaldız işlemeli Barok saray motifi ve lotus detaylarıyla zenginleştirilmiş kumaş deseni.",
+    "colors": ["#ebdd73", "#c1a957", "#816537", "#23120b"],
+    "featured": True,
+    "is_new": True,
+    "discount_pct": 0,
+    "sales_count": 35
+  },
+  {
+    "id": "NT_010",
+    "code": "NT_010",
+    "title": "Soyut Dijital Anemon & Şakayık Bahçesi",
+    "category": "cicekli-botanik",
+    "category_name": "Çiçekli & Botanik",
+    "print_type": "Emprime & Dijital Uyumlu",
+    "separation_ready": True,
+    "screen_count": 6,
+    "base_price": 185.0,
+    "rating": 5.0,
+    "reviews_count": 16,
+    "tags": ["Yeni", "Soyut", "Anemon", "Şakayık", "Degrade", "Canlı Renkler"],
+    "image": "/static/images/NT_010.jpg",
+    "pattern_tile": "/static/images/NT_010.jpg",
+    "description": "Trenddesen yeni sezon özel tasarımı. Degrade taç yapraklar, canlı anemon ve şakayık çiçekleriyle modern sanatsal dijital baskı kumaş deseni.",
+    "colors": ["#dcd0d1", "#b09390", "#955446", "#3b3439"],
+    "featured": True,
+    "is_new": True,
+    "discount_pct": 0,
+    "sales_count": 35
+  },
+  {
+    "id": "NT_006",
+    "code": "NT_006",
+    "title": "Leopar Zincir Deseni",
+    "category": "leopar-hayvan",
+    "category_name": "Barok, Kemer, Zincir, Dekoratif Hayvan Desenleri",
+    "print_type": "Emprime & Dijital Uyumlu",
+    "separation_ready": True,
+    "screen_count": 6,
+    "base_price": 185.0,
+    "rating": 5.0,
+    "reviews_count": 14,
+    "tags": ["Yeni", "Leopar", "Zincir", "Barok", "Kemer"],
+    "image": "/static/images/NT_006.jpg",
+    "pattern_tile": "/static/images/NT_006.jpg",
+    "description": "Trenddesen yeni sezon özel dijital baskı deseni. Barok kemer, zincir ve vahşi doğa leopar motifli yüksek çözünürlüklü kumaş deseni.",
+    "colors": ["#d97706", "#1e293b", "#047857", "#fef08a"],
+    "featured": True,
+    "is_new": True,
+    "discount_pct": 0,
+    "sales_count": 48
+  },
+  {
+    "id": "NT_005",
+    "code": "NT_005",
+    "title": "Kırık Cam Deseni",
+    "category": "soyut-mermer",
+    "category_name": "Batik, - Eskitme Değişik dokular",
+    "print_type": "Dijital & Emprime Uyumlu",
+    "separation_ready": True,
+    "screen_count": 5,
+    "base_price": 185.0,
+    "rating": 5.0,
+    "reviews_count": 19,
+    "tags": ["Yeni", "Kırık Cam", "Soyut", "Mermer", "Batik"],
+    "image": "/static/images/NT_005.jpg",
+    "pattern_tile": "/static/images/NT_005.jpg",
+    "description": "Trenddesen yeni sezon özel dijital baskı deseni. Modern soyut kırık cam ve eskitme batik doku.",
+    "colors": ["#f97316", "#06b6d4", "#64748b", "#f8fafc"],
+    "featured": True,
+    "is_new": True,
+    "discount_pct": 0,
+    "sales_count": 62
+  },
+  {
+    "id": "NT_004",
+    "code": "NT_004_60980536",
+    "title": "Bahar Çiçekleri",
+    "category": "desenler",
+    "category_name": "Çiçekli & Botanik",
+    "print_type": "Dijital & Emprime Uyumlu",
+    "separation_ready": True,
+    "screen_count": 6,
+    "base_price": 185.0,
+    "rating": 5.0,
+    "reviews_count": 28,
+    "tags": ["Yeni", "Bahar Çiçekleri", "Botanik", "Çiçekli"],
+    "image": "/static/images/NT_004.jpg",
+    "pattern_tile": "/static/images/NT_004.jpg",
+    "description": "Trenddesen yeni sezon özel dijital baskı deseni. Bahar çiçekleri ve pastel yaprak tonları.",
+    "colors": ["#ec4899", "#10b981", "#f59e0b", "#38bdf8"],
+    "featured": True,
+    "is_new": True,
+    "discount_pct": 0,
+    "sales_count": 84
+  },
+  {
+    "id": "NT_003",
+    "code": "NT_003_85328767",
+    "title": "Mor Gül Bahçesi",
+    "category": "desenler",
+    "category_name": "Çiçekli & Botanik",
+    "print_type": "Dijital & Emprime Uyumlu",
+    "separation_ready": True,
+    "screen_count": 5,
+    "base_price": 185.0,
+    "rating": 5.0,
+    "reviews_count": 31,
+    "tags": ["Yeni", "Mor Gül", "Çiçekli", "Zarif"],
+    "image": "/static/images/NT_003.jpg",
+    "pattern_tile": "/static/images/NT_003.jpg",
+    "description": "Trenddesen yeni sezon özel dijital baskı deseni. Siyah zemin üzerinde koyu ve açık mor güller.",
+    "colors": ["#a855f7", "#0f172a", "#22c55e", "#f43f5e"],
+    "featured": True,
+    "is_new": True,
+    "discount_pct": 0,
+    "sales_count": 95
+  },
+  {
+    "id": "NT_002",
+    "code": "NT_002_60980536",
+    "title": "Papatya Bahçesi",
+    "category": "desenler",
+    "category_name": "Çiçekli & Botanik",
+    "print_type": "Dijital & Emprime Uyumlu",
+    "separation_ready": True,
+    "screen_count": 4,
+    "base_price": 185.0,
+    "rating": 5.0,
+    "reviews_count": 42,
+    "tags": ["Yeni", "Papatya", "Çiçekli", "Sarı", "Beyaz"],
+    "image": "/static/images/NT_002.jpg",
+    "pattern_tile": "/static/images/NT_002.jpg",
+    "description": "Trenddesen yeni sezon özel dijital baskı deseni. Sarı ve beyaz papatyalarla dolu canlı bahçe deseni.",
+    "colors": ["#eab308", "#ffffff", "#15803d", "#78350f"],
+    "featured": True,
+    "is_new": True,
+    "discount_pct": 0,
+    "sales_count": 110
+  },
+  {
+    "id": "NT_001",
+    "code": "NT_001",
+    "title": "Sulu Boya Çiçek Bahçesi",
+    "category": "desenler",
+    "category_name": "Çiçekli & Botanik",
+    "print_type": "Dijital & Emprime Uyumlu",
+    "separation_ready": True,
+    "screen_count": 5,
+    "base_price": 185.0,
+    "rating": 5.0,
+    "reviews_count": 37,
+    "tags": ["Yeni", "Suluboya", "Kırmızı Gül", "Çiçekli"],
+    "image": "/static/images/NT_001.jpg",
+    "pattern_tile": "/static/images/NT_001.jpg",
+    "description": "Trenddesen yeni sezon özel dijital baskı deseni. Krem zemin üzerine sulu boya tekniğiyle hazırlanmış kırmızı ve pembe çiçekler.",
+    "colors": ["#ef4444", "#fef08a", "#16a34a", "#f43f5e"],
+    "featured": True,
+    "is_new": True,
+    "discount_pct": 0,
+    "sales_count": 125
+  }
+]
+
 def load_json(filename):
     path = os.path.join(DATA_DIR, filename)
     if os.path.exists(path):
-        with open(path, "r", encoding="utf-8") as f:
-            return json.load(f)
+        try:
+            with open(path, "r", encoding="utf-8") as f:
+                data = json.load(f)
+                if filename == "products.json" and isinstance(data, list) and len(data) >= 10:
+                    return data
+                elif filename != "products.json" and data:
+                    return data
+        except Exception:
+            pass
+    if filename == "products.json":
+        try:
+            save_json("products.json", DEFAULT_PRODUCTS)
+        except Exception:
+            pass
+        return DEFAULT_PRODUCTS
     return []
 
 def save_json(filename, data):
+    os.makedirs(DATA_DIR, exist_ok=True)
     path = os.path.join(DATA_DIR, filename)
     with open(path, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
