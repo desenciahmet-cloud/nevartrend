@@ -1,0 +1,618 @@
+{% extends "base.html" %}
+
+{% block title %}Yönetim Paneli | nevartrend by Trenddesen{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+
+  <!-- Header -->
+  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-200">
+    <div>
+      <div class="flex items-center gap-2">
+        <span class="px-2 py-0.5 bg-emerald-700 text-white font-bold text-[10px] rounded uppercase tracking-wider">Trenddesen Panel</span>
+        <span class="text-xs text-slate-400">Türkçe Karakter & Ürün Yönetim Merkezi</span>
+      </div>
+      <h1 class="font-serif-title text-2xl sm:text-3xl font-extrabold text-slate-900 mt-1">
+        nevartrend Mağaza ve İçerik Yönetimi
+      </h1>
+    </div>
+
+    <div class="flex flex-wrap items-center gap-2.5">
+      <!-- One-click Download products.json -->
+      <a href="/api/admin/download-products" class="px-3.5 py-2 bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold rounded-xl transition flex items-center gap-1.5 shadow-xs" title="Mevcut desen listesini bilgisayarınıza JSON olarak indirir">
+        <i data-lucide="download" class="w-3.5 h-3.5 text-emerald-700"></i>
+        <span>Desenleri İndir (.json)</span>
+      </a>
+
+      <!-- One-click Turkish character fixer -->
+      <form action="/api/admin/fix-turkish" method="POST">
+        <button type="submit" class="px-3.5 py-2 bg-amber-500 hover:bg-amber-600 text-slate-950 text-xs font-extrabold rounded-xl shadow-xs transition flex items-center gap-1.5" title="Bozuk Türkçe karakterleri otomatik onarır">
+          <i data-lucide="wand-2" class="w-3.5 h-3.5"></i>
+          <span>Türkçe Onar</span>
+        </button>
+      </form>
+
+      <a href="/fabrics" target="_blank" class="px-3.5 py-2 bg-slate-900 hover:bg-black text-white text-xs font-bold rounded-xl transition flex items-center gap-1.5 shadow-sm">
+        <i data-lucide="external-link" class="w-3.5 h-3.5 text-emerald-400"></i>
+        <span>Canlı Mağaza</span>
+      </a>
+
+      <a href="/admin/logout" class="px-3 py-2 bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold rounded-xl transition flex items-center gap-1 shadow-sm" title="Yönetici oturumunu kapat">
+        <i data-lucide="log-out" class="w-3.5 h-3.5"></i>
+        <span>Çıkış</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Notification Alert Banner -->
+  {% if msg == 'added' %}
+  <div class="p-4 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-2xl flex items-center gap-2 text-xs font-bold">
+    <i data-lucide="check-circle-2" class="w-4 h-4"></i>
+    <span>Yeni desen başarıyla eklendi!</span>
+  </div>
+  {% elif msg == 'edited' %}
+  <div class="p-4 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-2xl flex items-center gap-2 text-xs font-bold">
+    <i data-lucide="check-circle-2" class="w-4 h-4"></i>
+    <span>Desen ve Türkçe metinler başarıyla güncellendi!</span>
+  </div>
+  {% elif msg == 'deleted' %}
+  <div class="p-4 bg-rose-50 border border-rose-200 text-rose-800 rounded-2xl flex items-center gap-2 text-xs font-bold">
+    <i data-lucide="trash-2" class="w-4 h-4"></i>
+    <span>Desen katalogdan silindi.</span>
+  </div>
+  {% elif msg == 'cat_added' %}
+  <div class="p-4 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-2xl flex items-center gap-2 text-xs font-bold">
+    <i data-lucide="check-circle-2" class="w-4 h-4"></i>
+    <span>Yeni kategori başarıyla eklendi ve kataloğa tanımlandı!</span>
+  </div>
+  {% elif msg == 'cat_deleted' %}
+  <div class="p-4 bg-rose-50 border border-rose-200 text-rose-800 rounded-2xl flex items-center gap-2 text-xs font-bold">
+    <i data-lucide="trash-2" class="w-4 h-4"></i>
+    <span>Kategori sistemden silindi.</span>
+  </div>
+  {% elif msg == 'fabric_updated' %}
+  <div class="p-4 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-2xl flex items-center gap-2 text-xs font-bold">
+    <i data-lucide="check-circle-2" class="w-4 h-4"></i>
+    <span>Kumaş türü ve fiyatı güncellendi!</span>
+  </div>
+  {% elif msg == 'turkish_fixed' %}
+  <div class="p-4 bg-amber-50 border border-amber-200 text-amber-900 rounded-2xl flex items-center gap-2 text-xs font-bold">
+    <i data-lucide="sparkles" class="w-4 h-4 text-amber-600"></i>
+    <span>Tüm veritabanındaki Türkçe karakterler (ç, ğ, ı, ö, ş, ü) başarıyla tarandı ve onarıldı!</span>
+  </div>
+  {% endif %}
+
+  <!-- Stats Grid -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-2">
+      <span class="text-xs text-slate-400 font-semibold">Toplam Ciro</span>
+      <p class="text-2xl font-extrabold text-slate-900">{{ total_sales|round(2) }} TL</p>
+      <span class="text-[10px] text-emerald-600 font-bold">Trenddesen Satışları</span>
+    </div>
+    <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-2">
+      <span class="text-xs text-slate-400 font-semibold">Aktif Desen Sayısı</span>
+      <p class="text-2xl font-extrabold text-slate-900">{{ products|length }} Desen</p>
+      <span class="text-[10px] text-slate-500 font-bold">Katalogda Yayında</span>
+    </div>
+    <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-2">
+      <span class="text-xs text-slate-400 font-semibold">Kategori Sayısı</span>
+      <p class="text-2xl font-extrabold text-slate-900">{{ categories|length }} Kategori</p>
+      <span class="text-[10px] text-emerald-600 font-bold">Özelleştirilebilir</span>
+    </div>
+    <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-2">
+      <span class="text-xs text-slate-400 font-semibold">Kumaş Çeşitleri</span>
+      <p class="text-2xl font-extrabold text-slate-900">{{ fabrics|length }} Kumaş</p>
+      <span class="text-[10px] text-slate-500 font-bold">Poplin, Saten, Viskon...</span>
+    </div>
+  </div>
+
+  <!-- SECTION 1: Desen Yönetimi & Türkçe İsim Düzenleme Tablosu -->
+  <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-6">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-4">
+      <div>
+        <h3 class="font-bold text-slate-900 text-base flex items-center gap-2">
+          <i data-lucide="palette" class="w-5 h-5 text-emerald-700"></i>
+          <span>Desen Kataloğu & Türkçe İsim / Açıklama Düzenleme</span>
+        </h3>
+        <p class="text-xs text-slate-400 mt-0.5">Yazım hatası veya Türkçe karakter bozukluğu olan desenleri <strong>Düzenle</strong> butonuna basarak anında düzeltebilirsiniz.</p>
+      </div>
+      <button onclick="openAddModal()" class="px-4 py-2 bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold rounded-xl transition flex items-center gap-1.5 shadow-sm">
+        <i data-lucide="plus" class="w-4 h-4"></i>
+        <span>Yeni Desen Ekle</span>
+      </button>
+    </div>
+
+    <div class="overflow-x-auto">
+      <table class="w-full text-left text-xs">
+        <thead>
+          <tr class="border-b border-slate-200 bg-slate-50 text-slate-500 font-bold uppercase tracking-wider">
+            <th class="py-3 px-3">Görsel</th>
+            <th class="py-3 px-3">Kod</th>
+            <th class="py-3 px-3">Desen Başlığı (Türkçe)</th>
+            <th class="py-3 px-3">Kategori</th>
+            <th class="py-3 px-3">Başlangıç Fiyatı</th>
+            <th class="py-3 px-3 text-right">İşlemler</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-slate-100">
+          {% for p in products %}
+          <tr class="hover:bg-slate-50/60 transition">
+            <td class="py-3 px-3">
+              <img src="{{ p.image }}" class="w-12 h-12 rounded-xl object-cover border" alt="{{ p.title }}">
+            </td>
+            <td class="py-3 px-3 font-mono font-bold text-slate-700">{{ p.code }}</td>
+            <td class="py-3 px-3">
+              <strong class="text-slate-900 text-sm block">{{ p.title }}</strong>
+              <span class="text-[11px] text-slate-500 line-clamp-1 max-w-md">{{ p.description }}</span>
+            </td>
+            <td class="py-3 px-3">
+              <span class="px-2 py-1 bg-slate-100 text-slate-700 rounded-lg text-[11px] font-semibold">{{ p.category_name }}</span>
+            </td>
+            <td class="py-3 px-3 font-extrabold text-emerald-800 text-sm">{{ p.base_price }} TL</td>
+            <td class="py-3 px-3 text-right">
+              <div class="flex items-center justify-end gap-2">
+                <button 
+                  onclick="openEditModal('{{ p.id }}', '{{ p.code }}', '{{ p.title }}', '{{ p.category }}', {{ p.base_price }}, '{{ p.description }}', '{{ p.image }}')" 
+                  class="px-3 py-1.5 bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 rounded-lg font-bold text-xs transition flex items-center gap-1"
+                >
+                  <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
+                  <span>Düzenle</span>
+                </button>
+                <form action="/api/admin/products/delete" method="POST" onsubmit="return confirm('Bu deseni silmek istediğinize emin misiniz?');">
+                  <input type="hidden" name="product_id" value="{{ p.id }}">
+                  <button type="submit" class="p-1.5 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition">
+                    <i data-lucide="trash-2" class="w-4 h-4"></i>
+                  </button>
+                </form>
+              </div>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- SECTION 2: Kategori Yönetimi (Yeni Kategori Ekleme / Silme) -->
+  <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-6">
+    <div class="border-b border-slate-100 pb-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+      <div>
+        <h3 class="font-bold text-slate-900 text-base flex items-center gap-2">
+          <i data-lucide="folder-plus" class="w-5 h-5 text-emerald-700"></i>
+          <span>Kategori Yönetimi & Yeni Kategori Ekle</span>
+        </h3>
+        <p class="text-xs text-slate-400 mt-0.5">Desenlerinizi gruplandırmak için dilediğiniz kadar yeni kategori oluşturabilir veya silebilirsiniz.</p>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <!-- Yeni Kategori Ekleme Formu -->
+      <form action="/api/admin/categories/add" method="POST" class="p-5 bg-emerald-50/50 border border-emerald-200 rounded-2xl space-y-3 text-xs">
+        <h4 class="font-bold text-emerald-950 text-sm flex items-center gap-1.5">
+          <i data-lucide="plus-circle" class="w-4 h-4 text-emerald-700"></i>
+          <span>Yeni Kategori Oluştur</span>
+        </h4>
+        
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Kategori Adı *</label>
+          <input type="text" name="name" required placeholder="Örn: Leopar & Hayvan Motifleri" class="w-full bg-white border border-slate-200 rounded-xl p-2.5 font-bold text-slate-900 focus:ring-2 focus:ring-emerald-600">
+        </div>
+
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Rozet / Etiket (İsteğe Bağlı)</label>
+          <input type="text" name="badge" placeholder="Örn: Trend Koleksiyon" value="Yeni" class="w-full bg-white border border-slate-200 rounded-xl p-2.5">
+        </div>
+
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Kategori Açıklaması</label>
+          <textarea name="description" rows="2" placeholder="Kategoriye ait kısa tanıtım..." class="w-full bg-white border border-slate-200 rounded-xl p-2.5"></textarea>
+        </div>
+
+        <button type="submit" class="w-full py-2.5 bg-emerald-700 hover:bg-emerald-800 text-white rounded-xl font-bold transition flex items-center justify-center gap-1.5 shadow-sm">
+          <i data-lucide="check" class="w-4 h-4"></i>
+          <span>Kategoriyi Ekle</span>
+        </button>
+      </form>
+
+      <!-- Mevcut Kategoriler Listesi -->
+      <div class="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-[350px] overflow-y-auto p-1">
+        {% for cat in categories %}
+        {% if cat.id != 'all' %}
+        <div class="p-4 bg-slate-50 border border-slate-200 rounded-2xl flex items-center justify-between gap-3 text-xs hover:border-emerald-300 transition">
+          <div class="space-y-1">
+            <div class="flex items-center gap-1.5">
+              <span class="font-bold text-slate-900">{{ cat.name }}</span>
+              {% if cat.badge %}
+              <span class="px-1.5 py-0.5 bg-emerald-100 text-emerald-800 text-[9px] font-extrabold rounded">{{ cat.badge }}</span>
+              {% endif %}
+            </div>
+            <span class="text-[10px] text-slate-400 font-mono block">id: {{ cat.id }}</span>
+            <p class="text-[11px] text-slate-500 line-clamp-1">{{ cat.description }}</p>
+          </div>
+          
+          <form action="/api/admin/categories/delete" method="POST" onsubmit="return confirm('Bu kategoriyi silmek istediğinize emin misiniz?');">
+            <input type="hidden" name="category_id" value="{{ cat.id }}">
+            <button type="submit" class="p-2 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-xl transition" title="Kategoriyi Sil">
+              <i data-lucide="trash-2" class="w-4 h-4"></i>
+            </button>
+          </form>
+        </div>
+        {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 3: Kumaş Türleri ve Metre Fiyatları Yönetimi -->
+  <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-6">
+    <div class="border-b border-slate-100 pb-3">
+      <h3 class="font-bold text-slate-900 text-base flex items-center gap-2">
+        <i data-lucide="layers" class="w-5 h-5 text-emerald-700"></i>
+        <span>Kumaş Türleri, İsimleri ve Metre Fiyatları</span>
+      </h3>
+      <p class="text-xs text-slate-400 mt-0.5">Kumaşların Türkçe isimlerini, açıklamalarını ve metre başı satış fiyatlarını güncelleyebilirsiniz.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {% for f in fabrics %}
+      <form action="/api/admin/fabrics/edit" method="POST" class="p-5 bg-slate-50 border border-slate-200 rounded-2xl space-y-3 text-xs">
+        <input type="hidden" name="fabric_id" value="{{ f.id }}">
+        
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Kumaş Adı (Türkçe) *</label>
+          <input type="text" name="name" value="{{ f.name }}" required class="w-full bg-white border border-slate-200 rounded-xl p-2.5 font-bold text-slate-900 focus:ring-2 focus:ring-emerald-600">
+        </div>
+
+        <div class="grid grid-cols-2 gap-2">
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">Metre Fiyatı (TL) *</label>
+            <input type="number" step="1" name="price_per_meter" value="{{ f.price_per_meter }}" required class="w-full bg-white border border-slate-200 rounded-xl p-2.5 font-extrabold text-emerald-800">
+          </div>
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">En (Genişlik) *</label>
+            <input type="text" name="width" value="{{ f.width }}" required class="w-full bg-white border border-slate-200 rounded-xl p-2.5">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-2">
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">Gramaj (gr/m²)</label>
+            <input type="text" name="weight" value="{{ f.weight }}" required class="w-full bg-white border border-slate-200 rounded-xl p-2.5">
+          </div>
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">İçerik / Kompozisyon</label>
+            <input type="text" name="composition" value="{{ f.composition }}" required class="w-full bg-white border border-slate-200 rounded-xl p-2.5">
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Kumaş Açıklaması</label>
+          <textarea name="description" rows="2" class="w-full bg-white border border-slate-200 rounded-xl p-2.5">{{ f.description }}</textarea>
+        </div>
+
+        <button type="submit" class="w-full py-2 bg-slate-900 hover:bg-emerald-700 text-white rounded-xl font-bold transition flex items-center justify-center gap-1">
+          <i data-lucide="save" class="w-3.5 h-3.5"></i>
+          <span>Kumaşı Kaydet</span>
+        </button>
+      </form>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- SECTION 4: Gelen Siparişler -->
+  <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-4">
+    <h3 class="font-bold text-slate-900 text-base border-b border-slate-100 pb-3 flex items-center gap-2">
+      <i data-lucide="truck" class="w-5 h-5 text-emerald-700"></i>
+      <span>Gelen Siparişler & Baskı Takibi</span>
+    </h3>
+    
+    <div class="overflow-x-auto">
+      <table class="w-full text-left text-xs">
+        <thead>
+          <tr class="border-b border-slate-200 bg-slate-50 text-slate-500 font-bold uppercase tracking-wider">
+            <th class="py-3 px-3">Sipariş No</th>
+            <th class="py-3 px-3">Müşteri</th>
+            <th class="py-3 px-3">Kargo Şirketi</th>
+            <th class="py-3 px-3">Tutar</th>
+            <th class="py-3 px-3">Durum</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-slate-100">
+          {% for o in orders %}
+          <tr>
+            <td class="py-3 px-3 font-mono font-bold text-slate-800">{{ o.id }}</td>
+            <td class="py-3 px-3">
+              <strong class="text-slate-900">{{ o.customer_name }}</strong>
+              <span class="text-[10px] text-slate-400 block">{{ o.customer_email }}</span>
+            </td>
+            <td class="py-3 px-3 text-slate-600">{{ o.cargo_company }}</td>
+            <td class="py-3 px-3 font-bold text-emerald-800">{{ o.total_amount }} TL</td>
+            <td class="py-3 px-3">
+              <span class="px-2.5 py-1 bg-emerald-50 text-emerald-800 rounded-lg font-bold text-[10px]">{{ o.status }}</span>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<!-- EDIT PRODUCT MODAL -->
+<div id="edit-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+  <div class="bg-white rounded-3xl max-w-xl w-full p-6 sm:p-8 shadow-2xl space-y-5 border border-slate-200 max-h-[90vh] overflow-y-auto">
+    <div class="flex justify-between items-center border-b border-slate-100 pb-3">
+      <h3 class="font-bold text-slate-900 text-base flex items-center gap-2">
+        <i data-lucide="edit-3" class="w-5 h-5 text-emerald-700"></i>
+        <span>Desen & Türkçe Metinleri Düzenle</span>
+      </h3>
+      <button onclick="closeEditModal()" class="p-1.5 text-slate-400 hover:text-slate-700 rounded-lg">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+    </div>
+
+    <form action="/api/admin/products/edit" method="POST" enctype="multipart/form-data" class="space-y-4 text-xs">
+      <input type="hidden" id="edit-product-id" name="product_id">
+      
+      <div>
+        <label class="block font-bold text-slate-700 mb-1">Desen Adı / Başlığı (Türkçe) *</label>
+        <input type="text" id="edit-title" name="title" required class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 font-bold text-sm text-slate-900 focus:ring-2 focus:ring-emerald-600">
+        <span class="text-[10px] text-slate-400 mt-1 block">Örnek: Şakayık Çiçekli Botanik Bahçe</span>
+      </div>
+
+      <div class="grid grid-cols-2 gap-3">
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Desen Kodu *</label>
+          <input type="text" id="edit-code" name="code" required class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 uppercase font-mono font-bold">
+        </div>
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Kategori *</label>
+          <select id="edit-category" name="category" onchange="toggleCategoryInput(this, 'edit-custom-cat-wrapper')" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 font-medium">
+            {% for cat in categories %}
+            {% if cat.id != 'all' %}
+            <option value="{{ cat.id }}">{{ cat.name }}</option>
+            {% endif %}
+            {% endfor %}
+            <option value="__new__" class="font-bold text-emerald-700 bg-emerald-50">➕ + Yeni Kategori Tanımla...</option>
+          </select>
+          <div id="edit-custom-cat-wrapper" class="hidden mt-2 p-2.5 bg-emerald-50 border border-emerald-200 rounded-xl space-y-1">
+            <label class="block font-bold text-emerald-900 text-[11px]">Yeni Kategori Adı:</label>
+            <input type="text" id="edit-new-category-name" name="new_category_name" placeholder="Örn: Leopar & Hayvan Motifleri" class="w-full bg-white border border-emerald-300 rounded-lg p-2 font-bold text-slate-900 focus:ring-2 focus:ring-emerald-600">
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <label class="block font-bold text-slate-700 mb-1">Başlangıç Metre Fiyatı (TL) *</label>
+        <input type="number" id="edit-price" name="base_price" required class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 font-bold text-emerald-800">
+      </div>
+
+      <div>
+        <label class="block font-bold text-slate-700 mb-1">Desen Görseli (Bilgisayardan Yükle veya Değiştir)</label>
+        <div class="border-2 border-dashed border-slate-300 hover:border-emerald-500 rounded-2xl p-4 bg-slate-50 transition text-center cursor-pointer relative" onclick="document.getElementById('edit_image_file').click()">
+          <input type="file" id="edit_image_file" name="image_file" accept="image/*" class="hidden" onchange="previewEditImage(this)">
+          <div id="edit-upload-placeholder" class="space-y-1">
+            <div class="w-8 h-8 mx-auto bg-slate-200 text-slate-700 rounded-full flex items-center justify-center">
+              <i data-lucide="upload" class="w-4 h-4"></i>
+            </div>
+            <span class="font-bold text-slate-700 text-xs block">Bilgisayardan Yeni Görsel Seçin</span>
+            <span class="text-[10px] text-slate-400">Görseli değiştirmek istemiyorsanız boş bırakabilirsiniz</span>
+          </div>
+          <div id="edit-preview-container" class="hidden items-center justify-center gap-3">
+            <img id="edit-preview-img" src="" class="w-14 h-14 object-cover rounded-xl border border-slate-300 shadow-sm">
+            <div class="text-left">
+              <span id="edit-file-name" class="font-bold text-slate-800 block text-xs truncate max-w-[200px]"></span>
+              <span class="text-[10px] text-emerald-600 font-bold">Yeni görsel seçildi ✓</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-2 flex items-center gap-2">
+          <span class="text-[10px] text-slate-400 font-semibold whitespace-nowrap">veya Görsel URL:</span>
+          <input type="url" id="edit-image" name="image_url" placeholder="https://..." class="w-full bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-xs">
+        </div>
+      </div>
+
+      <div>
+        <label class="block font-bold text-slate-700 mb-1">Desen Detaylı Açıklaması (Türkçe)</label>
+        <textarea id="edit-description" name="description" rows="3" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 font-medium text-slate-800"></textarea>
+      </div>
+
+      <div class="flex gap-3 pt-2">
+        <button type="button" onclick="closeEditModal()" class="flex-1 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl transition">İptal</button>
+        <button type="submit" class="flex-1 py-3 bg-emerald-700 hover:bg-emerald-800 text-white font-bold rounded-xl transition shadow-md flex items-center justify-center gap-1">
+          <i data-lucide="check" class="w-4 h-4"></i>
+          <span>Değişiklikleri Kaydet</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ADD PRODUCT MODAL -->
+<div id="add-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+  <div class="bg-white rounded-3xl max-w-xl w-full p-6 sm:p-8 shadow-2xl space-y-5 border border-slate-200 max-h-[90vh] overflow-y-auto">
+    <div class="flex justify-between items-center border-b border-slate-100 pb-3">
+      <h3 class="font-bold text-slate-900 text-base flex items-center gap-2">
+        <i data-lucide="plus-circle" class="w-5 h-5 text-emerald-700"></i>
+        <span>Yeni Desen Ekle</span>
+      </h3>
+      <button onclick="closeAddModal()" class="p-1.5 text-slate-400 hover:text-slate-700 rounded-lg">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+    </div>
+
+    <form action="/api/admin/products" method="POST" enctype="multipart/form-data" class="space-y-4 text-xs">
+      <div>
+        <label class="block font-bold text-slate-700 mb-1">Desen Adı (Türkçe) *</label>
+        <input type="text" name="title" required placeholder="Örn: Zincir ve kemer motifli leopar deseni" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 font-bold text-sm focus:ring-2 focus:ring-emerald-600">
+      </div>
+
+      <div class="grid grid-cols-2 gap-3">
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Desen Kodu *</label>
+          <input type="text" name="code" required placeholder="NT_005" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 uppercase font-mono font-bold">
+        </div>
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Kategori *</label>
+          <select id="add-category" name="category" onchange="toggleCategoryInput(this, 'add-custom-cat-wrapper')" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 font-medium">
+            {% for cat in categories %}
+            {% if cat.id != 'all' %}
+            <option value="{{ cat.id }}">{{ cat.name }}</option>
+            {% endif %}
+            {% endfor %}
+            <option value="__new__" class="font-bold text-emerald-700 bg-emerald-50">➕ + Yeni Kategori Tanımla...</option>
+          </select>
+          <div id="add-custom-cat-wrapper" class="hidden mt-2 p-2.5 bg-emerald-50 border border-emerald-200 rounded-xl space-y-1">
+            <label class="block font-bold text-emerald-900 text-[11px]">Yeni Kategori Adını Yazın:</label>
+            <input type="text" id="add-new-category-name" name="new_category_name" placeholder="Örn: Leopar & Hayvan Motifleri" class="w-full bg-white border border-emerald-300 rounded-lg p-2 font-bold text-slate-900 focus:ring-2 focus:ring-emerald-600">
+            <span class="text-[10px] text-emerald-700 block">Yeni kategoriniz deseni eklediğinizde sisteme otomatik kaydedilir.</span>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <label class="block font-bold text-slate-700 mb-1">Başlangıç Metre Fiyatı (TL) *</label>
+        <input type="number" name="base_price" required value="185" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 font-bold text-emerald-800">
+      </div>
+
+      <div>
+        <label class="block font-bold text-slate-700 mb-1">Desen Görseli (Bilgisayarınızdan Seçin) *</label>
+        <div class="border-2 border-dashed border-slate-300 hover:border-emerald-500 rounded-2xl p-4 bg-slate-50 transition text-center cursor-pointer relative" onclick="document.getElementById('add_image_file').click()">
+          <input type="file" id="add_image_file" name="image_file" accept="image/*" class="hidden" onchange="previewAddImage(this)">
+          <div id="add-upload-placeholder" class="space-y-2">
+            <div class="w-10 h-10 mx-auto bg-emerald-100 text-emerald-700 rounded-full flex items-center justify-center">
+              <i data-lucide="upload-cloud" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <span class="font-bold text-slate-800 text-xs block">Bilgisayarınızdan Desen Görselini Seçin</span>
+              <span class="text-[10px] text-slate-400">PNG, JPG, JPEG, WEBP dosyası seçmek için tıklayın</span>
+            </div>
+          </div>
+          <div id="add-preview-container" class="hidden items-center justify-center gap-3">
+            <img id="add-preview-img" src="" class="w-16 h-16 object-cover rounded-xl border border-slate-300 shadow-sm">
+            <div class="text-left">
+              <span id="add-file-name" class="font-bold text-slate-800 block text-xs truncate max-w-[200px]"></span>
+              <span class="text-[10px] text-emerald-600 font-bold">Görsel seçildi ✓</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-2 flex items-center gap-2">
+          <span class="text-[10px] text-slate-400 font-semibold whitespace-nowrap">veya Web Görsel Linki:</span>
+          <input type="url" name="image_url" placeholder="https://... (isteğe bağlı)" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-xs">
+        </div>
+      </div>
+
+      <div>
+        <label class="block font-bold text-slate-700 mb-1">Açıklama</label>
+        <textarea name="description" rows="3" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 font-medium">Trenddesen yeni sezon özel dijital baskı deseni.</textarea>
+      </div>
+
+      <div class="flex gap-3 pt-2">
+        <button type="button" onclick="closeAddModal()" class="flex-1 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl transition">İptal</button>
+        <button type="submit" class="flex-1 py-3 bg-emerald-700 hover:bg-emerald-800 text-white font-bold rounded-xl transition shadow-md">
+          Deseni Kataloğa Ekle
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+  function toggleCategoryInput(selectElem, wrapperId) {
+    const wrapper = document.getElementById(wrapperId);
+    if (selectElem.value === '__new__') {
+      wrapper.classList.remove('hidden');
+      const input = wrapper.querySelector('input');
+      if (input) input.focus();
+    } else {
+      wrapper.classList.add('hidden');
+    }
+  }
+
+  function previewAddImage(input) {
+    if (input.files && input.files[0]) {
+      const file = input.files[0];
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        document.getElementById('add-preview-img').src = e.target.result;
+        document.getElementById('add-file-name').textContent = file.name;
+        document.getElementById('add-upload-placeholder').classList.add('hidden');
+        const prev = document.getElementById('add-preview-container');
+        prev.classList.remove('hidden');
+        prev.classList.add('flex');
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
+  function previewEditImage(input) {
+    if (input.files && input.files[0]) {
+      const file = input.files[0];
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        document.getElementById('edit-preview-img').src = e.target.result;
+        document.getElementById('edit-file-name').textContent = file.name;
+        document.getElementById('edit-upload-placeholder').classList.add('hidden');
+        const prev = document.getElementById('edit-preview-container');
+        prev.classList.remove('hidden');
+        prev.classList.add('flex');
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
+  function openEditModal(id, code, title, category, price, desc, img) {
+    document.getElementById('edit-product-id').value = id;
+    document.getElementById('edit-code').value = code;
+    document.getElementById('edit-title').value = title;
+    document.getElementById('edit-price').value = price;
+    document.getElementById('edit-description').value = desc;
+    document.getElementById('edit-image').value = img || '';
+    
+    const catSelect = document.getElementById('edit-category');
+    catSelect.value = category;
+    const catWrapper = document.getElementById('edit-custom-cat-wrapper');
+    if (catWrapper) catWrapper.classList.add('hidden');
+    
+    // Reset file preview
+    document.getElementById('edit_image_file').value = '';
+    document.getElementById('edit-upload-placeholder').classList.remove('hidden');
+    const prev = document.getElementById('edit-preview-container');
+    prev.classList.add('hidden');
+    prev.classList.remove('flex');
+    
+    document.getElementById('edit-modal').classList.remove('hidden');
+    if (window.lucide) lucide.createIcons();
+  }
+
+  function closeEditModal() {
+    document.getElementById('edit-modal').classList.add('hidden');
+  }
+
+  function openAddModal() {
+    // Reset add form previews and category
+    document.getElementById('add_image_file').value = '';
+    document.getElementById('add-upload-placeholder').classList.remove('hidden');
+    const prev = document.getElementById('add-preview-container');
+    prev.classList.add('hidden');
+    prev.classList.remove('flex');
+    
+    const catWrapper = document.getElementById('add-custom-cat-wrapper');
+    if (catWrapper) {
+      catWrapper.classList.add('hidden');
+      const input = catWrapper.querySelector('input');
+      if (input) input.value = '';
+    }
+    
+    document.getElementById('add-modal').classList.remove('hidden');
+    if (window.lucide) lucide.createIcons();
+  }
+
+  function closeAddModal() {
+    document.getElementById('add-modal').classList.add('hidden');
+  }
+</script>
+{% endblock %}
