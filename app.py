@@ -2993,6 +2993,38 @@ async def create_order(req: CreateOrderRequest):
     save_json("orders.json", orders)
     return {"success": True, "order_id": order_id}
 
+import io
+from PIL import Image
+
+def optimize_image_bytes(file_bytes: bytes, max_dim: int = 1200, quality: int = 82) -> bytes:
+    try:
+        img = Image.open(io.BytesIO(file_bytes))
+        if img.mode in ("RGBA", "LA", "P"):
+            background = Image.new("RGB", img.size, (255, 255, 255))
+            if img.mode == "P":
+                img = img.convert("RGBA")
+            background.paste(img, mask=img.split()[-1] if img.mode == "RGBA" else None)
+            img = background
+        elif img.mode != "RGB":
+            img = img.convert("RGB")
+            
+        w, h = img.size
+        if max(w, h) > max_dim:
+            if w > h:
+                new_w = max_dim
+                new_h = int(h * (max_dim / w))
+            else:
+                new_h = max_dim
+                new_w = int(w * (max_dim / h))
+            img = img.resize((new_w, new_h), Image.Resampling.LANCZOS)
+            
+        out = io.BytesIO()
+        img.save(out, format="WEBP", quality=quality, method=4)
+        return out.getvalue()
+    except Exception as e:
+        print(f"Image compression error: {e}")
+        return file_bytes
+
 def save_uploaded_pattern_file(upload_file: Optional[UploadFile]) -> Optional[str]:
     if not upload_file or not upload_file.filename:
         return None
@@ -3000,16 +3032,19 @@ def save_uploaded_pattern_file(upload_file: Optional[UploadFile]) -> Optional[st
         content = upload_file.file.read()
         if not content:
             return None
-        orig_name = os.path.basename(upload_file.filename).replace(" ", "_")
+        orig_base = os.path.splitext(os.path.basename(upload_file.filename))[0].replace(" ", "_")
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        safe_name = f"{timestamp}_{orig_name}"
+        safe_name = f"{timestamp}_{orig_base}.webp"
         save_path = os.path.join(UPLOAD_DIR, safe_name)
+        
+        optimized_content = optimize_image_bytes(content, max_dim=1200, quality=82)
         with open(save_path, "wb") as f:
-            f.write(content)
+            f.write(optimized_content)
         return f"/static/uploads/patterns/{safe_name}"
     except Exception as e:
         print(f"File upload error: {e}")
         return None
+
 
 import re
 

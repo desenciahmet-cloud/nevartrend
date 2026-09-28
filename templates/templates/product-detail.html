@@ -22,7 +22,7 @@
       
       <!-- Main Visual Stage -->
       <div class="relative bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-lg aspect-square">
-        <img id="main-preview-image" src="{{ product.image }}" alt="{{ product.title }}" class="w-full h-full object-cover transition-all duration-300">
+        <img id="main-preview-image" src="{{ product.image }}" alt="{{ product.title }}" class="w-full h-full object-cover transition-all duration-300" loading="lazy" decoding="async">
         
         <!-- Badge -->
         <div class="absolute top-4 left-4 flex gap-2">
@@ -199,7 +199,7 @@
       {% for rel in related_products %}
       <a href="/product/{{ rel.id }}" class="group bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-md transition">
         <div class="aspect-square bg-slate-100 overflow-hidden">
-          <img src="{{ rel.image }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300" alt="{{ rel.title }}">
+          <img src="{{ rel.image }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300" alt="{{ rel.title }}" loading="lazy" decoding="async">
         </div>
         <div class="p-3">
           <p class="text-[10px] text-slate-400">{{ rel.code }}</p>

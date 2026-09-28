@@ -122,7 +122,7 @@
           {% for p in products %}
           <tr class="hover:bg-slate-50/60 transition">
             <td class="py-3 px-3">
-              <img src="{{ p.image }}" class="w-12 h-12 rounded-xl object-cover border" alt="{{ p.title }}">
+              <img src="{{ p.image }}" class="w-12 h-12 rounded-xl object-cover border" alt="{{ p.title }}" loading="lazy" decoding="async">
             </td>
             <td class="py-3 px-3 font-mono font-bold text-slate-700">{{ p.code }}</td>
             <td class="py-3 px-3">
