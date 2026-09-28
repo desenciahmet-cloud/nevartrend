@@ -138,22 +138,22 @@
 
       <!-- 6 Primary Pillar Navigation -->
       <nav class="hidden lg:flex items-center justify-between gap-3 py-2.5 border-t border-slate-100 text-[11px] font-extrabold uppercase tracking-wider text-slate-700">
-        <a href="/fabrics?category=desenler" class="hover:text-emerald-700 flex items-center gap-1.5 transition py-1 text-slate-900 border-b-2 border-transparent hover:border-emerald-600">
+        <a href="/fabrics?category=all" class="hover:text-emerald-700 flex items-center gap-1.5 transition py-1 text-slate-900 border-b-2 {% if active_page == 'desenler' %}border-emerald-600 text-emerald-800 font-bold{% else %}border-transparent hover:border-emerald-600{% endif %}">
           <i data-lucide="palette" class="w-3.5 h-3.5 text-emerald-600"></i> DESENLER
         </a>
-        <a href="/fabrics?category=kumaslar" class="hover:text-emerald-700 flex items-center gap-1.5 transition py-1 border-b-2 border-transparent hover:border-emerald-600">
+        <a href="/kumaslar" class="hover:text-emerald-700 flex items-center gap-1.5 transition py-1 border-b-2 {% if active_page == 'kumaslar' %}border-emerald-600 text-emerald-800 font-bold{% else %}border-transparent hover:border-emerald-600{% endif %}">
           <i data-lucide="layers" class="w-3.5 h-3.5 text-emerald-600"></i> KUMAŞLAR
         </a>
-        <a href="/fabrics?category=dijital-baski" class="hover:text-emerald-700 flex items-center gap-1.5 transition py-1 border-b-2 border-transparent hover:border-emerald-600">
+        <a href="/dijital-baski" class="hover:text-emerald-700 flex items-center gap-1.5 transition py-1 border-b-2 {% if active_page == 'dijital-baski' %}border-emerald-600 text-emerald-800 font-bold{% else %}border-transparent hover:border-emerald-600{% endif %}">
           <i data-lucide="printer" class="w-3.5 h-3.5 text-emerald-600"></i> DİJİTAL BASKI
         </a>
-        <a href="/emprime" class="hover:text-emerald-700 flex items-center gap-1.5 transition py-1 border-b-2 border-emerald-600 text-emerald-800 font-extrabold bg-emerald-50/50 px-2 rounded-lg">
+        <a href="/emprime" class="hover:text-emerald-700 flex items-center gap-1.5 transition py-1 border-b-2 {% if active_page == 'emprime' %}border-emerald-600 text-emerald-800 font-bold bg-emerald-50/50{% else %}border-transparent hover:border-emerald-600{% endif %} px-2 rounded-lg">
           <i data-lucide="split" class="w-3.5 h-3.5 text-emerald-600"></i> EMPRİME RENK AYRIMI & FİLM
         </a>
         <a href="/emprime#custom-upload-wizard" class="hover:text-emerald-700 flex items-center gap-1.5 transition py-1 border-b-2 border-transparent hover:border-emerald-600">
           <i data-lucide="film" class="w-3.5 h-3.5 text-emerald-600"></i> SERİGRAFİ FİLM ÇIKTISI
         </a>
-        <a href="/fabrics?category=diger-trend-urunler" class="hover:text-amber-700 flex items-center gap-1.5 transition py-1 border-b-2 border-transparent hover:border-amber-600 text-amber-900">
+        <a href="/trend-urunler" class="hover:text-amber-700 flex items-center gap-1.5 transition py-1 border-b-2 {% if active_page == 'trend-urunler' %}border-amber-600 text-amber-900 font-bold{% else %}border-transparent hover:border-amber-600 text-amber-900{% endif %}">
           <i data-lucide="sparkles" class="w-3.5 h-3.5 text-amber-500"></i> DİĞER TREND ÜRÜNLER
         </a>
       </nav>

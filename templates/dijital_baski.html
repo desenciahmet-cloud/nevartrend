@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+
+{% block title %}Dijital Kumaş Baskı Hizmeti | nevartrend{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
+
+  <!-- Hero Header -->
+  <div class="relative bg-gradient-to-r from-emerald-950 via-slate-900 to-emerald-950 text-white rounded-3xl p-8 sm:p-14 overflow-hidden shadow-2xl border border-emerald-800/40">
+    <div class="relative z-10 max-w-3xl space-y-5">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1 bg-emerald-500/20 text-emerald-300 rounded-full text-xs font-bold uppercase tracking-wider border border-emerald-500/30">
+        <i data-lucide="printer" class="w-4 h-4"></i> Endüstriyel Dijital Tekstil Baskı Stüdyosu
+      </div>
+      <h1 class="font-serif-title text-3xl sm:text-5xl font-extrabold tracking-tight">
+        Metraj & Parça Dijital Kumaş Baskı
+      </h1>
+      <p class="text-sm sm:text-base text-slate-300 leading-relaxed">
+        Nevartrend / Trenddesen son teknoloji Kyocera & Epson baskı kafalarıyla, pamuk, keten, viskon, ipek ve polyester kumaşlara <strong>canlı renk kalibrasyonu, yüksek haslık ve sıfır tuşe kaybı</strong> ile baskı yapmaktadır.
+      </p>
+      <div class="flex flex-wrap items-center gap-4 pt-2">
+        <a href="/fabrics?category=all" class="px-6 py-3 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-sm font-bold shadow-lg transition flex items-center gap-2">
+          <i data-lucide="palette" class="w-4 h-4"></i> Desen Kataloğundan Seç
+        </a>
+        <a href="https://wa.me/908503000000?text=Kendi%20desenimi%20bastirmak%20istiyorum." target="_blank" class="px-6 py-3 bg-white text-slate-900 hover:bg-slate-100 rounded-xl text-sm font-bold shadow-lg transition flex items-center gap-2">
+          <i data-lucide="upload-cloud" class="w-4 h-4 text-emerald-600"></i> Kendi Tasarımını Bastır
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3 Technology Columns -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+    <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+      <div class="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-800 flex items-center justify-center font-bold">
+        <i data-lucide="droplet" class="w-6 h-6"></i>
+      </div>
+      <h3 class="text-lg font-bold text-slate-900">Reaktif Dijital Baskı</h3>
+      <p class="text-xs text-slate-600 leading-relaxed">
+        <strong>100% Pamuk, Viskon, Keten ve İpek</strong> kumaşlar için endüstri standardı. Boya kumaşın liflerine kimyasal olarak bağlanır. Asla solmaz, sertleşmez ve nefes alır.
+      </p>
+      <ul class="text-xs text-slate-500 space-y-1.5 pt-2 border-t border-slate-100">
+        <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-600"></i> 60°C Yıkama Haslığı</li>
+        <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-600"></i> Bebek & Çocuk Giyime Uygun</li>
+      </ul>
+    </div>
+
+    <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+      <div class="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-800 flex items-center justify-center font-bold">
+        <i data-lucide="sparkles" class="w-6 h-6"></i>
+      </div>
+      <h3 class="text-lg font-bold text-slate-900">Süblime & Dispers Baskı</h3>
+      <p class="text-xs text-slate-600 leading-relaxed">
+        <strong>İpek Saten, Şifon, Scuba Dalgıç, Mayo ve Döşemelik</strong> kumaşlar için yüksek çözünürlüklü süblimasyon tekniği. Göz alıcı neonlar ve derin siyahlar.
+      </p>
+      <ul class="text-xs text-slate-500 space-y-1.5 pt-2 border-t border-slate-100">
+        <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-600"></i> 2400 DPI Fotoğraf Kalitesi</li>
+        <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-600"></i> Parlak & Net Konturlar</li>
+      </ul>
+    </div>
+
+    <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+      <div class="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-800 flex items-center justify-center font-bold">
+        <i data-lucide="split" class="w-6 h-6"></i>
+      </div>
+      <h3 class="text-lg font-bold text-slate-900">Emprime Serigrafi & Film</h3>
+      <p class="text-xs text-slate-600 leading-relaxed">
+        Tişört ve parça kumaş üreticileri için <strong>Simüle Proses, CMYK ve Vektörel Renk Ayrımı</strong> ile yüksek densiteli şeffaf film çıkışı hizmeti.
+      </p>
+      <ul class="text-xs text-slate-500 space-y-1.5 pt-2 border-t border-slate-100">
+        <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-600"></i> UV Korumalı 4.0 DMAX Film</li>
+        <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-600"></i> Kalıp & İpek Uyumlu Tram</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- How It Works -->
+  <div class="bg-slate-50 rounded-3xl p-8 sm:p-12 border border-slate-200 space-y-8">
+    <div class="text-center max-w-2xl mx-auto space-y-2">
+      <h2 class="font-serif-title text-2xl sm:text-3xl font-bold text-slate-900">Baskı Süreci Nasıl İşler?</h2>
+      <p class="text-xs sm:text-sm text-slate-500">4 basit adımda tasarımınızı kumaşa dönüştürün</p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="bg-white p-6 rounded-2xl border border-slate-200 space-y-3 relative">
+        <span class="w-8 h-8 rounded-full bg-emerald-800 text-white font-bold text-xs flex items-center justify-center">1</span>
+        <h4 class="font-bold text-slate-900 text-sm">Desen veya Dosya Seçin</h4>
+        <p class="text-xs text-slate-500">74 desenlik koleksiyonumuzdan seçin veya kendi TIFF / PDF / PSD dosyanızı iletin.</p>
+      </div>
+      <div class="bg-white p-6 rounded-2xl border border-slate-200 space-y-3 relative">
+        <span class="w-8 h-8 rounded-full bg-emerald-800 text-white font-bold text-xs flex items-center justify-center">2</span>
+        <h4 class="font-bold text-slate-900 text-sm">Kumaş Türü Belirleyin</h4>
+        <p class="text-xs text-slate-500">Pamuk poplin, ipek saten, viskon keten, şifon vb. arasından kullanım amacınıza en uygun kumaşı seçin.</p>
+      </div>
+      <div class="bg-white p-6 rounded-2xl border border-slate-200 space-y-3 relative">
+        <span class="w-8 h-8 rounded-full bg-emerald-800 text-white font-bold text-xs flex items-center justify-center">3</span>
+        <h4 class="font-bold text-slate-900 text-sm">Baskı & Fikse</h4>
+        <p class="text-xs text-slate-500">Baskı işlemi sonrası kumaş buharlama ve fikse işlemlerinden geçerek renkler kalıcı hale getirilir.</p>
+      </div>
+      <div class="bg-white p-6 rounded-2xl border border-slate-200 space-y-3 relative">
+        <span class="w-8 h-8 rounded-full bg-emerald-800 text-white font-bold text-xs flex items-center justify-center">4</span>
+        <h4 class="font-bold text-slate-900 text-sm">Kalite Kontrol & Kargo</h4>
+        <p class="text-xs text-slate-500">Metraj kumaşlar rulo veya katlama şeklinde özenle paketlenip kapınıza teslim edilir.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}
