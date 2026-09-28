@@ -47,7 +47,1264 @@ async def service_worker():
 
 
 
-DEFAULT_PRODUCTS = [
+DEFAULT_PRODUCTS = json.loads('''[
+  {
+    "id": "NT_074",
+    "code": "NT_074",
+    "title": "Gece Siyahı & Zümrüt Mor Lüks Botanik Bahçe",
+    "category": "cicekli-botanik",
+    "category_name": "Çiçekli & Botanik",
+    "print_type": "Emprime & Dijital Baskı",
+    "separation_ready": true,
+    "screen_count": 6,
+    "base_price": 195.0,
+    "rating": 5.0,
+    "reviews_count": 45,
+    "tags": [
+      "Yeni",
+      "Siyah",
+      "Zümrüt",
+      "Mor",
+      "Lüks",
+      "Botanik"
+    ],
+    "image": "/static/images/NT_074.jpg",
+    "pattern_tile": "/static/images/NT_074.jpg",
+    "description": "Gece siyahı zemin üstünde zümrüt yeşili ve mor orkide ışıltılı lüks botanik.",
+    "colors": [
+      "#60907d",
+      "#5d5766",
+      "#831d81",
+      "#1b2033"
+    ],
+    "featured": true,
+    "is_new": true,
+    "discount_pct": 0,
+    "sales_count": 67
+  },
+  {
+    "id": "NT_073",
+    "code": "NT_073",
+    "title": "İndigo Zemin Hardal & Mercan Gece Çiçekleri",
+    "category": "cicekli-botanik",
+    "category_name": "Çiçekli & Botanik",
+    "print_type": "Emprime & Dijital Baskı",
+    "separation_ready": true,
+    "screen_count": 5,
+    "base_price": 185.0,
+    "rating": 5.0,
+    "reviews_count": 38,
+    "tags": [
+      "Yeni",
+      "İndigo",
+      "Hardal",
+      "Mercan",
+      "Gece Çiçeği"
+    ],
+    "image": "/static/images/NT_073.jpg",
+    "pattern_tile": "/static/images/NT_073.jpg",
+    "description": "İndigo lacivert zemin üzerinde parlayan hardal ve mercan çiçekleri.",
+    "colors": [
+      "#f1b067",
+      "#ec8763",
+      "#645f69",
+      "#404f65"
+    ],
+    "featured": true,
+    "is_new": true,
+    "discount_pct": 0,
+    "sales_count": 56
+  },
+  {
+    "id": "NT_072",
+    "code": "NT_072",
+    "title": "Leylak & Kiremit Pastel Çiçek Buketi",
+    "category": "cicekli-botanik",
+    "category_name": "Çiçekli & Botanik",
+    "print_type": "Emprime & Dijital Baskı",
+    "separation_ready": true,
+    "screen_count": 5,
+    "base_price": 175.0,
+    "rating": 4.9,
+    "reviews_count": 25,
+    "tags": [
+      "Yeni",
+      "Leylak",
+      "Kiremit",
+      "Pastel",
+      "Zarif"
+    ],
+    "image": "/static/images/NT_072.jpg",
+    "pattern_tile": "/static/images/NT_072.jpg",
+    "description": "Leylak ve kiremit tonlarının zarif uyumunu taşıyan çiçek buketi.",
+    "colors": [
+      "#b48ca0",
+      "#637fb1",
+      "#bc685d",
+      "#655964"
+    ],
+    "featured": true,
+    "is_new": true,
+    "discount_pct": 0,
+    "sales_count": 38
+  },
+  {
+    "id": "NT_071",
+    "code": "NT_071",
+    "title": "Pudra & Eflatun Degrade Çiçek Bahçesi",
+    "category": "cicekli-botanik",
+    "category_name": "Çiçekli & Botanik",
+    "print_type": "Emprime & Dijital Baskı",
+    "separation_ready": true,
+    "screen_count": 5,
+    "base_price": 180.0,
+    "rating": 5.0,
+    "reviews_count": 33,
+    "tags": [
+      "Yeni",
+      "Pudra",
+      "Eflatun",
+      "Degrade",
+      "Pastel"
+    ],
+    "image": "/static/images/NT_071.jpg",
+    "pattern_tile": "/static/images/NT_071.jpg",
+    "description": "Pudra ve eflatun degrade geçişleriyle büyüleyen çiçek bahçesi.",
+    "colors": [
+      "#e5b7a3",
+      "#8985ab",
+      "#926063",
+      "#515571"
+    ],
+    "featured": true,
+    "is_new": true,
+    "discount_pct": 0,
+    "sales_count": 49
+  },
+  {
+    "id": "NT_070",
+    "code": "NT_070",
+    "title": "Gül Kurusu & Terracotta Romantik Çiçekler",
+    "category": "cicekli-botanik",
+    "category_name": "Çiçekli & Botanik",
+    "print_type": "Emprime & Dijital Baskı",
+    "separation_ready": true,
+    "screen_count": 5,
+    "base_price": 175.0,
+    "rating": 4.9,
+    "reviews_count": 28,
+    "tags": [
+      "Yeni",
+      "Gül Kurusu",
+      "Terracotta",
+      "Romantik",
+      "Bahar"
+    ],
+    "image": "/static/images/NT_070.jpg",
+    "pattern_tile": "/static/images/NT_070.jpg",
+    "description": "Gül kurusu ve terracotta kırmızısı sıcak romantik kumaş deseni.",
+    "colors": [
+      "#c9a091",
+      "#9b766c",
+      "#e9686a",
+      "#895e73"
+    ],
+    "featured": true,
+    "is_new": true,
+    "discount_pct": 0,
+    "sales_count": 43
+  },
+  {
+    "id": "NT_069",
+    "code": "NT_069",
+    "title": "İndigo & Karamel Sıcak Kontrast Botanik",
+    "category": "cicekli-botanik",
+    "category_name": "Çiçekli & Botanik",
+    "print_type": "Emprime & Dijital Baskı",
+    "separation_ready": true,
+    "screen_count": 5,
+    "base_price": 180.0,
+    "rating": 5.0,
+    "reviews_count": 35,
+    "tags": [
+      "Yeni",
+      "İndigo",
+      "Karamel",
+      "Botanik",
+      "Zarif"
+    ],
+    "image": "/static/images/NT_069.jpg",
+    "pattern_tile": "/static/images/NT_069.jpg",
+    "description": "İndigo mavi zemin üzerinde karamel ve bej yapraklı şık botanik desen.",
+    "colors": [
+      "#e7be98",
+      "#b18b78",
+      "#45567d",
+      "#313945"
+    ],
+    "featured": true,
+    "is_new": true,
+    "discount_pct": 0,
+    "sales_count": 52
+  },
+  {
+    "id": "NT_068",
+    "code": "NT_068",
+    "title": "Antrasit & Platin Geometrik Doku Deseni",
+    "category": "geometrik-soyut",
+    "category_name": "Geometrik & Soyut",
+    "print_type": "Emprime & Dijital Baskı",
+    "separation_ready": true,
+    "screen_count": 4,
+    "base_price": 165.0,
+    "rating": 4.9,
+    "reviews_count": 27,
+    "tags": [
+      "Yeni",
+      "Antrasit",
+      "Platin",
+      "Geometrik",
+      "Modern"
+    ],
+    "image": "/static/images/NT_068.jpg",
+    "pattern_tile": "/static/images/NT_068.jpg",
+    "description": "Antrasit ve platin tonlarında sofistike geometrik tekstil dokusu.",
+    "colors": [
+      "#aaabb5",
+      "#6f6575",
+      "#454347",
+      "#303029"
+    ],
+    "featured": true,
+    "is_new": true,
+    "discount_pct": 0,
+    "sales_count": 45
+  },
+  {
+    "id": "NT_067",
+    "code": "NT_067",
+    "title": "Hardal Sarısı & Füme Kontrast Çiçekler",
+    "category": "cicekli-botanik",
+    "category_name": "Çiçekli & Botanik",
+    "print_type": "Emprime & Dijital Baskı",
+    "separation_ready": true,
+    "screen_count": 5,
+    "base_price": 175.0,
+    "rating": 4.9,
+    "reviews_count": 26,
+    "tags": [
+      "Yeni",
+      "Hardal",
+      "Füme",
+      "Kontrast",
+      "Modern"
+    ],
+    "image": "/static/images/NT_067.jpg",
+    "pattern_tile": "/static/images/NT_067.jpg",
+    "description": "Hardal sarısı ve dumanlı füme tonlarının modern ve cesur birlikteliği.",
+    "colors": [
+      "#ecc98b",
+      "#a27769",
+      "#6a5256",
+      "#3e3d45"
+    ],
+    "featured": true,
+    "is_new": true,
+    "discount_pct": 0,
+    "sales_count": 41
+  },
+  {
+    "id": "NT_066",
+    "code": "NT_066",
+    "title": "Krem & Şeftali Sıcak Pastel Bahar Buketi",
+    "category": "cicekli-botanik",
+    "category_name": "Çiçekli & Botanik",
+    "print_type": "Emprime & Dijital Baskı",
+    "separation_ready": true,
+    "screen_count": 4,
+    "base_price": 175.0,
+    "rating": 5.0,
+    "reviews_count": 32,
+    "tags": [
+      "Yeni",
+      "Krem",
+      "Şeftali",
+      "Pastel",
+      "Bahar"
+    ],
+    "image": "/static/images/NT_066.jpg",
+    "pattern_tile": "/static/images/NT_066.jpg",
+    "description": "Krem saten üstüne şeftali ve somon tonlarında sıcak bahar buketi.",
+    "colors": [
+      "#eecca2",
+      "#dc8f72",
+      "#c26b62",
+      "#5c5b6a"
+    ],
+    "featured": true,
+    "is_new": true,
+    "discount_pct": 0,
+    "sales_count": 48
+  },
+  {
+    "id": "NT_065",
+    "code": "NT_065",
+    "title": "Kavun İçi & Mercan Güneş Çiçekleri",
+    "category": "cicekli-botanik",
+    "category_name": "Çiçekli & Botanik",
+    "print_type": "Emprime & Dijital Baskı",
+    "separation_ready": true,
+    "screen_count": 5,
+    "base_price": 170.0,
+    "rating": 4.8,
+    "reviews_count": 22,
+    "tags": [
+      "Yeni",
+      "Kavun İçi",
+      "Mercan",
+      "Güneş",
+      "Canlı"
+    ],
+    "image": "/static/images/NT_065.jpg",
+    "pattern_tile": "/static/images/NT_065.jpg",
+    "description": "Sıcak kavun içi ve mercan sarısı güneş ışıltılı yaz çiçekleri.",
+    "colors": [
+      "#eda777",
+      "#e8766b",
+      "#a66561",
+      "#59525c"
+    ],
+    "featured": true,
+    "is_new": true,
+    "discount_pct": 0,
+    "sales_count": 36
+  },
+  {
+    "id": "NT_064",
+    "code": "NT_064",
+    "title": "Pudra Eflatun & Gül Tozu Vintage Buket",
+    "category": "cicekli-botanik",
+    "category_name": "Çiçekli & Botanik",
+    "print_type": "Emprime & Dijital Baskı",
+    "separation_ready": true,
+    "screen_count": 5,
+    "base_price": 175.0,
+    "rating": 5.0,
+    "reviews_count": 30,
+    "tags": [
+      "Yeni",
+      "Eflatun",
+      "Gül Tozu",
+      "Vintage",
+      "Pastel"
+    ],
+    "image": "/static/images/NT_064.jpg",
+    "pattern_tile": "/static/images/NT_064.jpg",
+    "description": "Eflatun ve gül tozu pastel geçişleriyle bezenmiş vintage çiçek buketi.",
+    "colors": [
+      "#e8e1ee",
+      "#d1b4b7",
+      "#c9a5a5",
+      "#b08c8c"
+    ],
+    "featured": true,
+    "is_new": true,
+    "discount_pct": 0,
+    "sales_count": 47
+  },
+  {
+    "id": "NT_063",
+    "code": "NT_063",
+    "title": "Safir & Buz Mavisi Degrade Çiçek Deseni",
+    "category": "cicekli-botanik",
+    "category_name": "Çiçekli & Botanik",
+    "print_type": "Emprime & Dijital Baskı",
+    "separation_ready": true,
+    "screen_count": 4,
+    "base_price": 175.0,
+    "rating": 4.9,
+    "reviews_count": 29,
+    "tags": [
+      "Yeni",
+      "Safir",
+      "Buz Mavisi",
+      "Degrade",
+      "Asil"
+    ],
+    "image": "/static/images/NT_063.jpg",
+    "pattern_tile": "/static/images/NT_063.jpg",
+    "description": "Safir mavisi ve buz mavisi degrade geçişli asil kumaş deseni.",
+    "colors": [
+      "#dfdde9",
+      "#8c95bd",
+      "#4b5685",
+      "#1b284f"
+    ],
+    "featured": true,
+    "is_new": true,
+    "discount_pct": 0,
+    "sales_count": 44
+  },
+  {
+    "id": "NT_062",
+    "code": "NT_062",
+    "title": "Gece Mavisi & Gül Kurusu Kontrast Çiçekler",
+    "category": "cicekli-botanik",
+    "category_name": "Çiçekli & Botanik",
+    "print_type": "Emprime & Dijital Baskı",
+    "separation_ready": true,
+    "screen_count": 5,
+    "base_price": 185.0,
+    "rating": 5.0,
+    "reviews_count": 39,
+    "tags": [
+      "Yeni",
+      "Gece Mavisi",
+      "Gül Kurusu",
+      "Kontrast",
+      "Zarif"
+    ],
+    "image": "/static/images/NT_062.jpg",
+    "pattern_tile": "/static/images/NT_062.jpg",
+    "description": "Derin mavi zemin ile gül kurusu çiçeklerin göz alıcı şık kontrastı.",
+    "colors": [
+      "#9c637c",
+      "#2e5a86",
+      "#1b5883",
+      "#15435f"
+    ],
+    "featured": true,
+    "is_new": true,
+    "discount_pct": 0,
+    "sales_count": 58
+  },
+  {
+    "id": "NT_061",
+    "code": "NT_061",
+    "title": "Hardal & Mercan Canlı Çiçek Buketi",
+    "category": "cicekli-botanik",
+    "category_name": "Çiçekli & Botanik",
+    "print_type": "Emprime & Dijital Baskı",
+    "separation_ready": true,
+    "screen_count": 5,
+    "base_price": 175.0,
+    "rating": 4.8,
+    "reviews_count": 24,
+    "tags": [
+      "Yeni",
+      "Hardal",
+      "Mercan",
+      "Canlı",
+      "Yaz"
+    ],
+    "image": "/static/images/NT_061.jpg",
+    "pattern_tile": "/static/images/NT_061.jpg",
+    "description": "Sıcak hardal ve mercan renkleriyle enerjik ve neşeli çiçek buketi.",
+    "colors": [
+      "#e5a97c",
+      "#bf7b6e",
+      "#d56c78",
+      "#60534a"
+    ],
+    "featured": true,
+    "is_new": true,
+    "discount_pct": 0,
+    "sales_count": 39
+  },
+  {
+    "id": "NT_060",
+    "code": "NT_060",
+    "title": "Pudra & Nar Çiçeği Romantik Bahçe",
+    "category": "cicekli-botanik",
+    "category_name": "Çiçekli & Botanik",
+    "print_type": "Emprime & Dijital Baskı",
+    "separation_ready": true,
+    "screen_count": 5,
+    "base_price": 180.0,
+    "rating": 5.0,
+    "reviews_count": 34,
+    "tags": [
+      "Yeni",
+      "Pudra",
+      "Nar Çiçeği",
+      "Romantik",
+      "Bahar"
+    ],
+    "image": "/static/images/NT_060.jpg",
+    "pattern_tile": "/static/images/NT_060.jpg",
+    "description": "Pudra pembe fon üzerine nar çiçeği kırmızısı ışıltılı romantik bahar deseni.",
+    "colors": [
+      "#d9d3d4",
+      "#b98186",
+      "#a96767",
+      "#514442"
+    ],
+    "featured": true,
+    "is_new": true,
+    "discount_pct": 0,
+    "sales_count": 53
+  },
+  {
+    "id": "NT_059",
+    "code": "NT_059",
+    "title": "Vizon & Kiremit Rustik Çiçek Serisi",
+    "category": "cicekli-botanik",
+    "category_name": "Çiçekli & Botanik",
+    "print_type": "Emprime & Dijital Baskı",
+    "separation_ready": true,
+    "screen_count": 5,
+    "base_price": 175.0,
+    "rating": 4.9,
+    "reviews_count": 27,
+    "tags": [
+      "Yeni",
+      "Vizon",
+      "Kiremit",
+      "Rustik",
+      "Asil"
+    ],
+    "image": "/static/images/NT_059.jpg",
+    "pattern_tile": "/static/images/NT_059.jpg",
+    "description": "Vizon zemin üzerinde kiremit ve tarçın tonlarında zarif rustik çiçekler.",
+    "colors": [
+      "#c2a599",
+      "#96716f",
+      "#7a5c59",
+      "#545059"
+    ],
+    "featured": false,
+    "is_new": true,
+    "discount_pct": 0,
+    "sales_count": 40
+  },
+  {
+    "id": "NT_058",
+    "code": "NT_058",
+    "title": "Kobalt & İndigo Çizgisel Geometrik Çiçekler",
+    "category": "cicekli-botanik",
+    "category_name": "Çiçekli & Botanik",
+    "print_type": "Emprime & Dijital Baskı",
+    "separation_ready": true,
+    "screen_count": 4,
+    "base_price": 170.0,
+    "rating": 4.9,
+    "reviews_count": 21,
+    "tags": [
+      "Yeni",
+      "Kobalt",
+      "İndigo",
+      "Geometrik",
+      "Modern"
+    ],
+    "image": "/static/images/NT_058.jpg",
+    "pattern_tile": "/static/images/NT_058.jpg",
+    "description": "Kobalt ve lacivert tonlarında modern çizgisel dinamik çiçek deseni.",
+    "colors": [
+      "#7a82af",
+      "#6778aa",
+      "#64617b",
+      "#41424f"
+    ],
+    "featured": false,
+    "is_new": true,
+    "discount_pct": 0,
+    "sales_count": 35
+  },
+  {
+    "id": "NT_057",
+    "code": "NT_057",
+    "title": "Buz Mavisi & Fuşya Suluboya Çiçek Tarlası",
+    "category": "cicekli-botanik",
+    "category_name": "Çiçekli & Botanik",
+    "print_type": "Emprime & Dijital Baskı",
+    "separation_ready": true,
+    "screen_count": 5,
+    "base_price": 180.0,
+    "rating": 5.0,
+    "reviews_count": 36,
+    "tags": [
+      "Yeni",
+      "Buz Mavisi",
+      "Fuşya",
+      "Suluboya",
+      "Çiçek Tarlası"
+    ],
+    "image": "/static/images/NT_057.jpg",
+    "pattern_tile": "/static/images/NT_057.jpg",
+    "description": "Buz mavisi ferahlığı üzerinde fuşya ve pembe suluboya çiçek tarlası.",
+    "colors": [
+      "#d5e1f0",
+      "#bac4d5",
+      "#a38e8f",
+      "#6d5f69"
+    ],
+    "featured": false,
+    "is_new": true,
+    "discount_pct": 0,
+    "sales_count": 51
+  },
+  {
+    "id": "NT_056",
+    "code": "NT_056",
+    "title": "Pastel Mavi & Gri Buket Çiçekleri",
+    "category": "cicekli-botanik",
+    "category_name": "Çiçekli & Botanik",
+    "print_type": "Emprime & Dijital Baskı",
+    "separation_ready": true,
+    "screen_count": 4,
+    "base_price": 165.0,
+    "rating": 4.8,
+    "reviews_count": 18,
+    "tags": [
+      "Yeni",
+      "Pastel Mavi",
+      "Gri",
+      "Buket",
+      "Sakin"
+    ],
+    "image": "/static/images/NT_056.jpg",
+    "pattern_tile": "/static/images/NT_056.jpg",
+    "description": "Sakin pastel mavi ve nötr gri tonlarında dingin çiçek buketi kompozisyonu.",
+    "colors": [
+      "#d2d4e2",
+      "#b3bcd8",
+      "#8a8ea5",
+      "#4f4d57"
+    ],
+    "featured": false,
+    "is_new": true,
+    "discount_pct": 0,
+    "sales_count": 30
+  },
+  {
+    "id": "NT_055",
+    "code": "NT_055",
+    "title": "Gece Grisi & Gül Tozu Modern Çiçek Dokusu",
+    "category": "cicekli-botanik",
+    "category_name": "Çiçekli & Botanik",
+    "print_type": "Emprime & Dijital Baskı",
+    "separation_ready": true,
+    "screen_count": 5,
+    "base_price": 175.0,
+    "rating": 4.9,
+    "reviews_count": 23,
+    "tags": [
+      "Yeni",
+      "Gri",
+      "Gül Tozu",
+      "Modern",
+      "Doku"
+    ],
+    "image": "/static/images/NT_055.jpg",
+    "pattern_tile": "/static/images/NT_055.jpg",
+    "description": "Gece grisi ve gül tozu renklerinin dengeli uyumuyla modern tekstil deseni.",
+    "colors": [
+      "#cfab9f",
+      "#726e88",
+      "#54536c",
+      "#3b4562"
+    ],
+    "featured": false,
+    "is_new": true,
+    "discount_pct": 0,
+    "sales_count": 36
+  },
+  {
+    "id": "NT_054",
+    "code": "NT_054",
+    "title": "Zümrüt Yeşili & Nil Yeşili Tropikal Yapraklar",
+    "category": "cicekli-botanik",
+    "category_name": "Çiçekli & Botanik",
+    "print_type": "Emprime & Dijital Baskı",
+    "separation_ready": true,
+    "screen_count": 4,
+    "base_price": 175.0,
+    "rating": 5.0,
+    "reviews_count": 28,
+    "tags": [
+      "Yeni",
+      "Zümrüt",
+      "Nil Yeşili",
+      "Tropikal",
+      "Yaprak"
+    ],
+    "image": "/static/images/NT_054.jpg",
+    "pattern_tile": "/static/images/NT_054.jpg",
+    "description": "Derin zümrüt ve canlı nil yeşili tonlarında ferahlatıcı tropikal yaprak deseni.",
+    "colors": [
+      "#8ebd5a",
+      "#4a8956",
+      "#1b5848",
+      "#063230"
+    ],
+    "featured": false,
+    "is_new": true,
+    "discount_pct": 0,
+    "sales_count": 43
+  },
+  {
+    "id": "NT_053",
+    "code": "NT_053",
+    "title": "Krem Zemin Terracotta & Kiremit Kır Çiçekleri",
+    "category": "cicekli-botanik",
+    "category_name": "Çiçekli & Botanik",
+    "print_type": "Emprime & Dijital Baskı",
+    "separation_ready": true,
+    "screen_count": 4,
+    "base_price": 170.0,
+    "rating": 4.9,
+    "reviews_count": 20,
+    "tags": [
+      "Yeni",
+      "Krem",
+      "Terracotta",
+      "Kiremit",
+      "Kır Çiçeği"
+    ],
+    "image": "/static/images/NT_053.jpg",
+    "pattern_tile": "/static/images/NT_053.jpg",
+    "description": "Açık krem fon üzerine terracotta ve kiremit tonlarında zarif serpme çiçekler.",
+    "colors": [
+      "#fafaf9",
+      "#d4d4d0",
+      "#c1a79a",
+      "#b57563"
+    ],
+    "featured": false,
+    "is_new": true,
+    "discount_pct": 0,
+    "sales_count": 34
+  },
+  {
+    "id": "NT_052",
+    "code": "NT_052",
+    "title": "Pudra & Gül Kurusu Asil Şakayık Bahçesi",
+    "category": "cicekli-botanik",
+    "category_name": "Çiçekli & Botanik",
+    "print_type": "Emprime & Dijital Baskı",
+    "separation_ready": true,
+    "screen_count": 5,
+    "base_price": 180.0,
+    "rating": 5.0,
+    "reviews_count": 31,
+    "tags": [
+      "Yeni",
+      "Pudra",
+      "Gül Kurusu",
+      "Şakayık",
+      "Zarif"
+    ],
+    "image": "/static/images/NT_052.jpg",
+    "pattern_tile": "/static/images/NT_052.jpg",
+    "description": "Yumuşak pudra zemin üzerinde asil gül kurusu ve mercan şakayıklar.",
+    "colors": [
+      "#f9ebd5",
+      "#cfcecc",
+      "#bd9c91",
+      "#ad4e64"
+    ],
+    "featured": false,
+    "is_new": true,
+    "discount_pct": 0,
+    "sales_count": 49
+  },
+  {
+    "id": "NT_051",
+    "code": "NT_051",
+    "title": "Pastel Kiremit & Zeytin Yeşili Vintage Botanik",
+    "category": "cicekli-botanik",
+    "category_name": "Çiçekli & Botanik",
+    "print_type": "Emprime & Dijital Baskı",
+    "separation_ready": true,
+    "screen_count": 5,
+    "base_price": 175.0,
+    "rating": 4.8,
+    "reviews_count": 25,
+    "tags": [
+      "Yeni",
+      "Kiremit",
+      "Zeytin",
+      "Vintage",
+      "Botanik"
+    ],
+    "image": "/static/images/NT_051.jpg",
+    "pattern_tile": "/static/images/NT_051.jpg",
+    "description": "Kiremit ve zeytin yeşili uyumuyla harmanlanmış klasik vintage botanik.",
+    "colors": [
+      "#c8c8a6",
+      "#aa8959",
+      "#7d4737",
+      "#33322f"
+    ],
+    "featured": false,
+    "is_new": true,
+    "discount_pct": 0,
+    "sales_count": 38
+  },
+  {
+    "id": "NT_050",
+    "code": "NT_050",
+    "title": "Gece Mavisi & İndigo Parlak Tropikal Flora",
+    "category": "cicekli-botanik",
+    "category_name": "Çiçekli & Botanik",
+    "print_type": "Emprime & Dijital Baskı",
+    "separation_ready": true,
+    "screen_count": 5,
+    "base_price": 185.0,
+    "rating": 4.9,
+    "reviews_count": 27,
+    "tags": [
+      "Yeni",
+      "İndigo",
+      "Gece Mavisi",
+      "Tropikal",
+      "Flora"
+    ],
+    "image": "/static/images/NT_050.jpg",
+    "pattern_tile": "/static/images/NT_050.jpg",
+    "description": "Koyu mavi zemin üzerinde parlak gök mavisi ve leylak tropikal flora.",
+    "colors": [
+      "#d4e9f0",
+      "#a1abd4",
+      "#7b74ba",
+      "#373276"
+    ],
+    "featured": false,
+    "is_new": true,
+    "discount_pct": 0,
+    "sales_count": 46
+  },
+  {
+    "id": "NT_049",
+    "code": "NT_049",
+    "title": "Leylak & Mürdüm Romantik Suluboya Çiçekler",
+    "category": "cicekli-botanik",
+    "category_name": "Çiçekli & Botanik",
+    "print_type": "Emprime & Dijital Baskı",
+    "separation_ready": true,
+    "screen_count": 5,
+    "base_price": 180.0,
+    "rating": 5.0,
+    "reviews_count": 37,
+    "tags": [
+      "Yeni",
+      "Leylak",
+      "Mürdüm",
+      "Suluboya",
+      "Romantik"
+    ],
+    "image": "/static/images/NT_049.jpg",
+    "pattern_tile": "/static/images/NT_049.jpg",
+    "description": "Pastel leylak ve mürdüm tonlarında romantik degrade suluboya çiçekler.",
+    "colors": [
+      "#f1f1f0",
+      "#d7d1d6",
+      "#ada0ae",
+      "#785b7d"
+    ],
+    "featured": false,
+    "is_new": true,
+    "discount_pct": 0,
+    "sales_count": 54
+  },
+  {
+    "id": "NT_048",
+    "code": "NT_048",
+    "title": "Krem & Altın Barok Vintage Bordürlü Buket",
+    "category": "barok-etnik",
+    "category_name": "Barok & Etnik",
+    "print_type": "Emprime & Dijital Baskı",
+    "separation_ready": true,
+    "screen_count": 6,
+    "base_price": 195.0,
+    "rating": 5.0,
+    "reviews_count": 33,
+    "tags": [
+      "Yeni",
+      "Barok",
+      "Krem",
+      "Altın",
+      "Vintage"
+    ],
+    "image": "/static/images/NT_048.jpg",
+    "pattern_tile": "/static/images/NT_048.jpg",
+    "description": "Krem saten zemin üzerinde altın sarısı vintage barok bordür ve çiçekler.",
+    "colors": [
+      "#ebe5dc",
+      "#ac9f8b",
+      "#776854",
+      "#2d2519"
+    ],
+    "featured": false,
+    "is_new": true,
+    "discount_pct": 0,
+    "sales_count": 50
+  },
+  {
+    "id": "NT_047",
+    "code": "NT_047",
+    "title": "Toprak & Vizon Etnik Mozaik Desen",
+    "category": "barok-etnik",
+    "category_name": "Barok & Etnik",
+    "print_type": "Emprime & Dijital Baskı",
+    "separation_ready": true,
+    "screen_count": 4,
+    "base_price": 170.0,
+    "rating": 4.9,
+    "reviews_count": 19,
+    "tags": [
+      "Yeni",
+      "Toprak",
+      "Vizon",
+      "Etnik",
+      "Mozaik"
+    ],
+    "image": "/static/images/NT_047.jpg",
+    "pattern_tile": "/static/images/NT_047.jpg",
+    "description": "Doğal toprak tonlarında etnik ve geometrik geçişli sofistike kumaş deseni.",
+    "colors": [
+      "#c3b194",
+      "#8a7a63",
+      "#584a3a",
+      "#261e15"
+    ],
+    "featured": false,
+    "is_new": true,
+    "discount_pct": 0,
+    "sales_count": 33
+  },
+  {
+    "id": "NT_046",
+    "code": "NT_046",
+    "title": "Siyah Beyaz Sanatsal Çizgisel Lilyum & Gül",
+    "category": "cicekli-botanik",
+    "category_name": "Çiçekli & Botanik",
+    "print_type": "Emprime & Dijital Baskı",
+    "separation_ready": true,
+    "screen_count": 3,
+    "base_price": 160.0,
+    "rating": 4.9,
+    "reviews_count": 40,
+    "tags": [
+      "Yeni",
+      "Siyah-Beyaz",
+      "Lilyum",
+      "Gül",
+      "Minimal"
+    ],
+    "image": "/static/images/NT_046.jpg",
+    "pattern_tile": "/static/images/NT_046.jpg",
+    "description": "Minimalist ve çarpıcı siyah beyaz illüstrasyon lilyum ve gül deseni.",
+    "colors": [
+      "#ffffff",
+      "#edecea",
+      "#9c9995",
+      "#212224"
+    ],
+    "featured": false,
+    "is_new": true,
+    "discount_pct": 0,
+    "sales_count": 68
+  },
+  {
+    "id": "NT_045",
+    "code": "NT_045",
+    "title": "Limon Sarısı & Adaçayı Enerjik Kır Bahçesi",
+    "category": "cicekli-botanik",
+    "category_name": "Çiçekli & Botanik",
+    "print_type": "Emprime & Dijital Baskı",
+    "separation_ready": true,
+    "screen_count": 5,
+    "base_price": 170.0,
+    "rating": 4.8,
+    "reviews_count": 22,
+    "tags": [
+      "Yeni",
+      "Sarı",
+      "Adaçayı",
+      "Bahar",
+      "Canlı"
+    ],
+    "image": "/static/images/NT_045.jpg",
+    "pattern_tile": "/static/images/NT_045.jpg",
+    "description": "Limon sarısı ve adaçayı yeşiliyle bezeli taze bahar çiçekleri deseni.",
+    "colors": [
+      "#d4d898",
+      "#b1b373",
+      "#868750",
+      "#494b28"
+    ],
+    "featured": false,
+    "is_new": true,
+    "discount_pct": 0,
+    "sales_count": 37
+  },
+  {
+    "id": "NT_044",
+    "code": "NT_044",
+    "title": "Siyah Zemin Karamel & Altın Varak Şakayık",
+    "category": "barok-etnik",
+    "category_name": "Barok & Etnik",
+    "print_type": "Emprime & Dijital Baskı",
+    "separation_ready": true,
+    "screen_count": 6,
+    "base_price": 190.0,
+    "rating": 5.0,
+    "reviews_count": 38,
+    "tags": [
+      "Yeni",
+      "Siyah",
+      "Karamel",
+      "Şakayık",
+      "Lüks"
+    ],
+    "image": "/static/images/NT_044.jpg",
+    "pattern_tile": "/static/images/NT_044.jpg",
+    "description": "Siyah zemin üzerinde karamel ve altın ışıltılı gösterişli şakayık çiçekleri.",
+    "colors": [
+      "#dcc1ac",
+      "#9b7962",
+      "#4e392b",
+      "#0a0705"
+    ],
+    "featured": false,
+    "is_new": true,
+    "discount_pct": 0,
+    "sales_count": 59
+  },
+  {
+    "id": "NT_043",
+    "code": "NT_043",
+    "title": "Bordo & Terracotta Sıcak Çiçek Armonisi",
+    "category": "cicekli-botanik",
+    "category_name": "Çiçekli & Botanik",
+    "print_type": "Emprime & Dijital Baskı",
+    "separation_ready": true,
+    "screen_count": 5,
+    "base_price": 180.0,
+    "rating": 4.9,
+    "reviews_count": 26,
+    "tags": [
+      "Yeni",
+      "Bordo",
+      "Terracotta",
+      "Sıcak",
+      "Zarif"
+    ],
+    "image": "/static/images/NT_043.jpg",
+    "pattern_tile": "/static/images/NT_043.jpg",
+    "description": "Derin bordo ve terracotta tonlarında sıcak ve romantik çiçek kompozisyonu.",
+    "colors": [
+      "#e7e3df",
+      "#64463d",
+      "#45261d",
+      "#341b13"
+    ],
+    "featured": false,
+    "is_new": true,
+    "discount_pct": 0,
+    "sales_count": 41
+  },
+  {
+    "id": "NT_042",
+    "code": "NT_042",
+    "title": "Krem Zemin Barok Bej & Varak Saray Çiçekleri",
+    "category": "barok-etnik",
+    "category_name": "Barok & Etnik",
+    "print_type": "Emprime & Dijital Baskı",
+    "separation_ready": true,
+    "screen_count": 6,
+    "base_price": 195.0,
+    "rating": 5.0,
+    "reviews_count": 44,
+    "tags": [
+      "Yeni",
+      "Barok",
+      "Varak",
+      "Krem",
+      "Lüks",
+      "Saray"
+    ],
+    "image": "/static/images/NT_042.jpg",
+    "pattern_tile": "/static/images/NT_042.jpg",
+    "description": "Krem zemin üzerinde lüks barok altın varak ve bej tonlarında saray deseni.",
+    "colors": [
+      "#e3e0d2",
+      "#cdc6b6",
+      "#897c6a",
+      "#2d2b28"
+    ],
+    "featured": false,
+    "is_new": true,
+    "discount_pct": 0,
+    "sales_count": 63
+  },
+  {
+    "id": "NT_041",
+    "code": "NT_041",
+    "title": "Haki & Zeytin Yeşili Rustik Bahçe Deseni",
+    "category": "cicekli-botanik",
+    "category_name": "Çiçekli & Botanik",
+    "print_type": "Emprime & Dijital Baskı",
+    "separation_ready": true,
+    "screen_count": 5,
+    "base_price": 175.0,
+    "rating": 5.0,
+    "reviews_count": 35,
+    "tags": [
+      "Yeni",
+      "Haki",
+      "Zeytin",
+      "Rustik",
+      "Doğal"
+    ],
+    "image": "/static/images/NT_041.jpg",
+    "pattern_tile": "/static/images/NT_041.jpg",
+    "description": "Toprak ve zeytin yeşili tonlarında zengin yapraklı rustik çiçek buketi.",
+    "colors": [
+      "#a5a08e",
+      "#716855",
+      "#544936",
+      "#2d261a"
+    ],
+    "featured": false,
+    "is_new": true,
+    "discount_pct": 0,
+    "sales_count": 52
+  },
+  {
+    "id": "NT_040",
+    "code": "NT_040",
+    "title": "Monokrom Grafit & Antrasit Çizgisel Çiçekler",
+    "category": "cicekli-botanik",
+    "category_name": "Çiçekli & Botanik",
+    "print_type": "Emprime & Dijital Baskı",
+    "separation_ready": true,
+    "screen_count": 4,
+    "base_price": 170.0,
+    "rating": 4.9,
+    "reviews_count": 29,
+    "tags": [
+      "Yeni",
+      "Monokrom",
+      "Grafit",
+      "Antrasit",
+      "Modern"
+    ],
+    "image": "/static/images/NT_040.jpg",
+    "pattern_tile": "/static/images/NT_040.jpg",
+    "description": "Zarif antrasit ve grafit geçişli monokrom sanatsal çiçek kompozisyonu.",
+    "colors": [
+      "#d3d2d1",
+      "#a3a0a0",
+      "#5a5558",
+      "#18141a"
+    ],
+    "featured": false,
+    "is_new": true,
+    "discount_pct": 0,
+    "sales_count": 48
+  },
+  {
+    "id": "NT_039",
+    "code": "NT_039",
+    "title": "Karamel & Kahve Tonları Zarif Kır Buketi",
+    "category": "cicekli-botanik",
+    "category_name": "Çiçekli & Botanik",
+    "print_type": "Emprime & Dijital Baskı",
+    "separation_ready": true,
+    "screen_count": 5,
+    "base_price": 180.0,
+    "rating": 5.0,
+    "reviews_count": 24,
+    "tags": [
+      "Yeni",
+      "Karamel",
+      "Toprak",
+      "Vizon",
+      "Kır Çiçeği"
+    ],
+    "image": "/static/images/NT_039.jpg",
+    "pattern_tile": "/static/images/NT_039.jpg",
+    "description": "Karamel, vizon ve kahve geçişleriyle sıcak sonbahar esintili kır çiçekleri.",
+    "colors": [
+      "#bcb0a1",
+      "#85725f",
+      "#564637",
+      "#221c16"
+    ],
+    "featured": false,
+    "is_new": true,
+    "discount_pct": 0,
+    "sales_count": 39
+  },
+  {
+    "id": "NT_038",
+    "code": "NT_038",
+    "title": "Pastel Yeşil & Adaçayı Ferah Botanik Doku",
+    "category": "cicekli-botanik",
+    "category_name": "Çiçekli & Botanik",
+    "print_type": "Emprime & Dijital Baskı",
+    "separation_ready": true,
+    "screen_count": 4,
+    "base_price": 165.0,
+    "rating": 4.9,
+    "reviews_count": 31,
+    "tags": [
+      "Yeni",
+      "Adaçayı",
+      "Mint",
+      "Botanik",
+      "Doğal"
+    ],
+    "image": "/static/images/NT_038.jpg",
+    "pattern_tile": "/static/images/NT_038.jpg",
+    "description": "Ferah adaçayı ve mint yeşili tonlarında organik yaprak ve botanik doku deseni.",
+    "colors": [
+      "#cdd9cd",
+      "#b8c5b9",
+      "#9daa9f",
+      "#59625c"
+    ],
+    "featured": false,
+    "is_new": true,
+    "discount_pct": 0,
+    "sales_count": 55
+  },
+  {
+    "id": "NT_037",
+    "code": "NT_037",
+    "title": "İndigo & Füme Zemin Pastel Adaçayı Çiçekler",
+    "category": "cicekli-botanik",
+    "category_name": "Çiçekli & Botanik",
+    "print_type": "Emprime & Dijital Baskı",
+    "separation_ready": true,
+    "screen_count": 5,
+    "base_price": 175.0,
+    "rating": 5.0,
+    "reviews_count": 28,
+    "tags": [
+      "Yeni",
+      "İndigo",
+      "Füme",
+      "Adaçayı",
+      "Pastel",
+      "Zarif"
+    ],
+    "image": "/static/images/NT_037.jpg",
+    "pattern_tile": "/static/images/NT_037.jpg",
+    "description": "Füme ve indigo zemin üzerine pastel zeytin ve adaçayı tonlarında zarif dikişsiz çiçek deseni.",
+    "colors": [
+      "#a7a889",
+      "#8a7066",
+      "#3a4453",
+      "#313f51"
+    ],
+    "featured": false,
+    "is_new": true,
+    "discount_pct": 0,
+    "sales_count": 42
+  },
   {
     "id": "NT_036",
     "code": "NT_036",
@@ -55,7 +1312,7 @@ DEFAULT_PRODUCTS = [
     "category": "cicekli-botanik",
     "category_name": "Çiçekli & Botanik",
     "print_type": "Emprime & Dijital Baskı",
-    "separation_ready": True,
+    "separation_ready": true,
     "screen_count": 6,
     "base_price": 185.0,
     "rating": 5.0,
@@ -77,8 +1334,8 @@ DEFAULT_PRODUCTS = [
       "#512637",
       "#050f1a"
     ],
-    "featured": True,
-    "is_new": True,
+    "featured": true,
+    "is_new": true,
     "discount_pct": 0,
     "sales_count": 45
   },
@@ -89,7 +1346,7 @@ DEFAULT_PRODUCTS = [
     "category": "cicekli-botanik",
     "category_name": "Çiçekli & Botanik",
     "print_type": "Emprime & Dijital Baskı",
-    "separation_ready": True,
+    "separation_ready": true,
     "screen_count": 5,
     "base_price": 185.0,
     "rating": 5.0,
@@ -111,8 +1368,8 @@ DEFAULT_PRODUCTS = [
       "#461112",
       "#0e0e0d"
     ],
-    "featured": True,
-    "is_new": True,
+    "featured": true,
+    "is_new": true,
     "discount_pct": 0,
     "sales_count": 39
   },
@@ -123,7 +1380,7 @@ DEFAULT_PRODUCTS = [
     "category": "cicekli-botanik",
     "category_name": "Barok & Saray Çiçekleri",
     "print_type": "Emprime & Dijital Baskı",
-    "separation_ready": True,
+    "separation_ready": true,
     "screen_count": 7,
     "base_price": 185.0,
     "rating": 5.0,
@@ -145,8 +1402,8 @@ DEFAULT_PRODUCTS = [
       "#7f1958",
       "#180b1f"
     ],
-    "featured": True,
-    "is_new": True,
+    "featured": true,
+    "is_new": true,
     "discount_pct": 0,
     "sales_count": 81
   },
@@ -157,7 +1414,7 @@ DEFAULT_PRODUCTS = [
     "category": "cicekli-botanik",
     "category_name": "Çiçekli & Botanik",
     "print_type": "Dijital & Emprime Baskı",
-    "separation_ready": True,
+    "separation_ready": true,
     "screen_count": 5,
     "base_price": 185.0,
     "rating": 5.0,
@@ -178,8 +1435,8 @@ DEFAULT_PRODUCTS = [
       "#694635",
       "#373131"
     ],
-    "featured": True,
-    "is_new": True,
+    "featured": true,
+    "is_new": true,
     "discount_pct": 0,
     "sales_count": 46
   },
@@ -190,7 +1447,7 @@ DEFAULT_PRODUCTS = [
     "category": "cicekli-botanik",
     "category_name": "Çiçekli & Botanik",
     "print_type": "Emprime & Dijital Baskı",
-    "separation_ready": True,
+    "separation_ready": true,
     "screen_count": 6,
     "base_price": 185.0,
     "rating": 5.0,
@@ -212,8 +1469,8 @@ DEFAULT_PRODUCTS = [
       "#40170e",
       "#0a0302"
     ],
-    "featured": True,
-    "is_new": True,
+    "featured": true,
+    "is_new": true,
     "discount_pct": 0,
     "sales_count": 63
   },
@@ -224,7 +1481,7 @@ DEFAULT_PRODUCTS = [
     "category": "cicekli-botanik",
     "category_name": "Çiçekli & Botanik",
     "print_type": "Dijital Baskı",
-    "separation_ready": True,
+    "separation_ready": true,
     "screen_count": 7,
     "base_price": 185.0,
     "rating": 5.0,
@@ -246,8 +1503,8 @@ DEFAULT_PRODUCTS = [
       "#e16446",
       "#cc3b67"
     ],
-    "featured": True,
-    "is_new": True,
+    "featured": true,
+    "is_new": true,
     "discount_pct": 0,
     "sales_count": 72
   },
@@ -258,7 +1515,7 @@ DEFAULT_PRODUCTS = [
     "category": "cicekli-botanik",
     "category_name": "Çiçekli & Botanik",
     "print_type": "Dijital & Emprime Baskı",
-    "separation_ready": True,
+    "separation_ready": true,
     "screen_count": 6,
     "base_price": 185.0,
     "rating": 5.0,
@@ -280,8 +1537,8 @@ DEFAULT_PRODUCTS = [
       "#a07763",
       "#483232"
     ],
-    "featured": True,
-    "is_new": True,
+    "featured": true,
+    "is_new": true,
     "discount_pct": 0,
     "sales_count": 56
   },
@@ -292,7 +1549,7 @@ DEFAULT_PRODUCTS = [
     "category": "cicekli-botanik",
     "category_name": "Çiçekli & Botanik",
     "print_type": "Dijital & Emprime Baskı",
-    "separation_ready": True,
+    "separation_ready": true,
     "screen_count": 5,
     "base_price": 185.0,
     "rating": 5.0,
@@ -313,8 +1570,8 @@ DEFAULT_PRODUCTS = [
       "#932f37",
       "#1e1a1d"
     ],
-    "featured": True,
-    "is_new": True,
+    "featured": true,
+    "is_new": true,
     "discount_pct": 0,
     "sales_count": 41
   },
@@ -325,7 +1582,7 @@ DEFAULT_PRODUCTS = [
     "category": "cicekli-botanik",
     "category_name": "Barok & Saray Çiçekleri",
     "print_type": "Emprime & Dijital Baskı",
-    "separation_ready": True,
+    "separation_ready": true,
     "screen_count": 6,
     "base_price": 185.0,
     "rating": 5.0,
@@ -347,8 +1604,8 @@ DEFAULT_PRODUCTS = [
       "#84433e",
       "#2a312f"
     ],
-    "featured": True,
-    "is_new": True,
+    "featured": true,
+    "is_new": true,
     "discount_pct": 0,
     "sales_count": 68
   },
@@ -359,7 +1616,7 @@ DEFAULT_PRODUCTS = [
     "category": "cicekli-botanik",
     "category_name": "Çiçekli & Botanik",
     "print_type": "Emprime & Dijital Baskı",
-    "separation_ready": True,
+    "separation_ready": true,
     "screen_count": 6,
     "base_price": 185.0,
     "rating": 5.0,
@@ -381,8 +1638,8 @@ DEFAULT_PRODUCTS = [
       "#504c39",
       "#080c24"
     ],
-    "featured": True,
-    "is_new": True,
+    "featured": true,
+    "is_new": true,
     "discount_pct": 0,
     "sales_count": 54
   },
@@ -393,7 +1650,7 @@ DEFAULT_PRODUCTS = [
     "category": "cicekli-botanik",
     "category_name": "Çiçekli & Botanik",
     "print_type": "Dijital & Emprime Baskı",
-    "separation_ready": True,
+    "separation_ready": true,
     "screen_count": 5,
     "base_price": 185.0,
     "rating": 5.0,
@@ -415,8 +1672,8 @@ DEFAULT_PRODUCTS = [
       "#4c2028",
       "#090d10"
     ],
-    "featured": True,
-    "is_new": True,
+    "featured": true,
+    "is_new": true,
     "discount_pct": 0,
     "sales_count": 47
   },
@@ -427,7 +1684,7 @@ DEFAULT_PRODUCTS = [
     "category": "cicekli-botanik",
     "category_name": "Çiçekli & Botanik",
     "print_type": "Emprime & Dijital Baskı",
-    "separation_ready": True,
+    "separation_ready": true,
     "screen_count": 5,
     "base_price": 185.0,
     "rating": 5.0,
@@ -449,8 +1706,8 @@ DEFAULT_PRODUCTS = [
       "#47202e",
       "#0b0b0d"
     ],
-    "featured": True,
-    "is_new": True,
+    "featured": true,
+    "is_new": true,
     "discount_pct": 0,
     "sales_count": 52
   },
@@ -461,7 +1718,7 @@ DEFAULT_PRODUCTS = [
     "category": "cicekli-botanik",
     "category_name": "Çiçekli & Botanik",
     "print_type": "Dijital & Emprime Baskı",
-    "separation_ready": True,
+    "separation_ready": true,
     "screen_count": 5,
     "base_price": 185.0,
     "rating": 5.0,
@@ -483,8 +1740,8 @@ DEFAULT_PRODUCTS = [
       "#301915",
       "#040506"
     ],
-    "featured": True,
-    "is_new": True,
+    "featured": true,
+    "is_new": true,
     "discount_pct": 0,
     "sales_count": 42
   },
@@ -495,7 +1752,7 @@ DEFAULT_PRODUCTS = [
     "category": "cicekli-botanik",
     "category_name": "Çiçekli & Botanik",
     "print_type": "Emprime & Dijital Baskı",
-    "separation_ready": True,
+    "separation_ready": true,
     "screen_count": 5,
     "base_price": 185.0,
     "rating": 5.0,
@@ -517,8 +1774,8 @@ DEFAULT_PRODUCTS = [
       "#76151f",
       "#010201"
     ],
-    "featured": True,
-    "is_new": True,
+    "featured": true,
+    "is_new": true,
     "discount_pct": 0,
     "sales_count": 65
   },
@@ -529,7 +1786,7 @@ DEFAULT_PRODUCTS = [
     "category": "cicekli-botanik",
     "category_name": "Çiçekli & Botanik",
     "print_type": "Emprime & Dijital Baskı",
-    "separation_ready": True,
+    "separation_ready": true,
     "screen_count": 6,
     "base_price": 185.0,
     "rating": 5.0,
@@ -551,8 +1808,8 @@ DEFAULT_PRODUCTS = [
       "#511c27",
       "#010101"
     ],
-    "featured": True,
-    "is_new": True,
+    "featured": true,
+    "is_new": true,
     "discount_pct": 0,
     "sales_count": 58
   },
@@ -563,7 +1820,7 @@ DEFAULT_PRODUCTS = [
     "category": "cicekli-botanik",
     "category_name": "Çiçekli & Botanik",
     "print_type": "Dijital & Emprime Baskı",
-    "separation_ready": True,
+    "separation_ready": true,
     "screen_count": 5,
     "base_price": 185.0,
     "rating": 5.0,
@@ -584,8 +1841,8 @@ DEFAULT_PRODUCTS = [
       "#d0b3a0",
       "#8c5156"
     ],
-    "featured": True,
-    "is_new": True,
+    "featured": true,
+    "is_new": true,
     "discount_pct": 0,
     "sales_count": 37
   },
@@ -596,7 +1853,7 @@ DEFAULT_PRODUCTS = [
     "category": "cicekli-botanik",
     "category_name": "Çiçekli & Botanik",
     "print_type": "Dijital & Emprime Baskı",
-    "separation_ready": True,
+    "separation_ready": true,
     "screen_count": 6,
     "base_price": 185.0,
     "rating": 5.0,
@@ -617,8 +1874,8 @@ DEFAULT_PRODUCTS = [
       "#b83dab",
       "#592664"
     ],
-    "featured": True,
-    "is_new": True,
+    "featured": true,
+    "is_new": true,
     "discount_pct": 0,
     "sales_count": 48
   },
@@ -629,7 +1886,7 @@ DEFAULT_PRODUCTS = [
     "category": "cicekli-botanik",
     "category_name": "Çiçekli & Botanik",
     "print_type": "Dijital Baskı",
-    "separation_ready": True,
+    "separation_ready": true,
     "screen_count": 7,
     "base_price": 185.0,
     "rating": 5.0,
@@ -651,8 +1908,8 @@ DEFAULT_PRODUCTS = [
       "#c984aa",
       "#8e2b69"
     ],
-    "featured": True,
-    "is_new": True,
+    "featured": true,
+    "is_new": true,
     "discount_pct": 0,
     "sales_count": 44
   },
@@ -663,7 +1920,7 @@ DEFAULT_PRODUCTS = [
     "category": "cicekli-botanik",
     "category_name": "Çiçekli & Botanik",
     "print_type": "Dijital Baskı",
-    "separation_ready": True,
+    "separation_ready": true,
     "screen_count": 6,
     "base_price": 185.0,
     "rating": 5.0,
@@ -685,8 +1942,8 @@ DEFAULT_PRODUCTS = [
       "#c86e93",
       "#9d2663"
     ],
-    "featured": True,
-    "is_new": True,
+    "featured": true,
+    "is_new": true,
     "discount_pct": 0,
     "sales_count": 51
   },
@@ -697,7 +1954,7 @@ DEFAULT_PRODUCTS = [
     "category": "cicekli-botanik",
     "category_name": "Çiçekli & Botanik",
     "print_type": "Dijital & Emprime Baskı",
-    "separation_ready": True,
+    "separation_ready": true,
     "screen_count": 5,
     "base_price": 185.0,
     "rating": 5.0,
@@ -719,8 +1976,8 @@ DEFAULT_PRODUCTS = [
       "#766552",
       "#413125"
     ],
-    "featured": True,
-    "is_new": True,
+    "featured": true,
+    "is_new": true,
     "discount_pct": 0,
     "sales_count": 39
   },
@@ -731,7 +1988,7 @@ DEFAULT_PRODUCTS = [
     "category": "cicekli-botanik",
     "category_name": "Çiçekli & Botanik",
     "print_type": "Dijital & Emprime Baskı",
-    "separation_ready": True,
+    "separation_ready": true,
     "screen_count": 6,
     "base_price": 185.0,
     "rating": 5.0,
@@ -753,44 +2010,77 @@ DEFAULT_PRODUCTS = [
       "#c79e7f",
       "#b76d4e"
     ],
-    "featured": True,
-    "is_new": True,
+    "featured": true,
+    "is_new": true,
     "discount_pct": 0,
     "sales_count": 45
   },
   {
-    "id": "NT_011",
-    "code": "NT_011",
-    "title": "Pastel Gri Mavi & Gül Kurusu Vintage Çiçekler",
-    "category": "cicekli-botanik",
-    "category_name": "Çiçekli & Botanik",
+    "id": "NT_015",
+    "code": "NT_015",
+    "title": "Gece Mavisi Sulu Boya Sanatsal Çiçek Tablosu",
+    "category": "soyut-mermer",
+    "category_name": "Sulu Boya & Sanatsal Çiçekler",
     "print_type": "Dijital Baskı",
-    "separation_ready": True,
-    "screen_count": 6,
+    "separation_ready": true,
+    "screen_count": 8,
     "base_price": 185.0,
     "rating": 5.0,
-    "reviews_count": 27,
+    "reviews_count": 31,
     "tags": [
       "Yeni",
-      "Gül Kurusu",
-      "Pastel Mavi",
-      "Vintage",
-      "Çiçekli",
-      "Dikişsiz Rapor"
+      "Sulu Boya",
+      "Gece Mavisi",
+      "Sarı Çiçek",
+      "Sanatsal Tablo"
     ],
-    "image": "/static/images/NT_011.jpg",
-    "pattern_tile": "/static/images/NT_011.jpg",
-    "description": "Trenddesen yeni sezon özel tasarımı. Pastel mavi, gri ve gül kurusu tonlarında lüks dikişsiz çiçek deseni (4961x4961 HD).",
+    "image": "/static/images/NT_015.jpg",
+    "pattern_tile": "/static/images/NT_015.jpg",
+    "description": "Derin gece mavisi ve çivit sulu boya akıntıları üzerinde sarı ve beyaz anemon çiçekleriyle galeri tablosu niteliğinde çarpıcı dijital baskı deseni.",
     "colors": [
-      "#809fad",
-      "#776f83",
-      "#833c65",
-      "#262827"
+      "#25295c",
+      "#3d4b8f",
+      "#f7bf46",
+      "#f2efe9"
     ],
-    "featured": True,
-    "is_new": True,
+    "featured": true,
+    "is_new": true,
     "discount_pct": 0,
-    "sales_count": 52
+    "sales_count": 49
+  },
+  {
+    "id": "NT_014",
+    "code": "NT_014",
+    "title": "Siyah Beyaz Monokrom Çizgisel Şakayık & Lilyum",
+    "category": "cicekli-botanik",
+    "category_name": "Monokrom & Çizgisel Sanat",
+    "print_type": "Emprime & Dijital Uyumlu",
+    "separation_ready": true,
+    "screen_count": 2,
+    "base_price": 185.0,
+    "rating": 5.0,
+    "reviews_count": 25,
+    "tags": [
+      "Yeni",
+      "Monokrom",
+      "Siyah Beyaz",
+      "Şakayık",
+      "Çizgisel",
+      "Asil"
+    ],
+    "image": "/static/images/NT_014.jpg",
+    "pattern_tile": "/static/images/NT_014.jpg",
+    "description": "Antrasit siyah zemin üzerinde yüksek kontrastlı beyaz gravür şakayık, zambak ve yaprak illüstrasyonları içeren şık ve lüks kumaş deseni.",
+    "colors": [
+      "#1c1d1f",
+      "#ffffff",
+      "#3b3c3e",
+      "#e5e7eb"
+    ],
+    "featured": true,
+    "is_new": true,
+    "discount_pct": 0,
+    "sales_count": 56
   },
   {
     "id": "NT_013",
@@ -799,7 +2089,7 @@ DEFAULT_PRODUCTS = [
     "category": "cicekli-botanik",
     "category_name": "Çizgisel Sanat & Etnik Çiçekler",
     "print_type": "Emprime & Dijital Uyumlu",
-    "separation_ready": True,
+    "separation_ready": true,
     "screen_count": 5,
     "base_price": 185.0,
     "rating": 5.0,
@@ -822,8 +2112,8 @@ DEFAULT_PRODUCTS = [
       "#3b82f6",
       "#9333ea"
     ],
-    "featured": True,
-    "is_new": True,
+    "featured": true,
+    "is_new": true,
     "discount_pct": 0,
     "sales_count": 63
   },
@@ -834,7 +2124,7 @@ DEFAULT_PRODUCTS = [
     "category": "cicekli-botanik",
     "category_name": "Çiçekli & Botanik",
     "print_type": "Emprime & Dijital Uyumlu",
-    "separation_ready": True,
+    "separation_ready": true,
     "screen_count": 6,
     "base_price": 185.0,
     "rating": 5.0,
@@ -856,179 +2146,44 @@ DEFAULT_PRODUCTS = [
       "#e8e1df",
       "#939ea0"
     ],
-    "featured": True,
-    "is_new": True,
+    "featured": true,
+    "is_new": true,
     "discount_pct": 0,
     "sales_count": 38
   },
   {
-    "id": "NT_014",
-    "code": "NT_014",
-    "title": "Siyah Beyaz Monokrom Çizgisel Şakayık & Lilyum",
-    "category": "cicekli-botanik",
-    "category_name": "Monokrom & Çizgisel Sanat",
-    "print_type": "Emprime & Dijital Uyumlu",
-    "separation_ready": True,
-    "screen_count": 2,
-    "base_price": 185.0,
-    "rating": 5.0,
-    "reviews_count": 25,
-    "tags": [
-      "Yeni",
-      "Monokrom",
-      "Siyah Beyaz",
-      "Şakayık",
-      "Çizgisel",
-      "Asil"
-    ],
-    "image": "/static/images/NT_014.jpg",
-    "pattern_tile": "/static/images/NT_014.jpg",
-    "description": "Antrasit siyah zemin üzerinde yüksek kontrastlı beyaz gravür şakayık, zambak ve yaprak illüstrasyonları içeren şık ve lüks kumaş deseni.",
-    "colors": [
-      "#1c1d1f",
-      "#ffffff",
-      "#3b3c3e",
-      "#e5e7eb"
-    ],
-    "featured": True,
-    "is_new": True,
-    "discount_pct": 0,
-    "sales_count": 56
-  },
-  {
-    "id": "NT_015",
-    "code": "NT_015",
-    "title": "Gece Mavisi Sulu Boya Sanatsal Çiçek Tablosu",
-    "category": "soyut-mermer",
-    "category_name": "Sulu Boya & Sanatsal Çiçekler",
-    "print_type": "Dijital Baskı",
-    "separation_ready": True,
-    "screen_count": 8,
-    "base_price": 185.0,
-    "rating": 5.0,
-    "reviews_count": 31,
-    "tags": [
-      "Yeni",
-      "Sulu Boya",
-      "Gece Mavisi",
-      "Sarı Çiçek",
-      "Sanatsal Tablo"
-    ],
-    "image": "/static/images/NT_015.jpg",
-    "pattern_tile": "/static/images/NT_015.jpg",
-    "description": "Derin gece mavisi ve çivit sulu boya akıntıları üzerinde sarı ve beyaz anemon çiçekleriyle galeri tablosu niteliğinde çarpıcı dijital baskı deseni.",
-    "colors": [
-      "#25295c",
-      "#3d4b8f",
-      "#f7bf46",
-      "#f2efe9"
-    ],
-    "featured": True,
-    "is_new": True,
-    "discount_pct": 0,
-    "sales_count": 49
-  },
-  {
-    "id": "NT_007",
-    "code": "NT_007",
-    "title": "Vintage Çizgili Bordo Gül Deseni",
+    "id": "NT_011",
+    "code": "NT_011",
+    "title": "Pastel Gri Mavi & Gül Kurusu Vintage Çiçekler",
     "category": "cicekli-botanik",
     "category_name": "Çiçekli & Botanik",
-    "print_type": "Emprime & Dijital Uyumlu",
-    "separation_ready": True,
+    "print_type": "Dijital Baskı",
+    "separation_ready": true,
     "screen_count": 6,
     "base_price": 185.0,
     "rating": 5.0,
-    "reviews_count": 16,
+    "reviews_count": 27,
     "tags": [
       "Yeni",
-      "Gül",
-      "Çizgili",
+      "Gül Kurusu",
+      "Pastel Mavi",
       "Vintage",
-      "Bordo",
-      "Altın Kontür"
+      "Çiçekli",
+      "Dikişsiz Rapor"
     ],
-    "image": "/static/images/NT_007.jpg",
-    "pattern_tile": "/static/images/NT_007.jpg",
-    "description": "Trenddesen yeni sezon özel tasarımı. Çizgili zemin üzerinde lüks bordo güller, altın kontürlü yapraklar ve goncalar içeren yüksek çözünürlüklü dijital baskı kumaş deseni.",
+    "image": "/static/images/NT_011.jpg",
+    "pattern_tile": "/static/images/NT_011.jpg",
+    "description": "Trenddesen yeni sezon özel tasarımı. Pastel mavi, gri ve gül kurusu tonlarında lüks dikişsiz çiçek deseni (4961x4961 HD).",
     "colors": [
-      "#d9d5c1",
-      "#9f907b",
-      "#7c5851",
-      "#3f4040"
+      "#809fad",
+      "#776f83",
+      "#833c65",
+      "#262827"
     ],
-    "featured": True,
-    "is_new": True,
+    "featured": true,
+    "is_new": true,
     "discount_pct": 0,
-    "sales_count": 35
-  },
-  {
-    "id": "NT_008",
-    "code": "NT_008",
-    "title": "Pastel Çizgili Papatya & Boncuk Deseni",
-    "category": "cicekli-botanik",
-    "category_name": "Çizgili & Geometrik Çiçekler",
-    "print_type": "Emprime & Dijital Uyumlu",
-    "separation_ready": True,
-    "screen_count": 5,
-    "base_price": 185.0,
-    "rating": 5.0,
-    "reviews_count": 21,
-    "tags": [
-      "Yeni",
-      "Papatya",
-      "Çizgili",
-      "Boncuk",
-      "Pastel Pembe",
-      "Bahar"
-    ],
-    "image": "/static/images/NT_008.jpg",
-    "pattern_tile": "/static/images/NT_008.jpg",
-    "description": "Trenddesen yeni sezon özel tasarımı. Pembe ve bej dikey çizgiler üzerinde papatyalar ve boncuklu motifler içeren dikişsiz yazlık elbise deseni.",
-    "colors": [
-      "#e7dad6",
-      "#a19c96",
-      "#695f57",
-      "#3c3a38"
-    ],
-    "featured": True,
-    "is_new": True,
-    "discount_pct": 0,
-    "sales_count": 42
-  },
-  {
-    "id": "NT_009",
-    "code": "NT_009",
-    "title": "Barok Altın Varak Saray Çiçeği Deseni",
-    "category": "leopar-hayvan",
-    "category_name": "Barok, Kemer, Zincir, Dekoratif Hayvan Desenleri",
-    "print_type": "Emprime & Dijital Uyumlu",
-    "separation_ready": True,
-    "screen_count": 4,
-    "base_price": 185.0,
-    "rating": 5.0,
-    "reviews_count": 29,
-    "tags": [
-      "Yeni",
-      "Barok",
-      "Altın Varak",
-      "Saray",
-      "Lüks",
-      "Zengin Doku"
-    ],
-    "image": "/static/images/NT_009.jpg",
-    "pattern_tile": "/static/images/NT_009.jpg",
-    "description": "Trenddesen yeni sezon özel tasarımı. Siyah zemin üzerine lüks altın varak ve saray nakışı efektli dikişsiz kumaş deseni.",
-    "colors": [
-      "#fef08a",
-      "#d97706",
-      "#92400e",
-      "#1c1917"
-    ],
-    "featured": True,
-    "is_new": True,
-    "discount_pct": 0,
-    "sales_count": 58
+    "sales_count": 52
   },
   {
     "id": "NT_010",
@@ -1037,7 +2192,7 @@ DEFAULT_PRODUCTS = [
     "category": "cicekli-botanik",
     "category_name": "Çiçekli & Botanik",
     "print_type": "Emprime & Dijital Uyumlu",
-    "separation_ready": True,
+    "separation_ready": true,
     "screen_count": 6,
     "base_price": 185.0,
     "rating": 5.0,
@@ -1059,8 +2214,110 @@ DEFAULT_PRODUCTS = [
       "#955446",
       "#3b3439"
     ],
-    "featured": True,
-    "is_new": True,
+    "featured": true,
+    "is_new": true,
+    "discount_pct": 0,
+    "sales_count": 35
+  },
+  {
+    "id": "NT_009",
+    "code": "NT_009",
+    "title": "Barok Altın Varak Saray Çiçeği Deseni",
+    "category": "leopar-hayvan",
+    "category_name": "Barok, Kemer, Zincir, Dekoratif Hayvan Desenleri",
+    "print_type": "Emprime & Dijital Uyumlu",
+    "separation_ready": true,
+    "screen_count": 4,
+    "base_price": 185.0,
+    "rating": 5.0,
+    "reviews_count": 29,
+    "tags": [
+      "Yeni",
+      "Barok",
+      "Altın Varak",
+      "Saray",
+      "Lüks",
+      "Zengin Doku"
+    ],
+    "image": "/static/images/NT_009.jpg",
+    "pattern_tile": "/static/images/NT_009.jpg",
+    "description": "Trenddesen yeni sezon özel tasarımı. Siyah zemin üzerine lüks altın varak ve saray nakışı efektli dikişsiz kumaş deseni.",
+    "colors": [
+      "#fef08a",
+      "#d97706",
+      "#92400e",
+      "#1c1917"
+    ],
+    "featured": true,
+    "is_new": true,
+    "discount_pct": 0,
+    "sales_count": 58
+  },
+  {
+    "id": "NT_008",
+    "code": "NT_008",
+    "title": "Pastel Çizgili Papatya & Boncuk Deseni",
+    "category": "cicekli-botanik",
+    "category_name": "Çizgili & Geometrik Çiçekler",
+    "print_type": "Emprime & Dijital Uyumlu",
+    "separation_ready": true,
+    "screen_count": 5,
+    "base_price": 185.0,
+    "rating": 5.0,
+    "reviews_count": 21,
+    "tags": [
+      "Yeni",
+      "Papatya",
+      "Çizgili",
+      "Boncuk",
+      "Pastel Pembe",
+      "Bahar"
+    ],
+    "image": "/static/images/NT_008.jpg",
+    "pattern_tile": "/static/images/NT_008.jpg",
+    "description": "Trenddesen yeni sezon özel tasarımı. Pembe ve bej dikey çizgiler üzerinde papatyalar ve boncuklu motifler içeren dikişsiz yazlık elbise deseni.",
+    "colors": [
+      "#e7dad6",
+      "#a19c96",
+      "#695f57",
+      "#3c3a38"
+    ],
+    "featured": true,
+    "is_new": true,
+    "discount_pct": 0,
+    "sales_count": 42
+  },
+  {
+    "id": "NT_007",
+    "code": "NT_007",
+    "title": "Vintage Çizgili Bordo Gül Deseni",
+    "category": "cicekli-botanik",
+    "category_name": "Çiçekli & Botanik",
+    "print_type": "Emprime & Dijital Uyumlu",
+    "separation_ready": true,
+    "screen_count": 6,
+    "base_price": 185.0,
+    "rating": 5.0,
+    "reviews_count": 16,
+    "tags": [
+      "Yeni",
+      "Gül",
+      "Çizgili",
+      "Vintage",
+      "Bordo",
+      "Altın Kontür"
+    ],
+    "image": "/static/images/NT_007.jpg",
+    "pattern_tile": "/static/images/NT_007.jpg",
+    "description": "Trenddesen yeni sezon özel tasarımı. Çizgili zemin üzerinde lüks bordo güller, altın kontürlü yapraklar ve goncalar içeren yüksek çözünürlüklü dijital baskı kumaş deseni.",
+    "colors": [
+      "#d9d5c1",
+      "#9f907b",
+      "#7c5851",
+      "#3f4040"
+    ],
+    "featured": true,
+    "is_new": true,
     "discount_pct": 0,
     "sales_count": 35
   },
@@ -1071,7 +2328,7 @@ DEFAULT_PRODUCTS = [
     "category": "leopar-hayvan",
     "category_name": "Barok, Kemer, Zincir, Dekoratif Hayvan Desenleri",
     "print_type": "Emprime & Dijital Uyumlu",
-    "separation_ready": True,
+    "separation_ready": true,
     "screen_count": 6,
     "base_price": 185.0,
     "rating": 5.0,
@@ -1092,8 +2349,8 @@ DEFAULT_PRODUCTS = [
       "#047857",
       "#fef08a"
     ],
-    "featured": True,
-    "is_new": True,
+    "featured": true,
+    "is_new": true,
     "discount_pct": 0,
     "sales_count": 48
   },
@@ -1104,7 +2361,7 @@ DEFAULT_PRODUCTS = [
     "category": "soyut-mermer",
     "category_name": "Batik, - Eskitme Değişik dokular",
     "print_type": "Dijital & Emprime Uyumlu",
-    "separation_ready": True,
+    "separation_ready": true,
     "screen_count": 5,
     "base_price": 185.0,
     "rating": 5.0,
@@ -1125,8 +2382,8 @@ DEFAULT_PRODUCTS = [
       "#64748b",
       "#f8fafc"
     ],
-    "featured": True,
-    "is_new": True,
+    "featured": true,
+    "is_new": true,
     "discount_pct": 0,
     "sales_count": 41
   },
@@ -1137,7 +2394,7 @@ DEFAULT_PRODUCTS = [
     "category": "cicekli-botanik",
     "category_name": "Çiçekli & Botanik",
     "print_type": "Emprime & Dijital Uyumlu",
-    "separation_ready": True,
+    "separation_ready": true,
     "screen_count": 5,
     "base_price": 185.0,
     "rating": 5.0,
@@ -1157,8 +2414,8 @@ DEFAULT_PRODUCTS = [
       "#fbbf24",
       "#ffffff"
     ],
-    "featured": True,
-    "is_new": True,
+    "featured": true,
+    "is_new": true,
     "discount_pct": 0,
     "sales_count": 38
   },
@@ -1169,7 +2426,7 @@ DEFAULT_PRODUCTS = [
     "category": "cicekli-botanik",
     "category_name": "Çiçekli & Botanik",
     "print_type": "Emprime & Dijital Uyumlu",
-    "separation_ready": True,
+    "separation_ready": true,
     "screen_count": 6,
     "base_price": 185.0,
     "rating": 5.0,
@@ -1189,8 +2446,8 @@ DEFAULT_PRODUCTS = [
       "#059669",
       "#1e293b"
     ],
-    "featured": True,
-    "is_new": True,
+    "featured": true,
+    "is_new": true,
     "discount_pct": 0,
     "sales_count": 52
   },
@@ -1201,7 +2458,7 @@ DEFAULT_PRODUCTS = [
     "category": "cicekli-botanik",
     "category_name": "Çiçekli & Botanik",
     "print_type": "Emprime & Dijital Uyumlu",
-    "separation_ready": True,
+    "separation_ready": true,
     "screen_count": 5,
     "base_price": 185.0,
     "rating": 5.0,
@@ -1221,8 +2478,8 @@ DEFAULT_PRODUCTS = [
       "#15803d",
       "#3b82f6"
     ],
-    "featured": True,
-    "is_new": True,
+    "featured": true,
+    "is_new": true,
     "discount_pct": 0,
     "sales_count": 64
   },
@@ -1233,7 +2490,7 @@ DEFAULT_PRODUCTS = [
     "category": "cicekli-botanik",
     "category_name": "Çiçekli & Botanik",
     "print_type": "Emprime & Dijital Uyumlu",
-    "separation_ready": True,
+    "separation_ready": true,
     "screen_count": 6,
     "base_price": 185.0,
     "rating": 5.0,
@@ -1253,12 +2510,12 @@ DEFAULT_PRODUCTS = [
       "#3b82f6",
       "#f59e0b"
     ],
-    "featured": True,
-    "is_new": True,
+    "featured": true,
+    "is_new": true,
     "discount_pct": 0,
     "sales_count": 85
   }
-]
+]''')
 
 def load_json(filename):
     if filename == "products.json":
@@ -1339,6 +2596,28 @@ async def emprime_page(request: Request):
         "active_page": "emprime"
     })
 
+@app.get("/kumaslar", response_class=HTMLResponse)
+async def kumaslar_page(request: Request):
+    fabrics = load_json("fabric_types.json")
+    return render(request, "kumaslar.html", {
+        "fabrics": fabrics,
+        "active_page": "kumaslar"
+    })
+
+@app.get("/dijital-baski", response_class=HTMLResponse)
+async def dijital_baski_page(request: Request):
+    return render(request, "dijital_baski.html", {
+        "active_page": "dijital-baski"
+    })
+
+@app.get("/trend-urunler", response_class=HTMLResponse)
+@app.get("/diger-trend-urunler", response_class=HTMLResponse)
+async def trend_urunler_page(request: Request):
+    return render(request, "trend_urunler.html", {
+        "active_page": "trend-urunler"
+    })
+
+@app.get("/desenler", response_class=HTMLResponse)
 @app.get("/fabrics", response_class=HTMLResponse)
 async def fabrics_catalog(
     request: Request,
@@ -1351,10 +2630,16 @@ async def fabrics_catalog(
     fabrics = load_json("fabric_types.json")
     categories = load_json("categories.json")
 
-    filtered = products
-
-    if category and category != "all":
-        filtered = [p for p in filtered if p.get("category") == category]
+    # Normalize category
+    if category in [None, "", "desenler", "all"]:
+        selected_cat = "all"
+        filtered = products
+    elif category == "emprime-desenleri":
+        selected_cat = "emprime-desenleri"
+        filtered = [p for p in products if p.get("separation_ready") or "emprime" in p.get("print_type", "").lower()]
+    else:
+        selected_cat = category
+        filtered = [p for p in products if p.get("category") == category]
 
     if q:
         query = q.lower().strip()
@@ -1378,6 +2663,8 @@ async def fabrics_catalog(
     for cat in categories:
         if cat["id"] == "all":
             cat["count"] = len(products)
+        elif cat["id"] == "emprime-desenleri":
+            cat["count"] = len([p for p in products if p.get("separation_ready") or "emprime" in p.get("print_type", "").lower()])
         else:
             cat["count"] = len([p for p in products if p.get("category") == cat["id"]])
 
@@ -1385,11 +2672,11 @@ async def fabrics_catalog(
         "products": filtered,
         "fabrics": fabrics,
         "categories": categories,
-        "selected_category": category,
+        "selected_category": selected_cat,
         "selected_fabric": fabric,
         "search_query": q or "",
         "selected_sort": sort,
-        "active_page": "fabrics"
+        "active_page": "desenler"
     })
 
 @app.get("/product/{product_id}", response_class=HTMLResponse)
