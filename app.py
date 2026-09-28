@@ -2517,7 +2517,153 @@ DEFAULT_PRODUCTS = json.loads('''[
   }
 ]''')
 
+DEFAULT_TREND_PRODUCTS = json.loads('''[
+  {
+    "id": "TP_001",
+    "code": "TP_001",
+    "title": "Lüks Kadife Kırlent Kılıfı (Çift Taraflı Baskılı)",
+    "category": "ev-tekstili",
+    "category_name": "Ev Tekstili & Dekorasyon",
+    "price": 180.0,
+    "old_price": 240.0,
+    "badge": "Çok Satan",
+    "image": "/static/images/NT_001.jpg",
+    "size_options": ["45x45 cm", "50x50 cm", "30x50 cm"],
+    "fabric_type": "Soft Lüks Kadife",
+    "description": "Gizli fermuar sistemli, su itici ve leke tutmaz yumuşak dokulu birinci sınıf kadife kumaş. Canlı ve solmayan dijital baskı.",
+    "features": [
+      "Gizli fermuar dikişi",
+      "Çift taraflı desen baskısı",
+      "30°C'de makinede yıkanabilir",
+      "OEKO-TEX sertifikalı antialerjik"
+    ],
+    "in_stock": true
+  },
+  {
+    "id": "TP_002",
+    "code": "TP_002",
+    "title": "İtalyan El Kıvırma İpek Saten Fular / Şal",
+    "category": "giyim-butik",
+    "category_name": "Giyim & Butik Aksesuar",
+    "price": 260.0,
+    "old_price": 350.0,
+    "badge": "Lüks Seri",
+    "image": "/static/images/NT_027.jpg",
+    "size_options": ["70x70 cm", "90x90 cm", "50x50 cm (Boyun Bağı)"],
+    "fabric_type": "Lüks İpek Saten",
+    "description": "Işıltılı ve dökümlü saf ipek tuşeli saten kumaş. Kenarları özenle İtalyan el kıvırması dikişle işlenmiştir.",
+    "features": [
+      "İtalyan el kıvırma kenar",
+      "İpek tuşeli parlak doku",
+      "Antialerjik ve hafif",
+      "Özel hediye kutusunda gönderim"
+    ],
+    "in_stock": true
+  },
+  {
+    "id": "TP_003",
+    "code": "TP_003",
+    "title": "Viskon Keten Karışım Masa Runner & Örtü",
+    "category": "ev-tekstili",
+    "category_name": "Ev Tekstili & Dekorasyon",
+    "price": 220.0,
+    "old_price": 290.0,
+    "badge": "Yeni Sezon",
+    "image": "/static/images/NT_042.jpg",
+    "size_options": ["40x140 cm", "45x160 cm", "Özel Ölçü"],
+    "fabric_type": "Doğal Viskon Keten",
+    "description": "Doğal keten dokulu, şık ve leke tutmaz apreli masa örtüsü ve runner. Yemek masalarına ve konsollara asil bir dokunuş katar.",
+    "features": [
+      "Doğal dökümlü keten dokusu",
+      "Kolay ütülenebilir apre",
+      "Dört kenar katlama zarif dikiş",
+      "Solmaya dayanıklı reaktif baskı"
+    ],
+    "in_stock": true
+  },
+  {
+    "id": "TP_004",
+    "code": "TP_004",
+    "title": "Ağır Gramaj Kanvas Kumaş Omuz & Plaj Çantası",
+    "category": "canta-aksesuar",
+    "category_name": "Çanta & Aksesuar",
+    "price": 140.0,
+    "old_price": 190.0,
+    "badge": "Fırsat",
+    "image": "/static/images/NT_074.jpg",
+    "size_options": ["35x40 cm (Standart)", "40x45 cm (Geniş Taban)"],
+    "fabric_type": "100% Pamuklu Ağır Kanvas",
+    "description": "Yüksek taşıma kapasiteli, çift taraflı baskılı dayanıklı pamuk kanvas bez çanta. Günlük kullanım, alışveriş ve plaj için idealdir.",
+    "features": [
+      "Güçlendirilmiş omuz askısı",
+      "100% pamuk doğal doku",
+      "İç cep bölmesi",
+      "Yıkanabilir dayanıklı kumaş"
+    ],
+    "in_stock": true
+  },
+  {
+    "id": "TP_005",
+    "code": "TP_005",
+    "title": "Organik Çift Kat Müslin Bebek & Plaj Battaniyesi",
+    "category": "bebek-cocuk",
+    "category_name": "Bebek & Çocuk",
+    "price": 210.0,
+    "old_price": 270.0,
+    "badge": "%100 Organik",
+    "image": "/static/images/NT_012.jpg",
+    "size_options": ["90x100 cm", "100x120 cm"],
+    "fabric_type": "Organik Pamuk Müslin",
+    "description": "Nefes alan, yumuşacık organik müslin kumaş. Bebek kundak, alt açma, yazlık pike ve plaj örtüsü olarak çok amaçlı kullanım.",
+    "features": [
+      "100% Organik Ege Pamuğu",
+      "Ultra emici ve nefes alabilir",
+      "Hassas ciltler için güvenli",
+      "Yıkandıkça yumuşayan kabartma doku"
+    ],
+    "in_stock": true
+  },
+  {
+    "id": "TP_006",
+    "code": "TP_006",
+    "title": "Viskon Keten Yazlık Kimono & Plaj Elbisesi",
+    "category": "giyim-butik",
+    "category_name": "Giyim & Butik Aksesuar",
+    "price": 490.0,
+    "old_price": 650.0,
+    "badge": "Özel Tasarım",
+    "image": "/static/images/NT_015.jpg",
+    "size_options": ["Standart (S-M-L Uyumlu)", "Oversize (XL-XXL)"],
+    "fabric_type": "Dökümlü Viskon Keten",
+    "description": "Özel desen baskılı, dökümlü ve havalı yazlık kimono. Plajda pareo, günlük giyimde jean üstü şık kombin parçası.",
+    "features": [
+      "Kuşaklı ve cepli tasarım",
+      "Dökümlü ve tiril tiril kumaş",
+      "Terletmeyen nefes alan doku",
+      "Geniş kol kesimi"
+    ],
+    "in_stock": true
+  }
+]
+''')
+
 def load_json(filename):
+    if filename == "trend_products.json":
+        path = os.path.join(DATA_DIR, filename)
+        if os.path.exists(path):
+            try:
+                with open(path, "r", encoding="utf-8") as f:
+                    data = json.load(f)
+                    if isinstance(data, list) and len(data) > 0:
+                        return data
+            except Exception:
+                pass
+        try:
+            save_json("trend_products.json", DEFAULT_TREND_PRODUCTS)
+        except Exception:
+            pass
+        return DEFAULT_TREND_PRODUCTS
+
     if filename == "products.json":
         path = os.path.join(DATA_DIR, filename)
         if os.path.exists(path):
@@ -2612,8 +2758,22 @@ async def dijital_baski_page(request: Request):
 
 @app.get("/trend-urunler", response_class=HTMLResponse)
 @app.get("/diger-trend-urunler", response_class=HTMLResponse)
-async def trend_urunler_page(request: Request):
+async def trend_urunler_page(request: Request, category: Optional[str] = "all"):
+    trend_products = load_json("trend_products.json")
+    if not trend_products:
+        trend_products = DEFAULT_TREND_PRODUCTS
+    
+    total_count = len(trend_products)
+    if category and category != "all":
+        filtered = [p for p in trend_products if p.get("category") == category]
+    else:
+        filtered = trend_products
+        category = "all"
+        
     return render(request, "trend_urunler.html", {
+        "products": filtered,
+        "selected_category": category,
+        "total_count": total_count,
         "active_page": "trend-urunler"
     })
 
