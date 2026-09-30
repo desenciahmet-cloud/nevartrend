@@ -141,6 +141,9 @@
         <a href="/fabrics?category=all" class="hover:text-emerald-700 flex items-center gap-1.5 transition py-1 text-slate-900 border-b-2 {% if active_page == 'desenler' %}border-emerald-600 text-emerald-800 font-bold{% else %}border-transparent hover:border-emerald-600{% endif %}">
           <i data-lucide="palette" class="w-3.5 h-3.5 text-emerald-600"></i> DESENLER
         </a>
+        <a href="/studyo" class="hover:text-emerald-700 flex items-center gap-1.5 transition py-1 border-b-2 {% if active_page == 'studyo' %}border-emerald-600 text-emerald-800 font-bold bg-emerald-50/70{% else %}border-transparent hover:border-emerald-600 text-emerald-800 font-bold{% endif %} px-2.5 py-1 rounded-lg">
+          <i data-lucide="sparkles" class="w-3.5 h-3.5 text-emerald-600"></i> STÜDYO (CANLI GÖR)
+        </a>
         <a href="/kumaslar" class="hover:text-emerald-700 flex items-center gap-1.5 transition py-1 border-b-2 {% if active_page == 'kumaslar' %}border-emerald-600 text-emerald-800 font-bold{% else %}border-transparent hover:border-emerald-600{% endif %}">
           <i data-lucide="layers" class="w-3.5 h-3.5 text-emerald-600"></i> KUMAŞLAR
         </a>
@@ -148,10 +151,7 @@
           <i data-lucide="printer" class="w-3.5 h-3.5 text-emerald-600"></i> DİJİTAL BASKI
         </a>
         <a href="/emprime" class="hover:text-emerald-700 flex items-center gap-1.5 transition py-1 border-b-2 {% if active_page == 'emprime' %}border-emerald-600 text-emerald-800 font-bold bg-emerald-50/50{% else %}border-transparent hover:border-emerald-600{% endif %} px-2 rounded-lg">
-          <i data-lucide="split" class="w-3.5 h-3.5 text-emerald-600"></i> EMPRİME RENK AYRIMI & FİLM
-        </a>
-        <a href="/emprime#custom-upload-wizard" class="hover:text-emerald-700 flex items-center gap-1.5 transition py-1 border-b-2 border-transparent hover:border-emerald-600">
-          <i data-lucide="film" class="w-3.5 h-3.5 text-emerald-600"></i> SERİGRAFİ FİLM ÇIKTISI
+          <i data-lucide="split" class="w-3.5 h-3.5 text-emerald-600"></i> EMPRİME & FİLM
         </a>
         <a href="/trend-urunler" class="hover:text-amber-700 flex items-center gap-1.5 transition py-1 border-b-2 {% if active_page == 'trend-urunler' %}border-amber-600 text-amber-900 font-bold{% else %}border-transparent hover:border-amber-600 text-amber-900{% endif %}">
           <i data-lucide="sparkles" class="w-3.5 h-3.5 text-amber-500"></i> DİĞER TREND ÜRÜNLER
@@ -228,44 +228,42 @@
             <p class="flex items-center gap-2"><i data-lucide="shopping-cart" class="w-4 h-4 text-emerald-400"></i> Sipariş: <strong>siparis@nevartrend.com</strong></p>
           </div>
           <div class="flex items-center gap-3 pt-3 text-slate-400">
-            <a href="https://instagram.com/nevartrend" target="_blank" class="p-2.5 bg-slate-900 rounded-xl hover:text-pink-400 hover:bg-slate-800 transition" title="Instagram"><i data-lucide="instagram" class="w-4 h-4"></i></a>
-            <a href="https://facebook.com/nevartrend" target="_blank" class="p-2.5 bg-slate-900 rounded-xl hover:text-blue-400 hover:bg-slate-800 transition" title="Facebook"><i data-lucide="facebook" class="w-4 h-4"></i></a>
-            <a href="https://pinterest.com/nevartrend" target="_blank" class="p-2.5 bg-slate-900 rounded-xl hover:text-red-400 hover:bg-slate-800 transition" title="Pinterest"><i data-lucide="pin" class="w-4 h-4"></i></a>
-            <a href="https://linkedin.com/company/nevartrend" target="_blank" class="p-2.5 bg-slate-900 rounded-xl hover:text-sky-400 hover:bg-slate-800 transition" title="LinkedIn"><i data-lucide="linkedin" class="w-4 h-4"></i></a>
+            <a href="https://wa.me/908503000000" target="_blank" rel="noopener noreferrer" class="p-2.5 bg-slate-900 rounded-xl hover:text-emerald-400 hover:bg-slate-800 transition" title="WhatsApp Destek"><i data-lucide="message-circle" class="w-4 h-4"></i></a>
+            <a href="mailto:info@nevartrend.com" class="p-2.5 bg-slate-900 rounded-xl hover:text-emerald-400 hover:bg-slate-800 transition" title="E-Posta"><i data-lucide="mail" class="w-4 h-4"></i></a>
           </div>
         </div>
 
         <div>
           <h4 class="text-white font-bold text-sm mb-4 uppercase tracking-wider">Hizmetlerimiz</h4>
           <ul class="space-y-2.5 text-xs text-slate-400">
-            <li><a href="/fabrics?category=desenler" class="hover:text-emerald-400 transition">Desen Arşivi</a></li>
-            <li><a href="/fabrics?category=dijital-baski" class="hover:text-emerald-400 transition">Dijital Kumaş Baskı</a></li>
-            <li><a href="/fabrics?category=emprime-renk-ayrimi" class="hover:text-emerald-400 transition">Emprime Renk Ayrımı</a></li>
-            <li><a href="/fabrics?category=serigrafi-film" class="hover:text-emerald-400 transition">Serigrafi Film Çıktısı</a></li>
-            <li><a href="/fabrics?category=diger-trend-urunler" class="hover:text-emerald-400 transition">Hazır Tekstil Ürünleri</a></li>
+            <li><a href="/fabrics?category=all" class="hover:text-emerald-400 transition">74 Desen Koleksiyonu</a></li>
+            <li><a href="/studyo" class="hover:text-emerald-400 transition font-semibold text-emerald-300">Canlı Giydirme Stüdyosu</a></li>
+            <li><a href="/dijital-baski" class="hover:text-emerald-400 transition">Metraj Dijital Baskı</a></li>
+            <li><a href="/emprime" class="hover:text-emerald-400 transition">Emprime Renk Ayrımı & Film</a></li>
+            <li><a href="/trend-urunler" class="hover:text-emerald-400 transition">Hazır Trend Ürünler</a></li>
           </ul>
         </div>
 
         <div>
           <h4 class="text-white font-bold text-sm mb-4 uppercase tracking-wider">Kumaş Türleri</h4>
           <ul class="space-y-2.5 text-xs text-slate-400">
-            <li><a href="/fabrics?fabric=pamuk-poplin" class="hover:text-emerald-400 transition">100% Pamuk Poplin</a></li>
-            <li><a href="/fabrics?fabric=ipek-saten" class="hover:text-emerald-400 transition">Lüks İpek Saten</a></li>
-            <li><a href="/fabrics?fabric=viskon-keten" class="hover:text-emerald-400 transition">Viskon Keten</a></li>
-            <li><a href="/fabrics?fabric=muslin-cift-kat" class="hover:text-emerald-400 transition">Çift Kat Müslin</a></li>
-            <li><a href="/fabrics?fabric=scuba-dalgic" class="hover:text-emerald-400 transition">Likralı Scuba</a></li>
-            <li><a href="/fabrics?fabric=sifon" class="hover:text-emerald-400 transition">Uçuşan Şifon</a></li>
+            <li><a href="/kumaslar" class="hover:text-emerald-400 transition font-semibold text-emerald-300">Tüm Kumaş Kartelası</a></li>
+            <li><a href="/kumaslar" class="hover:text-emerald-400 transition">100% Pamuk Poplin</a></li>
+            <li><a href="/kumaslar" class="hover:text-emerald-400 transition">Lüks İpek Saten</a></li>
+            <li><a href="/kumaslar" class="hover:text-emerald-400 transition">Viskon Keten</a></li>
+            <li><a href="/kumaslar" class="hover:text-emerald-400 transition">Organik Çift Kat Müslin</a></li>
+            <li><a href="/kumaslar" class="hover:text-emerald-400 transition">Uçuşan Şifon & Scuba</a></li>
           </ul>
         </div>
 
         <div>
           <h4 class="text-white font-bold text-sm mb-4 uppercase tracking-wider">Kurumsal & Destek</h4>
           <ul class="space-y-2.5 text-xs text-slate-400">
-            <li><a href="#" class="hover:text-emerald-400 transition">Hakkımızda & Trenddesen</a></li>
-            <li><a href="#" class="hover:text-emerald-400 transition">Emprime Baskı Kılavuzu</a></li>
-            <li><a href="#" class="hover:text-emerald-400 transition">Kargo ve Teslimat Bilgisi</a></li>
-            <li><a href="#" class="hover:text-emerald-400 transition">İptal & İade Koşulları</a></li>
-            <li><a href="#" class="hover:text-emerald-400 transition">KVKK & Gizlilik Politikası</a></li>
+            <li><a href="/hakkimizda" class="hover:text-emerald-400 transition">Hakkımızda & Trenddesen</a></li>
+            <li><a href="/emprime" class="hover:text-emerald-400 transition">Emprime Baskı Rehberi</a></li>
+            <li><a href="/teslimat-kargo" class="hover:text-emerald-400 transition">Kargo ve Teslimat Bilgisi</a></li>
+            <li><a href="/iptal-iade" class="hover:text-emerald-400 transition">İptal & İade Koşulları</a></li>
+            <li><a href="/kvkk-gizlilik" class="hover:text-emerald-400 transition">KVKK & Gizlilik Politikası</a></li>
           </ul>
         </div>
       </div>
@@ -291,7 +289,7 @@
   <!-- PWA Mobile App Install Prompt -->
   <div id="pwa-install-banner" class="hidden fixed bottom-4 left-4 right-4 sm:left-auto sm:right-6 sm:max-w-md bg-slate-900/95 text-white backdrop-blur-md p-4 rounded-2xl shadow-2xl border border-emerald-500/30 z-50 transition-all duration-300">
     <div class="flex items-center gap-3">
-      <img src="/static/img/icon-192.png" alt="nevartrend App" class="w-12 h-12 rounded-xl shadow border border-emerald-400/40" loading="lazy" decoding="async">
+      <img src="/static/img/icon-192.png" alt="nevartrend App" class="w-12 h-12 rounded-xl shadow border border-emerald-400/40">
       <div class="flex-1 min-w-0">
         <h4 class="text-xs font-bold text-white flex items-center gap-1.5">
           <span>nevartrend Cep Uygulaması</span>

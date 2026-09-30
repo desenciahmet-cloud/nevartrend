@@ -138,7 +138,7 @@
           {% for p in products %}
           <tr class="hover:bg-slate-50/60 transition">
             <td class="py-3 px-3">
-              <img src="{{ p.image }}" class="w-12 h-12 rounded-xl object-cover border" alt="{{ p.title }}" loading="lazy" decoding="async">
+              <img src="{{ p.image }}" class="w-12 h-12 rounded-xl object-cover border" alt="{{ p.title }}">
             </td>
             <td class="py-3 px-3 font-mono font-bold text-slate-700">{{ p.code }}</td>
             <td class="py-3 px-3">
@@ -400,7 +400,7 @@
             <span class="text-[10px] text-slate-400">Görseli değiştirmek istemiyorsanız boş bırakabilirsiniz</span>
           </div>
           <div id="edit-preview-container" class="hidden items-center justify-center gap-3">
-            <img id="edit-preview-img" src="" class="w-14 h-14 object-cover rounded-xl border border-slate-300 shadow-sm" loading="lazy" decoding="async">
+            <img id="edit-preview-img" src="" class="w-14 h-14 object-cover rounded-xl border border-slate-300 shadow-sm">
             <div class="text-left">
               <span id="edit-file-name" class="font-bold text-slate-800 block text-xs truncate max-w-[200px]"></span>
               <span class="text-[10px] text-emerald-600 font-bold">Yeni görsel seçildi ✓</span>
@@ -491,7 +491,7 @@
             </div>
           </div>
           <div id="add-preview-container" class="hidden items-center justify-center gap-3">
-            <img id="add-preview-img" src="" class="w-16 h-16 object-cover rounded-xl border border-slate-300 shadow-sm" loading="lazy" decoding="async">
+            <img id="add-preview-img" src="" class="w-16 h-16 object-cover rounded-xl border border-slate-300 shadow-sm">
             <div class="text-left">
               <span id="add-file-name" class="font-bold text-slate-800 block text-xs truncate max-w-[200px]"></span>
               <span class="text-[10px] text-emerald-600 font-bold">Görsel seçildi ✓</span>
