@@ -52,54 +52,311 @@
 
       </div>
 
-      <!-- RIGHT HERO PREVIEW (LIGHTWEIGHT INTERACTIVE SWITCHER) -->
-      <div class="lg:col-span-6 animate-fade-up animate-delay-1">
-        <div class="bg-white p-4 sm:p-6 rounded-3xl border border-slate-200/80 shadow-xl relative group">
-          
-          <!-- Image Box -->
-          <div class="relative w-full aspect-square bg-slate-50 rounded-2xl overflow-hidden border border-slate-100 flex items-center justify-center shadow-inner">
-            <img id="heroPreviewImg" src="/static/images/NT_074.jpg" class="w-full h-full object-cover transition-all duration-500" alt="Canlı Desen Önizlemesi">
-
-            <div class="absolute top-4 left-4 z-10 bg-slate-900/85 backdrop-blur-md text-white text-xs font-bold px-3 py-1.5 rounded-xl flex items-center gap-2 shadow-md">
-              <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
-              <span id="heroPatternLabel">NT_074 • Gece Siyahı Botanik</span>
-            </div>
-
-            <a href="/studyo?pattern=NT_074" id="heroTryBtn" class="absolute bottom-4 right-4 z-10 px-4 py-2.5 bg-white/95 hover:bg-white text-slate-900 font-extrabold text-xs rounded-xl shadow-lg flex items-center gap-1.5 hover:scale-105 transition-all border border-slate-200">
-              <i data-lucide="eye" class="w-4 h-4 text-sage-700"></i>
-              <span>Stüdyoda Canlı Giydir</span>
-            </a>
+      <!-- GREEN BOX AREA: RIGHT SIDEBAR SHOWCASE & CATWALK RUNWAY MANNEQUIN SIMULATOR -->
+      <div class="lg:col-span-6 animate-fade-up animate-delay-1 space-y-6">
+        
+        <!-- 1. Site Mission & Value Proposition Card -->
+        <div class="bg-gradient-to-br from-emerald-900 via-sage-900 to-slate-950 text-white p-6 rounded-3xl border border-emerald-700/50 shadow-2xl space-y-4 relative overflow-hidden">
+          <div class="flex items-center gap-2">
+            <span class="px-2.5 py-1 bg-emerald-500/20 text-emerald-300 rounded-lg text-[10px] font-extrabold uppercase tracking-wider border border-emerald-500/30">
+              Nevartrend by Trenddesen
+            </span>
           </div>
 
-          <!-- Quick 3 Swatches -->
-          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
-            <div class="flex items-center gap-2.5">
-              <span class="text-xs font-bold text-slate-700">Hızlı Önizleme:</span>
-              
-              <button type="button" onclick="switchHeroPreview('/static/images/NT_074.jpg', 'NT_074 • Gece Siyahı Botanik', 'NT_074')" class="hero-swatch-btn w-9 h-9 rounded-xl border-2 border-sage-600 overflow-hidden shadow-xs ring-2 ring-sage-400/50 scale-105 transition" title="NT_074">
+          <h3 class="text-xl font-extrabold font-serif-title text-white leading-tight">
+            Deseni Seç, Üzerinde Gör & Metraj Dijital Baskı
+          </h3>
+
+          <p class="text-xs text-sage-200 leading-relaxed">
+            Türkiye'nin dijital kumaş ve dikişsiz tekstil desen platformu. 74 dikişsiz desenimizi 3D canlı stüdyoda ürünler üstünde giydirin, istediğiniz kumaşa metraj sipariş verin.
+          </p>
+
+          <div class="grid grid-cols-2 gap-2.5 pt-2 border-t border-white/10 text-[11px] font-bold text-emerald-200">
+            <span class="flex items-center gap-1.5"><i data-lucide="check-circle" class="w-3.5 h-3.5 text-emerald-400"></i> Min. 1 Metre</span>
+            <span class="flex items-center gap-1.5"><i data-lucide="check-circle" class="w-3.5 h-3.5 text-emerald-400"></i> OEKO-TEX Sertifika</span>
+            <span class="flex items-center gap-1.5"><i data-lucide="check-circle" class="w-3.5 h-3.5 text-emerald-400"></i> 74 Raporlu Desen</span>
+            <span class="flex items-center gap-1.5"><i data-lucide="check-circle" class="w-3.5 h-3.5 text-emerald-400"></i> 48 Saatte Sevkiyat</span>
+          </div>
+        </div>
+
+        <!-- 2. Catwalk Runway Mannequin Simulator (Podyumda Yürüyen Manken) -->
+        <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-xl space-y-4 relative overflow-hidden">
+          
+          <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+            <div>
+              <div class="flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span class="text-[10px] font-extrabold text-emerald-800 uppercase tracking-wider">CANLI DİNAMİK PODYUM</span>
+              </div>
+              <h4 class="text-base font-extrabold text-slate-900 font-serif-title">Podyum Manken Giydirme</h4>
+            </div>
+
+            <button type="button" id="toggleCatwalkWalkBtn" onclick="toggleCatwalkWalk()" class="px-2.5 py-1 bg-slate-100 hover:bg-slate-200 text-slate-700 text-[11px] font-bold rounded-lg transition flex items-center gap-1">
+              <i data-lucide="play-circle" class="w-3.5 h-3.5 text-emerald-700"></i>
+              <span id="catwalkWalkStatusText">Yürüyüşü Durdur</span>
+            </button>
+          </div>
+
+          <!-- Live Catwalk Stage Box -->
+          <div class="relative aspect-[4/3] w-full bg-gradient-to-b from-slate-950 via-slate-900 to-emerald-950 rounded-2xl overflow-hidden border border-slate-800 shadow-inner flex flex-col justify-between p-4 group">
+            
+            <!-- Spotlight Light Effect -->
+            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-48 h-64 bg-gradient-to-b from-white/20 via-emerald-400/10 to-transparent blur-xl pointer-events-none"></div>
+
+            <!-- Stage Header Tag -->
+            <div class="relative z-10 flex justify-between items-center">
+              <span id="catwalkModelTag" class="px-2.5 py-1 bg-slate-900/90 text-white font-bold text-[10px] rounded-lg backdrop-blur-sm border border-slate-700">
+                👗 Manken: Zarif Gece Elbisesi
+              </span>
+              <span id="catwalkPatternTag" class="px-2 py-0.5 bg-emerald-600 text-white font-mono font-bold text-[9px] rounded">
+                NT_074
+              </span>
+            </div>
+
+            <!-- Animated Walking Model Stage Figure -->
+            <div class="relative z-10 flex-1 flex items-center justify-center my-2 overflow-hidden">
+              <div id="catwalkStageModel" class="animate-catwalk-walk relative w-full h-full max-h-[240px] flex items-center justify-center">
+                
+                <!-- Live Projected Pattern Layer on Model -->
+                <div id="catwalkPatternOverlay" class="w-52 h-56 rounded-3xl shadow-2xl border-2 border-white/20 bg-cover bg-center transition-all duration-700 relative overflow-hidden" style="background-image: url('/static/images/NT_074.jpg');">
+                  <!-- 3D Draping Lighting Overlay -->
+                  <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-white/20 pointer-events-none"></div>
+                  <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_40%,transparent_30%,rgba(0,0,0,0.6)_100%)] pointer-events-none"></div>
+                  
+                  <div class="absolute bottom-3 left-3 right-3 p-1.5 bg-slate-900/85 backdrop-blur-md rounded-xl text-white text-[10px] font-bold text-center border border-white/10">
+                    <span id="catwalkPatternTitle">NT_074 • Gece Siyahı Botanik</span>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Stage Bottom Action Bar -->
+            <div class="relative z-10 flex items-center justify-between gap-2 pt-2 border-t border-white/10">
+              <span class="text-[10px] font-medium text-slate-300">Podyumda Canlı Giydirme</span>
+              <a href="/studyo?pattern=NT_074" id="catwalkGoStudioBtn" class="px-3 py-1.5 bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-extrabold text-[11px] rounded-xl transition flex items-center gap-1 shadow-md">
+                <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> 3D Stüdyoda Aç
+              </a>
+            </div>
+
+          </div>
+
+          <!-- Catwalk Controls: Model Pose Selector -->
+          <div class="space-y-2">
+            <span class="text-[11px] font-bold text-slate-700 block">Podyum Manken Modelini Değiştir:</span>
+            <div class="grid grid-cols-2 gap-2 text-xs">
+              <button type="button" onclick="setCatwalkModel('elbise', '👗 Manken: Zarif Gece Elbisesi')" class="catwalk-model-btn px-3 py-2 rounded-xl border-2 border-emerald-600 bg-emerald-50 text-emerald-900 font-bold transition flex items-center gap-1.5 justify-center">
+                <span>👗 Elbise</span>
+              </button>
+
+              <button type="button" onclick="setCatwalkModel('sal', '🧣 Manken: İpek Şal & Fular')" class="catwalk-model-btn px-3 py-2 rounded-xl border border-slate-200 bg-slate-50 text-slate-700 font-semibold hover:bg-slate-100 transition flex items-center gap-1.5 justify-center">
+                <span>🧣 İpek Şal</span>
+              </button>
+
+              <button type="button" onclick="setCatwalkModel('tayt', '🧘 Manken: Tayt & Spor Kombin')" class="catwalk-model-btn px-3 py-2 rounded-xl border border-slate-200 bg-slate-50 text-slate-700 font-semibold hover:bg-slate-100 transition flex items-center gap-1.5 justify-center">
+                <span>🧘 Tayt & Spor</span>
+              </button>
+
+              <button type="button" onclick="setCatwalkModel('kirlent', '🛋️ Dekor: Butik Kırlent')" class="catwalk-model-btn px-3 py-2 rounded-xl border border-slate-200 bg-slate-50 text-slate-700 font-semibold hover:bg-slate-100 transition flex items-center gap-1.5 justify-center">
+                <span>🛋️ Kırlent</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Dynamic Pattern Switcher Bar -->
+          <div class="space-y-2 pt-2 border-t border-slate-100">
+            <span class="text-[11px] font-bold text-slate-700 block">Podyumda Deseni Değiştir:</span>
+            <div class="flex items-center justify-between gap-1.5 overflow-x-auto pb-1">
+              <button type="button" onclick="setCatwalkPattern('/static/images/NT_074.jpg', 'NT_074', 'NT_074 • Gece Siyahı Botanik')" class="w-10 h-10 rounded-xl border-2 border-emerald-600 overflow-hidden shadow-xs flex-shrink-0 transition hover:scale-105" title="NT_074">
                 <img src="/static/images/NT_074.jpg" class="w-full h-full object-cover" alt="NT_074">
               </button>
 
-              <button type="button" onclick="switchHeroPreview('/static/images/NT_042.jpg', 'NT_042 • Krem Barok Saray', 'NT_042')" class="hero-swatch-btn w-9 h-9 rounded-xl border border-slate-200 overflow-hidden hover:scale-105 transition" title="NT_042">
+              <button type="button" onclick="setCatwalkPattern('/static/images/NT_042.jpg', 'NT_042', 'NT_042 • Krem Barok Saray')" class="w-10 h-10 rounded-xl border border-slate-200 overflow-hidden flex-shrink-0 transition hover:scale-105" title="NT_042">
                 <img src="/static/images/NT_042.jpg" class="w-full h-full object-cover" alt="NT_042">
               </button>
 
-              <button type="button" onclick="switchHeroPreview('/static/images/NT_011.jpg', 'NT_011 • Pastel Gri Vintage', 'NT_011')" class="hero-swatch-btn w-9 h-9 rounded-xl border border-slate-200 overflow-hidden hover:scale-105 transition" title="NT_011">
+              <button type="button" onclick="setCatwalkPattern('/static/images/NT_036.jpg', 'NT_036', 'NT_036 • Antrasit Gül Kurusu')" class="w-10 h-10 rounded-xl border border-slate-200 overflow-hidden flex-shrink-0 transition hover:scale-105" title="NT_036">
+                <img src="/static/images/NT_036.jpg" class="w-full h-full object-cover" alt="NT_036">
+              </button>
+
+              <button type="button" onclick="setCatwalkPattern('/static/images/NT_011.jpg', 'NT_011', 'NT_011 • Pastel Gri Vintage')" class="w-10 h-10 rounded-xl border border-slate-200 overflow-hidden flex-shrink-0 transition hover:scale-105" title="NT_011">
                 <img src="/static/images/NT_011.jpg" class="w-full h-full object-cover" alt="NT_011">
               </button>
-            </div>
 
-            <a href="/studyo" class="text-xs font-bold text-sage-800 hover:text-sage-900 flex items-center gap-1">
-              <span>Tam Stüdyo</span>
-              <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
-            </a>
+              <button type="button" onclick="setCatwalkPattern('/static/images/NT_015.jpg', 'NT_015', 'NT_015 • Tropikal Gece Palmiye')" class="w-10 h-10 rounded-xl border border-slate-200 overflow-hidden flex-shrink-0 transition hover:scale-105" title="NT_015">
+                <img src="/static/images/NT_015.jpg" class="w-full h-full object-cover" alt="NT_015">
+              </button>
+
+              <button type="button" onclick="setCatwalkPattern('/static/images/NT_029.jpg', 'NT_029', 'NT_029 • Kırmızı Gül Bordo')" class="w-10 h-10 rounded-xl border border-slate-200 overflow-hidden flex-shrink-0 transition hover:scale-105" title="NT_029">
+                <img src="/static/images/NT_029.jpg" class="w-full h-full object-cover" alt="NT_029">
+              </button>
+            </div>
           </div>
 
         </div>
+
       </div>
 
     </div>
 
+  </div>
+</section>
+
+<!-- DYNAMIC MARQUEE TICKER (BLACK BOX AREA - CANLI SAĞ/SOLA AKIŞ) -->
+<section class="bg-slate-950 text-white py-6 border-y border-slate-800 overflow-hidden relative shadow-2xl">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-4 flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+      <span class="text-xs font-extrabold uppercase tracking-widest text-slate-300">ÖNE ÇIKAN DİNAMİK DESENLER & ÜRÜNLER (CANLI AKIŞ)</span>
+    </div>
+    <span class="text-[11px] font-medium text-slate-400 hidden sm:inline">Üzerine gelince durur • Tıklayıp stüdyoda inceleyin</span>
+  </div>
+
+  <!-- Row 1: Right-to-Left Infinite Scroll (Desenler) -->
+  <div class="marquee-wrapper overflow-hidden relative w-full mb-3">
+    <div class="animate-marquee-left flex gap-4">
+      <a href="/studyo?pattern=NT_074" class="flex-shrink-0 bg-slate-900/90 hover:bg-slate-800 border border-slate-800 hover:border-emerald-500/60 rounded-2xl p-2.5 flex items-center gap-3 transition group shadow-md min-w-[240px]">
+        <img src="/static/images/NT_074.jpg" class="w-12 h-12 rounded-xl object-cover border border-slate-700 group-hover:scale-105 transition" alt="NT_074">
+        <div>
+          <span class="px-1.5 py-0.5 bg-emerald-950 text-emerald-300 font-mono font-bold text-[9px] rounded">NT_074</span>
+          <h4 class="text-xs font-bold text-white group-hover:text-emerald-400 transition line-clamp-1">Gece Siyahı Botanik</h4>
+          <span class="text-[10px] text-slate-400">195 TL/mt • 5.0 ⭐</span>
+        </div>
+      </a>
+
+      <a href="/studyo?pattern=NT_042" class="flex-shrink-0 bg-slate-900/90 hover:bg-slate-800 border border-slate-800 hover:border-emerald-500/60 rounded-2xl p-2.5 flex items-center gap-3 transition group shadow-md min-w-[240px]">
+        <img src="/static/images/NT_042.jpg" class="w-12 h-12 rounded-xl object-cover border border-slate-700 group-hover:scale-105 transition" alt="NT_042">
+        <div>
+          <span class="px-1.5 py-0.5 bg-amber-950 text-amber-300 font-mono font-bold text-[9px] rounded">NT_042</span>
+          <h4 class="text-xs font-bold text-white group-hover:text-amber-400 transition line-clamp-1">Krem Barok Saray</h4>
+          <span class="text-[10px] text-slate-400">195 TL/mt • Barok</span>
+        </div>
+      </a>
+
+      <a href="/studyo?pattern=NT_036" class="flex-shrink-0 bg-slate-900/90 hover:bg-slate-800 border border-slate-800 hover:border-emerald-500/60 rounded-2xl p-2.5 flex items-center gap-3 transition group shadow-md min-w-[240px]">
+        <img src="/static/images/NT_036.jpg" class="w-12 h-12 rounded-xl object-cover border border-slate-700 group-hover:scale-105 transition" alt="NT_036">
+        <div>
+          <span class="px-1.5 py-0.5 bg-emerald-950 text-emerald-300 font-mono font-bold text-[9px] rounded">NT_036</span>
+          <h4 class="text-xs font-bold text-white group-hover:text-emerald-400 transition line-clamp-1">Antrasit Gül Kurusu</h4>
+          <span class="text-[10px] text-slate-400">185 TL/mt • Botanik</span>
+        </div>
+      </a>
+
+      <a href="/studyo?pattern=NT_011" class="flex-shrink-0 bg-slate-900/90 hover:bg-slate-800 border border-slate-800 hover:border-emerald-500/60 rounded-2xl p-2.5 flex items-center gap-3 transition group shadow-md min-w-[240px]">
+        <img src="/static/images/NT_011.jpg" class="w-12 h-12 rounded-xl object-cover border border-slate-700 group-hover:scale-105 transition" alt="NT_011">
+        <div>
+          <span class="px-1.5 py-0.5 bg-slate-800 text-slate-300 font-mono font-bold text-[9px] rounded">NT_011</span>
+          <h4 class="text-xs font-bold text-white group-hover:text-emerald-400 transition line-clamp-1">Pastel Gri Vintage</h4>
+          <span class="text-[10px] text-slate-400">185 TL/mt • Vintage</span>
+        </div>
+      </a>
+
+      <a href="/studyo?pattern=NT_015" class="flex-shrink-0 bg-slate-900/90 hover:bg-slate-800 border border-slate-800 hover:border-emerald-500/60 rounded-2xl p-2.5 flex items-center gap-3 transition group shadow-md min-w-[240px]">
+        <img src="/static/images/NT_015.jpg" class="w-12 h-12 rounded-xl object-cover border border-slate-700 group-hover:scale-105 transition" alt="NT_015">
+        <div>
+          <span class="px-1.5 py-0.5 bg-emerald-950 text-emerald-300 font-mono font-bold text-[9px] rounded">NT_015</span>
+          <h4 class="text-xs font-bold text-white group-hover:text-emerald-400 transition line-clamp-1">Tropikal Gece Palmiye</h4>
+          <span class="text-[10px] text-slate-400">185 TL/mt • Etnik</span>
+        </div>
+      </a>
+
+      <!-- Duplicate Set for Seamless Loop -->
+      <a href="/studyo?pattern=NT_074" class="flex-shrink-0 bg-slate-900/90 hover:bg-slate-800 border border-slate-800 hover:border-emerald-500/60 rounded-2xl p-2.5 flex items-center gap-3 transition group shadow-md min-w-[240px]">
+        <img src="/static/images/NT_074.jpg" class="w-12 h-12 rounded-xl object-cover border border-slate-700 group-hover:scale-105 transition" alt="NT_074">
+        <div>
+          <span class="px-1.5 py-0.5 bg-emerald-950 text-emerald-300 font-mono font-bold text-[9px] rounded">NT_074</span>
+          <h4 class="text-xs font-bold text-white group-hover:text-emerald-400 transition line-clamp-1">Gece Siyahı Botanik</h4>
+          <span class="text-[10px] text-slate-400">195 TL/mt • 5.0 ⭐</span>
+        </div>
+      </a>
+
+      <a href="/studyo?pattern=NT_042" class="flex-shrink-0 bg-slate-900/90 hover:bg-slate-800 border border-slate-800 hover:border-emerald-500/60 rounded-2xl p-2.5 flex items-center gap-3 transition group shadow-md min-w-[240px]">
+        <img src="/static/images/NT_042.jpg" class="w-12 h-12 rounded-xl object-cover border border-slate-700 group-hover:scale-105 transition" alt="NT_042">
+        <div>
+          <span class="px-1.5 py-0.5 bg-amber-950 text-amber-300 font-mono font-bold text-[9px] rounded">NT_042</span>
+          <h4 class="text-xs font-bold text-white group-hover:text-amber-400 transition line-clamp-1">Krem Barok Saray</h4>
+          <span class="text-[10px] text-slate-400">195 TL/mt • Barok</span>
+        </div>
+      </a>
+
+      <a href="/studyo?pattern=NT_036" class="flex-shrink-0 bg-slate-900/90 hover:bg-slate-800 border border-slate-800 hover:border-emerald-500/60 rounded-2xl p-2.5 flex items-center gap-3 transition group shadow-md min-w-[240px]">
+        <img src="/static/images/NT_036.jpg" class="w-12 h-12 rounded-xl object-cover border border-slate-700 group-hover:scale-105 transition" alt="NT_036">
+        <div>
+          <span class="px-1.5 py-0.5 bg-emerald-950 text-emerald-300 font-mono font-bold text-[9px] rounded">NT_036</span>
+          <h4 class="text-xs font-bold text-white group-hover:text-emerald-400 transition line-clamp-1">Antrasit Gül Kurusu</h4>
+          <span class="text-[10px] text-slate-400">185 TL/mt • Botanik</span>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- Row 2: Left-to-Right Infinite Scroll (Ürünler & Kumaşlar) -->
+  <div class="marquee-wrapper overflow-hidden relative w-full">
+    <div class="animate-marquee-right flex gap-4">
+      <a href="/studyo?model=elbise" class="flex-shrink-0 bg-emerald-950/80 hover:bg-emerald-900 border border-emerald-800/80 rounded-2xl p-2.5 flex items-center gap-3 transition group shadow-md min-w-[240px]">
+        <div class="w-12 h-12 rounded-xl bg-emerald-800 text-white flex items-center justify-center font-bold">👗</div>
+        <div>
+          <span class="px-1.5 py-0.5 bg-emerald-800 text-white font-bold text-[9px] rounded">3D MODEL</span>
+          <h4 class="text-xs font-bold text-white group-hover:text-emerald-300 transition line-clamp-1">Zarif Kadın Elbisesi</h4>
+          <span class="text-[10px] text-emerald-300">3D Canlı Drapaj</span>
+        </div>
+      </a>
+
+      <a href="/kumaslar" class="flex-shrink-0 bg-slate-900/90 hover:bg-slate-800 border border-slate-800 rounded-2xl p-2.5 flex items-center gap-3 transition group shadow-md min-w-[240px]">
+        <div class="w-12 h-12 rounded-xl bg-slate-800 text-amber-400 flex items-center justify-center font-bold">✨</div>
+        <div>
+          <span class="px-1.5 py-0.5 bg-amber-950 text-amber-300 font-bold text-[9px] rounded">KUMAŞ</span>
+          <h4 class="text-xs font-bold text-white line-clamp-1">İpek Saten & Viskon Keten</h4>
+          <span class="text-[10px] text-slate-400">OEKO-TEX Sertifikalı</span>
+        </div>
+      </a>
+
+      <a href="/studyo?model=kirlent" class="flex-shrink-0 bg-slate-900/90 hover:bg-slate-800 border border-slate-800 rounded-2xl p-2.5 flex items-center gap-3 transition group shadow-md min-w-[240px]">
+        <div class="w-12 h-12 rounded-xl bg-slate-800 text-white flex items-center justify-center font-bold">🛋️</div>
+        <div>
+          <span class="px-1.5 py-0.5 bg-slate-800 text-slate-300 font-bold text-[9px] rounded">3D KİRLENT</span>
+          <h4 class="text-xs font-bold text-white line-clamp-1">Kadife Ev Tekstili Kılıfı</h4>
+          <span class="text-[10px] text-slate-400">Ev & Dekorasyon</span>
+        </div>
+      </a>
+
+      <a href="/trend-urunler" class="flex-shrink-0 bg-amber-950/80 hover:bg-amber-900 border border-amber-800/80 rounded-2xl p-2.5 flex items-center gap-3 transition group shadow-md min-w-[240px]">
+        <div class="w-12 h-12 rounded-xl bg-amber-800 text-white flex items-center justify-center font-bold">🧣</div>
+        <div>
+          <span class="px-1.5 py-0.5 bg-amber-800 text-white font-bold text-[9px] rounded">BUTİK</span>
+          <h4 class="text-xs font-bold text-white line-clamp-1">Desenli İpek Şal & Fular</h4>
+          <span class="text-[10px] text-amber-300">Hazır Butik Ürün</span>
+        </div>
+      </a>
+
+      <!-- Duplicate Set for Seamless Loop -->
+      <a href="/studyo?model=elbise" class="flex-shrink-0 bg-emerald-950/80 hover:bg-emerald-900 border border-emerald-800/80 rounded-2xl p-2.5 flex items-center gap-3 transition group shadow-md min-w-[240px]">
+        <div class="w-12 h-12 rounded-xl bg-emerald-800 text-white flex items-center justify-center font-bold">👗</div>
+        <div>
+          <span class="px-1.5 py-0.5 bg-emerald-800 text-white font-bold text-[9px] rounded">3D MODEL</span>
+          <h4 class="text-xs font-bold text-white group-hover:text-emerald-300 transition line-clamp-1">Zarif Kadın Elbisesi</h4>
+          <span class="text-[10px] text-emerald-300">3D Canlı Drapaj</span>
+        </div>
+      </a>
+
+      <a href="/kumaslar" class="flex-shrink-0 bg-slate-900/90 hover:bg-slate-800 border border-slate-800 rounded-2xl p-2.5 flex items-center gap-3 transition group shadow-md min-w-[240px]">
+        <div class="w-12 h-12 rounded-xl bg-slate-800 text-amber-400 flex items-center justify-center font-bold">✨</div>
+        <div>
+          <span class="px-1.5 py-0.5 bg-amber-950 text-amber-300 font-bold text-[9px] rounded">KUMAŞ</span>
+          <h4 class="text-xs font-bold text-white line-clamp-1">İpek Saten & Viskon Keten</h4>
+          <span class="text-[10px] text-slate-400">OEKO-TEX Sertifikalı</span>
+        </div>
+      </a>
+
+      <a href="/studyo?model=kirlent" class="flex-shrink-0 bg-slate-900/90 hover:bg-slate-800 border border-slate-800 rounded-2xl p-2.5 flex items-center gap-3 transition group shadow-md min-w-[240px]">
+        <div class="w-12 h-12 rounded-xl bg-slate-800 text-white flex items-center justify-center font-bold">🛋️</div>
+        <div>
+          <span class="px-1.5 py-0.5 bg-slate-800 text-slate-300 font-bold text-[9px] rounded">3D KİRLENT</span>
+          <h4 class="text-xs font-bold text-white line-clamp-1">Kadife Ev Tekstili Kılıfı</h4>
+          <span class="text-[10px] text-slate-400">Ev & Dekorasyon</span>
+        </div>
+      </a>
+    </div>
   </div>
 </section>
 
@@ -453,7 +710,7 @@
   </div>
 </section>
 
-<!-- SCRIPT: HERO PREVIEW SWITCHER -->
+<!-- SCRIPT: HERO & CATWALK RUNWAY MANNEQUIN CONTROLLER -->
 <script>
 function switchHeroPreview(imgUrl, labelText, patternCode) {
   const img = document.getElementById('heroPreviewImg');
@@ -473,5 +730,62 @@ function switchHeroPreview(imgUrl, labelText, patternCode) {
     event.currentTarget.classList.add('border-sage-600', 'ring-2', 'ring-sage-400/50', 'scale-105');
   }
 }
+
+let catwalkWalking = true;
+function toggleCatwalkWalk() {
+  const model = document.getElementById('catwalkStageModel');
+  const txt = document.getElementById('catwalkWalkStatusText');
+  catwalkWalking = !catwalkWalking;
+  if (catwalkWalking) {
+    model.classList.add('animate-catwalk-walk');
+    if (txt) txt.textContent = 'Yürüyüşü Durdur';
+  } else {
+    model.classList.remove('animate-catwalk-walk');
+    if (txt) txt.textContent = 'Yürüyüşü Başlat';
+  }
+}
+
+function setCatwalkModel(modelKey, labelText) {
+  const tag = document.getElementById('catwalkModelTag');
+  if (tag) tag.textContent = labelText;
+  
+  document.querySelectorAll('.catwalk-model-btn').forEach(b => {
+    b.classList.remove('border-emerald-600', 'bg-emerald-50', 'text-emerald-900', 'font-bold');
+    b.classList.add('border-slate-200', 'bg-slate-50', 'text-slate-700', 'font-semibold');
+  });
+  if (event && event.currentTarget) {
+    event.currentTarget.classList.remove('border-slate-200', 'bg-slate-50', 'text-slate-700', 'font-semibold');
+    event.currentTarget.classList.add('border-emerald-600', 'bg-emerald-50', 'text-emerald-900', 'font-bold');
+  }
+}
+
+function setCatwalkPattern(imgUrl, patternCode, patternTitle) {
+  const overlay = document.getElementById('catwalkPatternOverlay');
+  const tag = document.getElementById('catwalkPatternTag');
+  const title = document.getElementById('catwalkPatternTitle');
+  const btn = document.getElementById('catwalkGoStudioBtn');
+
+  if (overlay) overlay.style.backgroundImage = `url('${imgUrl}')`;
+  if (tag) tag.textContent = patternCode;
+  if (title) title.textContent = patternTitle;
+  if (btn) btn.href = `/studyo?pattern=${patternCode}`;
+}
+
+// Auto-cycle Catwalk Patterns every 4.5 seconds
+const catwalkPatternList = [
+  { img: '/static/images/NT_074.jpg', code: 'NT_074', title: 'NT_074 • Gece Siyahı Botanik' },
+  { img: '/static/images/NT_042.jpg', code: 'NT_042', title: 'NT_042 • Krem Barok Saray' },
+  { img: '/static/images/NT_036.jpg', code: 'NT_036', title: 'NT_036 • Antrasit Gül Kurusu' },
+  { img: '/static/images/NT_011.jpg', code: 'NT_011', title: 'NT_011 • Pastel Gri Vintage' },
+  { img: '/static/images/NT_015.jpg', code: 'NT_015', title: 'NT_015 • Tropikal Gece Palmiye' },
+  { img: '/static/images/NT_029.jpg', code: 'NT_029', title: 'NT_029 • Kırmızı Gül Bordo' }
+];
+let catwalkPatternIdx = 0;
+
+setInterval(() => {
+  catwalkPatternIdx = (catwalkPatternIdx + 1) % catwalkPatternList.length;
+  const item = catwalkPatternList[catwalkPatternIdx];
+  setCatwalkPattern(item.img, item.code, item.title);
+}, 4500);
 </script>
 {% endblock %}
