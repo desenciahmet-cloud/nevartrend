@@ -228,89 +228,89 @@
         </div>
       </div>
 
-      <!-- 3. RIGHT SIDEBAR (GREEN BOX AREA): PODYUMDA DEVAMLI YÜRÜYEN MANKEN & İNTERAKTİF GİYDİRME -->
+      <!-- 3. RIGHT SIDEBAR (GREEN BOX AREA): PODYUMDA DEVAMLI YÜRÜYEN MANKEN SIMULATOR -->
       <div class="lg:col-span-4 space-y-6">
         
-        <!-- Podyum Manken Simulator -->
+        <!-- Podyum Manken Simulator Box -->
         <div class="bg-white p-5 sm:p-6 rounded-3xl border-2 border-emerald-600/80 shadow-2xl space-y-4 relative overflow-hidden">
           
           <div class="flex items-center justify-between pb-3 border-b border-slate-100">
             <div>
               <div class="flex items-center gap-1.5">
                 <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                <span class="text-[10px] font-extrabold text-emerald-800 uppercase tracking-widest">CANLI DİNAMİK PODYUM</span>
+                <span class="text-[10px] font-extrabold text-emerald-800 uppercase tracking-widest">CANLI MODEL PODYUMU</span>
               </div>
-              <h4 class="text-base font-extrabold text-slate-900 font-serif-title mt-0.5">Podyumda Devamlı Yürüyen Manken</h4>
+              <h4 class="text-base font-extrabold text-slate-900 font-serif-title mt-0.5">Podyumda Yürüyen Canlı Mankenler</h4>
             </div>
 
             <button type="button" id="toggleCatwalkWalkBtn" onclick="toggleCatwalkWalk()" class="px-2.5 py-1 bg-emerald-50 hover:bg-emerald-100 text-emerald-800 text-[11px] font-bold rounded-lg transition flex items-center gap-1 border border-emerald-200">
-              <i data-lucide="play-circle" class="w-3.5 h-3.5 text-emerald-700"></i>
-              <span id="catwalkWalkStatusText">Yürüyüşü Durdur</span>
+              <i data-lucide="pause-circle" id="catwalkWalkIcon" class="w-3.5 h-3.5 text-emerald-700"></i>
+              <span id="catwalkWalkStatusText">Akışı Durdur</span>
             </button>
           </div>
 
-          <!-- Live Catwalk Stage Box -->
+          <!-- Stage Canvas Box -->
           <div class="relative aspect-[3/4] w-full bg-gradient-to-b from-slate-950 via-slate-900 to-emerald-950 rounded-2xl overflow-hidden border border-slate-800 shadow-inner flex flex-col justify-between p-4 group">
             
-            <!-- Spotlight Light Effect -->
-            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-48 h-64 bg-gradient-to-b from-white/20 via-emerald-400/10 to-transparent blur-xl pointer-events-none"></div>
+            <!-- Spotlight Lighting Beam -->
+            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-56 h-72 bg-gradient-to-b from-white/25 via-emerald-400/15 to-transparent blur-xl pointer-events-none z-10"></div>
 
-            <!-- Stage Header Tag -->
-            <div class="relative z-10 flex justify-between items-center">
-              <span id="catwalkModelTag" class="px-2.5 py-1 bg-slate-900/90 text-white font-bold text-[10px] rounded-lg backdrop-blur-sm border border-slate-700">
-                👗 Manken: Zarif Gece Elbisesi
+            <!-- Header Badge Info -->
+            <div class="relative z-20 flex justify-between items-center">
+              <span id="catwalkModelTag" class="px-2.5 py-1 bg-slate-900/90 text-white font-bold text-[10px] rounded-lg backdrop-blur-sm border border-slate-700 shadow-sm flex items-center gap-1">
+                👗 Manken: Kadın Elbise
               </span>
-              <span id="catwalkPatternTag" class="px-2 py-0.5 bg-emerald-600 text-white font-mono font-bold text-[9px] rounded">
+              <span id="catwalkPatternTag" class="px-2 py-0.5 bg-emerald-600 text-white font-mono font-bold text-[9px] rounded shadow-sm">
                 NT_074
               </span>
             </div>
 
-            <!-- Animated Walking Model Stage Figure -->
-            <div class="relative z-10 flex-1 flex items-center justify-center my-2 overflow-hidden">
-              <div id="catwalkStageModel" class="animate-catwalk-walk relative w-full h-full max-h-[260px] flex items-center justify-center">
-                
-                <!-- Live Projected Pattern Layer on Model -->
-                <div id="catwalkPatternOverlay" class="w-48 h-56 rounded-3xl shadow-2xl border-2 border-white/20 bg-cover bg-center transition-all duration-700 relative overflow-hidden" style="background-image: url('/static/images/NT_074.jpg');">
-                  <!-- 3D Draping Lighting Overlay -->
-                  <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-white/20 pointer-events-none"></div>
-                  <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_40%,transparent_30%,rgba(0,0,0,0.6)_100%)] pointer-events-none"></div>
-                  
-                  <div class="absolute bottom-3 left-3 right-3 p-1.5 bg-slate-900/85 backdrop-blur-md rounded-xl text-white text-[10px] font-bold text-center border border-white/10">
-                    <span id="catwalkPatternTitle">NT_074 • Gece Siyahı Botanik</span>
-                  </div>
-                </div>
-
+            <!-- Animated Runway Stage with HTML5 Canvas -->
+            <div class="relative z-20 flex-1 flex items-center justify-center my-1 overflow-hidden">
+              <div id="catwalkStageContainer" class="animate-catwalk-walk relative w-full h-full flex items-center justify-center transition-opacity duration-500">
+                <canvas id="catwalkCanvas" width="600" height="700" class="max-h-[280px] w-auto object-contain drop-shadow-2xl"></canvas>
               </div>
             </div>
 
-            <!-- Stage Bottom Action Bar -->
-            <div class="relative z-10 flex items-center justify-between gap-2 pt-2 border-t border-white/10">
-              <span class="text-[10px] font-medium text-slate-300">Podyumda Canlı Projeksiyon</span>
-              <a href="/studyo?pattern=NT_074" id="catwalkGoStudioBtn" class="px-3 py-1.5 bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-extrabold text-[11px] rounded-xl transition flex items-center gap-1 shadow-md">
+            <!-- Footer Action Bar -->
+            <div class="relative z-20 flex items-center justify-between gap-2 pt-2 border-t border-white/10">
+              <div class="truncate">
+                <span id="catwalkPatternTitle" class="text-[10px] font-bold text-white block truncate">NT_074 • Gece Siyahı Botanik</span>
+                <span class="text-[9px] text-slate-300 block">Canlı Drapaj Projeksiyonu</span>
+              </div>
+              <a href="/studyo?pattern=NT_074" id="catwalkGoStudioBtn" class="px-3 py-1.5 bg-emerald-400 hover:bg-emerald-500 text-slate-950 font-extrabold text-[11px] rounded-xl transition flex items-center gap-1 shadow-md flex-shrink-0">
                 <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> 3D Stüdyoda Aç
               </a>
             </div>
 
           </div>
 
-          <!-- Catwalk Controls: Model Pose Selector -->
+          <!-- Model Switcher Buttons -->
           <div class="space-y-2">
             <span class="text-[11px] font-bold text-slate-700 block">Podyum Manken Modelini Seçin:</span>
-            <div class="grid grid-cols-2 gap-2 text-xs">
-              <button type="button" onclick="setCatwalkModel('elbise', '👗 Manken: Zarif Gece Elbisesi')" class="catwalk-model-btn px-3 py-2 rounded-xl border-2 border-emerald-600 bg-emerald-50 text-emerald-900 font-bold transition flex items-center gap-1.5 justify-center">
-                <span>👗 Elbise</span>
+            <div class="grid grid-cols-3 gap-1.5 text-[11px]">
+              <button type="button" onclick="selectCatwalkModel(0)" id="cwb-0" class="catwalk-model-btn px-2 py-1.5 rounded-xl border-2 border-emerald-600 bg-emerald-50 text-emerald-900 font-bold transition text-center truncate">
+                👗 Elbise
               </button>
 
-              <button type="button" onclick="setCatwalkModel('sal', '🧣 Manken: İpek Şal & Fular')" class="catwalk-model-btn px-3 py-2 rounded-xl border border-slate-200 bg-slate-50 text-slate-700 font-semibold hover:bg-slate-100 transition flex items-center gap-1.5 justify-center">
-                <span>🧣 İpek Şal</span>
+              <button type="button" onclick="selectCatwalkModel(1)" id="cwb-1" class="catwalk-model-btn px-2 py-1.5 rounded-xl border border-slate-200 bg-slate-50 text-slate-700 font-medium hover:bg-slate-100 transition text-center truncate">
+                🧘 Tayt
               </button>
 
-              <button type="button" onclick="setCatwalkModel('tayt', '🧘 Manken: Tayt & Spor Kombin')" class="catwalk-model-btn px-3 py-2 rounded-xl border border-slate-200 bg-slate-50 text-slate-700 font-semibold hover:bg-slate-100 transition flex items-center gap-1.5 justify-center">
-                <span>🧘 Tayt & Spor</span>
+              <button type="button" onclick="selectCatwalkModel(2)" id="cwb-2" class="catwalk-model-btn px-2 py-1.5 rounded-xl border border-slate-200 bg-slate-50 text-slate-700 font-medium hover:bg-slate-100 transition text-center truncate">
+                🧣 Şal
               </button>
 
-              <button type="button" onclick="setCatwalkModel('kirlent', '🛋️ Dekor: Butik Kırlent')" class="catwalk-model-btn px-3 py-2 rounded-xl border border-slate-200 bg-slate-50 text-slate-700 font-semibold hover:bg-slate-100 transition flex items-center gap-1.5 justify-center">
-                <span>🛋️ Kırlent</span>
+              <button type="button" onclick="selectCatwalkModel(3)" id="cwb-3" class="catwalk-model-btn px-2 py-1.5 rounded-xl border border-slate-200 bg-slate-50 text-slate-700 font-medium hover:bg-slate-100 transition text-center truncate">
+                👘 Kimono
+              </button>
+
+              <button type="button" onclick="selectCatwalkModel(4)" id="cwb-4" class="catwalk-model-btn px-2 py-1.5 rounded-xl border border-slate-200 bg-slate-50 text-slate-700 font-medium hover:bg-slate-100 transition text-center truncate">
+                🛋️ Kırlent
+              </button>
+
+              <button type="button" onclick="selectCatwalkModel(5)" id="cwb-5" class="catwalk-model-btn px-2 py-1.5 rounded-xl border border-slate-200 bg-slate-50 text-slate-700 font-medium hover:bg-slate-100 transition text-center truncate">
+                👜 Çanta
               </button>
             </div>
           </div>
@@ -319,27 +319,27 @@
           <div class="space-y-2 pt-2 border-t border-slate-100">
             <span class="text-[11px] font-bold text-slate-700 block">Podyumda Deseni Değiştir:</span>
             <div class="flex items-center justify-between gap-1.5 overflow-x-auto pb-1">
-              <button type="button" onclick="setCatwalkPattern('/static/images/NT_074.jpg', 'NT_074', 'NT_074 • Gece Siyahı Botanik')" class="w-10 h-10 rounded-xl border-2 border-emerald-600 overflow-hidden shadow-xs flex-shrink-0 transition hover:scale-105" title="NT_074">
+              <button type="button" onclick="selectCatwalkPattern(0)" class="catwalk-pat-btn w-10 h-10 rounded-xl border-2 border-emerald-600 overflow-hidden shadow-xs flex-shrink-0 transition hover:scale-105" title="NT_074">
                 <img src="/static/images/NT_074.jpg" class="w-full h-full object-cover" alt="NT_074">
               </button>
 
-              <button type="button" onclick="setCatwalkPattern('/static/images/NT_042.jpg', 'NT_042', 'NT_042 • Krem Barok Saray')" class="w-10 h-10 rounded-xl border border-slate-200 overflow-hidden flex-shrink-0 transition hover:scale-105" title="NT_042">
+              <button type="button" onclick="selectCatwalkPattern(1)" class="catwalk-pat-btn w-10 h-10 rounded-xl border border-slate-200 overflow-hidden flex-shrink-0 transition hover:scale-105" title="NT_042">
                 <img src="/static/images/NT_042.jpg" class="w-full h-full object-cover" alt="NT_042">
               </button>
 
-              <button type="button" onclick="setCatwalkPattern('/static/images/NT_036.jpg', 'NT_036', 'NT_036 • Antrasit Gül Kurusu')" class="w-10 h-10 rounded-xl border border-slate-200 overflow-hidden flex-shrink-0 transition hover:scale-105" title="NT_036">
+              <button type="button" onclick="selectCatwalkPattern(2)" class="catwalk-pat-btn w-10 h-10 rounded-xl border border-slate-200 overflow-hidden flex-shrink-0 transition hover:scale-105" title="NT_036">
                 <img src="/static/images/NT_036.jpg" class="w-full h-full object-cover" alt="NT_036">
               </button>
 
-              <button type="button" onclick="setCatwalkPattern('/static/images/NT_011.jpg', 'NT_011', 'NT_011 • Pastel Gri Vintage')" class="w-10 h-10 rounded-xl border border-slate-200 overflow-hidden flex-shrink-0 transition hover:scale-105" title="NT_011">
+              <button type="button" onclick="selectCatwalkPattern(3)" class="catwalk-pat-btn w-10 h-10 rounded-xl border border-slate-200 overflow-hidden flex-shrink-0 transition hover:scale-105" title="NT_011">
                 <img src="/static/images/NT_011.jpg" class="w-full h-full object-cover" alt="NT_011">
               </button>
 
-              <button type="button" onclick="setCatwalkPattern('/static/images/NT_015.jpg', 'NT_015', 'NT_015 • Tropikal Gece Palmiye')" class="w-10 h-10 rounded-xl border border-slate-200 overflow-hidden flex-shrink-0 transition hover:scale-105" title="NT_015">
+              <button type="button" onclick="selectCatwalkPattern(4)" class="catwalk-pat-btn w-10 h-10 rounded-xl border border-slate-200 overflow-hidden flex-shrink-0 transition hover:scale-105" title="NT_015">
                 <img src="/static/images/NT_015.jpg" class="w-full h-full object-cover" alt="NT_015">
               </button>
 
-              <button type="button" onclick="setCatwalkPattern('/static/images/NT_029.jpg', 'NT_029', 'NT_029 • Kırmızı Gül Bordo')" class="w-10 h-10 rounded-xl border border-slate-200 overflow-hidden flex-shrink-0 transition hover:scale-105" title="NT_029">
+              <button type="button" onclick="selectCatwalkPattern(5)" class="catwalk-pat-btn w-10 h-10 rounded-xl border border-slate-200 overflow-hidden flex-shrink-0 transition hover:scale-105" title="NT_029">
                 <img src="/static/images/NT_029.jpg" class="w-full h-full object-cover" alt="NT_029">
               </button>
             </div>
@@ -354,63 +354,185 @@
   </div>
 </section>
 
-<!-- SCRIPT: CATWALK RUNWAY MANNEQUIN CONTROLLER -->
+<!-- SCRIPT: HIGH-PERFORMANCE REAL MODEL CATWALK ENGINE -->
 <script>
-let catwalkWalking = true;
-function toggleCatwalkWalk() {
-  const model = document.getElementById('catwalkStageModel');
-  const txt = document.getElementById('catwalkWalkStatusText');
-  catwalkWalking = !catwalkWalking;
-  if (catwalkWalking) {
-    model.classList.add('animate-catwalk-walk');
-    if (txt) txt.textContent = 'Yürüyüşü Durdur';
-  } else {
-    model.classList.remove('animate-catwalk-walk');
-    if (txt) txt.textContent = 'Yürüyüşü Başlat';
-  }
-}
+(function() {
+  const models = [
+    { key: 'dress', label: '👗 Manken: Kadın Elbise', shade: '/static/images/mockups/pb_woman_dress_shade.png', mask: '/static/images/mockups/pb_woman_dress_mask.png', fg: '/static/images/mockups/pb_dress_fg.png', tileScale: 380 },
+    { key: 'leggings', label: '🧘 Manken: Kadın Tayt', shade: '/static/images/mockups/pb_leggings_shade.png', mask: '/static/images/mockups/pb_leggings_mask.png', fg: '/static/images/mockups/pb_leggings_fg.png', tileScale: 300 },
+    { key: 'silk', label: '🧣 Manken: İpek Şal', shade: '/static/images/mockups/pb_silk_shade.png', mask: '/static/images/mockups/pb_silk_mask.png', fg: '/static/images/mockups/pb_silk_fg.png', tileScale: 420 },
+    { key: 'kimono', label: '👘 Manken: Butik Kimono', shade: '/static/images/mockups/pb_kimono_shade.png', mask: '/static/images/mockups/pb_kimono_mask.png', fg: '/static/images/mockups/pb_kimono_fg.png', tileScale: 360 },
+    { key: 'cushion', label: '🛋️ Dekor: Salon Kırlenti', shade: '/static/images/mockups/pb_cushion_shade.png', mask: '/static/images/mockups/pb_cushion_mask.png', fg: '/static/images/mockups/pb_cushion_fg.png', tileScale: 400 },
+    { key: 'bag', label: '👜 Butik: Plaj Çantası', shade: '/static/images/mockups/pb_bag_shade.png', mask: '/static/images/mockups/pb_bag_mask.png', fg: '/static/images/mockups/pb_bag_fg.png', tileScale: 350 }
+  ];
 
-function setCatwalkModel(modelKey, labelText) {
-  const tag = document.getElementById('catwalkModelTag');
-  if (tag) tag.textContent = labelText;
-  
-  document.querySelectorAll('.catwalk-model-btn').forEach(b => {
-    b.classList.remove('border-emerald-600', 'bg-emerald-50', 'text-emerald-900', 'font-bold');
-    b.classList.add('border-slate-200', 'bg-slate-50', 'text-slate-700', 'font-semibold');
+  const patterns = [
+    { code: 'NT_074', title: 'NT_074 • Gece Siyahı Botanik', url: '/static/images/NT_074.jpg' },
+    { code: 'NT_042', title: 'NT_042 • Krem Barok Saray', url: '/static/images/NT_042.jpg' },
+    { code: 'NT_036', title: 'NT_036 • Antrasit Gül Kurusu', url: '/static/images/NT_036.jpg' },
+    { code: 'NT_011', title: 'NT_011 • Pastel Gri Vintage', url: '/static/images/NT_011.jpg' },
+    { code: 'NT_015', title: 'NT_015 • Tropikal Gece Palmiye', url: '/static/images/NT_015.jpg' },
+    { code: 'NT_029', title: 'NT_029 • Kırmızı Gül Bordo', url: '/static/images/NT_029.jpg' }
+  ];
+
+  let currentModelIdx = 0;
+  let currentPatternIdx = 0;
+  let isWalking = true;
+  let timerId = null;
+
+  const canvas = document.getElementById('catwalkCanvas');
+  const ctx = canvas ? canvas.getContext('2d') : null;
+  const imageCache = {};
+
+  function loadImage(src) {
+    if (!src) return Promise.resolve(null);
+    if (imageCache[src]) return Promise.resolve(imageCache[src]);
+    return new Promise((resolve) => {
+      const img = new Image();
+      img.crossOrigin = 'anonymous';
+      img.onload = () => { imageCache[src] = img; resolve(img); };
+      img.onerror = () => resolve(null);
+      img.src = src;
+    });
+  }
+
+  function renderCatwalk() {
+    if (!ctx) return;
+    const m = models[currentModelIdx];
+    const p = patterns[currentPatternIdx];
+
+    // UI Updates
+    const mTag = document.getElementById('catwalkModelTag');
+    const pTag = document.getElementById('catwalkPatternTag');
+    const pTitle = document.getElementById('catwalkPatternTitle');
+    const goBtn = document.getElementById('catwalkGoStudioBtn');
+
+    if (mTag) mTag.textContent = m.label;
+    if (pTag) pTag.textContent = p.code;
+    if (pTitle) pTitle.textContent = p.title;
+    if (goBtn) goBtn.href = `/studyo?pattern=${p.code}&model=${m.key}`;
+
+    // Update Model Buttons UI
+    for (let i = 0; i < models.length; i++) {
+      const btn = document.getElementById(`cwb-${i}`);
+      if (btn) {
+        if (i === currentModelIdx) {
+          btn.className = 'catwalk-model-btn px-2 py-1.5 rounded-xl border-2 border-emerald-600 bg-emerald-50 text-emerald-900 font-bold transition text-center truncate shadow-xs';
+        } else {
+          btn.className = 'catwalk-model-btn px-2 py-1.5 rounded-xl border border-slate-200 bg-slate-50 text-slate-700 font-medium hover:bg-slate-100 transition text-center truncate';
+        }
+      }
+    }
+
+    Promise.all([
+      loadImage(m.shade),
+      loadImage(m.mask),
+      loadImage(m.fg),
+      loadImage(p.url)
+    ]).then(([shadeImg, maskImg, fgImg, patImg]) => {
+      ctx.clearRect(0, 0, 600, 700);
+
+      // 1. Offscreen Pattern Canvas
+      const offCanvas = document.createElement('canvas');
+      offCanvas.width = 600;
+      offCanvas.height = 700;
+      const offCtx = offCanvas.getContext('2d');
+
+      if (patImg) {
+        const tileW = m.tileScale || 350;
+        const tileCanvas = document.createElement('canvas');
+        tileCanvas.width = tileW;
+        tileCanvas.height = tileW;
+        const tctx = tileCanvas.getContext('2d');
+        tctx.drawImage(patImg, 0, 0, tileW, tileW);
+
+        const ptrn = offCtx.createPattern(tileCanvas, 'repeat');
+        offCtx.fillStyle = ptrn;
+        offCtx.fillRect(0, 0, 600, 700);
+      }
+
+      // 2. Apply Body Silhouette Mask
+      if (maskImg) {
+        offCtx.globalCompositeOperation = 'destination-in';
+        offCtx.drawImage(maskImg, 0, 0, 600, 700);
+        offCtx.globalCompositeOperation = 'source-over';
+      }
+
+      // 3. Composite Final Canvas
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, 600, 700);
+
+      // Base Shade / Lighting
+      if (shadeImg) {
+        ctx.drawImage(shadeImg, 0, 0, 600, 700);
+      }
+
+      // Multiply Draped Pattern
+      ctx.globalCompositeOperation = 'multiply';
+      ctx.drawImage(offCanvas, 0, 0, 600, 700);
+      ctx.globalCompositeOperation = 'source-over';
+
+      // Foreground Highlights & Details
+      if (fgImg) {
+        ctx.drawImage(fgImg, 0, 0, 600, 700);
+      }
+    });
+  }
+
+  window.selectCatwalkModel = function(idx) {
+    currentModelIdx = idx;
+    renderCatwalk();
+  };
+
+  window.selectCatwalkPattern = function(idx) {
+    currentPatternIdx = idx;
+    renderCatwalk();
+  };
+
+  window.toggleCatwalkWalk = function() {
+    isWalking = !isWalking;
+    const txt = document.getElementById('catwalkWalkStatusText');
+    const container = document.getElementById('catwalkStageContainer');
+    if (isWalking) {
+      if (txt) txt.textContent = 'Akışı Durdur';
+      if (container) container.classList.add('animate-catwalk-walk');
+      startAutoCycle();
+    } else {
+      if (txt) txt.textContent = 'Akışı Başlat';
+      if (container) container.classList.remove('animate-catwalk-walk');
+      stopAutoCycle();
+    }
+  };
+
+  function startAutoCycle() {
+    stopAutoCycle();
+    timerId = setInterval(() => {
+      currentModelIdx = (currentModelIdx + 1) % models.length;
+      if (currentModelIdx === 0) {
+        currentPatternIdx = (currentPatternIdx + 1) % patterns.length;
+      }
+      renderCatwalk();
+    }, 3800);
+  }
+
+  function stopAutoCycle() {
+    if (timerId) clearInterval(timerId);
+    timerId = null;
+  }
+
+  // Initialize Canvas Runway on Load
+  document.addEventListener('DOMContentLoaded', () => {
+    renderCatwalk();
+    startAutoCycle();
   });
-  if (event && event.currentTarget) {
-    event.currentTarget.classList.remove('border-slate-200', 'bg-slate-50', 'text-slate-700', 'font-semibold');
-    event.currentTarget.classList.add('border-emerald-600', 'bg-emerald-50', 'text-emerald-900', 'font-bold');
+
+  // Fallback direct init if DOM already loaded
+  if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    setTimeout(() => {
+      renderCatwalk();
+      startAutoCycle();
+    }, 200);
   }
-}
-
-function setCatwalkPattern(imgUrl, patternCode, patternTitle) {
-  const overlay = document.getElementById('catwalkPatternOverlay');
-  const tag = document.getElementById('catwalkPatternTag');
-  const title = document.getElementById('catwalkPatternTitle');
-  const btn = document.getElementById('catwalkGoStudioBtn');
-
-  if (overlay) overlay.style.backgroundImage = `url('${imgUrl}')`;
-  if (tag) tag.textContent = patternCode;
-  if (title) title.textContent = patternTitle;
-  if (btn) btn.href = `/studyo?pattern=${patternCode}`;
-}
-
-// Auto-cycle Catwalk Patterns every 4.5 seconds
-const catwalkPatternList = [
-  { img: '/static/images/NT_074.jpg', code: 'NT_074', title: 'NT_074 • Gece Siyahı Botanik' },
-  { img: '/static/images/NT_042.jpg', code: 'NT_042', title: 'NT_042 • Krem Barok Saray' },
-  { img: '/static/images/NT_036.jpg', code: 'NT_036', title: 'NT_036 • Antrasit Gül Kurusu' },
-  { img: '/static/images/NT_011.jpg', code: 'NT_011', title: 'NT_011 • Pastel Gri Vintage' },
-  { img: '/static/images/NT_015.jpg', code: 'NT_015', title: 'NT_015 • Tropikal Gece Palmiye' },
-  { img: '/static/images/NT_029.jpg', code: 'NT_029', title: 'NT_029 • Kırmızı Gül Bordo' }
-];
-let catwalkPatternIdx = 0;
-
-setInterval(() => {
-  catwalkPatternIdx = (catwalkPatternIdx + 1) % catwalkPatternList.length;
-  const item = catwalkPatternList[catwalkPatternIdx];
-  setCatwalkPattern(item.img, item.code, item.title);
-}, 4500);
+})();
 </script>
 {% endblock %}
