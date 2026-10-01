@@ -47,18 +47,21 @@
           <span class="text-[10px] font-extrabold text-slate-700 uppercase tracking-widest block">KATEGORİLER</span>
         </div>
 
-        <!-- MAIN DESENLER MENU CARD WITH NESTED SUB-LAYERS (ALT KATMANLAR) -->
-        <div class="bg-emerald-900/90 rounded-2xl p-2 space-y-1.5 border border-emerald-700/60 shadow-md">
-          <a href="/fabrics?category=all" class="w-full px-3.5 py-2.5 bg-emerald-800 hover:bg-emerald-950 text-white rounded-xl text-xs font-extrabold flex items-center justify-between transition shadow-2xs">
+        <!-- MAIN DESENLER ACCORDION CARD (COLLAPSED / CLOSED BY DEFAULT WITH ARROW ICON) -->
+        <div class="bg-emerald-900/90 rounded-2xl p-2 border border-emerald-700/60 shadow-md">
+          <button type="button" onclick="toggleLeftDesenlerMenu()" class="w-full px-3.5 py-2.5 bg-emerald-800 hover:bg-emerald-950 text-white rounded-xl text-xs font-extrabold flex items-center justify-between transition shadow-2xs group">
             <div class="flex items-center gap-2">
               <i data-lucide="palette" class="w-4 h-4 text-emerald-300"></i>
               <span>DESENLER (74 DESEN)</span>
             </div>
-            <span class="px-2 py-0.5 bg-emerald-950 text-emerald-300 font-mono font-extrabold text-[10px] rounded-md">74</span>
-          </a>
+            <div class="flex items-center gap-2">
+              <span class="px-2 py-0.5 bg-emerald-950 text-emerald-300 font-mono font-extrabold text-[10px] rounded-md">74</span>
+              <i data-lucide="chevron-down" id="desenlerMenuChevron" class="w-4 h-4 text-emerald-300 transform transition-transform duration-300"></i>
+            </div>
+          </button>
 
-          <!-- SUB-LAYERS (ALT KATMANLAR: 5 EXACT CATEGORIES) -->
-          <div class="pl-1 pr-1 space-y-1 pt-1.5 border-t border-emerald-800/80">
+          <!-- SUB-LAYERS (CLOSED BY DEFAULT, EXPANDS ON CLICK) -->
+          <div id="desenlerSubMenu" class="pl-1 pr-1 space-y-1 pt-1.5 border-t border-emerald-800/80 mt-1.5" style="display: none;">
             <button type="button" onclick="selectCategoryLeft('cicekli-botanik')" class="sub-cat-btn w-full px-3 py-1.5 bg-emerald-800/80 hover:bg-emerald-700 text-white rounded-lg text-[11px] font-bold flex items-center justify-between transition hover:translate-x-1 border border-emerald-600/30">
               <div class="flex items-center gap-2">
                 <span class="w-1.5 h-1.5 rounded-full bg-emerald-300"></span>
