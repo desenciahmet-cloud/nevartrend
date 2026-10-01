@@ -760,10 +760,13 @@ document.addEventListener('DOMContentLoaded', function() {
         offCtx.globalCompositeOperation = 'destination-in';
         offCtx.drawImage(f.mask, 0, 0, CANVAS_W, CANVAS_H);
 
-        // Multiply with shade layer (Real fabric folds & lighting)
+        // Apply shade & highlight layer with Photoshop exact OVERLAY blend mode (Opacity: 0.70)
         if (f.shade) {
-          offCtx.globalCompositeOperation = 'multiply';
+          offCtx.globalCompositeOperation = 'overlay';
+          offCtx.globalAlpha = 0.70;
           offCtx.drawImage(f.shade, 0, 0, CANVAS_W, CANVAS_H);
+          offCtx.globalAlpha = 1.0;
+          
           // Re-clip to ensure clean alpha borders
           offCtx.globalCompositeOperation = 'destination-in';
           offCtx.drawImage(f.mask, 0, 0, CANVAS_W, CANVAS_H);
