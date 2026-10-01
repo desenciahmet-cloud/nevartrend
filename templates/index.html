@@ -620,6 +620,21 @@
     }
   };
 
+  
+  window.toggleLeftDesenlerMenu = function() {
+    const menu = document.getElementById('desenlerSubMenu');
+    const chevron = document.getElementById('desenlerMenuChevron');
+    if (!menu) return;
+    const isHidden = menu.style.display === 'none' || getComputedStyle(menu).display === 'none';
+    if (isHidden) {
+      menu.style.display = 'block';
+      if (chevron) chevron.style.transform = 'rotate(180deg)';
+    } else {
+      menu.style.display = 'none';
+      if (chevron) chevron.style.transform = 'rotate(0deg)';
+    }
+  };
+
   window.selectCategoryLeft = function(cat) {
     filterPatterns(cat);
     const catPats = patternKeysList.filter(k => patternsDict[k] && patternsDict[k].category === cat);
