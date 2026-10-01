@@ -637,14 +637,16 @@ document.addEventListener('DOMContentLoaded', function() {
   function initQuickSwatches() {
     const swatchesContainer = document.getElementById('heroQuickSwatches');
     if (!swatchesContainer) return;
-    const initialQuick = allPatterns.slice(0, 4);
+    const initialQuick = allPatterns.slice(0, 5);
     let html = '';
-    initialQuick.forEach(p => {
+    initialQuick.forEach((p, idx) => {
+      const isActive = selectedPattern && selectedPattern.code === p.code;
       html += `
         <button 
           type="button" 
-          onclick="selectCatwalkPattern('${p.code}')" 
-          class="w-7 h-7 rounded-lg border border-slate-200 overflow-hidden hover:scale-105 transition-all shadow-2xs hover:border-emerald-500" 
+          onclick="selectCatwalkPattern('${p.code}', true)" 
+          data-code="${p.code}"
+          class="catwalk-swatch-btn w-7 h-7 rounded-lg border overflow-hidden transition-all shadow-2xs ${isActive ? 'border-2 border-emerald-500 ring-2 ring-emerald-400/50 scale-110' : 'border-slate-200 hover:border-slate-400 opacity-80'}" 
           title="${p.code} - ${p.title}"
         >
           <img src="${p.image}" class="w-full h-full object-cover" alt="${p.code}">
@@ -779,11 +781,21 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 
-  // 7. REAL-TIME PATTERN SELECTOR
-  window.selectCatwalkPattern = function(code) {
-    const found = allPatterns.find(p => p.code === code);
-    if (!found) return;
+  // ==========================================
+  // 7. REAL-TIME PATTERN SELECTOR & AUTO FLOW
+  // ==========================================
+  let currentPatternIndex = 0;
+  const AUTO_PATTERN_INTERVAL = 3840; // 3.84 saniye (tam 3 adım döngüsü sonra pürüzsüz sonraki desene geçiş)
+  let lastPatternSwitchTime = performance.now();
+  let isAutoRotateActive = true;
+
+  window.selectCatwalkPattern = function(code, isManualClick = true) {
+    const foundIdx = allPatterns.findIndex(p => p.code === code);
+    if (foundIdx === -1) return;
+    currentPatternIndex = foundIdx;
+    const found = allPatterns[foundIdx];
     selectedPattern = found;
+    lastPatternSwitchTime = performance.now();
 
     // Update gallery card highlight
     document.querySelectorAll('.pattern-card').forEach(c => {
@@ -795,6 +807,17 @@ document.addEventListener('DOMContentLoaded', function() {
       activeCard.classList.remove('border-slate-200');
       activeCard.classList.add('border-2', 'border-emerald-600', 'ring-2', 'ring-emerald-400/40', 'shadow-lg', 'bg-emerald-50/20');
     }
+
+    // Update quick swatches highlight
+    document.querySelectorAll('.catwalk-swatch-btn').forEach(btn => {
+      if (btn.getAttribute('data-code') === code) {
+        btn.classList.remove('border-slate-200', 'opacity-80');
+        btn.classList.add('border-2', 'border-emerald-500', 'ring-2', 'ring-emerald-400/50', 'scale-110', 'opacity-100');
+      } else {
+        btn.classList.remove('border-2', 'border-emerald-500', 'ring-2', 'ring-emerald-400/50', 'scale-110', 'opacity-100');
+        btn.classList.add('border-slate-200', 'opacity-80');
+      }
+    });
 
     // Update Hero UI Info
     const legendThumb = document.getElementById('catwalkLegendThumb');
@@ -809,28 +832,29 @@ document.addEventListener('DOMContentLoaded', function() {
     if (pipStudioLink) pipStudioLink.href = `/studyo?pattern=${found.code}`;
     if (btnCatwalkFullStudio) btnCatwalkFullStudio.href = `/studyo?pattern=${found.code}`;
 
-    // Show loading spinner briefly
-    const spinner = document.getElementById('catwalkLoading');
-    if (spinner) spinner.style.opacity = '1';
-
     currentPatternImg = getPatternImage(found.image);
     if (currentPatternImg.complete && currentPatternImg.naturalWidth > 0) {
       renderAllCatwalkFrames();
-      if (spinner) spinner.style.opacity = '0';
     } else {
-      currentPatternImg.onload = () => {
-        renderAllCatwalkFrames();
-        if (spinner) spinner.style.opacity = '0';
-      };
+      currentPatternImg.onload = () => renderAllCatwalkFrames();
     }
 
     // Feedback pulse on PiP
     const pipWrapper = document.getElementById('pip-canvas-wrapper');
-    if (pipWrapper) {
+    if (pipWrapper && isManualClick) {
       pipWrapper.classList.add('ring-2', 'ring-emerald-500');
       setTimeout(() => pipWrapper.classList.remove('ring-2', 'ring-emerald-500'), 600);
     }
   };
+
+  function advanceAutoCatwalkPattern() {
+    if (!allPatterns || allPatterns.length === 0) return;
+    currentPatternIndex = (currentPatternIndex + 1) % allPatterns.length;
+    const nextPattern = allPatterns[currentPatternIndex];
+    if (nextPattern) {
+      selectCatwalkPattern(nextPattern.code, false);
+    }
+  }
 
   // ==========================================
   // 8. 4-FRAME ANIMATION PLAYBACK LOOP
@@ -842,6 +866,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     isPlaying = false;
+    isAutoRotateActive = false;
     updatePlayPauseUI();
   }
 
@@ -850,7 +875,11 @@ document.addEventListener('DOMContentLoaded', function() {
     btnPlayPause.addEventListener('click', () => {
       isPlaying = !isPlaying;
       updatePlayPauseUI();
-      if (isPlaying) requestAnimationFrame(catwalkLoop);
+      if (isPlaying) {
+        lastFrameTime = performance.now();
+        lastPatternSwitchTime = performance.now();
+        requestAnimationFrame(catwalkLoop);
+      }
     });
   }
 
@@ -866,9 +895,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
   function catwalkLoop(now) {
     if (isPlaying) {
+      // 1. Catwalk walking stride advancement
       if (now - lastFrameTime >= FRAME_DURATION) {
         currentFrameIndex = (currentFrameIndex + 1) % 4;
         lastFrameTime = now;
+      }
+
+      // 2. Automatic pattern flow synchronized with continuous walk
+      if (isAutoRotateActive && now - lastPatternSwitchTime >= AUTO_PATTERN_INTERVAL) {
+        advanceAutoCatwalkPattern();
+        lastPatternSwitchTime = now;
       }
     }
 
