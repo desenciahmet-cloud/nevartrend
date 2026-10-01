@@ -375,15 +375,15 @@
   </div>
 </section>
 
-<!-- SCRIPT: CLEAN STATIC MODEL CANVAS ENGINE WITH DYNAMIC PATTERN & FITTING CONTROLS -->
+<!-- SCRIPT: SMOOTH CONTINUOUS RUNWAY CATWALK WALKING MANNEQUIN ENGINE -->
 <script>
 (function() {
-  // Ultra-clean studio standing model pose (No crowd in background)
-  const staticPose = {
-    bg: '/static/images/catwalk/clean_catwalk_1_bg.jpg',
-    mask: '/static/images/catwalk/catwalk_1_mask.png',
-    shade: '/static/images/catwalk/catwalk_1_shade.png'
-  };
+  const catwalkPoses = [
+    { bg: '/static/images/catwalk/clean_catwalk_1_bg.jpg', mask: '/static/images/catwalk/catwalk_1_mask.png', shade: '/static/images/catwalk/catwalk_1_shade.png' },
+    { bg: '/static/images/catwalk/clean_catwalk_2_bg.jpg', mask: '/static/images/catwalk/catwalk_2_mask.png', shade: '/static/images/catwalk/catwalk_2_shade.png' },
+    { bg: '/static/images/catwalk/clean_catwalk_3_bg.jpg', mask: '/static/images/catwalk/catwalk_3_mask.png', shade: '/static/images/catwalk/catwalk_3_shade.png' },
+    { bg: '/static/images/catwalk/clean_catwalk_4_bg.jpg', mask: '/static/images/catwalk/catwalk_4_mask.png', shade: '/static/images/catwalk/catwalk_4_shade.png' }
+  ];
 
   const patternsDict = {
     {% for p in products %}
@@ -392,9 +392,17 @@
   };
   const patternKeysList = Object.keys(patternsDict);
 
+  let currentPoseIdx = 0;
+  let nextPoseIdx = 1;
+  let transitionProgress = 1.0;
+  let isTransitioning = false;
   let currentPattern = patternsDict['NT_021'] || (patternKeysList.length > 0 ? patternsDict[patternKeysList[0]] : { code: 'NT_021', title: 'NT_021', url: '/static/images/NT_021.jpg' });
   let currentScaleMode = 'normal'; // 'narrow', 'normal', 'wide'
   let currentLengthMode = 'normal'; // 'short', 'normal', 'long'
+  let isPlaying = true;
+  let timerId = null;
+  let animFrameId = null;
+  let stepCounter = 0;
 
   const canvas = document.getElementById('catwalkCanvas');
   const ctx = canvas ? canvas.getContext('2d') : null;
@@ -412,42 +420,33 @@
     });
   }
 
-  function renderStaticModelFrame() {
-    if (!ctx) return;
+  function createPoseCanvas(poseIdx, patternObj) {
+    const pose = catwalkPoses[poseIdx];
+    const offCanvas = document.createElement('canvas');
+    offCanvas.width = 699;
+    offCanvas.height = 1536;
+    const offCtx = offCanvas.getContext('2d');
 
-    // UI Label Updates
-    const pTitle = document.getElementById('catwalkPatternTitle');
-    const avatar = document.getElementById('catwalkAvatarThumb');
-    const goBtn = document.getElementById('catwalkGoStudioBtnTop');
-
-    if (pTitle) pTitle.textContent = currentPattern.title;
-    if (avatar) avatar.src = currentPattern.url;
-    if (goBtn) goBtn.href = `/studyo?pattern=${currentPattern.code}`;
-
-    Promise.all([
-      loadImage(staticPose.bg),
-      loadImage(staticPose.mask),
-      loadImage(staticPose.shade),
-      loadImage(currentPattern.url)
+    return Promise.all([
+      loadImage(pose.bg),
+      loadImage(pose.mask),
+      loadImage(pose.shade),
+      loadImage(patternObj.url)
     ]).then(([bgImg, maskImg, shadeImg, patImg]) => {
-      ctx.clearRect(0, 0, 699, 1536);
+      offCtx.clearRect(0, 0, 699, 1536);
 
-      // 1. Draw Clean Backdrop & Standing Model Base
-      if (bgImg) ctx.drawImage(bgImg, 0, 0, 699, 1536);
+      if (bgImg) offCtx.drawImage(bgImg, 0, 0, 699, 1536);
 
-      // 2. Tile Pattern & Mask onto Dress
       if (patImg && maskImg) {
         const patCanvas = document.createElement('canvas');
         patCanvas.width = 699;
         patCanvas.height = 1536;
         const pCtx = patCanvas.getContext('2d');
 
-        // Fitting Scale Calculation (Daralt / Normal / Genişlet)
         let tileW = 450;
         if (currentScaleMode === 'narrow') tileW = 280;
         else if (currentScaleMode === 'wide') tileW = 680;
 
-        // Fitting Length Calculation (Kısalt / Normal / Uzat)
         let tileH = tileW;
         if (currentLengthMode === 'short') tileH = Math.round(tileW * 0.7);
         else if (currentLengthMode === 'long') tileH = Math.round(tileW * 1.35);
@@ -466,21 +465,89 @@
         pCtx.drawImage(maskImg, 0, 0, 699, 1536);
         pCtx.globalCompositeOperation = 'source-over';
 
-        ctx.globalCompositeOperation = 'multiply';
-        ctx.drawImage(patCanvas, 0, 0, 699, 1536);
-        ctx.globalCompositeOperation = 'source-over';
+        offCtx.globalCompositeOperation = 'multiply';
+        offCtx.drawImage(patCanvas, 0, 0, 699, 1536);
+        offCtx.globalCompositeOperation = 'source-over';
       }
 
-      // 3. Draw Lighting Shade
       if (shadeImg) {
-        ctx.globalCompositeOperation = 'multiply';
-        ctx.drawImage(shadeImg, 0, 0, 699, 1536);
-        ctx.globalCompositeOperation = 'source-over';
+        offCtx.globalCompositeOperation = 'multiply';
+        offCtx.drawImage(shadeImg, 0, 0, 699, 1536);
+        offCtx.globalCompositeOperation = 'source-over';
       }
+
+      return offCanvas;
     });
   }
 
-  // Scale Mode Trigger (Daralt / Normal / Genişlet)
+  function renderFrame() {
+    if (!ctx) return;
+
+    const pTitle = document.getElementById('catwalkPatternTitle');
+    const avatar = document.getElementById('catwalkAvatarThumb');
+    const goBtn = document.getElementById('catwalkGoStudioBtnTop');
+
+    if (pTitle) pTitle.textContent = currentPattern.title;
+    if (avatar) avatar.src = currentPattern.url;
+    if (goBtn) goBtn.href = `/studyo?pattern=${currentPattern.code}`;
+
+    if (transitionProgress >= 1.0) {
+      createPoseCanvas(currentPoseIdx, currentPattern).then(c => {
+        ctx.clearRect(0, 0, 699, 1536);
+        ctx.drawImage(c, 0, 0, 699, 1536);
+      });
+    } else {
+      Promise.all([
+        createPoseCanvas(currentPoseIdx, currentPattern),
+        createPoseCanvas(nextPoseIdx, currentPattern)
+      ]).then(([currC, nextC]) => {
+        ctx.clearRect(0, 0, 699, 1536);
+        ctx.globalAlpha = 1.0;
+        ctx.drawImage(currC, 0, 0, 699, 1536);
+
+        ctx.globalAlpha = transitionProgress;
+        ctx.drawImage(nextC, 0, 0, 699, 1536);
+        ctx.globalAlpha = 1.0;
+      });
+    }
+  }
+
+  function advanceStepSmoothly() {
+    if (isTransitioning) return;
+    isTransitioning = true;
+    nextPoseIdx = (currentPoseIdx + 1) % catwalkPoses.length;
+
+    // Pattern auto-cycling on mannequin walk every 3 strides
+    stepCounter++;
+    if (stepCounter % 3 === 0 && patternKeysList.length > 0) {
+      const currIdx = patternKeysList.indexOf(currentPattern.code);
+      const nextIdx = (currIdx + 1) % patternKeysList.length;
+      if (patternsDict[patternKeysList[nextIdx]]) {
+        currentPattern = patternsDict[patternKeysList[nextIdx]];
+      }
+    }
+    
+    let startTime = null;
+    const duration = 650;
+
+    function animateCrossfade(timestamp) {
+      if (!startTime) startTime = timestamp;
+      const elapsed = timestamp - startTime;
+      transitionProgress = Math.min(elapsed / duration, 1.0);
+
+      renderFrame();
+
+      if (transitionProgress < 1.0) {
+        animFrameId = requestAnimationFrame(animateCrossfade);
+      } else {
+        currentPoseIdx = nextPoseIdx;
+        isTransitioning = false;
+      }
+    }
+
+    animFrameId = requestAnimationFrame(animateCrossfade);
+  }
+
   window.setCatwalkScaleMode = function(mode) {
     currentScaleMode = mode;
     ['Narrow', 'Normal', 'Wide'].forEach(m => {
@@ -493,10 +560,9 @@
         }
       }
     });
-    renderStaticModelFrame();
+    renderFrame();
   };
 
-  // Length Mode Trigger (Kısalt / Normal / Uzat)
   window.setCatwalkLengthMode = function(mode) {
     currentLengthMode = mode;
     ['Short', 'Normal', 'Long'].forEach(m => {
@@ -509,10 +575,9 @@
         }
       }
     });
-    renderStaticModelFrame();
+    renderFrame();
   };
 
-  // Pattern Selection Trigger
   window.selectCatwalkPatternByCode = function(code, title, url) {
     if (!patternsDict[code]) {
       patternsDict[code] = {
@@ -522,7 +587,8 @@
       };
     }
     currentPattern = patternsDict[code];
-    renderStaticModelFrame();
+    transitionProgress = 1.0;
+    renderFrame();
 
     const stage = document.getElementById('catwalkCanvas');
     if (stage) {
@@ -530,7 +596,6 @@
     }
   };
 
-  // Left Sidebar Category Click -> Filter patterns & Update model with category pattern
   window.selectCategoryLeft = function(cat) {
     filterPatterns(cat);
     const catPats = patternKeysList.filter(k => patternsDict[k] && patternsDict[k].category === cat);
@@ -558,31 +623,34 @@
     });
   };
 
-  // Smooth automatic pattern switching every 3.5 seconds on static mannequin
-  let patternCycleIdx = 0;
-  setInterval(() => {
-    if (patternKeysList.length > 0) {
-      patternCycleIdx = (patternCycleIdx + 1) % patternKeysList.length;
-      const nextCode = patternKeysList[patternCycleIdx];
-      if (patternsDict[nextCode]) {
-        currentPattern = patternsDict[nextCode];
-        renderStaticModelFrame();
-      }
-    }
-  }, 3500);
+  function startCycle() {
+    stopCycle();
+    timerId = setInterval(() => {
+      advanceStepSmoothly();
+    }, 1100);
+  }
 
-  // Preload images
-  loadImage(staticPose.bg);
-  loadImage(staticPose.mask);
-  loadImage(staticPose.shade);
+  function stopCycle() {
+    if (timerId) clearInterval(timerId);
+    if (animFrameId) cancelAnimationFrame(animFrameId);
+    timerId = null;
+  }
+
+  catwalkPoses.forEach(pose => {
+    loadImage(pose.bg);
+    loadImage(pose.mask);
+    loadImage(pose.shade);
+  });
 
   document.addEventListener('DOMContentLoaded', () => {
-    renderStaticModelFrame();
+    renderFrame();
+    startCycle();
   });
 
   if (document.readyState === 'complete' || document.readyState === 'interactive') {
     setTimeout(() => {
-      renderStaticModelFrame();
+      renderFrame();
+      startCycle();
     }, 150);
   }
 })();
