@@ -1,4 +1,6 @@
-{% extends "base.html" %}
+import re
+
+homepage_html = """{% extends "base.html" %}
 
 {% block title %}Nevartrend by Trenddesen | Deseni Seç, Üzerinde Gör{% endblock %}
 
@@ -594,3 +596,12 @@
 })();
 </script>
 {% endblock %}
+"""
+
+with open('templates/index.html', 'w', encoding='utf-8') as f:
+    f.write(homepage_html)
+
+with open('index.html', 'w', encoding='utf-8') as f:
+    f.write(homepage_html)
+
+print("Updated homepage with static standing model, dynamic pattern switching, shorter categories buttons with open spacing, and Daralt/Genişlet & Kısalt/Uzat fitting controls!")
