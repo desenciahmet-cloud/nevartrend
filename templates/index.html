@@ -691,9 +691,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
   for (let i = 1; i <= 4; i++) {
     const f = framesData[i - 1];
-    loadPromises.push(loadFrameAsset(`/static/images/catwalk/catwalk_${i}_bg.jpg`).then(img => f.bg = img));
-    loadPromises.push(loadFrameAsset(`/static/images/catwalk/catwalk_${i}_mask.png`).then(img => f.mask = img));
-    loadPromises.push(loadFrameAsset(`/static/images/catwalk/catwalk_${i}_shade.png`).then(img => f.shade = img));
+    loadPromises.push(loadFrameAsset(`/static/images/catwalk/catwalk_${i}_bg.jpg?v=3.0`).then(img => f.bg = img));
+    loadPromises.push(loadFrameAsset(`/static/images/catwalk/catwalk_${i}_mask.png?v=3.0`).then(img => f.mask = img));
+    loadPromises.push(loadFrameAsset(`/static/images/catwalk/catwalk_${i}_shade.png?v=3.0`).then(img => f.shade = img));
   }
 
   Promise.all(loadPromises).then(() => {
@@ -760,10 +760,10 @@ document.addEventListener('DOMContentLoaded', function() {
         offCtx.globalCompositeOperation = 'destination-in';
         offCtx.drawImage(f.mask, 0, 0, CANVAS_W, CANVAS_H);
 
-        // Apply shade & highlight layer with Photoshop exact OVERLAY blend mode (Opacity: 0.70)
+        // Apply shade & highlight layer with Photoshop exact OVERLAY blend mode (PSD Opacity: 89 / 255 = 0.35)
         if (f.shade) {
           offCtx.globalCompositeOperation = 'overlay';
-          offCtx.globalAlpha = 0.70;
+          offCtx.globalAlpha = 0.35;
           offCtx.drawImage(f.shade, 0, 0, CANVAS_W, CANVAS_H);
           offCtx.globalAlpha = 1.0;
           
