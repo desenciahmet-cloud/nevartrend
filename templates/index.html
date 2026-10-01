@@ -83,63 +83,90 @@
     
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
       
-      <!-- 1. LEFT COLUMN (col-span-3): KATEGORİLER SIDEBAR (SHORTER BUTTONS WITH WIDER OPEN SPACING) -->
-      <div class="lg:col-span-3 space-y-4 sticky top-24">
+      <!-- 1. LEFT COLUMN (col-span-3): KATEGORİLER SIDEBAR (EXACT 5 CATEGORIES + SERVICES) -->
+      <div class="lg:col-span-3 space-y-2 sticky top-24">
         <div class="flex items-center gap-2 px-1 mb-1">
           <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
           <span class="text-[10px] font-extrabold text-slate-700 uppercase tracking-widest block">KATEGORİLER</span>
         </div>
 
-        <a href="/fabrics?category=all" class="w-full px-4 py-2.5 bg-emerald-800 hover:bg-emerald-900 text-white rounded-xl text-xs font-extrabold shadow-sm flex items-center justify-between transition hover:translate-x-1">
+        <!-- 5 Exact Category Filters -->
+        <button type="button" onclick="selectCategoryLeft('cicekli-botanik')" class="left-cat-btn w-full px-3.5 py-2 bg-emerald-800 hover:bg-emerald-900 text-white rounded-xl text-[11px] font-extrabold shadow-2xs flex items-center justify-between transition hover:translate-x-1">
           <div class="flex items-center gap-2">
-            <i data-lucide="palette" class="w-3.5 h-3.5 text-emerald-300"></i>
-            <span>DESENLER</span>
+            <i data-lucide="flower-2" class="w-3.5 h-3.5 text-emerald-300"></i>
+            <span>1. ÇİÇEKLİ & BOTANİK</span>
           </div>
-          <span class="px-2 py-0.5 bg-emerald-950 text-emerald-300 font-mono font-extrabold text-[10px] rounded-md">74</span>
-        </a>
+          <span class="px-2 py-0.5 bg-emerald-950 text-emerald-300 font-mono font-extrabold text-[9px] rounded-md">15</span>
+        </button>
 
-        <a href="/studyo" class="w-full px-4 py-2.5 bg-emerald-800 hover:bg-emerald-900 text-white rounded-2xl text-xs font-extrabold shadow-sm flex items-center justify-between transition hover:translate-x-1">
+        <button type="button" onclick="selectCategoryLeft('barok-saray')" class="left-cat-btn w-full px-3.5 py-2 bg-emerald-800 hover:bg-emerald-900 text-white rounded-xl text-[11px] font-extrabold shadow-2xs flex items-center justify-between transition hover:translate-x-1">
+          <div class="flex items-center gap-2">
+            <i data-lucide="crown" class="w-3.5 h-3.5 text-emerald-300"></i>
+            <span>2. BAROK & SARAY</span>
+          </div>
+          <span class="px-2 py-0.5 bg-emerald-950 text-emerald-300 font-mono font-extrabold text-[9px] rounded-md">14</span>
+        </button>
+
+        <button type="button" onclick="selectCategoryLeft('geometrik')" class="left-cat-btn w-full px-3.5 py-2 bg-emerald-800 hover:bg-emerald-900 text-white rounded-xl text-[11px] font-extrabold shadow-2xs flex items-center justify-between transition hover:translate-x-1">
+          <div class="flex items-center gap-2">
+            <i data-lucide="shapes" class="w-3.5 h-3.5 text-emerald-300"></i>
+            <span>3. GEOMETRİK</span>
+          </div>
+          <span class="px-2 py-0.5 bg-emerald-950 text-emerald-300 font-mono font-extrabold text-[9px] rounded-md">15</span>
+        </button>
+
+        <button type="button" onclick="selectCategoryLeft('dokular-fircalar')" class="left-cat-btn w-full px-3.5 py-2 bg-emerald-800 hover:bg-emerald-900 text-white rounded-xl text-[11px] font-extrabold shadow-2xs flex items-center justify-between transition hover:translate-x-1">
+          <div class="flex items-center gap-2">
+            <i data-lucide="brush" class="w-3.5 h-3.5 text-emerald-300"></i>
+            <span>4. DOKULAR - FIRÇALAR</span>
+          </div>
+          <span class="px-2 py-0.5 bg-emerald-950 text-emerald-300 font-mono font-extrabold text-[9px] rounded-md">15</span>
+        </button>
+
+        <button type="button" onclick="selectCategoryLeft('vintage-etnik')" class="left-cat-btn w-full px-3.5 py-2 bg-emerald-800 hover:bg-emerald-900 text-white rounded-xl text-[11px] font-extrabold shadow-2xs flex items-center justify-between transition hover:translate-x-1">
           <div class="flex items-center gap-2">
             <i data-lucide="sparkles" class="w-3.5 h-3.5 text-emerald-300"></i>
-            <span>CANLI STÜDYO</span>
+            <span>5. VİNTAGE & ETNİK</span>
           </div>
-          <span class="px-2 py-0.5 bg-emerald-950 text-emerald-300 font-mono font-extrabold text-[10px] rounded-md">3D</span>
-        </a>
+          <span class="px-2 py-0.5 bg-emerald-950 text-emerald-300 font-mono font-extrabold text-[9px] rounded-md">15</span>
+        </button>
 
-        <a href="/kumaslar" class="w-full px-4 py-2.5 bg-emerald-800 hover:bg-emerald-900 text-white rounded-2xl text-xs font-extrabold shadow-sm flex items-center justify-between transition hover:translate-x-1">
-          <div class="flex items-center gap-2">
-            <i data-lucide="layers" class="w-3.5 h-3.5 text-emerald-300"></i>
-            <span>KUMAŞ KARTELASI</span>
-          </div>
-          <span class="px-2 py-0.5 bg-emerald-950 text-emerald-300 font-mono font-extrabold text-[10px] rounded-md">7 Tür</span>
-        </a>
+        <div class="pt-2 border-t border-slate-200/70 space-y-2">
+          <a href="/kumaslar" class="w-full px-3.5 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-[11px] font-extrabold shadow-2xs flex items-center justify-between transition hover:translate-x-1">
+            <div class="flex items-center gap-2">
+              <i data-lucide="layers" class="w-3.5 h-3.5 text-emerald-300"></i>
+              <span>KUMAŞ KARTELASI</span>
+            </div>
+            <span class="px-2 py-0.5 bg-slate-950 text-emerald-300 font-mono font-extrabold text-[9px] rounded-md">7 Tür</span>
+          </a>
 
-        <a href="/dijital-baski" class="w-full px-4 py-2.5 bg-emerald-800 hover:bg-emerald-900 text-white rounded-2xl text-xs font-extrabold shadow-sm flex items-center justify-between transition hover:translate-x-1">
-          <div class="flex items-center gap-2">
-            <i data-lucide="printer" class="w-3.5 h-3.5 text-emerald-300"></i>
-            <span>DİJİTAL BASKI</span>
-          </div>
-          <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-emerald-300"></i>
-        </a>
+          <a href="/dijital-baski" class="w-full px-3.5 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-[11px] font-extrabold shadow-2xs flex items-center justify-between transition hover:translate-x-1">
+            <div class="flex items-center gap-2">
+              <i data-lucide="printer" class="w-3.5 h-3.5 text-emerald-300"></i>
+              <span>DİJİTAL BASKI</span>
+            </div>
+            <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-emerald-300"></i>
+          </a>
 
-        <a href="/emprime" class="w-full px-4 py-2.5 bg-emerald-800 hover:bg-emerald-900 text-white rounded-2xl text-xs font-extrabold shadow-sm flex items-center justify-between transition hover:translate-x-1">
-          <div class="flex items-center gap-2">
-            <i data-lucide="split" class="w-3.5 h-3.5 text-emerald-300"></i>
-            <span>EMPRİME FİLM</span>
-          </div>
-          <span class="px-2 py-0.5 bg-emerald-950 text-emerald-300 font-mono font-extrabold text-[10px] rounded-md">4.0 Dmax</span>
-        </a>
+          <a href="/emprime" class="w-full px-3.5 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-[11px] font-extrabold shadow-2xs flex items-center justify-between transition hover:translate-x-1">
+            <div class="flex items-center gap-2">
+              <i data-lucide="split" class="w-3.5 h-3.5 text-emerald-300"></i>
+              <span>EMPRİME FİLM</span>
+            </div>
+            <span class="px-2 py-0.5 bg-slate-950 text-emerald-300 font-mono font-extrabold text-[9px] rounded-md">4.0 Dmax</span>
+          </a>
 
-        <a href="/trend-urunler" class="w-full px-4 py-2.5 bg-amber-700 hover:bg-amber-800 text-white rounded-2xl text-xs font-extrabold shadow-sm flex items-center justify-between transition hover:translate-x-1">
-          <div class="flex items-center gap-2">
-            <i data-lucide="shopping-bag" class="w-3.5 h-3.5 text-amber-300"></i>
-            <span>BUTİK TREND ÜRÜNLER</span>
-          </div>
-          <span class="px-2 py-0.5 bg-amber-950 text-amber-300 font-mono font-extrabold text-[10px] rounded-md">Hazır</span>
-        </a>
+          <a href="/trend-urunler" class="w-full px-3.5 py-2 bg-amber-700 hover:bg-amber-800 text-white rounded-xl text-[11px] font-extrabold shadow-2xs flex items-center justify-between transition hover:translate-x-1">
+            <div class="flex items-center gap-2">
+              <i data-lucide="shopping-bag" class="w-3.5 h-3.5 text-amber-300"></i>
+              <span>BUTİK TREND ÜRÜNLER</span>
+            </div>
+            <span class="px-2 py-0.5 bg-amber-950 text-amber-300 font-mono font-extrabold text-[9px] rounded-md">Hazır</span>
+          </a>
+        </div>
       </div>
 
-      <!-- 2. CENTER COLUMN (col-span-5): STATIC STANDING STUDIO MODEL STAGE WITH DYNAMIC PATTERN SWITCHING -->
+      <!-- 2. CENTER COLUMN (col-span-5): STATIC STANDING STUDIO MODEL STAGE WITH CLEAN BACKGROUND -->
       <div class="lg:col-span-5 space-y-4">
         
         <!-- Stage Card Container -->
@@ -159,8 +186,8 @@
             </div>
           </div>
 
-          <!-- Live Stage Box with HTML5 Canvas (STILL STANDING MODEL IN CLEAN STUDIO) -->
-          <div class="relative h-[480px] sm:h-[520px] w-full bg-slate-950 rounded-2xl overflow-hidden border border-slate-800 shadow-inner flex flex-col justify-between p-3 group">
+          <!-- Live Stage Box with HTML5 Canvas (100% CLEAN NEUTRAL STUDIO BACKDROP - NO DISTRACTING CROWD) -->
+          <div class="relative h-[480px] sm:h-[520px] w-full bg-[#f4f2ec] rounded-2xl overflow-hidden border border-slate-300/80 shadow-inner flex flex-col justify-between p-3 group">
             
             <!-- Canvas Player -->
             <div class="relative z-10 w-full h-full flex items-center justify-center overflow-hidden">
@@ -173,7 +200,7 @@
                 <img id="catwalkAvatarThumb" src="/static/images/NT_021.jpg" class="w-9 h-9 rounded-lg object-cover border border-white/20 flex-shrink-0" alt="Desen Avatar">
                 <div class="truncate">
                   <span id="catwalkPatternTitle" class="text-xs font-bold text-white block truncate">NT_021 • Krem Zemin Pastel Bordo Çiçek Bahçesi</span>
-                  <span class="text-[10px] text-slate-300 block">Sabit Duruş • Canlı Desen Giydirme</span>
+                  <span class="text-[10px] text-slate-300 block">Temiz Stüdyo • Canlı Desen Giydirme</span>
                 </div>
               </div>
 
@@ -184,11 +211,11 @@
 
           </div>
 
-          <!-- FITTING & SCALE CONTROLS (DESEN SEÇ • DAR / GENİŞLET • KISALT / UZAT) -->
+          <!-- FITTING & SCALE CONTROLS (DARALT / GENİŞLET • KISALT / UZAT) -->
           <div class="bg-slate-50 p-3 rounded-2xl border border-slate-200/80 space-y-2 text-xs">
             
             <div class="flex flex-wrap items-center justify-between gap-2">
-              <!-- Scale Buttons (Dar / Genişlet) -->
+              <!-- Scale Buttons (Daralt / Genişlet) -->
               <div class="flex items-center gap-1.5">
                 <span class="text-[11px] font-bold text-slate-700 flex items-center gap-1">
                   <i data-lucide="zoom-in" class="w-3.5 h-3.5 text-emerald-700"></i> Desen Genişliği:
@@ -391,10 +418,10 @@
   </div>
 </section>
 
-<!-- SCRIPT: STATIC MODEL CANVAS ENGINE WITH DYNAMIC PATTERN & FITTING CONTROLS -->
+<!-- SCRIPT: CLEAN STATIC MODEL CANVAS ENGINE WITH DYNAMIC PATTERN & FITTING CONTROLS -->
 <script>
 (function() {
-  // Static standing studio model pose
+  // Ultra-clean studio standing model pose (No crowd in background)
   const staticPose = {
     bg: '/static/images/catwalk/clean_catwalk_1_bg.jpg',
     mask: '/static/images/catwalk/catwalk_1_mask.png',
@@ -403,7 +430,7 @@
 
   const patternsDict = {
     {% for p in products %}
-    "{{ p.code }}": { code: "{{ p.code }}", title: "{{ p.code }} • {{ p.title|e }}", url: "{{ p.image }}" },
+    "{{ p.code }}": { code: "{{ p.code }}", title: "{{ p.code }} • {{ p.title|e }}", url: "{{ p.image }}", category: "{{ p.category }}" },
     {% endfor %}
   };
   const patternKeysList = Object.keys(patternsDict);
@@ -458,15 +485,15 @@
         patCanvas.height = 1536;
         const pCtx = patCanvas.getContext('2d');
 
-        // Fitting Scale Calculation (Dar / Genişlet)
+        // Fitting Scale Calculation (Daralt / Normal / Genişlet)
         let tileW = 450;
-        if (currentScaleMode === 'narrow') tileW = 280; // Daralt
-        else if (currentScaleMode === 'wide') tileW = 680;  // Genişlet
+        if (currentScaleMode === 'narrow') tileW = 280;
+        else if (currentScaleMode === 'wide') tileW = 680;
 
-        // Fitting Length Calculation (Kısalt / Uzat)
+        // Fitting Length Calculation (Kısalt / Normal / Uzat)
         let tileH = tileW;
-        if (currentLengthMode === 'short') tileH = Math.round(tileW * 0.7); // Kısalt
-        else if (currentLengthMode === 'long') tileH = Math.round(tileW * 1.35); // Uzat
+        if (currentLengthMode === 'short') tileH = Math.round(tileW * 0.7);
+        else if (currentLengthMode === 'long') tileH = Math.round(tileW * 1.35);
 
         const tileCanvas = document.createElement('canvas');
         tileCanvas.width = tileW;
@@ -543,6 +570,16 @@
     const stage = document.getElementById('catwalkCanvas');
     if (stage) {
       stage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  };
+
+  // Left Sidebar Category Click -> Filter patterns & Update model with category pattern
+  window.selectCategoryLeft = function(cat) {
+    filterPatterns(cat);
+    const catPats = patternKeysList.filter(k => patternsDict[k] && patternsDict[k].category === cat);
+    if (catPats.length > 0) {
+      const p = patternsDict[catPats[0]];
+      selectCatwalkPatternByCode(p.code, p.title, p.url);
     }
   };
 

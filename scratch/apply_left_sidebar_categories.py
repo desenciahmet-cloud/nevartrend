@@ -1,4 +1,6 @@
-{% extends "base.html" %}
+import re
+
+homepage_html = """{% extends "base.html" %}
 
 {% block title %}Nevartrend by Trenddesen | Deseni Seç, Üzerinde Gör{% endblock %}
 
@@ -631,3 +633,12 @@
 })();
 </script>
 {% endblock %}
+"""
+
+with open('templates/index.html', 'w', encoding='utf-8') as f:
+    f.write(homepage_html)
+
+with open('index.html', 'w', encoding='utf-8') as f:
+    f.write(homepage_html)
+
+print("Applied left sidebar category menu update matching user screenshot request!")
