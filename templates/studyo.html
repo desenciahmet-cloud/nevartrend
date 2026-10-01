@@ -647,6 +647,57 @@ document.addEventListener('DOMContentLoaded', function() {
     renderCanvas();
   };
 
+  const alphaMaskCache = {};
+  function getPreparedMask(maskImg, w, h) {
+    if (!maskImg) return null;
+    const key = (maskImg.src || 'mask') + '_' + w + 'x' + h;
+    if (alphaMaskCache[key]) return alphaMaskCache[key];
+
+    const mCanvas = document.createElement('canvas');
+    mCanvas.width = w;
+    mCanvas.height = h;
+    const mCtx = mCanvas.getContext('2d');
+    mCtx.drawImage(maskImg, 0, 0, w, h);
+
+    const imgData = mCtx.getImageData(0, 0, w, h);
+    const data = imgData.data;
+
+    for (let i = 0; i < data.length; i += 4) {
+      const brightness = (data[i] + data[i+1] + data[i+2]) / 3;
+      data[i+3] = Math.round((brightness * data[i+3]) / 255);
+      data[i] = 255;
+      data[i+1] = 255;
+      data[i+2] = 255;
+    }
+    mCtx.putImageData(imgData, 0, 0);
+    alphaMaskCache[key] = mCanvas;
+    return mCanvas;
+  }
+
+  function createTransformedPattern(tileSize, angleDeg) {
+    const fCanvas = document.createElement('canvas');
+    fCanvas.width = tileSize;
+    fCanvas.height = tileSize;
+    const fCtx = fCanvas.getContext('2d');
+
+    fCtx.filter = `hue-rotate(${currentHue}deg) saturate(${currentSat}%) brightness(${currentBright}%)`;
+    fCtx.drawImage(currentPatternImage, 0, 0, tileSize, tileSize);
+    fCtx.filter = 'none';
+
+    const pCanvas = document.createElement('canvas');
+    pCanvas.width = tileSize;
+    pCanvas.height = tileSize;
+    const pCtx = pCanvas.getContext('2d');
+
+    pCtx.save();
+    pCtx.translate(tileSize / 2, tileSize / 2);
+    pCtx.rotate((angleDeg * Math.PI) / 180);
+    pCtx.drawImage(fCanvas, -tileSize / 2, -tileSize / 2, tileSize, tileSize);
+    pCtx.restore();
+
+    return pCanvas;
+  }
+
   function renderCanvas() {
     if (!currentPatternImage) return;
     const key = mockupKeys[currentMockupIndex];
@@ -655,14 +706,8 @@ document.addEventListener('DOMContentLoaded', function() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     if (key === 'repeat' || !m.mask) {
-      const tileCanvas = document.createElement('canvas');
-      tileCanvas.width = 400;
-      tileCanvas.height = 400;
-      const tctx = tileCanvas.getContext('2d');
-      tctx.filter = `hue-rotate(${currentHue}deg) saturate(${currentSat}%) brightness(${currentBright}%)`;
-      tctx.drawImage(currentPatternImage, 0, 0, 400, 400);
-
-      const ptrn = ctx.createPattern(tileCanvas, 'repeat');
+      const pCanvas = createTransformedPattern(400, currentPatternAngle);
+      const ptrn = ctx.createPattern(pCanvas, 'repeat');
       ctx.fillStyle = ptrn;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
       if (spinner) spinner.style.opacity = '0';
@@ -674,48 +719,42 @@ document.addEventListener('DOMContentLoaded', function() {
       loadImage(m.mask),
       loadImage(m.fg)
     ]).then(([shadeImg, maskImg, fgImg]) => {
+      let tilePx = 400;
+      if (currentScaleMode === 'small') { tilePx = 220; }
+      else if (currentScaleMode === 'large') { tilePx = 700; }
+
+      // 1. Draw base photo
+      if (shadeImg) {
+        ctx.drawImage(shadeImg, 0, 0, canvas.width, canvas.height);
+      }
+
+      // 2. Offscreen Draped Pattern Canvas
       const offCanvas = document.createElement('canvas');
-      offCanvas.width = 800;
-      offCanvas.height = 800;
+      offCanvas.width = canvas.width;
+      offCanvas.height = canvas.height;
       const offCtx = offCanvas.getContext('2d');
 
-      let tileW = 400, tileH = 400;
-      if (currentScaleMode === 'small') { tileW = 220; tileH = 220; }
-      else if (currentScaleMode === 'large') { tileW = 700; tileH = 700; }
-
-      const tileCanvas = document.createElement('canvas');
-      tileCanvas.width = tileW;
-      tileCanvas.height = tileH;
-      const tctx = tileCanvas.getContext('2d');
-
-      tctx.filter = `hue-rotate(${currentHue}deg) saturate(${currentSat}%) brightness(${currentBright}%)`;
-      tctx.translate(tileW / 2, tileH / 2);
-      tctx.rotate((currentPatternAngle * Math.PI) / 180);
-      tctx.drawImage(currentPatternImage, -tileW / 2, -tileH / 2, tileW, tileH);
-
-      const ptrn = offCtx.createPattern(tileCanvas, 'repeat');
-      offCtx.fillStyle = ptrn;
-      offCtx.fillRect(0, 0, 800, 800);
+      const pTrans = createTransformedPattern(tilePx, currentPatternAngle);
+      offCtx.fillStyle = offCtx.createPattern(pTrans, 'repeat');
+      offCtx.fillRect(0, 0, canvas.width, canvas.height);
 
       if (maskImg) {
         offCtx.globalCompositeOperation = 'destination-in';
-        offCtx.drawImage(maskImg, 0, 0, 800, 800);
+        const cleanAlphaMask = getPreparedMask(maskImg, canvas.width, canvas.height);
+        offCtx.drawImage(cleanAlphaMask, 0, 0, canvas.width, canvas.height);
         offCtx.globalCompositeOperation = 'source-over';
       }
 
-      ctx.fillStyle = '#ffffff';
-      ctx.fillRect(0, 0, 800, 800);
-
-      if (shadeImg) {
-        ctx.drawImage(shadeImg, 0, 0, 800, 800);
-      }
-
+      // 3. Multiply onto model base
+      ctx.save();
       ctx.globalCompositeOperation = 'multiply';
-      ctx.drawImage(offCanvas, 0, 0, 800, 800);
-      ctx.globalCompositeOperation = 'source-over';
+      ctx.globalAlpha = 0.95;
+      ctx.drawImage(offCanvas, 0, 0, canvas.width, canvas.height);
+      ctx.restore();
 
+      // 4. Foreground top details
       if (fgImg) {
-        ctx.drawImage(fgImg, 0, 0, 800, 800);
+        ctx.drawImage(fgImg, 0, 0, canvas.width, canvas.height);
       }
 
       if (spinner) spinner.style.opacity = '0';
