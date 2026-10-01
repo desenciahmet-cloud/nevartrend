@@ -4,20 +4,20 @@
 
 {% block content %}
 
-<!-- DYNAMIC MARQUEE TICKER (BLACK BOX AREA - CANLI SAĞ/SOLA AKIŞ - TOP FULL WIDTH) -->
-<section class="bg-slate-950 text-white py-3 border-b border-slate-800 overflow-hidden relative shadow-xl">
-  <div class="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8 mb-2.5 flex items-center justify-between">
+<!-- DYNAMIC MARQUEE TICKER (SADECE DESENLER - CANLI AKIŞ) -->
+<section class="bg-slate-950 text-white py-2.5 border-b border-slate-800 overflow-hidden relative shadow-xl">
+  <div class="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8 mb-2 flex items-center justify-between">
     <div class="flex items-center gap-2">
-      <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
-      <span class="text-xs font-extrabold uppercase tracking-widest text-slate-300">ÖNE ÇIKAN DİNAMİK DESENLER & ÜRÜNLER (CANLI SAĞ/SOLA AKIŞ)</span>
+      <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+      <span class="text-xs font-extrabold uppercase tracking-widest text-slate-300">ÖNE ÇIKAN DİNAMİK DESENLER</span>
     </div>
     <span class="text-[11px] font-medium text-slate-400 hidden sm:inline">Üzerine gelince durur • Tıklayıp stüdyoda inceleyin</span>
   </div>
 
-  <!-- Row 1: Right-to-Left Infinite Scroll (Desenler) -->
-  <div class="marquee-wrapper overflow-hidden relative w-full mb-2">
+  <!-- Infinite Scroll (Sadece Desenler) -->
+  <div class="marquee-wrapper overflow-hidden relative w-full">
     <div class="animate-marquee-left flex gap-3.5">
-      <a href="/studyo?pattern=NT_074" class="flex-shrink-0 bg-slate-900/90 hover:bg-slate-800 border border-slate-800 hover:border-emerald-500/60 rounded-2xl p-2 flex items-center gap-3 transition group shadow-md min-w-[230px]">
+      <a href="/studyo?pattern=NT_074" class="flex-shrink-0 bg-slate-900/90 hover:bg-slate-800 border border-slate-800 hover:border-emerald-500/60 rounded-2xl p-2 flex items-center gap-3 transition group shadow-md min-w-[220px]">
         <img src="/static/images/NT_074.jpg?v=2.5" class="w-10 h-10 rounded-xl object-cover border border-slate-700 group-hover:scale-105 transition" alt="NT_074">
         <div>
           <span class="px-1.5 py-0.5 bg-emerald-950 text-emerald-300 font-mono font-bold text-[9px] rounded">NT_074</span>
@@ -26,7 +26,7 @@
         </div>
       </a>
 
-      <a href="/studyo?pattern=NT_042" class="flex-shrink-0 bg-slate-900/90 hover:bg-slate-800 border border-slate-800 hover:border-emerald-500/60 rounded-2xl p-2 flex items-center gap-3 transition group shadow-md min-w-[230px]">
+      <a href="/studyo?pattern=NT_042" class="flex-shrink-0 bg-slate-900/90 hover:bg-slate-800 border border-slate-800 hover:border-emerald-500/60 rounded-2xl p-2 flex items-center gap-3 transition group shadow-md min-w-[220px]">
         <img src="/static/images/NT_042.jpg?v=2.5" class="w-10 h-10 rounded-xl object-cover border border-slate-700 group-hover:scale-105 transition" alt="NT_042">
         <div>
           <span class="px-1.5 py-0.5 bg-amber-950 text-amber-300 font-mono font-bold text-[9px] rounded">NT_042</span>
@@ -35,7 +35,7 @@
         </div>
       </a>
 
-      <a href="/studyo?pattern=NT_036" class="flex-shrink-0 bg-slate-900/90 hover:bg-slate-800 border border-slate-800 hover:border-emerald-500/60 rounded-2xl p-2 flex items-center gap-3 transition group shadow-md min-w-[230px]">
+      <a href="/studyo?pattern=NT_036" class="flex-shrink-0 bg-slate-900/90 hover:bg-slate-800 border border-slate-800 hover:border-emerald-500/60 rounded-2xl p-2 flex items-center gap-3 transition group shadow-md min-w-[220px]">
         <img src="/static/images/NT_036.jpg?v=2.5" class="w-10 h-10 rounded-xl object-cover border border-slate-700 group-hover:scale-105 transition" alt="NT_036">
         <div>
           <span class="px-1.5 py-0.5 bg-emerald-950 text-emerald-300 font-mono font-bold text-[9px] rounded">NT_036</span>
@@ -44,7 +44,7 @@
         </div>
       </a>
 
-      <a href="/studyo?pattern=NT_011" class="flex-shrink-0 bg-slate-900/90 hover:bg-slate-800 border border-slate-800 hover:border-emerald-500/60 rounded-2xl p-2 flex items-center gap-3 transition group shadow-md min-w-[230px]">
+      <a href="/studyo?pattern=NT_011" class="flex-shrink-0 bg-slate-900/90 hover:bg-slate-800 border border-slate-800 hover:border-emerald-500/60 rounded-2xl p-2 flex items-center gap-3 transition group shadow-md min-w-[220px]">
         <img src="/static/images/NT_011.jpg?v=2.5" class="w-10 h-10 rounded-xl object-cover border border-slate-700 group-hover:scale-105 transition" alt="NT_011">
         <div>
           <span class="px-1.5 py-0.5 bg-slate-800 text-slate-300 font-mono font-bold text-[9px] rounded">NT_011</span>
@@ -53,8 +53,26 @@
         </div>
       </a>
 
+      <a href="/studyo?pattern=NT_015" class="flex-shrink-0 bg-slate-900/90 hover:bg-slate-800 border border-slate-800 hover:border-emerald-500/60 rounded-2xl p-2 flex items-center gap-3 transition group shadow-md min-w-[220px]">
+        <img src="/static/images/NT_015.jpg?v=2.5" class="w-10 h-10 rounded-xl object-cover border border-slate-700 group-hover:scale-105 transition" alt="NT_015">
+        <div>
+          <span class="px-1.5 py-0.5 bg-indigo-950 text-indigo-300 font-mono font-bold text-[9px] rounded">NT_015</span>
+          <h4 class="text-xs font-bold text-white group-hover:text-indigo-400 transition line-clamp-1">Tropikal Gece Palmiye</h4>
+          <span class="text-[10px] text-slate-400">185 TL/mt • Etnik</span>
+        </div>
+      </a>
+
+      <a href="/studyo?pattern=NT_001" class="flex-shrink-0 bg-slate-900/90 hover:bg-slate-800 border border-slate-800 hover:border-emerald-500/60 rounded-2xl p-2 flex items-center gap-3 transition group shadow-md min-w-[220px]">
+        <img src="/static/images/NT_001.jpg?v=2.5" class="w-10 h-10 rounded-xl object-cover border border-slate-700 group-hover:scale-105 transition" alt="NT_001">
+        <div>
+          <span class="px-1.5 py-0.5 bg-rose-950 text-rose-300 font-mono font-bold text-[9px] rounded">NT_001</span>
+          <h4 class="text-xs font-bold text-white group-hover:text-rose-400 transition line-clamp-1">Zümrüt Şakayık Çiçeği</h4>
+          <span class="text-[10px] text-slate-400">195 TL/mt • Çiçekli</span>
+        </div>
+      </a>
+
       <!-- Duplicates for seamless infinite loop -->
-      <a href="/studyo?pattern=NT_074" class="flex-shrink-0 bg-slate-900/90 hover:bg-slate-800 border border-slate-800 hover:border-emerald-500/60 rounded-2xl p-2 flex items-center gap-3 transition group shadow-md min-w-[230px]">
+      <a href="/studyo?pattern=NT_074" class="flex-shrink-0 bg-slate-900/90 hover:bg-slate-800 border border-slate-800 hover:border-emerald-500/60 rounded-2xl p-2 flex items-center gap-3 transition group shadow-md min-w-[220px]">
         <img src="/static/images/NT_074.jpg?v=2.5" class="w-10 h-10 rounded-xl object-cover border border-slate-700 group-hover:scale-105 transition" alt="NT_074">
         <div>
           <span class="px-1.5 py-0.5 bg-emerald-950 text-emerald-300 font-mono font-bold text-[9px] rounded">NT_074</span>
@@ -63,7 +81,7 @@
         </div>
       </a>
 
-      <a href="/studyo?pattern=NT_042" class="flex-shrink-0 bg-slate-900/90 hover:bg-slate-800 border border-slate-800 hover:border-emerald-500/60 rounded-2xl p-2 flex items-center gap-3 transition group shadow-md min-w-[230px]">
+      <a href="/studyo?pattern=NT_042" class="flex-shrink-0 bg-slate-900/90 hover:bg-slate-800 border border-slate-800 hover:border-emerald-500/60 rounded-2xl p-2 flex items-center gap-3 transition group shadow-md min-w-[220px]">
         <img src="/static/images/NT_042.jpg?v=2.5" class="w-10 h-10 rounded-xl object-cover border border-slate-700 group-hover:scale-105 transition" alt="NT_042">
         <div>
           <span class="px-1.5 py-0.5 bg-amber-950 text-amber-300 font-mono font-bold text-[9px] rounded">NT_042</span>
@@ -71,46 +89,22 @@
           <span class="text-[10px] text-slate-400">195 TL/mt • Barok</span>
         </div>
       </a>
-    </div>
-  </div>
 
-  <!-- Row 2: Left-to-Right Infinite Scroll (3D Ürünler & Kumaşlar) -->
-  <div class="marquee-wrapper overflow-hidden relative w-full">
-    <div class="animate-marquee-right flex gap-3.5">
-      <a href="/studyo" class="flex-shrink-0 bg-emerald-950/80 hover:bg-emerald-900 border border-emerald-800/80 rounded-2xl p-2 flex items-center gap-3 transition group shadow-md min-w-[230px]">
-        <div class="w-10 h-10 rounded-xl bg-emerald-800 text-white flex items-center justify-center font-bold text-base">👗</div>
+      <a href="/studyo?pattern=NT_036" class="flex-shrink-0 bg-slate-900/90 hover:bg-slate-800 border border-slate-800 hover:border-emerald-500/60 rounded-2xl p-2 flex items-center gap-3 transition group shadow-md min-w-[220px]">
+        <img src="/static/images/NT_036.jpg?v=2.5" class="w-10 h-10 rounded-xl object-cover border border-slate-700 group-hover:scale-105 transition" alt="NT_036">
         <div>
-          <span class="px-1.5 py-0.5 bg-emerald-800 text-white font-bold text-[9px] rounded">3D MODEL</span>
-          <h4 class="text-xs font-bold text-white group-hover:text-emerald-300 transition line-clamp-1">Zarif Kadın Elbisesi</h4>
-          <span class="text-[10px] text-emerald-300">3D Canlı Drapaj</span>
+          <span class="px-1.5 py-0.5 bg-emerald-950 text-emerald-300 font-mono font-bold text-[9px] rounded">NT_036</span>
+          <h4 class="text-xs font-bold text-white group-hover:text-emerald-400 transition line-clamp-1">Antrasit Gül Kurusu</h4>
+          <span class="text-[10px] text-slate-400">185 TL/mt • Botanik</span>
         </div>
       </a>
 
-      <a href="/kumaslar" class="flex-shrink-0 bg-slate-900/90 hover:bg-slate-800 border border-slate-800 rounded-2xl p-2 flex items-center gap-3 transition group shadow-md min-w-[230px]">
-        <div class="w-10 h-10 rounded-xl bg-slate-800 text-amber-400 flex items-center justify-center font-bold text-base">✨</div>
+      <a href="/studyo?pattern=NT_011" class="flex-shrink-0 bg-slate-900/90 hover:bg-slate-800 border border-slate-800 hover:border-emerald-500/60 rounded-2xl p-2 flex items-center gap-3 transition group shadow-md min-w-[220px]">
+        <img src="/static/images/NT_011.jpg?v=2.5" class="w-10 h-10 rounded-xl object-cover border border-slate-700 group-hover:scale-105 transition" alt="NT_011">
         <div>
-          <span class="px-1.5 py-0.5 bg-amber-950 text-amber-300 font-mono font-bold text-[9px] rounded">KUMAŞ</span>
-          <h4 class="text-xs font-bold text-white group-hover:text-amber-400 transition line-clamp-1">İpek Saten & Viskon Keten</h4>
-          <span class="text-[10px] text-slate-400">OEKO-TEX Sertifikalı</span>
-        </div>
-      </a>
-
-      <a href="/trend-urunler" class="flex-shrink-0 bg-amber-950/80 hover:bg-amber-900 border border-amber-800/80 rounded-2xl p-2 flex items-center gap-3 transition group shadow-md min-w-[230px]">
-        <div class="w-10 h-10 rounded-xl bg-amber-800 text-white flex items-center justify-center font-bold text-base">🧣</div>
-        <div>
-          <span class="px-1.5 py-0.5 bg-amber-800 text-white font-bold text-[9px] rounded">BUTİK</span>
-          <h4 class="text-xs font-bold text-white group-hover:text-amber-300 transition line-clamp-1">Desenli İpek Şal & Fular</h4>
-          <span class="text-[10px] text-amber-300">Hazır Butik Ürün</span>
-        </div>
-      </a>
-
-      <!-- Duplicate Set for Seamless Loop -->
-      <a href="/studyo" class="flex-shrink-0 bg-emerald-950/80 hover:bg-emerald-900 border border-emerald-800/80 rounded-2xl p-2 flex items-center gap-3 transition group shadow-md min-w-[230px]">
-        <div class="w-10 h-10 rounded-xl bg-emerald-800 text-white flex items-center justify-center font-bold text-base">👗</div>
-        <div>
-          <span class="px-1.5 py-0.5 bg-emerald-800 text-white font-bold text-[9px] rounded">3D MODEL</span>
-          <h4 class="text-xs font-bold text-white group-hover:text-emerald-300 transition line-clamp-1">Zarif Kadın Elbisesi</h4>
-          <span class="text-[10px] text-emerald-300">3D Canlı Drapaj</span>
+          <span class="px-1.5 py-0.5 bg-slate-800 text-slate-300 font-mono font-bold text-[9px] rounded">NT_011</span>
+          <h4 class="text-xs font-bold text-white group-hover:text-emerald-400 transition line-clamp-1">Pastel Gri Vintage</h4>
+          <span class="text-[10px] text-slate-400">185 TL/mt • Vintage</span>
         </div>
       </a>
     </div>
