@@ -1,4 +1,7 @@
-{% extends "base.html" %}
+import re
+
+# 1. Update templates/fabrics.html
+fabrics_content = """{% extends "base.html" %}
 
 {% block title %}Kumaş & Desen Kataloğu | nevartrend{% endblock %}
 
@@ -498,3 +501,9 @@
 })();
 </script>
 {% endblock %}
+"""
+
+with open('templates/fabrics.html', 'w', encoding='utf-8') as f:
+    f.write(fabrics_content)
+print("Updated templates/fabrics.html")
+
