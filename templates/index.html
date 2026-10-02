@@ -439,12 +439,16 @@
 
   function loadImage(src) {
     if (!src) return Promise.resolve(null);
-    if (imageCache[src]) return Promise.resolve(imageCache[src]);
+    if (imageCache[src] && imageCache[src].complete && imageCache[src].naturalWidth > 0) {
+      return Promise.resolve(imageCache[src]);
+    }
     return new Promise((resolve) => {
       const img = new Image();
-      img.crossOrigin = 'anonymous';
       img.onload = () => { imageCache[src] = img; resolve(img); };
-      img.onerror = () => resolve(null);
+      img.onerror = () => {
+        console.warn('Image load failed:', src);
+        resolve(null);
+      };
       img.src = src;
     });
   }
@@ -464,8 +468,12 @@
     ]).then(([bgImg, maskImg, shadeImg, patImg]) => {
       offCtx.clearRect(0, 0, CANVAS_W, CANVAS_H);
 
-      if (bgImg) offCtx.drawImage(bgImg, 0, 0, CANVAS_W, CANVAS_H);
+      // 1. Draw Real Walking Model Photo (1024x1536)
+      if (bgImg) {
+        offCtx.drawImage(bgImg, 0, 0, CANVAS_W, CANVAS_H);
+      }
 
+      // 2. Dress Pattern Draping
       if (patImg && maskImg) {
         const patCanvas = document.createElement('canvas');
         patCanvas.width = CANVAS_W;
@@ -490,21 +498,24 @@
         pCtx.fillStyle = ptrn;
         pCtx.fillRect(0, 0, CANVAS_W, CANVAS_H);
 
+        // Clip strictly to dress mask
         pCtx.globalCompositeOperation = 'destination-in';
         pCtx.drawImage(maskImg, 0, 0, CANVAS_W, CANVAS_H);
         pCtx.globalCompositeOperation = 'source-over';
 
+        // Composite dressed pattern over background model
         offCtx.globalCompositeOperation = 'source-over';
         offCtx.drawImage(patCanvas, 0, 0, CANVAS_W, CANVAS_H);
       }
 
+      // 3. Realistic Fabric Shading & Highlights (Overlay at 0.35 opacity)
       if (shadeImg && maskImg) {
         offCtx.globalCompositeOperation = 'overlay';
         offCtx.globalAlpha = 0.35;
         offCtx.drawImage(shadeImg, 0, 0, CANVAS_W, CANVAS_H);
         offCtx.globalAlpha = 1.0;
 
-        // Re-clip with mask to keep clean edges
+        // Re-clip with dress mask to maintain clean edges
         offCtx.globalCompositeOperation = 'destination-in';
         offCtx.drawImage(maskImg, 0, 0, CANVAS_W, CANVAS_H);
         offCtx.globalCompositeOperation = 'source-over';
@@ -551,9 +562,9 @@
     isTransitioning = true;
     nextPoseIdx = (currentPoseIdx + 1) % catwalkPoses.length;
 
-    // Pattern auto-cycling on mannequin walk every 3 strides
+    // Pattern auto-cycling: every 8 strides (~6 seconds) for elegant, relaxed viewing
     stepCounter++;
-    if (stepCounter % 3 === 0 && patternKeysList.length > 0) {
+    if (stepCounter % 8 === 0 && patternKeysList.length > 0) {
       const currIdx = patternKeysList.indexOf(currentPattern.code);
       const nextIdx = (currIdx + 1) % patternKeysList.length;
       if (patternsDict[patternKeysList[nextIdx]]) {
