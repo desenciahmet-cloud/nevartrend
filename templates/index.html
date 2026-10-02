@@ -402,13 +402,20 @@
 <!-- SCRIPT: SMOOTH CONTINUOUS RUNWAY CATWALK WALKING MANNEQUIN ENGINE -->
 <script>
 (function() {
-  const catwalkPoses = [
-    { bg: '/static/images/catwalk/catwalk_1_bg.jpg?v=5.0', mask: '/static/images/catwalk/catwalk_1_mask.png?v=5.0', shade: '/static/images/catwalk/catwalk_1_shade.png?v=5.0' },
-    { bg: '/static/images/catwalk/catwalk_2_bg.jpg?v=5.0', mask: '/static/images/catwalk/catwalk_2_mask.png?v=5.0', shade: '/static/images/catwalk/catwalk_2_shade.png?v=5.0' },
-    { bg: '/static/images/catwalk/catwalk_3_bg.jpg?v=5.0', mask: '/static/images/catwalk/catwalk_3_mask.png?v=5.0', shade: '/static/images/catwalk/catwalk_3_shade.png?v=5.0' },
-    { bg: '/static/images/catwalk/catwalk_4_bg.jpg?v=5.0', mask: '/static/images/catwalk/catwalk_4_mask.png?v=5.0', shade: '/static/images/catwalk/catwalk_4_shade.png?v=5.0' },
-    { bg: '/static/images/catwalk/catwalk_5_bg.jpg?v=5.0', mask: '/static/images/catwalk/catwalk_5_mask.png?v=5.0', shade: '/static/images/catwalk/catwalk_5_shade.png?v=5.0' },
-    { bg: '/static/images/catwalk/catwalk_6_bg.jpg?v=5.0', mask: '/static/images/catwalk/catwalk_6_mask.png?v=5.0', shade: '/static/images/catwalk/catwalk_6_shade.png?v=5.0' }
+  const CANVAS_W = 1024;
+  const CANVAS_H = 1536;
+
+  const canvas = document.getElementById('catwalkCanvas');
+  const ctx = canvas ? canvas.getContext('2d') : null;
+
+  // 6 Poses definition
+  const posesData = [
+    { bgSrc: '/static/images/catwalk/catwalk_1_bg.jpg?v=6.0', maskSrc: '/static/images/catwalk/catwalk_1_mask.png?v=6.0', shadeSrc: '/static/images/catwalk/catwalk_1_shade.png?v=6.0', bg: null, mask: null, shade: null },
+    { bgSrc: '/static/images/catwalk/catwalk_2_bg.jpg?v=6.0', maskSrc: '/static/images/catwalk/catwalk_2_mask.png?v=6.0', shadeSrc: '/static/images/catwalk/catwalk_2_shade.png?v=6.0', bg: null, mask: null, shade: null },
+    { bgSrc: '/static/images/catwalk/catwalk_3_bg.jpg?v=6.0', maskSrc: '/static/images/catwalk/catwalk_3_mask.png?v=6.0', shadeSrc: '/static/images/catwalk/catwalk_3_shade.png?v=6.0', bg: null, mask: null, shade: null },
+    { bgSrc: '/static/images/catwalk/catwalk_4_bg.jpg?v=6.0', maskSrc: '/static/images/catwalk/catwalk_4_mask.png?v=6.0', shadeSrc: '/static/images/catwalk/catwalk_4_shade.png?v=6.0', bg: null, mask: null, shade: null },
+    { bgSrc: '/static/images/catwalk/catwalk_5_bg.jpg?v=6.0', maskSrc: '/static/images/catwalk/catwalk_5_mask.png?v=6.0', shadeSrc: '/static/images/catwalk/catwalk_5_shade.png?v=6.0', bg: null, mask: null, shade: null },
+    { bgSrc: '/static/images/catwalk/catwalk_6_bg.jpg?v=6.0', maskSrc: '/static/images/catwalk/catwalk_6_mask.png?v=6.0', shadeSrc: '/static/images/catwalk/catwalk_6_shade.png?v=6.0', bg: null, mask: null, shade: null }
   ];
 
   const patternsDict = {
@@ -418,180 +425,169 @@
   };
   const patternKeysList = Object.keys(patternsDict);
 
-  let currentPoseIdx = 0;
-  let nextPoseIdx = 1;
-  let transitionProgress = 1.0;
-  let isTransitioning = false;
   let currentPattern = patternsDict['NT_021'] || (patternKeysList.length > 0 ? patternsDict[patternKeysList[0]] : { code: 'NT_021', title: 'NT_021', url: '/static/images/NT_021.jpg' });
-  let currentScaleMode = 'normal'; // 'narrow', 'normal', 'wide'
-  let currentLengthMode = 'normal'; // 'short', 'normal', 'long'
+  let currentScaleMode = 'normal';
+  let currentLengthMode = 'normal';
   let isPlaying = true;
-  let timerId = null;
-  let animFrameId = null;
-  let stepCounter = 0;
+  let isAssetsLoaded = false;
+  let currentFrameIndex = 0;
+  let lastFrameTime = performance.now();
+  let lastPatternSwitchTime = performance.now();
+  const FRAME_DURATION = 320; // 320ms per walking frame
+  const PATTERN_CHANGE_INTERVAL = 7000; // 7 saniye (rahat ve yavaş desen değişimi)
 
-  const CANVAS_W = 1024;
-  const CANVAS_H = 1536;
+  // 6 Pre-rendered Offscreen Canvases (guaranteed complete composite in memory)
+  const compositedCanvases = [
+    document.createElement('canvas'),
+    document.createElement('canvas'),
+    document.createElement('canvas'),
+    document.createElement('canvas'),
+    document.createElement('canvas'),
+    document.createElement('canvas')
+  ];
 
-  const canvas = document.getElementById('catwalkCanvas');
-  const ctx = canvas ? canvas.getContext('2d') : null;
-  const imageCache = {};
+  compositedCanvases.forEach(c => {
+    c.width = CANVAS_W;
+    c.height = CANVAS_H;
+  });
 
-  function loadImage(src) {
-    if (!src) return Promise.resolve(null);
-    if (imageCache[src] && imageCache[src].complete && imageCache[src].naturalWidth > 0) {
-      return Promise.resolve(imageCache[src]);
-    }
-    return new Promise((resolve) => {
+  function loadImageAsync(src) {
+    return new Promise(resolve => {
       const img = new Image();
-      img.onload = () => { imageCache[src] = img; resolve(img); };
+      img.onload = () => resolve(img);
       img.onerror = () => {
-        console.warn('Image load failed:', src);
+        console.warn('Failed to load asset:', src);
         resolve(null);
       };
       img.src = src;
     });
   }
 
-  function createPoseCanvas(poseIdx, patternObj) {
-    const pose = catwalkPoses[poseIdx];
-    const offCanvas = document.createElement('canvas');
-    offCanvas.width = CANVAS_W;
-    offCanvas.height = CANVAS_H;
-    const offCtx = offCanvas.getContext('2d');
+  // Preload all 6 model frames (background, mask, shade)
+  const loadPromises = [];
+  posesData.forEach(p => {
+    loadPromises.push(loadImageAsync(p.bgSrc).then(img => p.bg = img));
+    loadPromises.push(loadImageAsync(p.maskSrc).then(img => p.mask = img));
+    loadPromises.push(loadImageAsync(p.shadeSrc).then(img => p.shade = img));
+  });
 
-    return Promise.all([
-      loadImage(pose.bg),
-      loadImage(pose.mask),
-      loadImage(pose.shade),
-      loadImage(patternObj.url)
-    ]).then(([bgImg, maskImg, shadeImg, patImg]) => {
-      offCtx.clearRect(0, 0, CANVAS_W, CANVAS_H);
+  Promise.all(loadPromises).then(() => {
+    isAssetsLoaded = true;
+    renderAllPosesWithCurrentPattern();
+  });
 
-      // 1. Draw Real Walking Model Photo (1024x1536)
-      if (bgImg) {
-        offCtx.drawImage(bgImg, 0, 0, CANVAS_W, CANVAS_H);
+  let patternImgObj = null;
+
+  function renderAllPosesWithCurrentPattern() {
+    if (!isAssetsLoaded) return;
+
+    if (!patternImgObj || patternImgObj.src !== currentPattern.url) {
+      patternImgObj = new Image();
+      patternImgObj.onload = () => renderAllPosesWithCurrentPattern();
+      patternImgObj.src = currentPattern.url;
+      if (!patternImgObj.complete) return;
+    }
+
+    // 1. Prepare tiled pattern
+    let tileW = 380;
+    if (currentScaleMode === 'narrow') tileW = 240;
+    else if (currentScaleMode === 'wide') tileW = 560;
+
+    let tileH = tileW;
+    if (currentLengthMode === 'short') tileH = Math.round(tileW * 0.7);
+    else if (currentLengthMode === 'long') tileH = Math.round(tileW * 1.35);
+
+    const tileCanvas = document.createElement('canvas');
+    tileCanvas.width = tileW;
+    tileCanvas.height = tileH;
+    const tctx = tileCanvas.getContext('2d');
+    tctx.drawImage(patternImgObj, 0, 0, tileW, tileH);
+
+    // 2. Render each of the 6 poses into its dedicated offscreen canvas
+    for (let i = 0; i < 6; i++) {
+      const p = posesData[i];
+      const targetCanvas = compositedCanvases[i];
+      const tCtx = targetCanvas.getContext('2d');
+
+      tCtx.clearRect(0, 0, CANVAS_W, CANVAS_H);
+
+      // A. Draw full model background
+      if (p.bg) {
+        tCtx.drawImage(p.bg, 0, 0, CANVAS_W, CANVAS_H);
       }
 
-      // 2. Dress Pattern Draping
-      if (patImg && maskImg) {
+      // B. Draw dressed pattern masked to clothing
+      if (p.mask) {
         const patCanvas = document.createElement('canvas');
         patCanvas.width = CANVAS_W;
         patCanvas.height = CANVAS_H;
         const pCtx = patCanvas.getContext('2d');
 
-        let tileW = 380;
-        if (currentScaleMode === 'narrow') tileW = 240;
-        else if (currentScaleMode === 'wide') tileW = 560;
-
-        let tileH = tileW;
-        if (currentLengthMode === 'short') tileH = Math.round(tileW * 0.7);
-        else if (currentLengthMode === 'long') tileH = Math.round(tileW * 1.35);
-
-        const tileCanvas = document.createElement('canvas');
-        tileCanvas.width = tileW;
-        tileCanvas.height = tileH;
-        const tctx = tileCanvas.getContext('2d');
-        tctx.drawImage(patImg, 0, 0, tileW, tileH);
-
         const ptrn = pCtx.createPattern(tileCanvas, 'repeat');
         pCtx.fillStyle = ptrn;
         pCtx.fillRect(0, 0, CANVAS_W, CANVAS_H);
 
-        // Clip strictly to dress mask
+        // Clip to dress
         pCtx.globalCompositeOperation = 'destination-in';
-        pCtx.drawImage(maskImg, 0, 0, CANVAS_W, CANVAS_H);
-        pCtx.globalCompositeOperation = 'source-over';
+        pCtx.drawImage(p.mask, 0, 0, CANVAS_W, CANVAS_H);
 
-        // Composite dressed pattern over background model
-        offCtx.globalCompositeOperation = 'source-over';
-        offCtx.drawImage(patCanvas, 0, 0, CANVAS_W, CANVAS_H);
+        // Overlay shading/highlights
+        if (p.shade) {
+          pCtx.globalCompositeOperation = 'overlay';
+          pCtx.globalAlpha = 0.35;
+          pCtx.drawImage(p.shade, 0, 0, CANVAS_W, CANVAS_H);
+          pCtx.globalAlpha = 1.0;
+
+          pCtx.globalCompositeOperation = 'destination-in';
+          pCtx.drawImage(p.mask, 0, 0, CANVAS_W, CANVAS_H);
+        }
+
+        // Draw onto target
+        tCtx.globalCompositeOperation = 'source-over';
+        tCtx.drawImage(patCanvas, 0, 0, CANVAS_W, CANVAS_H);
       }
+    }
 
-      // 3. Realistic Fabric Shading & Highlights (Overlay at 0.35 opacity)
-      if (shadeImg && maskImg) {
-        offCtx.globalCompositeOperation = 'overlay';
-        offCtx.globalAlpha = 0.35;
-        offCtx.drawImage(shadeImg, 0, 0, CANVAS_W, CANVAS_H);
-        offCtx.globalAlpha = 1.0;
-
-        // Re-clip with dress mask to maintain clean edges
-        offCtx.globalCompositeOperation = 'destination-in';
-        offCtx.drawImage(maskImg, 0, 0, CANVAS_W, CANVAS_H);
-        offCtx.globalCompositeOperation = 'source-over';
-      }
-
-      return offCanvas;
-    });
-  }
-
-  function renderFrame() {
-    if (!ctx) return;
-
+    // Update UI info
     const pTitle = document.getElementById('catwalkPatternTitle');
     const avatar = document.getElementById('catwalkAvatarThumb');
     const goBtn = document.getElementById('catwalkGoStudioBtnTop');
-
     if (pTitle) pTitle.textContent = currentPattern.title;
     if (avatar) avatar.src = currentPattern.url;
     if (goBtn) goBtn.href = `/studyo?pattern=${currentPattern.code}`;
-
-    if (transitionProgress >= 1.0) {
-      createPoseCanvas(currentPoseIdx, currentPattern).then(c => {
-        ctx.clearRect(0, 0, CANVAS_W, CANVAS_H);
-        ctx.drawImage(c, 0, 0, CANVAS_W, CANVAS_H);
-      });
-    } else {
-      Promise.all([
-        createPoseCanvas(currentPoseIdx, currentPattern),
-        createPoseCanvas(nextPoseIdx, currentPattern)
-      ]).then(([currC, nextC]) => {
-        ctx.clearRect(0, 0, CANVAS_W, CANVAS_H);
-        ctx.globalAlpha = 1.0;
-        ctx.drawImage(currC, 0, 0, CANVAS_W, CANVAS_H);
-
-        ctx.globalAlpha = transitionProgress;
-        ctx.drawImage(nextC, 0, 0, CANVAS_W, CANVAS_H);
-        ctx.globalAlpha = 1.0;
-      });
-    }
   }
 
-  function advanceStepSmoothly() {
-    if (isTransitioning) return;
-    isTransitioning = true;
-    nextPoseIdx = (currentPoseIdx + 1) % catwalkPoses.length;
-
-    // Pattern auto-cycling: every 8 strides (~6 seconds) for elegant, relaxed viewing
-    stepCounter++;
-    if (stepCounter % 8 === 0 && patternKeysList.length > 0) {
-      const currIdx = patternKeysList.indexOf(currentPattern.code);
-      const nextIdx = (currIdx + 1) % patternKeysList.length;
-      if (patternsDict[patternKeysList[nextIdx]]) {
-        currentPattern = patternsDict[patternKeysList[nextIdx]];
+  // Animation Loop: 60 FPS
+  function animationLoop(now) {
+    if (isPlaying && isAssetsLoaded) {
+      // 1. Advance walking stride frame
+      if (now - lastFrameTime >= FRAME_DURATION) {
+        currentFrameIndex = (currentFrameIndex + 1) % 6;
+        lastFrameTime = now;
       }
-    }
-    
-    let startTime = null;
-    const duration = 500;
 
-    function animateCrossfade(timestamp) {
-      if (!startTime) startTime = timestamp;
-      const elapsed = timestamp - startTime;
-      transitionProgress = Math.min(elapsed / duration, 1.0);
-
-      renderFrame();
-
-      if (transitionProgress < 1.0) {
-        animFrameId = requestAnimationFrame(animateCrossfade);
-      } else {
-        currentPoseIdx = nextPoseIdx;
-        isTransitioning = false;
+      // 2. Slow and elegant auto pattern cycle (every 7 seconds)
+      if (now - lastPatternSwitchTime >= PATTERN_CHANGE_INTERVAL) {
+        const currIdx = patternKeysList.indexOf(currentPattern.code);
+        const nextIdx = (currIdx + 1) % patternKeysList.length;
+        if (patternsDict[patternKeysList[nextIdx]]) {
+          currentPattern = patternsDict[patternKeysList[nextIdx]];
+          renderAllPosesWithCurrentPattern();
+        }
+        lastPatternSwitchTime = now;
       }
     }
 
-    animFrameId = requestAnimationFrame(animateCrossfade);
+    // Draw active walking frame directly
+    if (ctx && isAssetsLoaded) {
+      ctx.clearRect(0, 0, CANVAS_W, CANVAS_H);
+      ctx.drawImage(compositedCanvases[currentFrameIndex], 0, 0, CANVAS_W, CANVAS_H);
+    }
+
+    requestAnimationFrame(animationLoop);
   }
+
+  requestAnimationFrame(animationLoop);
 
   window.setCatwalkScaleMode = function(mode) {
     currentScaleMode = mode;
@@ -605,7 +601,7 @@
         }
       }
     });
-    renderFrame();
+    renderAllPosesWithCurrentPattern();
   };
 
   window.setCatwalkLengthMode = function(mode) {
@@ -620,7 +616,7 @@
         }
       }
     });
-    renderFrame();
+    renderAllPosesWithCurrentPattern();
   };
 
   window.selectCatwalkPatternByCode = function(code, title, url) {
@@ -632,8 +628,8 @@
       };
     }
     currentPattern = patternsDict[code];
-    transitionProgress = 1.0;
-    renderFrame();
+    lastPatternSwitchTime = performance.now();
+    renderAllPosesWithCurrentPattern();
 
     const stage = document.getElementById('catwalkCanvas');
     if (stage) {
@@ -641,7 +637,6 @@
     }
   };
 
-  
   window.toggleLeftDesenlerMenu = function() {
     const menu = document.getElementById('desenlerSubMenu');
     const chevron = document.getElementById('desenlerMenuChevron');
@@ -683,36 +678,6 @@
     });
   };
 
-  function startCycle() {
-    stopCycle();
-    timerId = setInterval(() => {
-      advanceStepSmoothly();
-    }, 750);
-  }
-
-  function stopCycle() {
-    if (timerId) clearInterval(timerId);
-    if (animFrameId) cancelAnimationFrame(animFrameId);
-    timerId = null;
-  }
-
-  catwalkPoses.forEach(pose => {
-    loadImage(pose.bg);
-    loadImage(pose.mask);
-    loadImage(pose.shade);
-  });
-
-  document.addEventListener('DOMContentLoaded', () => {
-    renderFrame();
-    startCycle();
-  });
-
-  if (document.readyState === 'complete' || document.readyState === 'interactive') {
-    setTimeout(() => {
-      renderFrame();
-      startCycle();
-    }, 150);
-  }
 })();
 </script>
 {% endblock %}
