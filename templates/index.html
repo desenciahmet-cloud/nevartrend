@@ -172,7 +172,7 @@
             
             <!-- Canvas Player -->
             <div class="relative z-10 w-full h-full flex items-center justify-center overflow-hidden">
-              <canvas id="catwalkCanvas" width="699" height="1536" class="w-full h-full object-contain rounded-xl transition-opacity duration-500"></canvas>
+              <canvas id="catwalkCanvas" width="1024" height="1536" class="w-full h-full object-contain rounded-xl transition-opacity duration-500"></canvas>
             </div>
 
             <!-- Live Bottom Overlay Bar inside Stage -->
@@ -403,10 +403,12 @@
 <script>
 (function() {
   const catwalkPoses = [
-    { bg: '/static/images/catwalk/clean_catwalk_1_bg.jpg', mask: '/static/images/catwalk/catwalk_1_mask.png', shade: '/static/images/catwalk/catwalk_1_shade.png' },
-    { bg: '/static/images/catwalk/clean_catwalk_2_bg.jpg', mask: '/static/images/catwalk/catwalk_2_mask.png', shade: '/static/images/catwalk/catwalk_2_shade.png' },
-    { bg: '/static/images/catwalk/clean_catwalk_3_bg.jpg', mask: '/static/images/catwalk/catwalk_3_mask.png', shade: '/static/images/catwalk/catwalk_3_shade.png' },
-    { bg: '/static/images/catwalk/clean_catwalk_4_bg.jpg', mask: '/static/images/catwalk/catwalk_4_mask.png', shade: '/static/images/catwalk/catwalk_4_shade.png' }
+    { bg: '/static/images/catwalk/catwalk_1_bg.jpg?v=5.0', mask: '/static/images/catwalk/catwalk_1_mask.png?v=5.0', shade: '/static/images/catwalk/catwalk_1_shade.png?v=5.0' },
+    { bg: '/static/images/catwalk/catwalk_2_bg.jpg?v=5.0', mask: '/static/images/catwalk/catwalk_2_mask.png?v=5.0', shade: '/static/images/catwalk/catwalk_2_shade.png?v=5.0' },
+    { bg: '/static/images/catwalk/catwalk_3_bg.jpg?v=5.0', mask: '/static/images/catwalk/catwalk_3_mask.png?v=5.0', shade: '/static/images/catwalk/catwalk_3_shade.png?v=5.0' },
+    { bg: '/static/images/catwalk/catwalk_4_bg.jpg?v=5.0', mask: '/static/images/catwalk/catwalk_4_mask.png?v=5.0', shade: '/static/images/catwalk/catwalk_4_shade.png?v=5.0' },
+    { bg: '/static/images/catwalk/catwalk_5_bg.jpg?v=5.0', mask: '/static/images/catwalk/catwalk_5_mask.png?v=5.0', shade: '/static/images/catwalk/catwalk_5_shade.png?v=5.0' },
+    { bg: '/static/images/catwalk/catwalk_6_bg.jpg?v=5.0', mask: '/static/images/catwalk/catwalk_6_mask.png?v=5.0', shade: '/static/images/catwalk/catwalk_6_shade.png?v=5.0' }
   ];
 
   const patternsDict = {
@@ -428,6 +430,9 @@
   let animFrameId = null;
   let stepCounter = 0;
 
+  const CANVAS_W = 1024;
+  const CANVAS_H = 1536;
+
   const canvas = document.getElementById('catwalkCanvas');
   const ctx = canvas ? canvas.getContext('2d') : null;
   const imageCache = {};
@@ -447,8 +452,8 @@
   function createPoseCanvas(poseIdx, patternObj) {
     const pose = catwalkPoses[poseIdx];
     const offCanvas = document.createElement('canvas');
-    offCanvas.width = 699;
-    offCanvas.height = 1536;
+    offCanvas.width = CANVAS_W;
+    offCanvas.height = CANVAS_H;
     const offCtx = offCanvas.getContext('2d');
 
     return Promise.all([
@@ -457,19 +462,19 @@
       loadImage(pose.shade),
       loadImage(patternObj.url)
     ]).then(([bgImg, maskImg, shadeImg, patImg]) => {
-      offCtx.clearRect(0, 0, 699, 1536);
+      offCtx.clearRect(0, 0, CANVAS_W, CANVAS_H);
 
-      if (bgImg) offCtx.drawImage(bgImg, 0, 0, 699, 1536);
+      if (bgImg) offCtx.drawImage(bgImg, 0, 0, CANVAS_W, CANVAS_H);
 
       if (patImg && maskImg) {
         const patCanvas = document.createElement('canvas');
-        patCanvas.width = 699;
-        patCanvas.height = 1536;
+        patCanvas.width = CANVAS_W;
+        patCanvas.height = CANVAS_H;
         const pCtx = patCanvas.getContext('2d');
 
-        let tileW = 450;
-        if (currentScaleMode === 'narrow') tileW = 280;
-        else if (currentScaleMode === 'wide') tileW = 680;
+        let tileW = 380;
+        if (currentScaleMode === 'narrow') tileW = 240;
+        else if (currentScaleMode === 'wide') tileW = 560;
 
         let tileH = tileW;
         if (currentLengthMode === 'short') tileH = Math.round(tileW * 0.7);
@@ -483,20 +488,25 @@
 
         const ptrn = pCtx.createPattern(tileCanvas, 'repeat');
         pCtx.fillStyle = ptrn;
-        pCtx.fillRect(0, 0, 699, 1536);
+        pCtx.fillRect(0, 0, CANVAS_W, CANVAS_H);
 
         pCtx.globalCompositeOperation = 'destination-in';
-        pCtx.drawImage(maskImg, 0, 0, 699, 1536);
+        pCtx.drawImage(maskImg, 0, 0, CANVAS_W, CANVAS_H);
         pCtx.globalCompositeOperation = 'source-over';
 
-        offCtx.globalCompositeOperation = 'multiply';
-        offCtx.drawImage(patCanvas, 0, 0, 699, 1536);
         offCtx.globalCompositeOperation = 'source-over';
+        offCtx.drawImage(patCanvas, 0, 0, CANVAS_W, CANVAS_H);
       }
 
-      if (shadeImg) {
-        offCtx.globalCompositeOperation = 'multiply';
-        offCtx.drawImage(shadeImg, 0, 0, 699, 1536);
+      if (shadeImg && maskImg) {
+        offCtx.globalCompositeOperation = 'overlay';
+        offCtx.globalAlpha = 0.35;
+        offCtx.drawImage(shadeImg, 0, 0, CANVAS_W, CANVAS_H);
+        offCtx.globalAlpha = 1.0;
+
+        // Re-clip with mask to keep clean edges
+        offCtx.globalCompositeOperation = 'destination-in';
+        offCtx.drawImage(maskImg, 0, 0, CANVAS_W, CANVAS_H);
         offCtx.globalCompositeOperation = 'source-over';
       }
 
@@ -517,20 +527,20 @@
 
     if (transitionProgress >= 1.0) {
       createPoseCanvas(currentPoseIdx, currentPattern).then(c => {
-        ctx.clearRect(0, 0, 699, 1536);
-        ctx.drawImage(c, 0, 0, 699, 1536);
+        ctx.clearRect(0, 0, CANVAS_W, CANVAS_H);
+        ctx.drawImage(c, 0, 0, CANVAS_W, CANVAS_H);
       });
     } else {
       Promise.all([
         createPoseCanvas(currentPoseIdx, currentPattern),
         createPoseCanvas(nextPoseIdx, currentPattern)
       ]).then(([currC, nextC]) => {
-        ctx.clearRect(0, 0, 699, 1536);
+        ctx.clearRect(0, 0, CANVAS_W, CANVAS_H);
         ctx.globalAlpha = 1.0;
-        ctx.drawImage(currC, 0, 0, 699, 1536);
+        ctx.drawImage(currC, 0, 0, CANVAS_W, CANVAS_H);
 
         ctx.globalAlpha = transitionProgress;
-        ctx.drawImage(nextC, 0, 0, 699, 1536);
+        ctx.drawImage(nextC, 0, 0, CANVAS_W, CANVAS_H);
         ctx.globalAlpha = 1.0;
       });
     }
@@ -552,7 +562,7 @@
     }
     
     let startTime = null;
-    const duration = 650;
+    const duration = 500;
 
     function animateCrossfade(timestamp) {
       if (!startTime) startTime = timestamp;
@@ -666,7 +676,7 @@
     stopCycle();
     timerId = setInterval(() => {
       advanceStepSmoothly();
-    }, 1100);
+    }, 750);
   }
 
   function stopCycle() {
