@@ -527,22 +527,23 @@
         pCtx.fillStyle = ptrn;
         pCtx.fillRect(0, 0, CANVAS_W, CANVAS_H);
 
-        // Clip to dress
+        // Clip to dress mask
         pCtx.globalCompositeOperation = 'destination-in';
         pCtx.drawImage(p.mask, 0, 0, CANVAS_W, CANVAS_H);
 
-        // Overlay shading/highlights
+        // Gentle fabric fold depth (never washes out or covers the pattern)
         if (p.shade) {
-          pCtx.globalCompositeOperation = 'overlay';
-          pCtx.globalAlpha = 0.35;
+          pCtx.globalCompositeOperation = 'multiply';
+          pCtx.globalAlpha = 0.18;
           pCtx.drawImage(p.shade, 0, 0, CANVAS_W, CANVAS_H);
           pCtx.globalAlpha = 1.0;
 
+          // Re-clip strictly to dress mask
           pCtx.globalCompositeOperation = 'destination-in';
           pCtx.drawImage(p.mask, 0, 0, CANVAS_W, CANVAS_H);
         }
 
-        // Draw onto target
+        // Draw onto target model photo
         tCtx.globalCompositeOperation = 'source-over';
         tCtx.drawImage(patCanvas, 0, 0, CANVAS_W, CANVAS_H);
       }
