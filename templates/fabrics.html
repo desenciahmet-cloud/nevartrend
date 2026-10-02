@@ -204,11 +204,11 @@
         </div>
 
         <!-- Live Stage Box with HTML5 Canvas -->
-        <div class="relative h-[480px] sm:h-[520px] w-full bg-slate-950 rounded-2xl overflow-hidden border border-slate-800 shadow-inner flex flex-col justify-between p-3 group">
+        <div class="relative h-[480px] sm:h-[520px] w-full bg-[#f4f2ec] rounded-2xl overflow-hidden border border-slate-300/80 shadow-inner flex flex-col justify-between p-3 group">
           
-          <!-- Runway Canvas Player -->
+          <!-- Runway Canvas Player (1024x1536) -->
           <div class="relative z-10 w-full h-full flex items-center justify-center overflow-hidden">
-            <canvas id="catwalkCanvas" width="699" height="1536" class="w-full h-full object-contain rounded-xl transition-opacity duration-700"></canvas>
+            <canvas id="catwalkCanvas" width="1024" height="1536" class="w-full h-full object-contain rounded-xl"></canvas>
           </div>
 
           <!-- Live Bottom Overlay Bar inside Stage -->
@@ -222,7 +222,7 @@
             </div>
 
             <span class="px-2 py-0.5 bg-emerald-500 text-slate-950 font-extrabold text-[10px] rounded uppercase tracking-wider flex-shrink-0">
-              CANLI
+              CANLI MODEL
             </span>
           </div>
 
@@ -235,33 +235,11 @@
             <span class="text-[10px] text-slate-400 font-normal">Tüm desenlere tıklayabilirsiniz</span>
           </div>
           <div class="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar">
-            <button type="button" onclick="selectCatwalkPatternByCode('NT_021')" class="catwalk-pat-btn w-10 h-10 rounded-xl border-2 border-emerald-600 overflow-hidden shadow-xs flex-shrink-0 transition hover:scale-105" title="NT_021">
-              <img src="/static/images/NT_021.jpg" class="w-full h-full object-cover" alt="NT_021">
+            {% for p in products[:8] %}
+            <button type="button" onclick="selectCatwalkPatternByCode('{{ p.code }}')" class="catwalk-pat-btn w-10 h-10 rounded-xl border border-slate-200 overflow-hidden flex-shrink-0 transition hover:scale-105 hover:border-emerald-600" title="{{ p.code }}">
+              <img src="{{ p.image }}" class="w-full h-full object-cover" alt="{{ p.code }}">
             </button>
-
-            <button type="button" onclick="selectCatwalkPatternByCode('NT_074')" class="catwalk-pat-btn w-10 h-10 rounded-xl border border-slate-200 overflow-hidden flex-shrink-0 transition hover:scale-105" title="NT_074">
-              <img src="/static/images/NT_074.jpg" class="w-full h-full object-cover" alt="NT_074">
-            </button>
-
-            <button type="button" onclick="selectCatwalkPatternByCode('NT_042')" class="catwalk-pat-btn w-10 h-10 rounded-xl border border-slate-200 overflow-hidden flex-shrink-0 transition hover:scale-105" title="NT_042">
-              <img src="/static/images/NT_042.jpg" class="w-full h-full object-cover" alt="NT_042">
-            </button>
-
-            <button type="button" onclick="selectCatwalkPatternByCode('NT_036')" class="catwalk-pat-btn w-10 h-10 rounded-xl border border-slate-200 overflow-hidden flex-shrink-0 transition hover:scale-105" title="NT_036">
-              <img src="/static/images/NT_036.jpg" class="w-full h-full object-cover" alt="NT_036">
-            </button>
-
-            <button type="button" onclick="selectCatwalkPatternByCode('NT_011')" class="catwalk-pat-btn w-10 h-10 rounded-xl border border-slate-200 overflow-hidden flex-shrink-0 transition hover:scale-105" title="NT_011">
-              <img src="/static/images/NT_011.jpg" class="w-full h-full object-cover" alt="NT_011">
-            </button>
-
-            <button type="button" onclick="selectCatwalkPatternByCode('NT_015')" class="catwalk-pat-btn w-10 h-10 rounded-xl border border-slate-200 overflow-hidden flex-shrink-0 transition hover:scale-105" title="NT_015">
-              <img src="/static/images/NT_015.jpg" class="w-full h-full object-cover" alt="NT_015">
-            </button>
-
-            <button type="button" onclick="selectCatwalkPatternByCode('NT_001')" class="catwalk-pat-btn w-10 h-10 rounded-xl border border-slate-200 overflow-hidden flex-shrink-0 transition hover:scale-105" title="NT_001">
-              <img src="/static/images/NT_001.jpg" class="w-full h-full object-cover" alt="NT_001">
-            </button>
+            {% endfor %}
           </div>
         </div>
 
@@ -272,14 +250,23 @@
   </div>
 </div>
 
-<!-- SCRIPT: REAL RUNWAY CATWALK MANNEQUIN ENGINE -->
+<!-- SCRIPT: REAL 6-MODEL RUNWAY CATWALK ENGINE -->
 <script>
 (function() {
-  const catwalkPoses = [
-    { bg: '/static/images/catwalk/clean_catwalk_1_bg.jpg', mask: '/static/images/catwalk/catwalk_1_mask.png', shade: '/static/images/catwalk/catwalk_1_shade.png' },
-    { bg: '/static/images/catwalk/clean_catwalk_2_bg.jpg', mask: '/static/images/catwalk/catwalk_2_mask.png', shade: '/static/images/catwalk/catwalk_2_shade.png' },
-    { bg: '/static/images/catwalk/clean_catwalk_3_bg.jpg', mask: '/static/images/catwalk/catwalk_3_mask.png', shade: '/static/images/catwalk/catwalk_3_shade.png' },
-    { bg: '/static/images/catwalk/clean_catwalk_4_bg.jpg', mask: '/static/images/catwalk/catwalk_4_mask.png', shade: '/static/images/catwalk/catwalk_4_shade.png' }
+  const CANVAS_W = 1024;
+  const CANVAS_H = 1536;
+
+  const canvas = document.getElementById('catwalkCanvas');
+  const ctx = canvas ? canvas.getContext('2d') : null;
+
+  // 6 Poses definition
+  const posesData = [
+    { bgSrc: '/static/images/catwalk/catwalk_1_bg.jpg?v=6.0', maskSrc: '/static/images/catwalk/catwalk_1_mask.png?v=6.0', shadeSrc: '/static/images/catwalk/catwalk_1_shade.png?v=6.0', bg: null, mask: null, shade: null },
+    { bgSrc: '/static/images/catwalk/catwalk_2_bg.jpg?v=6.0', maskSrc: '/static/images/catwalk/catwalk_2_mask.png?v=6.0', shadeSrc: '/static/images/catwalk/catwalk_2_shade.png?v=6.0', bg: null, mask: null, shade: null },
+    { bgSrc: '/static/images/catwalk/catwalk_3_bg.jpg?v=6.0', maskSrc: '/static/images/catwalk/catwalk_3_mask.png?v=6.0', shadeSrc: '/static/images/catwalk/catwalk_3_shade.png?v=6.0', bg: null, mask: null, shade: null },
+    { bgSrc: '/static/images/catwalk/catwalk_4_bg.jpg?v=6.0', maskSrc: '/static/images/catwalk/catwalk_4_mask.png?v=6.0', shadeSrc: '/static/images/catwalk/catwalk_4_shade.png?v=6.0', bg: null, mask: null, shade: null },
+    { bgSrc: '/static/images/catwalk/catwalk_5_bg.jpg?v=6.0', maskSrc: '/static/images/catwalk/catwalk_5_mask.png?v=6.0', shadeSrc: '/static/images/catwalk/catwalk_5_shade.png?v=6.0', bg: null, mask: null, shade: null },
+    { bgSrc: '/static/images/catwalk/catwalk_6_bg.jpg?v=6.0', maskSrc: '/static/images/catwalk/catwalk_6_mask.png?v=6.0', shadeSrc: '/static/images/catwalk/catwalk_6_shade.png?v=6.0', bg: null, mask: null, shade: null }
   ];
 
   const patternsDict = {
@@ -288,153 +275,156 @@
     {% endfor %}
   };
   const patternKeysList = Object.keys(patternsDict);
-  let patternCycleStep = 0;
 
-  let currentPoseIdx = 0;
-  let nextPoseIdx = 1;
-  let transitionProgress = 1.0;
-  let isTransitioning = false;
-  let currentPattern = patternsDict['NT_021'];
+  let currentPattern = patternsDict['NT_021'] || (patternKeysList.length > 0 ? patternsDict[patternKeysList[0]] : { code: 'NT_021', title: 'NT_021', url: '/static/images/NT_021.jpg' });
   let isPlaying = true;
-  let timerId = null;
-  let animFrameId = null;
+  let isAssetsLoaded = false;
+  let currentFrameIndex = 0;
+  let lastFrameTime = performance.now();
+  let lastPatternSwitchTime = performance.now();
+  const FRAME_DURATION = 320; // 320ms per stride
+  const PATTERN_CHANGE_INTERVAL = 7000; // 7 saniye (rahat ve yavaş desen akışı)
 
-  const canvas = document.getElementById('catwalkCanvas');
-  const ctx = canvas ? canvas.getContext('2d') : null;
-  const imageCache = {};
+  // 6 Pre-rendered Offscreen Canvases (guaranteed complete composite in memory)
+  const compositedCanvases = [
+    document.createElement('canvas'),
+    document.createElement('canvas'),
+    document.createElement('canvas'),
+    document.createElement('canvas'),
+    document.createElement('canvas'),
+    document.createElement('canvas')
+  ];
 
-  function loadImage(src) {
-    if (!src) return Promise.resolve(null);
-    if (imageCache[src]) return Promise.resolve(imageCache[src]);
-    return new Promise((resolve) => {
+  compositedCanvases.forEach(c => {
+    c.width = CANVAS_W;
+    c.height = CANVAS_H;
+  });
+
+  function loadImageAsync(src) {
+    return new Promise(resolve => {
       const img = new Image();
-      img.crossOrigin = 'anonymous';
-      img.onload = () => { imageCache[src] = img; resolve(img); };
-      img.onerror = () => resolve(null);
+      img.onload = () => resolve(img);
+      img.onerror = () => {
+        console.warn('Failed to load asset:', src);
+        resolve(null);
+      };
       img.src = src;
     });
   }
 
-  function createPoseCanvas(poseIdx, patternObj) {
-    const pose = catwalkPoses[poseIdx];
-    const offCanvas = document.createElement('canvas');
-    offCanvas.width = 699;
-    offCanvas.height = 1536;
-    const offCtx = offCanvas.getContext('2d');
+  // Preload all 6 model frames
+  const loadPromises = [];
+  posesData.forEach(p => {
+    loadPromises.push(loadImageAsync(p.bgSrc).then(img => p.bg = img));
+    loadPromises.push(loadImageAsync(p.maskSrc).then(img => p.mask = img));
+    loadPromises.push(loadImageAsync(p.shadeSrc).then(img => p.shade = img));
+  });
 
-    return Promise.all([
-      loadImage(pose.bg),
-      loadImage(pose.mask),
-      loadImage(pose.shade),
-      loadImage(patternObj.url)
-    ]).then(([bgImg, maskImg, shadeImg, patImg]) => {
-      offCtx.clearRect(0, 0, 699, 1536);
+  Promise.all(loadPromises).then(() => {
+    isAssetsLoaded = true;
+    renderAllPosesWithCurrentPattern();
+  });
 
-      if (bgImg) offCtx.drawImage(bgImg, 0, 0, 699, 1536);
+  let patternImgObj = null;
 
-      if (patImg && maskImg) {
+  function renderAllPosesWithCurrentPattern() {
+    if (!isAssetsLoaded) return;
+
+    if (!patternImgObj || patternImgObj.src !== currentPattern.url) {
+      patternImgObj = new Image();
+      patternImgObj.onload = () => renderAllPosesWithCurrentPattern();
+      patternImgObj.src = currentPattern.url;
+      if (!patternImgObj.complete) return;
+    }
+
+    const tileW = 380, tileH = 380;
+    const tileCanvas = document.createElement('canvas');
+    tileCanvas.width = tileW;
+    tileCanvas.height = tileH;
+    const tctx = tileCanvas.getContext('2d');
+    tctx.drawImage(patternImgObj, 0, 0, tileW, tileH);
+
+    for (let i = 0; i < 6; i++) {
+      const p = posesData[i];
+      const targetCanvas = compositedCanvases[i];
+      const tCtx = targetCanvas.getContext('2d');
+
+      tCtx.clearRect(0, 0, CANVAS_W, CANVAS_H);
+
+      // A. Draw full model background
+      if (p.bg) {
+        tCtx.drawImage(p.bg, 0, 0, CANVAS_W, CANVAS_H);
+      }
+
+      // B. Draw dressed pattern masked to clothing
+      if (p.mask) {
         const patCanvas = document.createElement('canvas');
-        patCanvas.width = 699;
-        patCanvas.height = 1536;
+        patCanvas.width = CANVAS_W;
+        patCanvas.height = CANVAS_H;
         const pCtx = patCanvas.getContext('2d');
-
-        const tileW = 450;
-        const tileCanvas = document.createElement('canvas');
-        tileCanvas.width = tileW;
-        tileCanvas.height = tileW;
-        const tctx = tileCanvas.getContext('2d');
-        tctx.drawImage(patImg, 0, 0, tileW, tileW);
 
         const ptrn = pCtx.createPattern(tileCanvas, 'repeat');
         pCtx.fillStyle = ptrn;
-        pCtx.fillRect(0, 0, 699, 1536);
+        pCtx.fillRect(0, 0, CANVAS_W, CANVAS_H);
 
+        // Clip to dress
         pCtx.globalCompositeOperation = 'destination-in';
-        pCtx.drawImage(maskImg, 0, 0, 699, 1536);
-        pCtx.globalCompositeOperation = 'source-over';
+        pCtx.drawImage(p.mask, 0, 0, CANVAS_W, CANVAS_H);
 
-        offCtx.globalCompositeOperation = 'multiply';
-        offCtx.drawImage(patCanvas, 0, 0, 699, 1536);
-        offCtx.globalCompositeOperation = 'source-over';
+        // Gentle fabric fold depth
+        if (p.shade) {
+          pCtx.globalCompositeOperation = 'multiply';
+          pCtx.globalAlpha = 0.18;
+          pCtx.drawImage(p.shade, 0, 0, CANVAS_W, CANVAS_H);
+          pCtx.globalAlpha = 1.0;
+
+          pCtx.globalCompositeOperation = 'destination-in';
+          pCtx.drawImage(p.mask, 0, 0, CANVAS_W, CANVAS_H);
+        }
+
+        // Draw onto target
+        tCtx.globalCompositeOperation = 'source-over';
+        tCtx.drawImage(patCanvas, 0, 0, CANVAS_W, CANVAS_H);
       }
+    }
 
-      if (shadeImg) {
-        offCtx.globalCompositeOperation = 'multiply';
-        offCtx.drawImage(shadeImg, 0, 0, 699, 1536);
-        offCtx.globalCompositeOperation = 'source-over';
-      }
-
-      return offCanvas;
-    });
-  }
-
-  function renderFrame() {
-    if (!ctx) return;
-
+    // Update UI info
     const pTitle = document.getElementById('catwalkPatternTitle');
     const avatar = document.getElementById('catwalkAvatarThumb');
     const goBtn = document.getElementById('catwalkGoStudioBtnTop');
-
     if (pTitle) pTitle.textContent = currentPattern.title;
     if (avatar) avatar.src = currentPattern.url;
     if (goBtn) goBtn.href = `/studyo?pattern=${currentPattern.code}`;
-
-    if (transitionProgress >= 1.0) {
-      createPoseCanvas(currentPoseIdx, currentPattern).then(c => {
-        ctx.clearRect(0, 0, 699, 1536);
-        ctx.drawImage(c, 0, 0, 699, 1536);
-      });
-    } else {
-      Promise.all([
-        createPoseCanvas(currentPoseIdx, currentPattern),
-        createPoseCanvas(nextPoseIdx, currentPattern)
-      ]).then(([currC, nextC]) => {
-        ctx.clearRect(0, 0, 699, 1536);
-        ctx.globalAlpha = 1.0;
-        ctx.drawImage(currC, 0, 0, 699, 1536);
-
-        ctx.globalAlpha = transitionProgress;
-        ctx.drawImage(nextC, 0, 0, 699, 1536);
-        ctx.globalAlpha = 1.0;
-      });
-    }
   }
 
-  function advanceStepSmoothly() {
-    if (isTransitioning) return;
-    isTransitioning = true;
-    nextPoseIdx = (currentPoseIdx + 1) % catwalkPoses.length;
-    
-    // Automatic continuous pattern rotation on mannequin walk
-    patternCycleStep++;
-    if (patternCycleStep % 3 === 0 && patternKeysList.length > 0) {
-      const currIdx = patternKeysList.indexOf(currentPattern.code);
-      const nextIdx = (currIdx + 1) % patternKeysList.length;
-      if (patternsDict[patternKeysList[nextIdx]]) {
-        currentPattern = patternsDict[patternKeysList[nextIdx]];
+  // Animation Loop: 60 FPS
+  function animationLoop(now) {
+    if (isPlaying && isAssetsLoaded) {
+      if (now - lastFrameTime >= FRAME_DURATION) {
+        currentFrameIndex = (currentFrameIndex + 1) % 6;
+        lastFrameTime = now;
+      }
+
+      if (now - lastPatternSwitchTime >= PATTERN_CHANGE_INTERVAL) {
+        const currIdx = patternKeysList.indexOf(currentPattern.code);
+        const nextIdx = (currIdx + 1) % patternKeysList.length;
+        if (patternsDict[patternKeysList[nextIdx]]) {
+          currentPattern = patternsDict[patternKeysList[nextIdx]];
+          renderAllPosesWithCurrentPattern();
+        }
+        lastPatternSwitchTime = now;
       }
     }
 
-    let startTime = null;
-    const duration = 700;
-
-    function animateCrossfade(timestamp) {
-      if (!startTime) startTime = timestamp;
-      const elapsed = timestamp - startTime;
-      transitionProgress = Math.min(elapsed / duration, 1.0);
-
-      renderFrame();
-
-      if (transitionProgress < 1.0) {
-        animFrameId = requestAnimationFrame(animateCrossfade);
-      } else {
-        currentPoseIdx = nextPoseIdx;
-        isTransitioning = false;
-      }
+    if (ctx && isAssetsLoaded) {
+      ctx.clearRect(0, 0, CANVAS_W, CANVAS_H);
+      ctx.drawImage(compositedCanvases[currentFrameIndex], 0, 0, CANVAS_W, CANVAS_H);
     }
 
-    animFrameId = requestAnimationFrame(animateCrossfade);
+    requestAnimationFrame(animationLoop);
   }
+
+  requestAnimationFrame(animationLoop);
 
   window.selectCatwalkPatternByCode = function(code, title, url) {
     if (!patternsDict[code]) {
@@ -445,8 +435,8 @@
       };
     }
     currentPattern = patternsDict[code];
-    transitionProgress = 1.0;
-    renderFrame();
+    lastPatternSwitchTime = performance.now();
+    renderAllPosesWithCurrentPattern();
 
     const stage = document.getElementById('catwalkCanvas');
     if (stage) {
@@ -454,55 +444,14 @@
     }
   };
 
-  window.toggleCatwalkWalk = function() {
-    isPlaying = !isPlaying;
-    const icon = document.getElementById('catwalkWalkIcon');
-    if (isPlaying) {
-      if (icon) icon.setAttribute('data-lucide', 'pause');
-      startCycle();
-    } else {
-      if (icon) icon.setAttribute('data-lucide', 'play');
-      stopCycle();
-    }
-    if (window.lucide) lucide.createIcons();
-  };
-
-  function startCycle() {
-    stopCycle();
-    timerId = setInterval(() => {
-      advanceStepSmoothly();
-    }, 1200);
-  }
-
-  function stopCycle() {
-    if (timerId) clearInterval(timerId);
-    if (animFrameId) cancelAnimationFrame(animFrameId);
-    timerId = null;
-  }
-
-  catwalkPoses.forEach(pose => {
-    loadImage(pose.bg);
-    loadImage(pose.mask);
-    loadImage(pose.shade);
-  });
-
   document.addEventListener('DOMContentLoaded', () => {
-    // Check URL param pattern
     const urlParams = new URLSearchParams(window.location.search);
     const pCode = urlParams.get('pattern');
     if (pCode && patternsDict[pCode]) {
       currentPattern = patternsDict[pCode];
     }
-    renderFrame();
-    startCycle();
   });
 
-  if (document.readyState === 'complete' || document.readyState === 'interactive') {
-    setTimeout(() => {
-      renderFrame();
-      startCycle();
-    }, 150);
-  }
 })();
 </script>
 {% endblock %}
