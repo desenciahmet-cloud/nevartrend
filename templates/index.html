@@ -10,123 +10,20 @@
     
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
       
-      <!-- LEFT COLUMN (col-span-5): LIVE MODEL CANVAS STAGE -->
+      <!-- LEFT COLUMN (col-span-5): PURE CLEAN LIVE MODEL CANVAS STAGE (NO HEADERS, TEXTS OR CONTROLS) -->
       <div class="lg:col-span-5 space-y-4 lg:sticky lg:top-24">
         
-        <!-- Stage Card Container -->
-        <div class="bg-white p-4 sm:p-5 rounded-3xl border border-slate-200 shadow-xl ring-4 ring-emerald-500/10 space-y-3.5 relative overflow-hidden">
+        <!-- Stage Card Container (Pure Video/Model Display) -->
+        <div class="bg-white p-2.5 sm:p-3 rounded-3xl border border-slate-200 shadow-xl ring-4 ring-emerald-500/10 relative overflow-hidden">
           
-          <!-- Stage Header Controls Bar -->
-          <div class="flex items-center justify-between pb-3 border-b border-slate-100">
-            <div class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse ring-4 ring-emerald-100"></span>
-              <span class="text-xs sm:text-sm font-extrabold text-slate-900 tracking-tight uppercase">CANLI MODEL • DESEN PROJEKSİYONU</span>
-            </div>
-
-            <div class="flex items-center gap-2">
-              <button type="button" onclick="toggleSidebarMenu()" class="px-2.5 py-1.5 bg-emerald-100 hover:bg-emerald-200 text-emerald-900 font-extrabold text-[11px] rounded-xl transition flex items-center gap-1 border border-emerald-200 shadow-2xs">
-                <i data-lucide="palette" class="w-3.5 h-3.5 text-emerald-700"></i>
-                <span>Menü & Filtreler</span>
-              </button>
-              <a href="/studyo?pattern=NT_021" id="catwalkGoStudioBtnTop" class="px-3 py-1.5 bg-slate-900 hover:bg-emerald-800 text-white font-bold text-[11px] rounded-xl transition flex items-center gap-1 shadow-xs">
-                <i data-lucide="external-link" class="w-3.5 h-3.5 text-emerald-400"></i>
-                <span>3D Stüdyo</span>
-              </a>
-            </div>
-          </div>
-
-          <!-- Live Stage Box with HTML5 Canvas (Clean Studio Backdrop) -->
-          <div class="relative h-[480px] sm:h-[560px] lg:h-[590px] w-full bg-gradient-to-b from-[#f7f5ef] via-[#ede9df] to-[#e4ded2] rounded-2xl overflow-hidden border border-slate-300/80 shadow-inner flex items-center justify-center p-2 group">
+          <!-- Live Stage Box with HTML5 Canvas (100% Clean Neutral Studio) -->
+          <div class="relative h-[560px] sm:h-[650px] lg:h-[720px] w-full bg-gradient-to-b from-[#f7f5ef] via-[#ede9df] to-[#e4ded2] rounded-2xl overflow-hidden border border-slate-300/80 shadow-inner flex items-center justify-center p-2 group">
             
             <!-- Canvas Player -->
             <div class="relative z-10 w-full h-full flex items-center justify-center overflow-hidden">
               <canvas id="catwalkCanvas" width="1024" height="1536" class="w-full h-full object-contain rounded-xl transition-opacity duration-500 drop-shadow-md"></canvas>
             </div>
 
-          </div>
-
-          <!-- FITTING & SCALE CONTROLS (MODERN SEGMENTED CONTROLS) -->
-          <div class="bg-slate-50 p-3 rounded-2xl border border-slate-200/80 space-y-2.5 text-xs">
-            
-            <div class="flex flex-wrap items-center justify-between gap-2.5">
-              <!-- Scale Buttons (Daralt / Genişlet) -->
-              <div class="flex items-center gap-2">
-                <span class="text-[11px] font-bold text-slate-700 flex items-center gap-1">
-                  <i data-lucide="zoom-in" class="w-3.5 h-3.5 text-emerald-700"></i> Genişlik:
-                </span>
-                <div class="inline-flex p-0.5 bg-slate-200/70 rounded-xl border border-slate-300/60">
-                  <button type="button" onclick="setCatwalkScaleMode('narrow')" id="scaleBtnNarrow" class="px-2.5 py-1 text-slate-700 font-bold rounded-lg text-[10px] transition hover:text-slate-900">
-                    Daralt
-                  </button>
-                  <button type="button" onclick="setCatwalkScaleMode('normal')" id="scaleBtnNormal" class="px-2.5 py-1 bg-emerald-800 text-white font-bold rounded-lg text-[10px] transition shadow-xs">
-                    Normal
-                  </button>
-                  <button type="button" onclick="setCatwalkScaleMode('wide')" id="scaleBtnWide" class="px-2.5 py-1 text-slate-700 font-bold rounded-lg text-[10px] transition hover:text-slate-900">
-                    Genişlet
-                  </button>
-                </div>
-              </div>
-
-              <!-- Length Buttons (Kısalt / Uzat) -->
-              <div class="flex items-center gap-2">
-                <span class="text-[11px] font-bold text-slate-700 flex items-center gap-1">
-                  <i data-lucide="ruler" class="w-3.5 h-3.5 text-emerald-700"></i> Boy:
-                </span>
-                <div class="inline-flex p-0.5 bg-slate-200/70 rounded-xl border border-slate-300/60">
-                  <button type="button" onclick="setCatwalkLengthMode('short')" id="lenBtnShort" class="px-2.5 py-1 text-slate-700 font-bold rounded-lg text-[10px] transition hover:text-slate-900">
-                    Kısalt
-                  </button>
-                  <button type="button" onclick="setCatwalkLengthMode('normal')" id="lenBtnNormal" class="px-2.5 py-1 bg-emerald-800 text-white font-bold rounded-lg text-[10px] transition shadow-xs">
-                    Normal
-                  </button>
-                  <button type="button" onclick="setCatwalkLengthMode('long')" id="lenBtnLong" class="px-2.5 py-1 text-slate-700 font-bold rounded-lg text-[10px] transition hover:text-slate-900">
-                    Uzat
-                  </button>
-                </div>
-              </div>
-            </div>
-
-          </div>
-
-          <!-- Bottom Quick Pattern Switcher Bar below Stage -->
-          <div class="space-y-2 pt-0.5">
-            <div class="flex items-center justify-between text-xs">
-              <span class="font-bold text-slate-800 text-xs">Hızlı Modelde Gör:</span>
-              <button type="button" onclick="toggleSidebarMenu()" class="text-emerald-700 font-extrabold hover:underline flex items-center gap-1 text-[11px]">
-                <span>Tüm Kategoriler</span>
-                <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
-              </button>
-            </div>
-
-            <div class="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar">
-              <button type="button" onclick="selectCatwalkPatternByCode('NT_021')" class="catwalk-pat-btn w-10 h-10 rounded-xl border-2 border-emerald-600 overflow-hidden shadow-xs flex-shrink-0 transition hover:scale-105" title="NT_021">
-                <img src="/static/images/mini/NT_021.webp" onerror="this.onerror=null; this.src='/static/images/NT_021.jpg';" width="40" height="40" class="w-full h-full object-cover" alt="NT_021">
-              </button>
-
-              <button type="button" onclick="selectCatwalkPatternByCode('NT_074')" class="catwalk-pat-btn w-10 h-10 rounded-xl border border-slate-200 overflow-hidden flex-shrink-0 transition hover:scale-105" title="NT_074">
-                <img src="/static/images/mini/NT_074.webp" onerror="this.onerror=null; this.src='/static/images/NT_074.jpg';" width="40" height="40" class="w-full h-full object-cover" alt="NT_074">
-              </button>
-
-              <button type="button" onclick="selectCatwalkPatternByCode('NT_042')" class="catwalk-pat-btn w-10 h-10 rounded-xl border border-slate-200 overflow-hidden flex-shrink-0 transition hover:scale-105" title="NT_042">
-                <img src="/static/images/mini/NT_042.webp" onerror="this.onerror=null; this.src='/static/images/NT_042.jpg';" width="40" height="40" class="w-full h-full object-cover" alt="NT_042">
-              </button>
-
-              <button type="button" onclick="selectCatwalkPatternByCode('NT_036')" class="catwalk-pat-btn w-10 h-10 rounded-xl border border-slate-200 overflow-hidden flex-shrink-0 transition hover:scale-105" title="NT_036">
-                <img src="/static/images/mini/NT_036.webp" onerror="this.onerror=null; this.src='/static/images/NT_036.jpg';" width="40" height="40" class="w-full h-full object-cover" alt="NT_036">
-              </button>
-
-              <button type="button" onclick="selectCatwalkPatternByCode('NT_011')" class="catwalk-pat-btn w-10 h-10 rounded-xl border border-slate-200 overflow-hidden flex-shrink-0 transition hover:scale-105" title="NT_011">
-                <img src="/static/images/mini/NT_011.webp" onerror="this.onerror=null; this.src='/static/images/NT_011.jpg';" width="40" height="40" class="w-full h-full object-cover" alt="NT_011">
-              </button>
-
-              <button type="button" onclick="selectCatwalkPatternByCode('NT_015')" class="catwalk-pat-btn w-10 h-10 rounded-xl border border-slate-200 overflow-hidden flex-shrink-0 transition hover:scale-105" title="NT_015">
-                <img src="/static/images/mini/NT_015.webp" onerror="this.onerror=null; this.src='/static/images/NT_015.jpg';" width="40" height="40" class="w-full h-full object-cover" alt="NT_015">
-              </button>
-
-              <button type="button" onclick="selectCatwalkPatternByCode('NT_001')" class="catwalk-pat-btn w-10 h-10 rounded-xl border border-slate-200 overflow-hidden flex-shrink-0 transition hover:scale-105" title="NT_001">
-                <img src="/static/images/mini/NT_001.webp" onerror="this.onerror=null; this.src='/static/images/NT_001.jpg';" width="40" height="40" class="w-full h-full object-cover" alt="NT_001">
-              </button>
-            </div>
           </div>
 
         </div>
