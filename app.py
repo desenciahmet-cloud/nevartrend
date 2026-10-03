@@ -2803,10 +2803,54 @@ async def kumaslar_page(request: Request):
     })
 
 @app.get("/dijital-baski", response_class=HTMLResponse)
+@app.get("/dijital", response_class=HTMLResponse)
 async def dijital_baski_page(request: Request):
+    products = load_json("products.json")
+    fabrics = load_json("fabric_types.json")
     return render(request, "dijital_baski.html", {
+        "products": products,
+        "fabrics": fabrics,
         "active_page": "dijital-baski"
     })
+
+@app.post("/api/upload-custom-pattern")
+async def upload_custom_pattern(file: UploadFile = File(...)):
+    try:
+        ext = os.path.splitext(file.filename)[1].lower()
+        unique_id = uuid.uuid4().hex[:8]
+        safe_name = f"custom_{unique_id}{ext}"
+        save_path = os.path.join(UPLOAD_DIR, safe_name)
+        contents = await file.read()
+        with open(save_path, "wb") as f:
+            f.write(contents)
+        
+        preview_url = f"/static/uploads/patterns/{safe_name}"
+        # If PSD or TIFF, convert preview to webp for browser canvas
+        if ext in [".psd", ".tif", ".tiff"]:
+            try:
+                from PIL import Image
+                if ext == ".psd":
+                    from psd_tools import PSDImage
+                    psd = PSDImage.open(save_path)
+                    im = psd.composite()
+                else:
+                    im = Image.open(save_path)
+                preview_file = f"custom_{unique_id}_prev.webp"
+                prev_path = os.path.join(UPLOAD_DIR, preview_file)
+                if im:
+                    im.convert("RGB").save(prev_path, "WEBP", quality=85)
+                    preview_url = f"/static/uploads/patterns/{preview_file}"
+            except Exception as pe:
+                print("PSD/TIFF conversion notice:", pe)
+        
+        return {
+            "success": True,
+            "filename": file.filename,
+            "url": preview_url,
+            "original_url": f"/static/uploads/patterns/{safe_name}"
+        }
+    except Exception as e:
+        return JSONResponse(status_code=500, content={"success": False, "error": str(e)})
 
 @app.get("/trend-urunler", response_class=HTMLResponse)
 @app.get("/diger-trend-urunler", response_class=HTMLResponse)
