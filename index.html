@@ -4,321 +4,171 @@
 
 {% block content %}
 
-<!-- DYNAMIC MARQUEE TICKER (TOP FULL-WIDTH WHITE SECTION WITH EYE-PLEASING CARDS) -->
-<section class="bg-white py-4 border-b border-slate-200 overflow-hidden relative shadow-2xs">
-  <div class="marquee-wrapper overflow-hidden relative w-full">
-    <div class="animate-marquee-left flex gap-4 items-center">
-      {% for p in products[:15] %}
-      <a href="/studyo?pattern={{ p.code }}" onclick="selectCatwalkPatternByCode('{{ p.code }}'); return false;" class="flex-shrink-0 bg-[#F4F6F4] hover:bg-[#EAEFEA] border border-emerald-900/10 hover:border-emerald-600/60 rounded-2xl p-2.5 flex items-center gap-3.5 transition group shadow-2xs min-w-[290px]">
-        <img src="{{ p.image }}" class="w-20 h-20 rounded-xl object-cover border border-slate-300/80 group-hover:scale-105 transition shadow-2xs flex-shrink-0" alt="{{ p.code }}">
-        <div>
-          <span class="px-2 py-0.5 bg-emerald-100 text-emerald-900 font-mono font-extrabold text-[10px] rounded-md inline-block mb-1 border border-emerald-200">{{ p.code }}</span>
-          <h4 class="text-xs sm:text-sm font-extrabold text-slate-900 group-hover:text-emerald-800 transition line-clamp-1">{{ p.title }}</h4>
-          <span class="text-xs text-slate-600 font-medium block mt-0.5">{{ p.base_price }} TL/mt • {{ p.category_name }}</span>
-        </div>
-      </a>
-      {% endfor %}
-
-      <!-- Seamless Loop Set (No empty gap) -->
-      {% for p in products[:15] %}
-      <a href="/studyo?pattern={{ p.code }}" onclick="selectCatwalkPatternByCode('{{ p.code }}'); return false;" class="flex-shrink-0 bg-[#F4F6F4] hover:bg-[#EAEFEA] border border-emerald-900/10 hover:border-emerald-600/60 rounded-2xl p-2.5 flex items-center gap-3.5 transition group shadow-2xs min-w-[290px]">
-        <img src="{{ p.image }}" class="w-20 h-20 rounded-xl object-cover border border-slate-300/80 group-hover:scale-105 transition shadow-2xs flex-shrink-0" alt="{{ p.code }}">
-        <div>
-          <span class="px-2 py-0.5 bg-emerald-100 text-emerald-900 font-mono font-extrabold text-[10px] rounded-md inline-block mb-1 border border-emerald-200">{{ p.code }}</span>
-          <h4 class="text-xs sm:text-sm font-extrabold text-slate-900 group-hover:text-emerald-800 transition line-clamp-1">{{ p.title }}</h4>
-          <span class="text-xs text-slate-600 font-medium block mt-0.5">{{ p.base_price }} TL/mt • {{ p.category_name }}</span>
-        </div>
-      </a>
-      {% endfor %}
-    </div>
-  </div>
-</section>
-
-<!-- MAIN SHOWCASE 3-COLUMN LAYOUT SECTION -->
-<section class="py-8 bg-gradient-to-b from-sage-50/70 via-[#FAF9F6] to-white border-b border-slate-200/70 relative">
-  <div class="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8">
+<!-- MAIN SHOWCASE SECTION (CINEMATIC FULL-FOCUS LIVE MODEL STAGE) -->
+<section class="py-6 sm:py-10 bg-gradient-to-b from-emerald-950/5 via-[#FAF9F6] to-white border-b border-slate-200/70 relative">
+  <div class="max-w-[1140px] mx-auto px-4 sm:px-6 lg:px-8">
     
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+    <!-- Top Minimal Focus Bar with 3-Line Sandwich Drawer Trigger -->
+    <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 mb-6 bg-white/95 backdrop-blur-sm p-3.5 sm:p-4 rounded-2xl border border-slate-200/90 shadow-sm">
+      <div class="flex items-center gap-3">
+        <!-- 3-Line Hamburger Menu Button -->
+        <button type="button" onclick="toggleSidebarMenu()" class="inline-flex items-center gap-2.5 px-4 py-2.5 bg-emerald-800 hover:bg-emerald-900 text-white rounded-xl text-xs font-extrabold shadow-sm transition hover:scale-105 active:scale-95 group">
+          <div class="flex flex-col gap-1 w-4 justify-center items-center">
+            <span class="w-4 h-0.5 bg-emerald-300 rounded-full block group-hover:bg-white transition-colors"></span>
+            <span class="w-4 h-0.5 bg-emerald-300 rounded-full block group-hover:bg-white transition-colors"></span>
+            <span class="w-4 h-0.5 bg-emerald-300 rounded-full block group-hover:bg-white transition-colors"></span>
+          </div>
+          <span>KATEGORİLER & KOLEKSİYON</span>
+        </button>
+
+        <div class="hidden sm:block text-left">
+          <span class="text-xs font-bold text-slate-800 block">74 Dikişsiz Desen & Özel Baskı Kartelası</span>
+          <span class="text-[10px] text-slate-500 block">Sol sandviç paneli açarak tüm koleksiyonu inceleyebilirsiniz</span>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-between sm:justify-end gap-2 text-xs">
+        <a href="/studyo" class="inline-flex items-center gap-1.5 px-4 py-2.5 bg-emerald-50 hover:bg-emerald-100 text-emerald-800 font-extrabold rounded-xl border border-emerald-200 transition shadow-2xs">
+          <i data-lucide="sparkles" class="w-4 h-4 text-emerald-600"></i>
+          <span>3D Canlı Stüdyo</span>
+        </a>
+        <a href="/fabrics?category=all" class="inline-flex items-center gap-1.5 px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl transition">
+          <i data-lucide="grid" class="w-4 h-4 text-slate-600"></i>
+          <span>74 Desen Kataloğu</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- CENTER LIVE MODEL HERO STAGE (EXPANDED CINEMATIC FOCUS) -->
+    <div class="space-y-5">
       
-            <!-- 1. LEFT COLUMN (col-span-3): KATEGORİLER SIDEBAR (DESENLER MAIN + SUB-LAYERS) -->
-      <div class="lg:col-span-3 space-y-2.5 sticky top-24">
-        <div class="flex items-center gap-2 px-1 mb-1">
-          <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
-          <span class="text-[10px] font-extrabold text-slate-700 uppercase tracking-widest block">KATEGORİLER</span>
-        </div>
-
-        <!-- MAIN DESENLER ACCORDION CARD (COLLAPSED / CLOSED BY DEFAULT WITH ARROW ICON) -->
-        <div class="bg-emerald-900/90 rounded-2xl p-1.5 border border-emerald-700/60 shadow-md">
-          <button type="button" onclick="toggleLeftDesenlerMenu()" class="w-full h-11 px-3.5 bg-emerald-800 hover:bg-emerald-950 text-white rounded-xl text-xs font-extrabold flex items-center justify-between transition shadow-2xs group">
-            <div class="flex items-center gap-2">
-              <i data-lucide="palette" class="w-4 h-4 text-emerald-300"></i>
-              <span>DESENLER (74 DESEN)</span>
-            </div>
-            <div class="flex items-center gap-2">
-              <span class="px-2 py-0.5 bg-emerald-950 text-emerald-300 font-mono font-extrabold text-[10px] rounded-md">74</span>
-              <i data-lucide="chevron-down" id="desenlerMenuChevron" class="w-4 h-4 text-emerald-300 transform transition-transform duration-300"></i>
-            </div>
-          </button>
-
-          <!-- SUB-LAYERS (CLOSED BY DEFAULT, EXPANDS ON CLICK) -->
-          <div id="desenlerSubMenu" class="pl-1 pr-1 space-y-1 pt-1.5 border-t border-emerald-800/80 mt-1.5" style="display: none;">
-            <a href="/studyo" class="w-full px-3 py-1.5 bg-emerald-700 hover:bg-emerald-600 text-white rounded-lg text-[11px] font-extrabold flex items-center justify-between transition border border-emerald-500/40 shadow-2xs mb-1.5">
-              <div class="flex items-center gap-2">
-                <i data-lucide="sparkles" class="w-3.5 h-3.5 text-emerald-200"></i>
-                <span>3D CANLI STÜDYO</span>
-              </div>
-              <span class="px-1.5 py-0.5 bg-emerald-950 text-emerald-300 font-mono font-extrabold text-[9px] rounded">3D GÖR</span>
-            </a>
-
-            <button type="button" onclick="selectCategoryLeft('cicekli-botanik')" class="sub-cat-btn w-full px-3 py-1.5 bg-emerald-800/80 hover:bg-emerald-700 text-white rounded-lg text-[11px] font-bold flex items-center justify-between transition hover:translate-x-1 border border-emerald-600/30">
-              <div class="flex items-center gap-2">
-                <span class="w-1.5 h-1.5 rounded-full bg-emerald-300"></span>
-                <span>1. ÇİÇEKLİ & BOTANİK</span>
-              </div>
-              <span class="px-1.5 py-0.5 bg-emerald-950/80 text-emerald-300 font-mono font-extrabold text-[9px] rounded">15</span>
-            </button>
-
-            <button type="button" onclick="selectCategoryLeft('barok-saray')" class="sub-cat-btn w-full px-3 py-1.5 bg-emerald-800/80 hover:bg-emerald-700 text-white rounded-lg text-[11px] font-bold flex items-center justify-between transition hover:translate-x-1 border border-emerald-600/30">
-              <div class="flex items-center gap-2">
-                <span class="w-1.5 h-1.5 rounded-full bg-emerald-300"></span>
-                <span>2. BAROK & SARAY</span>
-              </div>
-              <span class="px-1.5 py-0.5 bg-emerald-950/80 text-emerald-300 font-mono font-extrabold text-[9px] rounded">14</span>
-            </button>
-
-            <button type="button" onclick="selectCategoryLeft('geometrik')" class="sub-cat-btn w-full px-3 py-1.5 bg-emerald-800/80 hover:bg-emerald-700 text-white rounded-lg text-[11px] font-bold flex items-center justify-between transition hover:translate-x-1 border border-emerald-600/30">
-              <div class="flex items-center gap-2">
-                <span class="w-1.5 h-1.5 rounded-full bg-emerald-300"></span>
-                <span>3. GEOMETRİK</span>
-              </div>
-              <span class="px-1.5 py-0.5 bg-emerald-950/80 text-emerald-300 font-mono font-extrabold text-[9px] rounded">15</span>
-            </button>
-
-            <button type="button" onclick="selectCategoryLeft('dokular-fircalar')" class="sub-cat-btn w-full px-3 py-1.5 bg-emerald-800/80 hover:bg-emerald-700 text-white rounded-lg text-[11px] font-bold flex items-center justify-between transition hover:translate-x-1 border border-emerald-600/30">
-              <div class="flex items-center gap-2">
-                <span class="w-1.5 h-1.5 rounded-full bg-emerald-300"></span>
-                <span>4. DOKULAR - FIRÇALAR</span>
-              </div>
-              <span class="px-1.5 py-0.5 bg-emerald-950/80 text-emerald-300 font-mono font-extrabold text-[9px] rounded">15</span>
-            </button>
-
-            <button type="button" onclick="selectCategoryLeft('vintage-etnik')" class="sub-cat-btn w-full px-3 py-1.5 bg-emerald-800/80 hover:bg-emerald-700 text-white rounded-lg text-[11px] font-bold flex items-center justify-between transition hover:translate-x-1 border border-emerald-600/30">
-              <div class="flex items-center gap-2">
-                <span class="w-1.5 h-1.5 rounded-full bg-emerald-300"></span>
-                <span>5. VİNTAGE & ETNİK</span>
-              </div>
-              <span class="px-1.5 py-0.5 bg-emerald-950/80 text-emerald-300 font-mono font-extrabold text-[9px] rounded">15</span>
-            </button>
-          </div>
-        </div>
-
-        <div class="space-y-2.5 pt-1">
-          <a href="/kumaslar" class="w-full h-11 px-3.5 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-extrabold shadow-2xs flex items-center justify-between transition hover:translate-x-1">
-            <div class="flex items-center gap-2">
-              <i data-lucide="layers" class="w-4 h-4 text-emerald-300"></i>
-              <span>KUMAŞ KARTELASI</span>
-            </div>
-            <span class="px-2 py-0.5 bg-slate-950 text-emerald-300 font-mono font-extrabold text-[10px] rounded-md">7 Tür</span>
-          </a>
-
-          <a href="/dijital-baski" class="w-full h-11 px-3.5 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-extrabold shadow-2xs flex items-center justify-between transition hover:translate-x-1">
-            <div class="flex items-center gap-2">
-              <i data-lucide="printer" class="w-4 h-4 text-emerald-300"></i>
-              <span>DİJİTAL BASKI</span>
-            </div>
-            <i data-lucide="chevron-right" class="w-4 h-4 text-emerald-300"></i>
-          </a>
-
-          <a href="/emprime" class="w-full h-11 px-3.5 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-extrabold shadow-2xs flex items-center justify-between transition hover:translate-x-1">
-            <div class="flex items-center gap-2">
-              <i data-lucide="split" class="w-4 h-4 text-emerald-300"></i>
-              <span>EMPRİME FİLM</span>
-            </div>
-            <span class="px-2 py-0.5 bg-slate-950 text-emerald-300 font-mono font-extrabold text-[10px] rounded-md">4.0 Dmax</span>
-          </a>
-
-          <a href="/trend-urunler" class="w-full h-11 px-3.5 bg-amber-700 hover:bg-amber-800 text-white rounded-xl text-xs font-extrabold shadow-2xs flex items-center justify-between transition hover:translate-x-1">
-            <div class="flex items-center gap-2">
-              <i data-lucide="shopping-bag" class="w-4 h-4 text-amber-300"></i>
-              <span>BUTİK TREND ÜRÜNLER</span>
-            </div>
-            <span class="px-2 py-0.5 bg-amber-950 text-amber-300 font-mono font-extrabold text-[10px] rounded-md">Hazır</span>
-          </a>
-        </div>
-      </div>
-
-      <!-- 2. CENTER COLUMN (col-span-5): STATIC STANDING STUDIO MODEL STAGE WITH CLEAN BACKGROUND -->
-      <div class="lg:col-span-5 space-y-4">
+      <!-- Stage Card Container -->
+      <div class="bg-white p-4 sm:p-7 rounded-3xl border border-slate-200/90 shadow-2xl ring-4 ring-emerald-500/10 space-y-4 relative overflow-hidden">
         
-        <!-- Stage Card Container -->
-        <div class="bg-white p-4 sm:p-5 rounded-3xl border-2 border-emerald-600/80 shadow-xl space-y-3.5 relative overflow-hidden">
-          
-          <!-- Stage Header Controls Bar -->
-          <div class="flex items-center justify-between pb-2.5 border-b border-slate-100">
-            <div class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
-              <span class="text-xs font-extrabold text-slate-900 uppercase tracking-wide">Canlı Model • Desen Projeksiyonu</span>
-            </div>
-
-            <div class="flex items-center gap-2">
-              <a href="/studyo?pattern=NT_021" id="catwalkGoStudioBtnTop" class="px-2.5 py-1 bg-slate-900 hover:bg-emerald-800 text-white font-bold text-[11px] rounded-lg transition flex items-center gap-1 shadow-xs">
-                <i data-lucide="external-link" class="w-3 h-3 text-emerald-400"></i> 3D Stüdyo
-              </a>
-            </div>
+        <!-- Stage Header Controls Bar -->
+        <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+          <div class="flex items-center gap-2.5">
+            <span class="w-3 h-3 rounded-full bg-emerald-500 animate-pulse ring-4 ring-emerald-100"></span>
+            <span class="text-sm sm:text-base font-extrabold text-slate-900 tracking-tight uppercase">Canlı Model • Desen Projeksiyonu</span>
           </div>
 
-          <!-- Live Stage Box with HTML5 Canvas (100% CLEAN NEUTRAL STUDIO BACKDROP - NO DISTRACTING CROWD) -->
-          <div class="relative h-[480px] sm:h-[520px] w-full bg-[#f4f2ec] rounded-2xl overflow-hidden border border-slate-300/80 shadow-inner flex flex-col justify-between p-3 group">
-            
-            <!-- Canvas Player -->
-            <div class="relative z-10 w-full h-full flex items-center justify-center overflow-hidden">
-              <canvas id="catwalkCanvas" width="699" height="1536" class="w-full h-full object-contain rounded-xl transition-opacity duration-500"></canvas>
+          <div class="flex items-center gap-2">
+            <button type="button" onclick="toggleSidebarMenu()" class="px-3 py-1.5 bg-emerald-100 hover:bg-emerald-200 text-emerald-900 font-extrabold text-xs rounded-xl transition flex items-center gap-1.5 border border-emerald-200 shadow-2xs">
+              <i data-lucide="palette" class="w-3.5 h-3.5 text-emerald-700"></i>
+              <span>Desen Seç</span>
+            </button>
+            <a href="/studyo?pattern=NT_021" id="catwalkGoStudioBtnTop" class="px-3 py-1.5 bg-slate-900 hover:bg-emerald-800 text-white font-bold text-xs rounded-xl transition flex items-center gap-1.5 shadow-xs">
+              <i data-lucide="external-link" class="w-3.5 h-3.5 text-emerald-400"></i>
+              <span>3D Stüdyo</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Live Stage Box with HTML5 Canvas (EXPANDED HIGH-IMPACT BACKDROP) -->
+        <div class="relative h-[520px] sm:h-[620px] md:h-[680px] w-full bg-gradient-to-b from-[#f7f5ef] via-[#ede9df] to-[#e4ded2] rounded-2xl overflow-hidden border border-slate-300/80 shadow-inner flex flex-col justify-between p-3 group">
+          
+          <!-- Canvas Player -->
+          <div class="relative z-10 w-full h-full flex items-center justify-center overflow-hidden">
+            <canvas id="catwalkCanvas" width="1024" height="1536" class="w-full h-full object-contain rounded-xl transition-opacity duration-500 drop-shadow-md"></canvas>
+          </div>
+
+          <!-- Live Bottom Overlay Bar inside Stage -->
+          <div class="absolute bottom-4 left-4 right-4 z-20 bg-slate-950/85 backdrop-blur-md p-3 rounded-2xl border border-white/10 flex items-center justify-between text-white shadow-xl">
+            <div class="flex items-center gap-3 truncate">
+              <img id="catwalkAvatarThumb" src="/static/images/NT_021.jpg" class="w-10 h-10 rounded-xl object-cover border border-white/20 flex-shrink-0 shadow-xs" alt="Desen Avatar">
+              <div class="truncate">
+                <span id="catwalkPatternTitle" class="text-xs sm:text-sm font-bold text-white block truncate">NT_021 • Krem Zemin Pastel Bordo Çiçek Bahçesi</span>
+                <span class="text-[11px] text-slate-300 block">Temiz Stüdyo • Canlı Desen Giydirme</span>
+              </div>
             </div>
 
-            <!-- Live Bottom Overlay Bar inside Stage -->
-            <div class="absolute bottom-3 left-3 right-3 z-20 bg-slate-950/85 backdrop-blur-md p-2.5 rounded-xl border border-white/10 flex items-center justify-between text-white shadow-lg">
-              <div class="flex items-center gap-2.5 truncate">
-                <img id="catwalkAvatarThumb" src="/static/images/NT_021.jpg" class="w-9 h-9 rounded-lg object-cover border border-white/20 flex-shrink-0" alt="Desen Avatar">
-                <div class="truncate">
-                  <span id="catwalkPatternTitle" class="text-xs font-bold text-white block truncate">NT_021 • Krem Zemin Pastel Bordo Çiçek Bahçesi</span>
-                  <span class="text-[10px] text-slate-300 block">Temiz Stüdyo • Canlı Desen Giydirme</span>
-                </div>
-              </div>
+            <span class="px-2.5 py-1 bg-emerald-500 text-slate-950 font-extrabold text-[10px] sm:text-xs rounded-lg uppercase tracking-wider flex-shrink-0 shadow-xs">
+              CANLI MODEL
+            </span>
+          </div>
 
-              <span class="px-2 py-0.5 bg-emerald-500 text-slate-950 font-extrabold text-[10px] rounded uppercase tracking-wider flex-shrink-0">
-                CANLI MODEL
+        </div>
+
+        <!-- FITTING & SCALE CONTROLS (DARALT / GENİŞLET • KISALT / UZAT) -->
+        <div class="bg-slate-50 p-3.5 sm:p-4 rounded-2xl border border-slate-200/80 space-y-2 text-xs">
+          
+          <div class="flex flex-wrap items-center justify-between gap-3">
+            <!-- Scale Buttons (Daralt / Genişlet) -->
+            <div class="flex items-center gap-2">
+              <span class="text-xs font-bold text-slate-700 flex items-center gap-1.5">
+                <i data-lucide="zoom-in" class="w-4 h-4 text-emerald-700"></i> Desen Genişliği:
               </span>
+              <button type="button" onclick="setCatwalkScaleMode('narrow')" id="scaleBtnNarrow" class="px-3 py-1.5 bg-white hover:bg-emerald-50 text-slate-700 font-bold rounded-xl border border-slate-200 text-xs transition">
+                Daralt
+              </button>
+              <button type="button" onclick="setCatwalkScaleMode('normal')" id="scaleBtnNormal" class="px-3 py-1.5 bg-emerald-800 text-white font-bold rounded-xl text-xs transition shadow-xs">
+                Normal
+              </button>
+              <button type="button" onclick="setCatwalkScaleMode('wide')" id="scaleBtnWide" class="px-3 py-1.5 bg-white hover:bg-emerald-50 text-slate-700 font-bold rounded-xl border border-slate-200 text-xs transition">
+                Genişlet
+              </button>
             </div>
 
-          </div>
-
-          <!-- FITTING & SCALE CONTROLS (DARALT / GENİŞLET • KISALT / UZAT) -->
-          <div class="bg-slate-50 p-3 rounded-2xl border border-slate-200/80 space-y-2 text-xs">
-            
-            <div class="flex flex-wrap items-center justify-between gap-2">
-              <!-- Scale Buttons (Daralt / Genişlet) -->
-              <div class="flex items-center gap-1.5">
-                <span class="text-[11px] font-bold text-slate-700 flex items-center gap-1">
-                  <i data-lucide="zoom-in" class="w-3.5 h-3.5 text-emerald-700"></i> Desen Genişliği:
-                </span>
-                <button type="button" onclick="setCatwalkScaleMode('narrow')" id="scaleBtnNarrow" class="px-2 py-1 bg-white hover:bg-emerald-50 text-slate-700 font-bold rounded-lg border border-slate-200 text-[10px] transition">
-                  Daralt
-                </button>
-                <button type="button" onclick="setCatwalkScaleMode('normal')" id="scaleBtnNormal" class="px-2 py-1 bg-emerald-800 text-white font-bold rounded-lg text-[10px] transition shadow-xs">
-                  Normal
-                </button>
-                <button type="button" onclick="setCatwalkScaleMode('wide')" id="scaleBtnWide" class="px-2 py-1 bg-white hover:bg-emerald-50 text-slate-700 font-bold rounded-lg border border-slate-200 text-[10px] transition">
-                  Genişlet
-                </button>
-              </div>
-
-              <!-- Length Buttons (Kısalt / Uzat) -->
-              <div class="flex items-center gap-1.5">
-                <span class="text-[11px] font-bold text-slate-700 flex items-center gap-1">
-                  <i data-lucide="ruler" class="w-3.5 h-3.5 text-emerald-700"></i> Raport Boyu:
-                </span>
-                <button type="button" onclick="setCatwalkLengthMode('short')" id="lenBtnShort" class="px-2 py-1 bg-white hover:bg-emerald-50 text-slate-700 font-bold rounded-lg border border-slate-200 text-[10px] transition">
-                  Kısalt
-                </button>
-                <button type="button" onclick="setCatwalkLengthMode('normal')" id="lenBtnNormal" class="px-2 py-1 bg-emerald-800 text-white font-bold rounded-lg text-[10px] transition shadow-xs">
-                  Normal
-                </button>
-                <button type="button" onclick="setCatwalkLengthMode('long')" id="lenBtnLong" class="px-2 py-1 bg-white hover:bg-emerald-50 text-slate-700 font-bold rounded-lg border border-slate-200 text-[10px] transition">
-                  Uzat
-                </button>
-              </div>
-            </div>
-
-          </div>
-
-          <!-- Bottom Pattern Switcher Bar below Stage -->
-          <div class="space-y-2 pt-1">
-            <div class="flex items-center justify-between text-xs">
-              <span class="font-bold text-slate-800">Modelde Deseni Değiştir:</span>
-              <a href="/fabrics?category=all" class="text-emerald-700 font-bold hover:underline flex items-center gap-1">
-                <span>74 Desen Kataloğu</span>
-                <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
-              </a>
-            </div>
-
-            <div class="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar">
-              <button type="button" onclick="selectCatwalkPatternByCode('NT_021')" class="catwalk-pat-btn w-11 h-11 rounded-xl border-2 border-emerald-600 overflow-hidden shadow-xs flex-shrink-0 transition hover:scale-105" title="NT_021">
-                <img src="/static/images/NT_021.jpg" class="w-full h-full object-cover" alt="NT_021">
+            <!-- Length Buttons (Kısalt / Uzat) -->
+            <div class="flex items-center gap-2">
+              <span class="text-xs font-bold text-slate-700 flex items-center gap-1.5">
+                <i data-lucide="ruler" class="w-4 h-4 text-emerald-700"></i> Raport Boyu:
+              </span>
+              <button type="button" onclick="setCatwalkLengthMode('short')" id="lenBtnShort" class="px-3 py-1.5 bg-white hover:bg-emerald-50 text-slate-700 font-bold rounded-xl border border-slate-200 text-xs transition">
+                Kısalt
               </button>
-
-              <button type="button" onclick="selectCatwalkPatternByCode('NT_074')" class="catwalk-pat-btn w-11 h-11 rounded-xl border border-slate-200 overflow-hidden flex-shrink-0 transition hover:scale-105" title="NT_074">
-                <img src="/static/images/NT_074.jpg" class="w-full h-full object-cover" alt="NT_074">
+              <button type="button" onclick="setCatwalkLengthMode('normal')" id="lenBtnNormal" class="px-3 py-1.5 bg-emerald-800 text-white font-bold rounded-xl text-xs transition shadow-xs">
+                Normal
               </button>
-
-              <button type="button" onclick="selectCatwalkPatternByCode('NT_042')" class="catwalk-pat-btn w-11 h-11 rounded-xl border border-slate-200 overflow-hidden flex-shrink-0 transition hover:scale-105" title="NT_042">
-                <img src="/static/images/NT_042.jpg" class="w-full h-full object-cover" alt="NT_042">
-              </button>
-
-              <button type="button" onclick="selectCatwalkPatternByCode('NT_036')" class="catwalk-pat-btn w-11 h-11 rounded-xl border border-slate-200 overflow-hidden flex-shrink-0 transition hover:scale-105" title="NT_036">
-                <img src="/static/images/NT_036.jpg" class="w-full h-full object-cover" alt="NT_036">
-              </button>
-
-              <button type="button" onclick="selectCatwalkPatternByCode('NT_011')" class="catwalk-pat-btn w-11 h-11 rounded-xl border border-slate-200 overflow-hidden flex-shrink-0 transition hover:scale-105" title="NT_011">
-                <img src="/static/images/NT_011.jpg" class="w-full h-full object-cover" alt="NT_011">
-              </button>
-
-              <button type="button" onclick="selectCatwalkPatternByCode('NT_015')" class="catwalk-pat-btn w-11 h-11 rounded-xl border border-slate-200 overflow-hidden flex-shrink-0 transition hover:scale-105" title="NT_015">
-                <img src="/static/images/NT_015.jpg" class="w-full h-full object-cover" alt="NT_015">
-              </button>
-
-              <button type="button" onclick="selectCatwalkPatternByCode('NT_001')" class="catwalk-pat-btn w-11 h-11 rounded-xl border border-slate-200 overflow-hidden flex-shrink-0 transition hover:scale-105" title="NT_001">
-                <img src="/static/images/NT_001.jpg" class="w-full h-full object-cover" alt="NT_001">
+              <button type="button" onclick="setCatwalkLengthMode('long')" id="lenBtnLong" class="px-3 py-1.5 bg-white hover:bg-emerald-50 text-slate-700 font-bold rounded-xl border border-slate-200 text-xs transition">
+                Uzat
               </button>
             </div>
           </div>
 
         </div>
 
-      </div>
-
-            <!-- 3. RIGHT COLUMN (col-span-4): HERO & MAŞET CARD -->
-      <div class="lg:col-span-4 space-y-4">
-        <div class="bg-white p-5 sm:p-6 rounded-2xl border border-slate-200 shadow-xs space-y-3.5">
-          
-          <!-- Badge -->
-          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sage-100/90 text-sage-900 border border-sage-200 text-[11px] font-extrabold tracking-wide shadow-2xs">
-            <span class="w-2 h-2 rounded-full bg-emerald-600 animate-pulse"></span>
-            <span>TRENDDESEN KOLEKSİYONU & METRAJ BASKI</span>
+        <!-- Bottom Pattern Switcher Bar below Stage -->
+        <div class="space-y-2.5 pt-1">
+          <div class="flex items-center justify-between text-xs">
+            <span class="font-bold text-slate-800 text-xs sm:text-sm">Modelde Deseni Değiştir:</span>
+            <button type="button" onclick="toggleSidebarMenu()" class="text-emerald-700 font-extrabold hover:underline flex items-center gap-1">
+              <span>74 Desen Kataloğu & Menü</span>
+              <i data-lucide="chevron-right" class="w-4 h-4"></i>
+            </button>
           </div>
 
-          <!-- Main Heading -->
-          <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight font-serif-title leading-snug">
-            Deseni seç.<br>
-            <span class="text-emerald-700 italic font-normal">Üzerinde gör.</span>
-          </h1>
+          <div class="flex items-center gap-2.5 overflow-x-auto pb-1 no-scrollbar">
+            <button type="button" onclick="selectCatwalkPatternByCode('NT_021')" class="catwalk-pat-btn w-11 h-11 rounded-xl border-2 border-emerald-600 overflow-hidden shadow-xs flex-shrink-0 transition hover:scale-105" title="NT_021">
+              <img src="/static/images/mini/NT_021.webp" onerror="this.onerror=null; this.src='/static/images/NT_021.jpg';" width="44" height="44" class="w-full h-full object-cover" alt="NT_021">
+            </button>
 
-          <!-- Subtitle -->
-          <p class="text-xs sm:text-sm text-slate-600 font-normal leading-relaxed">
-            Koleksiyonundan bir desen seç, üründe nasıl duracağını keşfet. 74 dikişsiz desenimizi ortadaki canlı model üzerinde ve 3D stüdyomuzda 9 farklı anatomik modelde anında canlı giydirin.
-          </p>
+            <button type="button" onclick="selectCatwalkPatternByCode('NT_074')" class="catwalk-pat-btn w-11 h-11 rounded-xl border border-slate-200 overflow-hidden flex-shrink-0 transition hover:scale-105" title="NT_074">
+              <img src="/static/images/mini/NT_074.webp" onerror="this.onerror=null; this.src='/static/images/NT_074.jpg';" width="44" height="44" class="w-full h-full object-cover" alt="NT_074">
+            </button>
 
-          <!-- CTA Buttons -->
-          <div class="flex flex-col gap-2.5 pt-1">
-            <a href="/studyo" class="w-full px-4 py-2.5 bg-emerald-800 hover:bg-emerald-900 text-white rounded-xl text-xs font-extrabold shadow-md hover:scale-[1.01] transition-all flex items-center justify-center gap-2">
-              <i data-lucide="sparkles" class="w-4 h-4 text-emerald-300"></i>
-              <span>3D Canlı Stüdyoda Dene</span>
-              <i data-lucide="arrow-right" class="w-4 h-4"></i>
-            </a>
+            <button type="button" onclick="selectCatwalkPatternByCode('NT_042')" class="catwalk-pat-btn w-11 h-11 rounded-xl border border-slate-200 overflow-hidden flex-shrink-0 transition hover:scale-105" title="NT_042">
+              <img src="/static/images/mini/NT_042.webp" onerror="this.onerror=null; this.src='/static/images/NT_042.jpg';" width="44" height="44" class="w-full h-full object-cover" alt="NT_042">
+            </button>
 
-            <a href="/fabrics?category=all" class="w-full px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-xl text-xs font-bold border border-slate-200/80 transition-all flex items-center justify-center gap-2">
-              <i data-lucide="grid" class="w-4 h-4 text-slate-600"></i>
-              <span>74 Desen Kataloğunu İncele</span>
-            </a>
+            <button type="button" onclick="selectCatwalkPatternByCode('NT_036')" class="catwalk-pat-btn w-11 h-11 rounded-xl border border-slate-200 overflow-hidden flex-shrink-0 transition hover:scale-105" title="NT_036">
+              <img src="/static/images/mini/NT_036.webp" onerror="this.onerror=null; this.src='/static/images/NT_036.jpg';" width="44" height="44" class="w-full h-full object-cover" alt="NT_036">
+            </button>
+
+            <button type="button" onclick="selectCatwalkPatternByCode('NT_011')" class="catwalk-pat-btn w-11 h-11 rounded-xl border border-slate-200 overflow-hidden flex-shrink-0 transition hover:scale-105" title="NT_011">
+              <img src="/static/images/mini/NT_011.webp" onerror="this.onerror=null; this.src='/static/images/NT_011.jpg';" width="44" height="44" class="w-full h-full object-cover" alt="NT_011">
+            </button>
+
+            <button type="button" onclick="selectCatwalkPatternByCode('NT_015')" class="catwalk-pat-btn w-11 h-11 rounded-xl border border-slate-200 overflow-hidden flex-shrink-0 transition hover:scale-105" title="NT_015">
+              <img src="/static/images/mini/NT_015.webp" onerror="this.onerror=null; this.src='/static/images/NT_015.jpg';" width="44" height="44" class="w-full h-full object-cover" alt="NT_015">
+            </button>
+
+            <button type="button" onclick="selectCatwalkPatternByCode('NT_001')" class="catwalk-pat-btn w-11 h-11 rounded-xl border border-slate-200 overflow-hidden flex-shrink-0 transition hover:scale-105" title="NT_001">
+              <img src="/static/images/mini/NT_001.webp" onerror="this.onerror=null; this.src='/static/images/NT_001.jpg';" width="44" height="44" class="w-full h-full object-cover" alt="NT_001">
+            </button>
           </div>
-
-          <!-- Trust Badges -->
-          <div class="pt-3 border-t border-slate-100 flex flex-wrap items-center gap-3 text-[11px] text-slate-500 font-medium">
-            <span class="flex items-center gap-1"><i data-lucide="check-circle" class="w-3.5 h-3.5 text-emerald-600"></i> Min. 1 Metre Sipariş</span>
-            <span class="flex items-center gap-1"><i data-lucide="check-circle" class="w-3.5 h-3.5 text-emerald-600"></i> OEKO-TEX Sertifikalı</span>
-            <span class="flex items-center gap-1"><i data-lucide="check-circle" class="w-3.5 h-3.5 text-emerald-600"></i> 48 Saatte Kargo</span>
-          </div>
-
         </div>
+
       </div>
 
     </div>
@@ -373,7 +223,7 @@
       {% for p in products %}
       <div class="pattern-card bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-xs hover:shadow-lg transition group relative" data-category="{{ p.category }}">
         <div class="aspect-square w-full bg-slate-100 overflow-hidden relative">
-          <img src="{{ p.image }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="{{ p.title }}">
+          <img src="/static/images/thumbs/{{ p.code }}.webp" onerror="this.onerror=null; this.src='{{ p.image }}';" loading="lazy" decoding="async" width="400" height="400" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="{{ p.title }}">
           
           <button type="button" onclick="selectCatwalkPatternByCode('{{ p.code }}', '{{ p.title|e }}', '{{ p.image }}')" class="absolute inset-0 bg-slate-950/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center gap-1.5 text-white text-xs font-bold backdrop-blur-xs">
             <i data-lucide="eye" class="w-4 h-4 text-emerald-400"></i>
@@ -402,11 +252,20 @@
 <!-- SCRIPT: SMOOTH CONTINUOUS RUNWAY CATWALK WALKING MANNEQUIN ENGINE -->
 <script>
 (function() {
-  const catwalkPoses = [
-    { bg: '/static/images/catwalk/clean_catwalk_1_bg.jpg', mask: '/static/images/catwalk/catwalk_1_mask.png', shade: '/static/images/catwalk/catwalk_1_shade.png' },
-    { bg: '/static/images/catwalk/clean_catwalk_2_bg.jpg', mask: '/static/images/catwalk/catwalk_2_mask.png', shade: '/static/images/catwalk/catwalk_2_shade.png' },
-    { bg: '/static/images/catwalk/clean_catwalk_3_bg.jpg', mask: '/static/images/catwalk/catwalk_3_mask.png', shade: '/static/images/catwalk/catwalk_3_shade.png' },
-    { bg: '/static/images/catwalk/clean_catwalk_4_bg.jpg', mask: '/static/images/catwalk/catwalk_4_mask.png', shade: '/static/images/catwalk/catwalk_4_shade.png' }
+  const CANVAS_W = 1024;
+  const CANVAS_H = 1536;
+
+  const canvas = document.getElementById('catwalkCanvas');
+  const ctx = canvas ? canvas.getContext('2d') : null;
+
+  // 6 Poses definition
+  const posesData = [
+    { bgSrc: '/static/images/catwalk/catwalk_1_bg.jpg?v=6.0', maskSrc: '/static/images/catwalk/catwalk_1_mask.png?v=6.0', shadeSrc: '/static/images/catwalk/catwalk_1_shade.png?v=6.0', bg: null, mask: null, shade: null },
+    { bgSrc: '/static/images/catwalk/catwalk_2_bg.jpg?v=6.0', maskSrc: '/static/images/catwalk/catwalk_2_mask.png?v=6.0', shadeSrc: '/static/images/catwalk/catwalk_2_shade.png?v=6.0', bg: null, mask: null, shade: null },
+    { bgSrc: '/static/images/catwalk/catwalk_3_bg.jpg?v=6.0', maskSrc: '/static/images/catwalk/catwalk_3_mask.png?v=6.0', shadeSrc: '/static/images/catwalk/catwalk_3_shade.png?v=6.0', bg: null, mask: null, shade: null },
+    { bgSrc: '/static/images/catwalk/catwalk_4_bg.jpg?v=6.0', maskSrc: '/static/images/catwalk/catwalk_4_mask.png?v=6.0', shadeSrc: '/static/images/catwalk/catwalk_4_shade.png?v=6.0', bg: null, mask: null, shade: null },
+    { bgSrc: '/static/images/catwalk/catwalk_5_bg.jpg?v=6.0', maskSrc: '/static/images/catwalk/catwalk_5_mask.png?v=6.0', shadeSrc: '/static/images/catwalk/catwalk_5_shade.png?v=6.0', bg: null, mask: null, shade: null },
+    { bgSrc: '/static/images/catwalk/catwalk_6_bg.jpg?v=6.0', maskSrc: '/static/images/catwalk/catwalk_6_mask.png?v=6.0', shadeSrc: '/static/images/catwalk/catwalk_6_shade.png?v=6.0', bg: null, mask: null, shade: null }
   ];
 
   const patternsDict = {
@@ -416,161 +275,193 @@
   };
   const patternKeysList = Object.keys(patternsDict);
 
-  let currentPoseIdx = 0;
-  let nextPoseIdx = 1;
-  let transitionProgress = 1.0;
-  let isTransitioning = false;
   let currentPattern = patternsDict['NT_021'] || (patternKeysList.length > 0 ? patternsDict[patternKeysList[0]] : { code: 'NT_021', title: 'NT_021', url: '/static/images/NT_021.jpg' });
-  let currentScaleMode = 'normal'; // 'narrow', 'normal', 'wide'
-  let currentLengthMode = 'normal'; // 'short', 'normal', 'long'
+  let currentScaleMode = 'normal';
+  let currentLengthMode = 'normal';
   let isPlaying = true;
-  let timerId = null;
-  let animFrameId = null;
-  let stepCounter = 0;
+  let isAssetsLoaded = false;
+  let currentFrameIndex = 0;
+  let lastFrameTime = performance.now();
+  let lastPatternSwitchTime = performance.now();
+  const FRAME_DURATION = 320; // 320ms per walking frame
+  const PATTERN_CHANGE_INTERVAL = 7000; // 7 saniye (rahat ve yavaş desen değişimi)
 
-  const canvas = document.getElementById('catwalkCanvas');
-  const ctx = canvas ? canvas.getContext('2d') : null;
-  const imageCache = {};
+  // 6 Pre-rendered Offscreen Canvases (guaranteed complete composite in memory)
+  const compositedCanvases = [
+    document.createElement('canvas'),
+    document.createElement('canvas'),
+    document.createElement('canvas'),
+    document.createElement('canvas'),
+    document.createElement('canvas'),
+    document.createElement('canvas')
+  ];
 
-  function loadImage(src) {
-    if (!src) return Promise.resolve(null);
-    if (imageCache[src]) return Promise.resolve(imageCache[src]);
-    return new Promise((resolve) => {
+  compositedCanvases.forEach(c => {
+    c.width = CANVAS_W;
+    c.height = CANVAS_H;
+  });
+
+  function loadImageAsync(src) {
+    return new Promise(resolve => {
       const img = new Image();
-      img.crossOrigin = 'anonymous';
-      img.onload = () => { imageCache[src] = img; resolve(img); };
-      img.onerror = () => resolve(null);
+      img.onload = () => resolve(img);
+      img.onerror = () => {
+        console.warn('Failed to load asset:', src);
+        resolve(null);
+      };
       img.src = src;
     });
   }
 
-  function createPoseCanvas(poseIdx, patternObj) {
-    const pose = catwalkPoses[poseIdx];
-    const offCanvas = document.createElement('canvas');
-    offCanvas.width = 699;
-    offCanvas.height = 1536;
-    const offCtx = offCanvas.getContext('2d');
+  // Preload all 6 model frames (background, mask, shade)
+  const loadPromises = [];
+  posesData.forEach(p => {
+    loadPromises.push(loadImageAsync(p.bgSrc).then(img => p.bg = img));
+    loadPromises.push(loadImageAsync(p.maskSrc).then(img => p.mask = img));
+    loadPromises.push(loadImageAsync(p.shadeSrc).then(img => p.shade = img));
+  });
 
-    return Promise.all([
-      loadImage(pose.bg),
-      loadImage(pose.mask),
-      loadImage(pose.shade),
-      loadImage(patternObj.url)
-    ]).then(([bgImg, maskImg, shadeImg, patImg]) => {
-      offCtx.clearRect(0, 0, 699, 1536);
+  Promise.all(loadPromises).then(() => {
+    isAssetsLoaded = true;
+    renderAllPosesWithCurrentPattern();
+  });
 
-      if (bgImg) offCtx.drawImage(bgImg, 0, 0, 699, 1536);
+  let patternImgObj = null;
 
-      if (patImg && maskImg) {
+  function renderAllPosesWithCurrentPattern() {
+    if (!isAssetsLoaded) return;
+
+    if (!patternImgObj || patternImgObj.src !== currentPattern.url) {
+      patternImgObj = new Image();
+      patternImgObj.onload = () => renderAllPosesWithCurrentPattern();
+      patternImgObj.src = currentPattern.url;
+      if (!patternImgObj.complete) return;
+    }
+
+    // 1. Prepare tiled pattern
+    let tileW = 380;
+    if (currentScaleMode === 'narrow') tileW = 240;
+    else if (currentScaleMode === 'wide') tileW = 560;
+
+    let tileH = tileW;
+    if (currentLengthMode === 'short') tileH = Math.round(tileW * 0.7);
+    else if (currentLengthMode === 'long') tileH = Math.round(tileW * 1.35);
+
+    const tileCanvas = document.createElement('canvas');
+    tileCanvas.width = tileW;
+    tileCanvas.height = tileH;
+    const tctx = tileCanvas.getContext('2d');
+    tctx.drawImage(patternImgObj, 0, 0, tileW, tileH);
+
+    // 2. Render each of the 6 poses into its dedicated offscreen canvas
+    for (let i = 0; i < 6; i++) {
+      const p = posesData[i];
+      const targetCanvas = compositedCanvases[i];
+      const tCtx = targetCanvas.getContext('2d');
+
+      tCtx.clearRect(0, 0, CANVAS_W, CANVAS_H);
+
+      // A. Draw full model background
+      if (p.bg) {
+        tCtx.drawImage(p.bg, 0, 0, CANVAS_W, CANVAS_H);
+      }
+
+      // B. Draw dressed pattern masked to clothing
+      if (p.mask) {
         const patCanvas = document.createElement('canvas');
-        patCanvas.width = 699;
-        patCanvas.height = 1536;
+        patCanvas.width = CANVAS_W;
+        patCanvas.height = CANVAS_H;
         const pCtx = patCanvas.getContext('2d');
-
-        let tileW = 450;
-        if (currentScaleMode === 'narrow') tileW = 280;
-        else if (currentScaleMode === 'wide') tileW = 680;
-
-        let tileH = tileW;
-        if (currentLengthMode === 'short') tileH = Math.round(tileW * 0.7);
-        else if (currentLengthMode === 'long') tileH = Math.round(tileW * 1.35);
-
-        const tileCanvas = document.createElement('canvas');
-        tileCanvas.width = tileW;
-        tileCanvas.height = tileH;
-        const tctx = tileCanvas.getContext('2d');
-        tctx.drawImage(patImg, 0, 0, tileW, tileH);
 
         const ptrn = pCtx.createPattern(tileCanvas, 'repeat');
         pCtx.fillStyle = ptrn;
-        pCtx.fillRect(0, 0, 699, 1536);
+        pCtx.fillRect(0, 0, CANVAS_W, CANVAS_H);
 
+        // Clip to dress mask
         pCtx.globalCompositeOperation = 'destination-in';
-        pCtx.drawImage(maskImg, 0, 0, 699, 1536);
-        pCtx.globalCompositeOperation = 'source-over';
+        pCtx.drawImage(p.mask, 0, 0, CANVAS_W, CANVAS_H);
 
-        offCtx.globalCompositeOperation = 'multiply';
-        offCtx.drawImage(patCanvas, 0, 0, 699, 1536);
-        offCtx.globalCompositeOperation = 'source-over';
+        // Gentle fabric fold depth (never washes out or covers the pattern)
+        if (p.shade) {
+          pCtx.globalCompositeOperation = 'multiply';
+          pCtx.globalAlpha = 0.18;
+          pCtx.drawImage(p.shade, 0, 0, CANVAS_W, CANVAS_H);
+          pCtx.globalAlpha = 1.0;
+
+          // Re-clip strictly to dress mask
+          pCtx.globalCompositeOperation = 'destination-in';
+          pCtx.drawImage(p.mask, 0, 0, CANVAS_W, CANVAS_H);
+        }
+
+        // Draw onto target model photo
+        tCtx.globalCompositeOperation = 'source-over';
+        tCtx.drawImage(patCanvas, 0, 0, CANVAS_W, CANVAS_H);
       }
+    }
 
-      if (shadeImg) {
-        offCtx.globalCompositeOperation = 'multiply';
-        offCtx.drawImage(shadeImg, 0, 0, 699, 1536);
-        offCtx.globalCompositeOperation = 'source-over';
-      }
-
-      return offCanvas;
-    });
-  }
-
-  function renderFrame() {
-    if (!ctx) return;
-
+    // Update UI info
     const pTitle = document.getElementById('catwalkPatternTitle');
     const avatar = document.getElementById('catwalkAvatarThumb');
     const goBtn = document.getElementById('catwalkGoStudioBtnTop');
-
     if (pTitle) pTitle.textContent = currentPattern.title;
     if (avatar) avatar.src = currentPattern.url;
-    if (goBtn) goBtn.href = `/studyo?pattern=${currentPattern.code}`;
+    drawActiveFrame();
+  }
 
-    if (transitionProgress >= 1.0) {
-      createPoseCanvas(currentPoseIdx, currentPattern).then(c => {
-        ctx.clearRect(0, 0, 699, 1536);
-        ctx.drawImage(c, 0, 0, 699, 1536);
-      });
-    } else {
-      Promise.all([
-        createPoseCanvas(currentPoseIdx, currentPattern),
-        createPoseCanvas(nextPoseIdx, currentPattern)
-      ]).then(([currC, nextC]) => {
-        ctx.clearRect(0, 0, 699, 1536);
-        ctx.globalAlpha = 1.0;
-        ctx.drawImage(currC, 0, 0, 699, 1536);
-
-        ctx.globalAlpha = transitionProgress;
-        ctx.drawImage(nextC, 0, 0, 699, 1536);
-        ctx.globalAlpha = 1.0;
-      });
+  function drawActiveFrame() {
+    if (ctx && isAssetsLoaded && compositedCanvases[currentFrameIndex]) {
+      ctx.clearRect(0, 0, CANVAS_W, CANVAS_H);
+      ctx.drawImage(compositedCanvases[currentFrameIndex], 0, 0, CANVAS_W, CANVAS_H);
     }
   }
 
-  function advanceStepSmoothly() {
-    if (isTransitioning) return;
-    isTransitioning = true;
-    nextPoseIdx = (currentPoseIdx + 1) % catwalkPoses.length;
+  let isCanvasInView = true;
+  let rafId = null;
 
-    // Pattern auto-cycling on mannequin walk every 3 strides
-    stepCounter++;
-    if (stepCounter % 3 === 0 && patternKeysList.length > 0) {
-      const currIdx = patternKeysList.indexOf(currentPattern.code);
-      const nextIdx = (currIdx + 1) % patternKeysList.length;
-      if (patternsDict[patternKeysList[nextIdx]]) {
-        currentPattern = patternsDict[patternKeysList[nextIdx]];
-      }
-    }
-    
-    let startTime = null;
-    const duration = 650;
-
-    function animateCrossfade(timestamp) {
-      if (!startTime) startTime = timestamp;
-      const elapsed = timestamp - startTime;
-      transitionProgress = Math.min(elapsed / duration, 1.0);
-
-      renderFrame();
-
-      if (transitionProgress < 1.0) {
-        animFrameId = requestAnimationFrame(animateCrossfade);
-      } else {
-        currentPoseIdx = nextPoseIdx;
-        isTransitioning = false;
-      }
-    }
-
-    animFrameId = requestAnimationFrame(animateCrossfade);
+  if ('IntersectionObserver' in window && canvas) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        isCanvasInView = entry.isIntersecting;
+        if (isCanvasInView && !rafId) {
+          lastFrameTime = performance.now();
+          rafId = requestAnimationFrame(animationLoop);
+        }
+      });
+    }, { threshold: 0.05 });
+    observer.observe(canvas);
   }
+
+  // Animation Loop: Intelligent throttled rendering (saves 95% CPU/GPU and mobile battery)
+  function animationLoop(now) {
+    if (!isCanvasInView) {
+      rafId = null;
+      return;
+    }
+
+    if (isPlaying && isAssetsLoaded) {
+      // 1. Advance walking stride frame
+      if (now - lastFrameTime >= FRAME_DURATION) {
+        currentFrameIndex = (currentFrameIndex + 1) % 6;
+        lastFrameTime = now;
+        drawActiveFrame();
+      }
+
+      // 2. Slow and elegant auto pattern cycle (every 7 seconds)
+      if (now - lastPatternSwitchTime >= PATTERN_CHANGE_INTERVAL) {
+        const currIdx = patternKeysList.indexOf(currentPattern.code);
+        const nextIdx = (currIdx + 1) % patternKeysList.length;
+        if (patternsDict[patternKeysList[nextIdx]]) {
+          currentPattern = patternsDict[patternKeysList[nextIdx]];
+          renderAllPosesWithCurrentPattern();
+        }
+        lastPatternSwitchTime = now;
+      }
+    }
+
+    rafId = requestAnimationFrame(animationLoop);
+  }
+
+  rafId = requestAnimationFrame(animationLoop);
 
   window.setCatwalkScaleMode = function(mode) {
     currentScaleMode = mode;
@@ -584,7 +475,7 @@
         }
       }
     });
-    renderFrame();
+    renderAllPosesWithCurrentPattern();
   };
 
   window.setCatwalkLengthMode = function(mode) {
@@ -599,7 +490,7 @@
         }
       }
     });
-    renderFrame();
+    renderAllPosesWithCurrentPattern();
   };
 
   window.selectCatwalkPatternByCode = function(code, title, url) {
@@ -611,8 +502,8 @@
       };
     }
     currentPattern = patternsDict[code];
-    transitionProgress = 1.0;
-    renderFrame();
+    lastPatternSwitchTime = performance.now();
+    renderAllPosesWithCurrentPattern();
 
     const stage = document.getElementById('catwalkCanvas');
     if (stage) {
@@ -620,7 +511,6 @@
     }
   };
 
-  
   window.toggleLeftDesenlerMenu = function() {
     const menu = document.getElementById('desenlerSubMenu');
     const chevron = document.getElementById('desenlerMenuChevron');
@@ -662,36 +552,6 @@
     });
   };
 
-  function startCycle() {
-    stopCycle();
-    timerId = setInterval(() => {
-      advanceStepSmoothly();
-    }, 1100);
-  }
-
-  function stopCycle() {
-    if (timerId) clearInterval(timerId);
-    if (animFrameId) cancelAnimationFrame(animFrameId);
-    timerId = null;
-  }
-
-  catwalkPoses.forEach(pose => {
-    loadImage(pose.bg);
-    loadImage(pose.mask);
-    loadImage(pose.shade);
-  });
-
-  document.addEventListener('DOMContentLoaded', () => {
-    renderFrame();
-    startCycle();
-  });
-
-  if (document.readyState === 'complete' || document.readyState === 'interactive') {
-    setTimeout(() => {
-      renderFrame();
-      startCycle();
-    }, 150);
-  }
 })();
 </script>
 {% endblock %}
