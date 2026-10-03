@@ -4,246 +4,212 @@
 
 {% block content %}
 
-<!-- MAIN SHOWCASE SECTION (CINEMATIC FULL-FOCUS LIVE MODEL STAGE) -->
-<section class="py-6 sm:py-10 bg-gradient-to-b from-emerald-950/5 via-[#FAF9F6] to-white border-b border-slate-200/70 relative">
-  <div class="max-w-[1140px] mx-auto px-4 sm:px-6 lg:px-8">
+<!-- MAIN SHOWCASE SECTION (SPLIT 2-COLUMN: LEFT LIVE MODEL + RIGHT PATTERN COLLECTION) -->
+<section class="py-6 sm:py-8 bg-gradient-to-b from-emerald-950/5 via-[#FAF9F6] to-white border-b border-slate-200/70 relative">
+  <div class="max-w-[1700px] mx-auto px-4 sm:px-6 lg:px-8">
     
-    <!-- Top Minimal Focus Bar with 3-Line Sandwich Drawer Trigger -->
-    <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 mb-6 bg-white/95 backdrop-blur-sm p-3.5 sm:p-4 rounded-2xl border border-slate-200/90 shadow-sm">
-      <div class="flex items-center gap-3">
-        <!-- 3-Line Hamburger Menu Button -->
-        <button type="button" onclick="toggleSidebarMenu()" class="inline-flex items-center gap-2.5 px-4 py-2.5 bg-emerald-800 hover:bg-emerald-900 text-white rounded-xl text-xs font-extrabold shadow-sm transition hover:scale-105 active:scale-95 group">
-          <div class="flex flex-col gap-1 w-4 justify-center items-center">
-            <span class="w-4 h-0.5 bg-emerald-300 rounded-full block group-hover:bg-white transition-colors"></span>
-            <span class="w-4 h-0.5 bg-emerald-300 rounded-full block group-hover:bg-white transition-colors"></span>
-            <span class="w-4 h-0.5 bg-emerald-300 rounded-full block group-hover:bg-white transition-colors"></span>
-          </div>
-          <span>KATEGORİLER & KOLEKSİYON</span>
-        </button>
-
-        <div class="hidden sm:block text-left">
-          <span class="text-xs font-bold text-slate-800 block">74 Dikişsiz Desen & Özel Baskı Kartelası</span>
-          <span class="text-[10px] text-slate-500 block">Sol sandviç paneli açarak tüm koleksiyonu inceleyebilirsiniz</span>
-        </div>
-      </div>
-
-      <div class="flex items-center justify-between sm:justify-end gap-2 text-xs">
-        <a href="/studyo" class="inline-flex items-center gap-1.5 px-4 py-2.5 bg-emerald-50 hover:bg-emerald-100 text-emerald-800 font-extrabold rounded-xl border border-emerald-200 transition shadow-2xs">
-          <i data-lucide="sparkles" class="w-4 h-4 text-emerald-600"></i>
-          <span>3D Canlı Stüdyo</span>
-        </a>
-        <a href="/fabrics?category=all" class="inline-flex items-center gap-1.5 px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl transition">
-          <i data-lucide="grid" class="w-4 h-4 text-slate-600"></i>
-          <span>74 Desen Kataloğu</span>
-        </a>
-      </div>
-    </div>
-
-    <!-- CENTER LIVE MODEL HERO STAGE (EXPANDED CINEMATIC FOCUS) -->
-    <div class="space-y-5">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
       
-      <!-- Stage Card Container -->
-      <div class="bg-white p-4 sm:p-7 rounded-3xl border border-slate-200/90 shadow-2xl ring-4 ring-emerald-500/10 space-y-4 relative overflow-hidden">
+      <!-- LEFT COLUMN (col-span-5): LIVE MODEL CANVAS STAGE (CLEAN - NO BOTTOM OVERLAY) -->
+      <div class="lg:col-span-5 space-y-4 lg:sticky lg:top-24">
         
-        <!-- Stage Header Controls Bar -->
-        <div class="flex items-center justify-between pb-3 border-b border-slate-100">
-          <div class="flex items-center gap-2.5">
-            <span class="w-3 h-3 rounded-full bg-emerald-500 animate-pulse ring-4 ring-emerald-100"></span>
-            <span class="text-sm sm:text-base font-extrabold text-slate-900 tracking-tight uppercase">Canlı Model • Desen Projeksiyonu</span>
-          </div>
-
-          <div class="flex items-center gap-2">
-            <button type="button" onclick="toggleSidebarMenu()" class="px-3 py-1.5 bg-emerald-100 hover:bg-emerald-200 text-emerald-900 font-extrabold text-xs rounded-xl transition flex items-center gap-1.5 border border-emerald-200 shadow-2xs">
-              <i data-lucide="palette" class="w-3.5 h-3.5 text-emerald-700"></i>
-              <span>Desen Seç</span>
-            </button>
-            <a href="/studyo?pattern=NT_021" id="catwalkGoStudioBtnTop" class="px-3 py-1.5 bg-slate-900 hover:bg-emerald-800 text-white font-bold text-xs rounded-xl transition flex items-center gap-1.5 shadow-xs">
-              <i data-lucide="external-link" class="w-3.5 h-3.5 text-emerald-400"></i>
-              <span>3D Stüdyo</span>
-            </a>
-          </div>
-        </div>
-
-        <!-- Live Stage Box with HTML5 Canvas (EXPANDED HIGH-IMPACT BACKDROP) -->
-        <div class="relative h-[520px] sm:h-[620px] md:h-[680px] w-full bg-gradient-to-b from-[#f7f5ef] via-[#ede9df] to-[#e4ded2] rounded-2xl overflow-hidden border border-slate-300/80 shadow-inner flex flex-col justify-between p-3 group">
+        <!-- Stage Card Container -->
+        <div class="bg-white p-4 sm:p-5 rounded-3xl border border-slate-200/90 shadow-xl ring-4 ring-emerald-500/10 space-y-3.5 relative overflow-hidden">
           
-          <!-- Canvas Player -->
-          <div class="relative z-10 w-full h-full flex items-center justify-center overflow-hidden">
-            <canvas id="catwalkCanvas" width="1024" height="1536" class="w-full h-full object-contain rounded-xl transition-opacity duration-500 drop-shadow-md"></canvas>
+          <!-- Stage Header Controls Bar -->
+          <div class="flex items-center justify-between pb-2.5 border-b border-slate-100">
+            <div class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse ring-4 ring-emerald-100"></span>
+              <span class="text-xs sm:text-sm font-extrabold text-slate-900 tracking-tight uppercase">CANLI MODEL • DESEN PROJEKSİYONU</span>
+            </div>
+
+            <div class="flex items-center gap-2">
+              <button type="button" onclick="toggleSidebarMenu()" class="px-2.5 py-1 bg-emerald-100 hover:bg-emerald-200 text-emerald-900 font-extrabold text-[11px] rounded-lg transition flex items-center gap-1 border border-emerald-200 shadow-2xs">
+                <i data-lucide="palette" class="w-3 h-3 text-emerald-700"></i>
+                <span>Desen Seç</span>
+              </button>
+              <a href="/studyo?pattern=NT_021" id="catwalkGoStudioBtnTop" class="px-2.5 py-1 bg-slate-900 hover:bg-emerald-800 text-white font-bold text-[11px] rounded-lg transition flex items-center gap-1 shadow-xs">
+                <i data-lucide="external-link" class="w-3 h-3 text-emerald-400"></i>
+                <span>3D Stüdyo</span>
+              </a>
+            </div>
           </div>
 
-          <!-- Live Bottom Overlay Bar inside Stage -->
-          <div class="absolute bottom-4 left-4 right-4 z-20 bg-slate-950/85 backdrop-blur-md p-3 rounded-2xl border border-white/10 flex items-center justify-between text-white shadow-xl">
-            <div class="flex items-center gap-3 truncate">
-              <img id="catwalkAvatarThumb" src="/static/images/NT_021.jpg" class="w-10 h-10 rounded-xl object-cover border border-white/20 flex-shrink-0 shadow-xs" alt="Desen Avatar">
-              <div class="truncate">
-                <span id="catwalkPatternTitle" class="text-xs sm:text-sm font-bold text-white block truncate">NT_021 • Krem Zemin Pastel Bordo Çiçek Bahçesi</span>
-                <span class="text-[11px] text-slate-300 block">Temiz Stüdyo • Canlı Desen Giydirme</span>
+          <!-- Live Stage Box with HTML5 Canvas (100% CLEAN NEUTRAL STUDIO - RED OVERLAY REMOVED) -->
+          <div class="relative h-[480px] sm:h-[560px] lg:h-[590px] w-full bg-gradient-to-b from-[#f7f5ef] via-[#ede9df] to-[#e4ded2] rounded-2xl overflow-hidden border border-slate-300/80 shadow-inner flex items-center justify-center p-2 group">
+            
+            <!-- Canvas Player -->
+            <div class="relative z-10 w-full h-full flex items-center justify-center overflow-hidden">
+              <canvas id="catwalkCanvas" width="1024" height="1536" class="w-full h-full object-contain rounded-xl transition-opacity duration-500 drop-shadow-md"></canvas>
+            </div>
+
+          </div>
+
+          <!-- FITTING & SCALE CONTROLS (DARALT / GENİŞLET • KISALT / UZAT) -->
+          <div class="bg-slate-50 p-3 rounded-2xl border border-slate-200/80 space-y-2 text-xs">
+            
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <!-- Scale Buttons (Daralt / Genişlet) -->
+              <div class="flex items-center gap-1.5">
+                <span class="text-[11px] font-bold text-slate-700 flex items-center gap-1">
+                  <i data-lucide="zoom-in" class="w-3.5 h-3.5 text-emerald-700"></i> Desen Genişliği:
+                </span>
+                <button type="button" onclick="setCatwalkScaleMode('narrow')" id="scaleBtnNarrow" class="px-2.5 py-1 bg-white hover:bg-emerald-50 text-slate-700 font-bold rounded-lg border border-slate-200 text-[10px] transition">
+                  Daralt
+                </button>
+                <button type="button" onclick="setCatwalkScaleMode('normal')" id="scaleBtnNormal" class="px-2.5 py-1 bg-emerald-800 text-white font-bold rounded-lg text-[10px] transition shadow-xs">
+                  Normal
+                </button>
+                <button type="button" onclick="setCatwalkScaleMode('wide')" id="scaleBtnWide" class="px-2.5 py-1 bg-white hover:bg-emerald-50 text-slate-700 font-bold rounded-lg border border-slate-200 text-[10px] transition">
+                  Genişlet
+                </button>
+              </div>
+
+              <!-- Length Buttons (Kısalt / Uzat) -->
+              <div class="flex items-center gap-1.5">
+                <span class="text-[11px] font-bold text-slate-700 flex items-center gap-1">
+                  <i data-lucide="ruler" class="w-3.5 h-3.5 text-emerald-700"></i> Raport Boyu:
+                </span>
+                <button type="button" onclick="setCatwalkLengthMode('short')" id="lenBtnShort" class="px-2.5 py-1 bg-white hover:bg-emerald-50 text-slate-700 font-bold rounded-lg border border-slate-200 text-[10px] transition">
+                  Kısalt
+                </button>
+                <button type="button" onclick="setCatwalkLengthMode('normal')" id="lenBtnNormal" class="px-2.5 py-1 bg-emerald-800 text-white font-bold rounded-lg text-[10px] transition shadow-xs">
+                  Normal
+                </button>
+                <button type="button" onclick="setCatwalkLengthMode('long')" id="lenBtnLong" class="px-2.5 py-1 bg-white hover:bg-emerald-50 text-slate-700 font-bold rounded-lg border border-slate-200 text-[10px] transition">
+                  Uzat
+                </button>
               </div>
             </div>
 
-            <span class="px-2.5 py-1 bg-emerald-500 text-slate-950 font-extrabold text-[10px] sm:text-xs rounded-lg uppercase tracking-wider flex-shrink-0 shadow-xs">
-              CANLI MODEL
+          </div>
+
+          <!-- Bottom Quick Pattern Switcher Bar below Stage -->
+          <div class="space-y-2 pt-0.5">
+            <div class="flex items-center justify-between text-xs">
+              <span class="font-bold text-slate-800 text-xs">Modelde Deseni Değiştir:</span>
+              <button type="button" onclick="toggleSidebarMenu()" class="text-emerald-700 font-extrabold hover:underline flex items-center gap-1 text-[11px]">
+                <span>Menü & Filtreler</span>
+                <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+              </button>
+            </div>
+
+            <div class="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar">
+              <button type="button" onclick="selectCatwalkPatternByCode('NT_021')" class="catwalk-pat-btn w-10 h-10 rounded-xl border-2 border-emerald-600 overflow-hidden shadow-xs flex-shrink-0 transition hover:scale-105" title="NT_021">
+                <img src="/static/images/mini/NT_021.webp" onerror="this.onerror=null; this.src='/static/images/NT_021.jpg';" width="40" height="40" class="w-full h-full object-cover" alt="NT_021">
+              </button>
+
+              <button type="button" onclick="selectCatwalkPatternByCode('NT_074')" class="catwalk-pat-btn w-10 h-10 rounded-xl border border-slate-200 overflow-hidden flex-shrink-0 transition hover:scale-105" title="NT_074">
+                <img src="/static/images/mini/NT_074.webp" onerror="this.onerror=null; this.src='/static/images/NT_074.jpg';" width="40" height="40" class="w-full h-full object-cover" alt="NT_074">
+              </button>
+
+              <button type="button" onclick="selectCatwalkPatternByCode('NT_042')" class="catwalk-pat-btn w-10 h-10 rounded-xl border border-slate-200 overflow-hidden flex-shrink-0 transition hover:scale-105" title="NT_042">
+                <img src="/static/images/mini/NT_042.webp" onerror="this.onerror=null; this.src='/static/images/NT_042.jpg';" width="40" height="40" class="w-full h-full object-cover" alt="NT_042">
+              </button>
+
+              <button type="button" onclick="selectCatwalkPatternByCode('NT_036')" class="catwalk-pat-btn w-10 h-10 rounded-xl border border-slate-200 overflow-hidden flex-shrink-0 transition hover:scale-105" title="NT_036">
+                <img src="/static/images/mini/NT_036.webp" onerror="this.onerror=null; this.src='/static/images/NT_036.jpg';" width="40" height="40" class="w-full h-full object-cover" alt="NT_036">
+              </button>
+
+              <button type="button" onclick="selectCatwalkPatternByCode('NT_011')" class="catwalk-pat-btn w-10 h-10 rounded-xl border border-slate-200 overflow-hidden flex-shrink-0 transition hover:scale-105" title="NT_011">
+                <img src="/static/images/mini/NT_011.webp" onerror="this.onerror=null; this.src='/static/images/NT_011.jpg';" width="40" height="40" class="w-full h-full object-cover" alt="NT_011">
+              </button>
+
+              <button type="button" onclick="selectCatwalkPatternByCode('NT_015')" class="catwalk-pat-btn w-10 h-10 rounded-xl border border-slate-200 overflow-hidden flex-shrink-0 transition hover:scale-105" title="NT_015">
+                <img src="/static/images/mini/NT_015.webp" onerror="this.onerror=null; this.src='/static/images/NT_015.jpg';" width="40" height="40" class="w-full h-full object-cover" alt="NT_015">
+              </button>
+
+              <button type="button" onclick="selectCatwalkPatternByCode('NT_001')" class="catwalk-pat-btn w-10 h-10 rounded-xl border border-slate-200 overflow-hidden flex-shrink-0 transition hover:scale-105" title="NT_001">
+                <img src="/static/images/mini/NT_001.webp" onerror="this.onerror=null; this.src='/static/images/NT_001.jpg';" width="40" height="40" class="w-full h-full object-cover" alt="NT_001">
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- RIGHT COLUMN (col-span-7): SEAMLESS PATTERN CATALOG (DESENLER SAĞ TARAFTA) -->
+      <div class="lg:col-span-7 bg-white p-5 sm:p-6 rounded-3xl border border-slate-200 shadow-sm space-y-5">
+        
+        <!-- Header with "tıkla gör" Highlighting -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-4">
+          <div>
+            <div class="flex items-center gap-2 mb-1.5">
+              <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 text-[11px] font-bold">
+                <i data-lucide="layers" class="w-3.5 h-3.5 text-emerald-600"></i>
+                <span>DESEN KOLEKSİYONU & CANLI DENEME</span>
+              </span>
+            </div>
+            <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 font-serif-title flex items-center gap-2 flex-wrap">
+              <span>Dikişsiz Desen Arşivi</span>
+            </h2>
+            <p class="text-xs text-slate-500 mt-1">
+              Aşağıdaki herhangi bir desene tıklayın; soldaki canlı modelin üzerinde anında güncellensin.
+            </p>
+          </div>
+
+          <!-- Bold Red "tıkla gör" Flash Tag -->
+          <div class="flex items-center gap-2 flex-shrink-0">
+            <span class="px-3.5 py-1.5 rounded-xl bg-rose-50 border-2 border-rose-500/40 text-rose-600 font-extrabold text-base sm:text-lg tracking-tight uppercase shadow-xs flex items-center gap-1.5 animate-pulse">
+              <i data-lucide="mouse-pointer-click" class="w-5 h-5"></i>
+              <span>tıkla gör</span>
             </span>
           </div>
-
         </div>
 
-        <!-- FITTING & SCALE CONTROLS (DARALT / GENİŞLET • KISALT / UZAT) -->
-        <div class="bg-slate-50 p-3.5 sm:p-4 rounded-2xl border border-slate-200/80 space-y-2 text-xs">
-          
-          <div class="flex flex-wrap items-center justify-between gap-3">
-            <!-- Scale Buttons (Daralt / Genişlet) -->
-            <div class="flex items-center gap-2">
-              <span class="text-xs font-bold text-slate-700 flex items-center gap-1.5">
-                <i data-lucide="zoom-in" class="w-4 h-4 text-emerald-700"></i> Desen Genişliği:
-              </span>
-              <button type="button" onclick="setCatwalkScaleMode('narrow')" id="scaleBtnNarrow" class="px-3 py-1.5 bg-white hover:bg-emerald-50 text-slate-700 font-bold rounded-xl border border-slate-200 text-xs transition">
-                Daralt
-              </button>
-              <button type="button" onclick="setCatwalkScaleMode('normal')" id="scaleBtnNormal" class="px-3 py-1.5 bg-emerald-800 text-white font-bold rounded-xl text-xs transition shadow-xs">
-                Normal
-              </button>
-              <button type="button" onclick="setCatwalkScaleMode('wide')" id="scaleBtnWide" class="px-3 py-1.5 bg-white hover:bg-emerald-50 text-slate-700 font-bold rounded-xl border border-slate-200 text-xs transition">
-                Genişlet
-              </button>
-            </div>
-
-            <!-- Length Buttons (Kısalt / Uzat) -->
-            <div class="flex items-center gap-2">
-              <span class="text-xs font-bold text-slate-700 flex items-center gap-1.5">
-                <i data-lucide="ruler" class="w-4 h-4 text-emerald-700"></i> Raport Boyu:
-              </span>
-              <button type="button" onclick="setCatwalkLengthMode('short')" id="lenBtnShort" class="px-3 py-1.5 bg-white hover:bg-emerald-50 text-slate-700 font-bold rounded-xl border border-slate-200 text-xs transition">
-                Kısalt
-              </button>
-              <button type="button" onclick="setCatwalkLengthMode('normal')" id="lenBtnNormal" class="px-3 py-1.5 bg-emerald-800 text-white font-bold rounded-xl text-xs transition shadow-xs">
-                Normal
-              </button>
-              <button type="button" onclick="setCatwalkLengthMode('long')" id="lenBtnLong" class="px-3 py-1.5 bg-white hover:bg-emerald-50 text-slate-700 font-bold rounded-xl border border-slate-200 text-xs transition">
-                Uzat
-              </button>
-            </div>
-          </div>
-
-        </div>
-
-        <!-- Bottom Pattern Switcher Bar below Stage -->
-        <div class="space-y-2.5 pt-1">
-          <div class="flex items-center justify-between text-xs">
-            <span class="font-bold text-slate-800 text-xs sm:text-sm">Modelde Deseni Değiştir:</span>
-            <button type="button" onclick="toggleSidebarMenu()" class="text-emerald-700 font-extrabold hover:underline flex items-center gap-1">
-              <span>74 Desen Kataloğu & Menü</span>
-              <i data-lucide="chevron-right" class="w-4 h-4"></i>
-            </button>
-          </div>
-
-          <div class="flex items-center gap-2.5 overflow-x-auto pb-1 no-scrollbar">
-            <button type="button" onclick="selectCatwalkPatternByCode('NT_021')" class="catwalk-pat-btn w-11 h-11 rounded-xl border-2 border-emerald-600 overflow-hidden shadow-xs flex-shrink-0 transition hover:scale-105" title="NT_021">
-              <img src="/static/images/mini/NT_021.webp" onerror="this.onerror=null; this.src='/static/images/NT_021.jpg';" width="44" height="44" class="w-full h-full object-cover" alt="NT_021">
-            </button>
-
-            <button type="button" onclick="selectCatwalkPatternByCode('NT_074')" class="catwalk-pat-btn w-11 h-11 rounded-xl border border-slate-200 overflow-hidden flex-shrink-0 transition hover:scale-105" title="NT_074">
-              <img src="/static/images/mini/NT_074.webp" onerror="this.onerror=null; this.src='/static/images/NT_074.jpg';" width="44" height="44" class="w-full h-full object-cover" alt="NT_074">
-            </button>
-
-            <button type="button" onclick="selectCatwalkPatternByCode('NT_042')" class="catwalk-pat-btn w-11 h-11 rounded-xl border border-slate-200 overflow-hidden flex-shrink-0 transition hover:scale-105" title="NT_042">
-              <img src="/static/images/mini/NT_042.webp" onerror="this.onerror=null; this.src='/static/images/NT_042.jpg';" width="44" height="44" class="w-full h-full object-cover" alt="NT_042">
-            </button>
-
-            <button type="button" onclick="selectCatwalkPatternByCode('NT_036')" class="catwalk-pat-btn w-11 h-11 rounded-xl border border-slate-200 overflow-hidden flex-shrink-0 transition hover:scale-105" title="NT_036">
-              <img src="/static/images/mini/NT_036.webp" onerror="this.onerror=null; this.src='/static/images/NT_036.jpg';" width="44" height="44" class="w-full h-full object-cover" alt="NT_036">
-            </button>
-
-            <button type="button" onclick="selectCatwalkPatternByCode('NT_011')" class="catwalk-pat-btn w-11 h-11 rounded-xl border border-slate-200 overflow-hidden flex-shrink-0 transition hover:scale-105" title="NT_011">
-              <img src="/static/images/mini/NT_011.webp" onerror="this.onerror=null; this.src='/static/images/NT_011.jpg';" width="44" height="44" class="w-full h-full object-cover" alt="NT_011">
-            </button>
-
-            <button type="button" onclick="selectCatwalkPatternByCode('NT_015')" class="catwalk-pat-btn w-11 h-11 rounded-xl border border-slate-200 overflow-hidden flex-shrink-0 transition hover:scale-105" title="NT_015">
-              <img src="/static/images/mini/NT_015.webp" onerror="this.onerror=null; this.src='/static/images/NT_015.jpg';" width="44" height="44" class="w-full h-full object-cover" alt="NT_015">
-            </button>
-
-            <button type="button" onclick="selectCatwalkPatternByCode('NT_001')" class="catwalk-pat-btn w-11 h-11 rounded-xl border border-slate-200 overflow-hidden flex-shrink-0 transition hover:scale-105" title="NT_001">
-              <img src="/static/images/mini/NT_001.webp" onerror="this.onerror=null; this.src='/static/images/NT_001.jpg';" width="44" height="44" class="w-full h-full object-cover" alt="NT_001">
-            </button>
-          </div>
-        </div>
-
-      </div>
-
-    </div>
-
-  </div>
-</section>
-
-<!-- SEAMLESS PATTERN CATALOG & LIVE TRIAL SECTION WITH EXACT 5 CATEGORIES -->
-<section class="py-12 bg-white">
-  <div class="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
-    
-    <!-- Header -->
-    <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
-      <div>
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 text-xs font-bold mb-2">
-          <i data-lucide="layers" class="w-3.5 h-3.5 text-emerald-600"></i>
-          <span>DESEN KOLEKSİYONU & CANLI DENEME</span>
-        </div>
-        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 font-serif-title">
-          Dikişsiz Desen Arşivi
-        </h2>
-        <p class="text-xs sm:text-sm text-slate-500 mt-1">
-          Aşağıdaki herhangi bir desene tıklayın; yukarıdaki sabit canlı modelin üzerinde anında güncellensin.
-        </p>
-      </div>
-
-      <!-- EXACT 5 CATEGORY FILTER TABS -->
-      <div class="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar text-xs font-bold">
-        <button type="button" onclick="filterPatterns('all')" id="tab-all" class="cat-filter-btn px-4 py-2 rounded-xl bg-slate-900 text-white shadow-xs transition">
-          Tümü (74)
-        </button>
-        <button type="button" onclick="filterPatterns('cicekli-botanik')" id="tab-cicekli-botanik" class="cat-filter-btn px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 transition">
-          1 ÇİÇEKLİ & BOTANİK
-        </button>
-        <button type="button" onclick="filterPatterns('barok-saray')" id="tab-barok-saray" class="cat-filter-btn px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 transition">
-          2 BAROK & SARAY
-        </button>
-        <button type="button" onclick="filterPatterns('geometrik')" id="tab-geometrik" class="cat-filter-btn px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 transition">
-          3 GEOMETRİK
-        </button>
-        <button type="button" onclick="filterPatterns('dokular-fircalar')" id="tab-dokular-fircalar" class="cat-filter-btn px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 transition">
-          4 DOKULAR - FIRÇALAR
-        </button>
-        <button type="button" onclick="filterPatterns('vintage-etnik')" id="tab-vintage-etnik" class="cat-filter-btn px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 transition">
-          5 VİNTAGE & ETNİK
-        </button>
-      </div>
-    </div>
-
-    <!-- Pattern Cards Grid -->
-    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4" id="patternGrid">
-      {% for p in products %}
-      <div class="pattern-card bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-xs hover:shadow-lg transition group relative" data-category="{{ p.category }}">
-        <div class="aspect-square w-full bg-slate-100 overflow-hidden relative">
-          <img src="/static/images/thumbs/{{ p.code }}.webp" onerror="this.onerror=null; this.src='{{ p.image }}';" loading="lazy" decoding="async" width="400" height="400" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="{{ p.title }}">
-          
-          <button type="button" onclick="selectCatwalkPatternByCode('{{ p.code }}', '{{ p.title|e }}', '{{ p.image }}')" class="absolute inset-0 bg-slate-950/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center gap-1.5 text-white text-xs font-bold backdrop-blur-xs">
-            <i data-lucide="eye" class="w-4 h-4 text-emerald-400"></i>
-            <span>Modelde Gör</span>
+        <!-- 5 CATEGORY FILTER TABS -->
+        <div class="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar text-xs font-bold">
+          <button type="button" onclick="filterPatterns('all')" id="tab-all" class="cat-filter-btn px-3.5 py-2 rounded-xl bg-slate-900 text-white shadow-xs transition flex-shrink-0">
+            Tümü (74)
           </button>
-
-          <span class="absolute top-2 left-2 px-2 py-0.5 bg-slate-900/80 text-white font-mono font-bold text-[9px] rounded backdrop-blur-xs">
-            {{ p.code }}
-          </span>
+          <button type="button" onclick="filterPatterns('cicekli-botanik')" id="tab-cicekli-botanik" class="cat-filter-btn px-3 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 transition flex-shrink-0">
+            1 ÇİÇEKLİ & BOTANİK
+          </button>
+          <button type="button" onclick="filterPatterns('barok-saray')" id="tab-barok-saray" class="cat-filter-btn px-3 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 transition flex-shrink-0">
+            2 BAROK & SARAY
+          </button>
+          <button type="button" onclick="filterPatterns('geometrik')" id="tab-geometrik" class="cat-filter-btn px-3 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 transition flex-shrink-0">
+            3 GEOMETRİK
+          </button>
+          <button type="button" onclick="filterPatterns('dokular-fircalar')" id="tab-dokular-fircalar" class="cat-filter-btn px-3 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 transition flex-shrink-0">
+            4 DOKULAR - FIRÇALAR
+          </button>
+          <button type="button" onclick="filterPatterns('vintage-etnik')" id="tab-vintage-etnik" class="cat-filter-btn px-3 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 transition flex-shrink-0">
+            5 VİNTAGE & ETNİK
+          </button>
         </div>
 
-        <div class="p-3 space-y-1">
-          <h4 class="text-xs font-bold text-slate-900 line-clamp-1 group-hover:text-emerald-700 transition">{{ p.title }}</h4>
-          <div class="flex items-center justify-between text-[10px] text-slate-500">
-            <span>{{ p.base_price }} TL/mt</span>
-            <span class="text-amber-500 font-bold">★ {{ p.rating }}</span>
+        <!-- Pattern Cards Grid (3 Columns on Desktop) -->
+        <div class="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-3 gap-3.5 max-h-[720px] overflow-y-auto pr-1" id="patternGrid">
+          {% for p in products %}
+          <div class="pattern-card bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-2xs hover:shadow-md transition group relative cursor-pointer" data-category="{{ p.category }}" onclick="selectCatwalkPatternByCode('{{ p.code }}', '{{ p.title|e }}', '{{ p.image }}')">
+            <div class="aspect-square w-full bg-slate-100 overflow-hidden relative">
+              <img src="/static/images/thumbs/{{ p.code }}.webp" onerror="this.onerror=null; this.src='{{ p.image }}';" loading="lazy" decoding="async" width="300" height="300" class="w-full h-full object-cover group-hover:scale-105 transition duration-300" alt="{{ p.title }}">
+              
+              <div class="absolute inset-0 bg-slate-950/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center gap-1.5 text-white text-xs font-bold backdrop-blur-xs">
+                <i data-lucide="eye" class="w-4 h-4 text-emerald-400"></i>
+                <span>Modelde Gör</span>
+              </div>
+
+              <span class="absolute top-2 left-2 px-2 py-0.5 bg-slate-900/80 text-white font-mono font-bold text-[9px] rounded backdrop-blur-xs">
+                {{ p.code }}
+              </span>
+            </div>
+
+            <div class="p-2.5 space-y-1">
+              <h4 class="text-xs font-bold text-slate-900 line-clamp-1 group-hover:text-emerald-700 transition">{{ p.title }}</h4>
+              <div class="flex items-center justify-between text-[10px] text-slate-500">
+                <span>{{ p.base_price }} TL/mt</span>
+                <span class="text-amber-500 font-bold">★ {{ p.rating }}</span>
+              </div>
+            </div>
           </div>
+          {% endfor %}
         </div>
+
       </div>
-      {% endfor %}
+
     </div>
 
   </div>
