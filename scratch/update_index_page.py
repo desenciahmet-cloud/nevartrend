@@ -1,4 +1,6 @@
-{% extends "base.html" %}
+import os
+
+index_content = '''{% extends "base.html" %}
 {% block title %}Nevartrend by Trenddesen | Beğendiğin desene dokun, model üzerine gör{% endblock %}
 
 {% block content %}
@@ -409,3 +411,12 @@
 })();
 </script>
 {% endblock %}
+'''
+
+with open('index.html', 'w', encoding='utf-8') as f:
+    f.write(index_content)
+
+with open('templates/index.html', 'w', encoding='utf-8') as f:
+    f.write(index_content)
+
+print("Updated index.html and templates/index.html successfully!")
