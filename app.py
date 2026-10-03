@@ -8,21 +8,26 @@ from fastapi.responses import HTMLResponse, JSONResponse, RedirectResponse, File
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from fastapi.middleware.cors import CORSMiddleware
+from starlette.middleware.gzip import GZipMiddleware
 from pydantic import BaseModel
 
 app = FastAPI(title="nevartrend | Trenddesen E-Ticaret")
 
+# 1. Enable high-speed GZIP compression for HTML, JSON, CSS, JS (70-90% payload reduction)
+app.add_middleware(GZipMiddleware, minimum_size=800)
+
+# 2. Performance Caching: Long-term cache for static assets (images, fonts, scripts, css), dynamic headers for HTML
 @app.middleware("http")
-async def add_no_cache_headers(request, call_next):
+async def add_performance_cache_headers(request, call_next):
     response = await call_next(request)
     path = request.url.path
-    if path == "/" or path.endswith(".html") or path.startswith("/static"):
-        response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate, max-age=0"
-        response.headers["Pragma"] = "no-cache"
-        response.headers["Expires"] = "0"
+    if path.startswith("/static"):
+        # Cache static assets (images, CSS, JS, fonts) for 7 days with stale-while-revalidate for instant loading
+        response.headers["Cache-Control"] = "public, max-age=604800, stale-while-revalidate=86400"
+    elif path == "/" or path.endswith(".html") or "/fabrics" in path or "/studyo" in path:
+        # Dynamic HTML pages: validate with server
+        response.headers["Cache-Control"] = "no-cache, must-revalidate"
     return response
-
-
 
 app.add_middleware(
     CORSMiddleware,

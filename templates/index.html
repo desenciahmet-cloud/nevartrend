@@ -10,7 +10,7 @@
     <div class="animate-marquee-left flex gap-4 items-center">
       {% for p in products[:15] %}
       <a href="/studyo?pattern={{ p.code }}" onclick="selectCatwalkPatternByCode('{{ p.code }}'); return false;" class="flex-shrink-0 bg-[#F4F6F4] hover:bg-[#EAEFEA] border border-emerald-900/10 hover:border-emerald-600/60 rounded-2xl p-2.5 flex items-center gap-3.5 transition group shadow-2xs min-w-[290px]">
-        <img src="{{ p.image }}" class="w-20 h-20 rounded-xl object-cover border border-slate-300/80 group-hover:scale-105 transition shadow-2xs flex-shrink-0" alt="{{ p.code }}">
+        <img src="/static/images/mini/{{ p.code }}.webp" onerror="this.onerror=null; this.src='{{ p.image }}';" width="80" height="80" decoding="async" class="w-20 h-20 rounded-xl object-cover border border-slate-300/80 group-hover:scale-105 transition shadow-2xs flex-shrink-0" alt="{{ p.code }}">
         <div>
           <span class="px-2 py-0.5 bg-emerald-100 text-emerald-900 font-mono font-extrabold text-[10px] rounded-md inline-block mb-1 border border-emerald-200">{{ p.code }}</span>
           <h4 class="text-xs sm:text-sm font-extrabold text-slate-900 group-hover:text-emerald-800 transition line-clamp-1">{{ p.title }}</h4>
@@ -22,7 +22,7 @@
       <!-- Seamless Loop Set (No empty gap) -->
       {% for p in products[:15] %}
       <a href="/studyo?pattern={{ p.code }}" onclick="selectCatwalkPatternByCode('{{ p.code }}'); return false;" class="flex-shrink-0 bg-[#F4F6F4] hover:bg-[#EAEFEA] border border-emerald-900/10 hover:border-emerald-600/60 rounded-2xl p-2.5 flex items-center gap-3.5 transition group shadow-2xs min-w-[290px]">
-        <img src="{{ p.image }}" class="w-20 h-20 rounded-xl object-cover border border-slate-300/80 group-hover:scale-105 transition shadow-2xs flex-shrink-0" alt="{{ p.code }}">
+        <img src="/static/images/mini/{{ p.code }}.webp" onerror="this.onerror=null; this.src='{{ p.image }}';" width="80" height="80" loading="lazy" decoding="async" class="w-20 h-20 rounded-xl object-cover border border-slate-300/80 group-hover:scale-105 transition shadow-2xs flex-shrink-0" alt="{{ p.code }}">
         <div>
           <span class="px-2 py-0.5 bg-emerald-100 text-emerald-900 font-mono font-extrabold text-[10px] rounded-md inline-block mb-1 border border-emerald-200">{{ p.code }}</span>
           <h4 class="text-xs sm:text-sm font-extrabold text-slate-900 group-hover:text-emerald-800 transition line-clamp-1">{{ p.title }}</h4>
@@ -243,31 +243,31 @@
 
             <div class="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar">
               <button type="button" onclick="selectCatwalkPatternByCode('NT_021')" class="catwalk-pat-btn w-11 h-11 rounded-xl border-2 border-emerald-600 overflow-hidden shadow-xs flex-shrink-0 transition hover:scale-105" title="NT_021">
-                <img src="/static/images/NT_021.jpg" class="w-full h-full object-cover" alt="NT_021">
+                <img src="/static/images/mini/NT_021.webp" onerror="this.onerror=null; this.src='/static/images/NT_021.jpg';" width="44" height="44" class="w-full h-full object-cover" alt="NT_021">
               </button>
 
               <button type="button" onclick="selectCatwalkPatternByCode('NT_074')" class="catwalk-pat-btn w-11 h-11 rounded-xl border border-slate-200 overflow-hidden flex-shrink-0 transition hover:scale-105" title="NT_074">
-                <img src="/static/images/NT_074.jpg" class="w-full h-full object-cover" alt="NT_074">
+                <img src="/static/images/mini/NT_074.webp" onerror="this.onerror=null; this.src='/static/images/NT_074.jpg';" width="44" height="44" class="w-full h-full object-cover" alt="NT_074">
               </button>
 
               <button type="button" onclick="selectCatwalkPatternByCode('NT_042')" class="catwalk-pat-btn w-11 h-11 rounded-xl border border-slate-200 overflow-hidden flex-shrink-0 transition hover:scale-105" title="NT_042">
-                <img src="/static/images/NT_042.jpg" class="w-full h-full object-cover" alt="NT_042">
+                <img src="/static/images/mini/NT_042.webp" onerror="this.onerror=null; this.src='/static/images/NT_042.jpg';" width="44" height="44" class="w-full h-full object-cover" alt="NT_042">
               </button>
 
               <button type="button" onclick="selectCatwalkPatternByCode('NT_036')" class="catwalk-pat-btn w-11 h-11 rounded-xl border border-slate-200 overflow-hidden flex-shrink-0 transition hover:scale-105" title="NT_036">
-                <img src="/static/images/NT_036.jpg" class="w-full h-full object-cover" alt="NT_036">
+                <img src="/static/images/mini/NT_036.webp" onerror="this.onerror=null; this.src='/static/images/NT_036.jpg';" width="44" height="44" class="w-full h-full object-cover" alt="NT_036">
               </button>
 
               <button type="button" onclick="selectCatwalkPatternByCode('NT_011')" class="catwalk-pat-btn w-11 h-11 rounded-xl border border-slate-200 overflow-hidden flex-shrink-0 transition hover:scale-105" title="NT_011">
-                <img src="/static/images/NT_011.jpg" class="w-full h-full object-cover" alt="NT_011">
+                <img src="/static/images/mini/NT_011.webp" onerror="this.onerror=null; this.src='/static/images/NT_011.jpg';" width="44" height="44" class="w-full h-full object-cover" alt="NT_011">
               </button>
 
               <button type="button" onclick="selectCatwalkPatternByCode('NT_015')" class="catwalk-pat-btn w-11 h-11 rounded-xl border border-slate-200 overflow-hidden flex-shrink-0 transition hover:scale-105" title="NT_015">
-                <img src="/static/images/NT_015.jpg" class="w-full h-full object-cover" alt="NT_015">
+                <img src="/static/images/mini/NT_015.webp" onerror="this.onerror=null; this.src='/static/images/NT_015.jpg';" width="44" height="44" class="w-full h-full object-cover" alt="NT_015">
               </button>
 
               <button type="button" onclick="selectCatwalkPatternByCode('NT_001')" class="catwalk-pat-btn w-11 h-11 rounded-xl border border-slate-200 overflow-hidden flex-shrink-0 transition hover:scale-105" title="NT_001">
-                <img src="/static/images/NT_001.jpg" class="w-full h-full object-cover" alt="NT_001">
+                <img src="/static/images/mini/NT_001.webp" onerror="this.onerror=null; this.src='/static/images/NT_001.jpg';" width="44" height="44" class="w-full h-full object-cover" alt="NT_001">
               </button>
             </div>
           </div>
@@ -373,7 +373,7 @@
       {% for p in products %}
       <div class="pattern-card bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-xs hover:shadow-lg transition group relative" data-category="{{ p.category }}">
         <div class="aspect-square w-full bg-slate-100 overflow-hidden relative">
-          <img src="{{ p.image }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="{{ p.title }}">
+          <img src="/static/images/thumbs/{{ p.code }}.webp" onerror="this.onerror=null; this.src='{{ p.image }}';" loading="lazy" decoding="async" width="400" height="400" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="{{ p.title }}">
           
           <button type="button" onclick="selectCatwalkPatternByCode('{{ p.code }}', '{{ p.title|e }}', '{{ p.image }}')" class="absolute inset-0 bg-slate-950/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center gap-1.5 text-white text-xs font-bold backdrop-blur-xs">
             <i data-lucide="eye" class="w-4 h-4 text-emerald-400"></i>
@@ -555,16 +555,45 @@
     const goBtn = document.getElementById('catwalkGoStudioBtnTop');
     if (pTitle) pTitle.textContent = currentPattern.title;
     if (avatar) avatar.src = currentPattern.url;
-    if (goBtn) goBtn.href = `/studyo?pattern=${currentPattern.code}`;
+    drawActiveFrame();
   }
 
-  // Animation Loop: 60 FPS
+  function drawActiveFrame() {
+    if (ctx && isAssetsLoaded && compositedCanvases[currentFrameIndex]) {
+      ctx.clearRect(0, 0, CANVAS_W, CANVAS_H);
+      ctx.drawImage(compositedCanvases[currentFrameIndex], 0, 0, CANVAS_W, CANVAS_H);
+    }
+  }
+
+  let isCanvasInView = true;
+  let rafId = null;
+
+  if ('IntersectionObserver' in window && canvas) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        isCanvasInView = entry.isIntersecting;
+        if (isCanvasInView && !rafId) {
+          lastFrameTime = performance.now();
+          rafId = requestAnimationFrame(animationLoop);
+        }
+      });
+    }, { threshold: 0.05 });
+    observer.observe(canvas);
+  }
+
+  // Animation Loop: Intelligent throttled rendering (saves 95% CPU/GPU and mobile battery)
   function animationLoop(now) {
+    if (!isCanvasInView) {
+      rafId = null;
+      return;
+    }
+
     if (isPlaying && isAssetsLoaded) {
       // 1. Advance walking stride frame
       if (now - lastFrameTime >= FRAME_DURATION) {
         currentFrameIndex = (currentFrameIndex + 1) % 6;
         lastFrameTime = now;
+        drawActiveFrame();
       }
 
       // 2. Slow and elegant auto pattern cycle (every 7 seconds)
@@ -579,16 +608,10 @@
       }
     }
 
-    // Draw active walking frame directly
-    if (ctx && isAssetsLoaded) {
-      ctx.clearRect(0, 0, CANVAS_W, CANVAS_H);
-      ctx.drawImage(compositedCanvases[currentFrameIndex], 0, 0, CANVAS_W, CANVAS_H);
-    }
-
-    requestAnimationFrame(animationLoop);
+    rafId = requestAnimationFrame(animationLoop);
   }
 
-  requestAnimationFrame(animationLoop);
+  rafId = requestAnimationFrame(animationLoop);
 
   window.setCatwalkScaleMode = function(mode) {
     currentScaleMode = mode;

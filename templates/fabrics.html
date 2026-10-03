@@ -109,7 +109,7 @@
           
           <!-- Image Container -->
           <div class="relative pattern-zoom-container bg-slate-100 aspect-square">
-            <img src="{{ product.image }}" alt="{{ product.title }}" class="w-full h-full object-cover">
+            <img src="/static/images/thumbs/{{ product.code }}.webp" onerror="this.onerror=null; this.src='{{ product.image }}';" alt="{{ product.title }}" loading="lazy" decoding="async" width="400" height="400" class="w-full h-full object-cover">
             
             <div class="absolute top-3 left-3 flex flex-col gap-1.5 z-10">
               {% if product.is_new %}
@@ -214,7 +214,7 @@
           <!-- Live Bottom Overlay Bar inside Stage -->
           <div class="absolute bottom-3 left-3 right-3 z-20 bg-slate-950/85 backdrop-blur-md p-2.5 rounded-xl border border-white/10 flex items-center justify-between text-white shadow-lg">
             <div class="flex items-center gap-2.5 truncate">
-              <img id="catwalkAvatarThumb" src="/static/images/NT_021.jpg" class="w-9 h-9 rounded-lg object-cover border border-white/20 flex-shrink-0" alt="Desen Avatar">
+              <img id="catwalkAvatarThumb" src="/static/images/mini/NT_021.webp" onerror="this.onerror=null; this.src='/static/images/NT_021.jpg';" width="36" height="36" class="w-9 h-9 rounded-lg object-cover border border-white/20 flex-shrink-0" alt="Desen Avatar">
               <div class="truncate">
                 <span id="catwalkPatternTitle" class="text-xs font-bold text-white block truncate">NT_021 • Krem Zemin Pastel Bordo Çiçek Bahçesi</span>
                 <span class="text-[10px] text-slate-300 block">Canlı Drapaj Projeksiyonu</span>
@@ -237,7 +237,7 @@
           <div class="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar">
             {% for p in products[:8] %}
             <button type="button" onclick="selectCatwalkPatternByCode('{{ p.code }}')" class="catwalk-pat-btn w-10 h-10 rounded-xl border border-slate-200 overflow-hidden flex-shrink-0 transition hover:scale-105 hover:border-emerald-600" title="{{ p.code }}">
-              <img src="{{ p.image }}" class="w-full h-full object-cover" alt="{{ p.code }}">
+              <img src="/static/images/mini/{{ p.code }}.webp" onerror="this.onerror=null; this.src='{{ p.image }}';" width="40" height="40" class="w-full h-full object-cover" alt="{{ p.code }}">
             </button>
             {% endfor %}
           </div>
@@ -393,16 +393,44 @@
     const avatar = document.getElementById('catwalkAvatarThumb');
     const goBtn = document.getElementById('catwalkGoStudioBtnTop');
     if (pTitle) pTitle.textContent = currentPattern.title;
-    if (avatar) avatar.src = currentPattern.url;
-    if (goBtn) goBtn.href = `/studyo?pattern=${currentPattern.code}`;
+    drawActiveFrame();
   }
 
-  // Animation Loop: 60 FPS
+  function drawActiveFrame() {
+    if (ctx && isAssetsLoaded && compositedCanvases[currentFrameIndex]) {
+      ctx.clearRect(0, 0, CANVAS_W, CANVAS_H);
+      ctx.drawImage(compositedCanvases[currentFrameIndex], 0, 0, CANVAS_W, CANVAS_H);
+    }
+  }
+
+  let isCanvasInView = true;
+  let rafId = null;
+
+  if ('IntersectionObserver' in window && canvas) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        isCanvasInView = entry.isIntersecting;
+        if (isCanvasInView && !rafId) {
+          lastFrameTime = performance.now();
+          rafId = requestAnimationFrame(animationLoop);
+        }
+      });
+    }, { threshold: 0.05 });
+    observer.observe(canvas);
+  }
+
+  // Animation Loop: Intelligent throttled rendering
   function animationLoop(now) {
+    if (!isCanvasInView) {
+      rafId = null;
+      return;
+    }
+
     if (isPlaying && isAssetsLoaded) {
       if (now - lastFrameTime >= FRAME_DURATION) {
         currentFrameIndex = (currentFrameIndex + 1) % 6;
         lastFrameTime = now;
+        drawActiveFrame();
       }
 
       if (now - lastPatternSwitchTime >= PATTERN_CHANGE_INTERVAL) {
@@ -416,15 +444,10 @@
       }
     }
 
-    if (ctx && isAssetsLoaded) {
-      ctx.clearRect(0, 0, CANVAS_W, CANVAS_H);
-      ctx.drawImage(compositedCanvases[currentFrameIndex], 0, 0, CANVAS_W, CANVAS_H);
-    }
-
-    requestAnimationFrame(animationLoop);
+    rafId = requestAnimationFrame(animationLoop);
   }
 
-  requestAnimationFrame(animationLoop);
+  rafId = requestAnimationFrame(animationLoop);
 
   window.selectCatwalkPatternByCode = function(code, title, url) {
     if (!patternsDict[code]) {

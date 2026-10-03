@@ -457,7 +457,8 @@ document.addEventListener('DOMContentLoaded', function() {
       const btn = document.createElement('button');
       btn.type = 'button';
       btn.className = `w-full aspect-square rounded-xl border-2 overflow-hidden relative swatch-btn transition-all duration-200 ${isSelected ? 'border-emerald-600 ring-2 ring-emerald-400/50 shadow-md scale-95' : 'border-slate-200 hover:border-slate-400 hover:scale-105'}`;
-      btn.innerHTML = `<img src="${p.url}" class="w-full h-full object-cover" alt="${p.name}" loading="lazy">`;
+      const miniThumb = p.code ? `/static/images/mini/${p.code}.webp` : p.url;
+      btn.innerHTML = `<img src="${miniThumb}" onerror="this.onerror=null; this.src='${p.url}';" class="w-full h-full object-cover" alt="${p.name}" loading="lazy" decoding="async">`;
       btn.title = `${p.code} - ${p.name}`;
       btn.addEventListener('click', () => {
         document.querySelectorAll('.swatch-btn').forEach(b => {
