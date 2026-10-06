@@ -33,7 +33,7 @@
     <div class="flex items-center justify-between">
       <div>
         <h2 class="font-serif-title text-2xl font-bold text-slate-900">Mevcut Kumaş Kartelamız</h2>
-        <p class="text-xs text-slate-500 mt-1">Metraj dijital ve emprime baskı için hazır 7 özel kumaş türü</p>
+        <p class="text-xs text-slate-500 mt-1">Metraj dijital ve emprime baskı için hazır {{ fabrics|length }} özel kumaş türü</p>
       </div>
       <span class="text-xs font-semibold px-3 py-1 bg-slate-100 text-slate-700 rounded-full border border-slate-200">
         {{ fabrics|length }} Kumaş Çeşidi
@@ -47,7 +47,7 @@
           <!-- Fabric Image Thumbnail -->
           {% if f.image %}
           <div class="h-44 w-full bg-slate-100 overflow-hidden relative border-b border-slate-100">
-            <img src="{{ f.image }}" alt="{{ f.name }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+            <img src="{{ f.image }}" alt="{{ f.name }}" onerror="this.onerror=null; this.src='/static/images/fabrics/queen-krep-112.jpg';" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
             <span class="absolute top-3 left-3 px-2.5 py-1 bg-slate-950/80 backdrop-blur-md text-white text-[10px] font-extrabold rounded-lg border border-white/10">
               {{ f.badge }}
             </span>
