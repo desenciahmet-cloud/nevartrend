@@ -15,7 +15,9 @@
     ],
     "badge": "Hafif & Şeffaf",
     "texture_feel": "Pürüzlü & Hafif",
-    "shrinkage": "%0"
+    "shrinkage": "%0",
+    "image": "/static/images/fabrics/penang-75.jpg",
+    "image_webp": "/static/images/fabrics/penang-75.webp"
   },
   {
     "id": "multi-sifon-75",
@@ -33,7 +35,9 @@
     ],
     "badge": "Popüler",
     "texture_feel": "Dökümlü & İnce",
-    "shrinkage": "%0"
+    "shrinkage": "%0",
+    "image": "/static/images/fabrics/multi-sifon-75.jpg",
+    "image_webp": "/static/images/fabrics/multi-sifon-75.webp"
   },
   {
     "id": "queen-krep-112",
@@ -51,7 +55,9 @@
     ],
     "badge": "Lüks Krep",
     "texture_feel": "Pürüzlü & Dökümlü",
-    "shrinkage": "%0"
+    "shrinkage": "%0",
+    "image": "/static/images/fabrics/queen-krep-112.jpg",
+    "image_webp": "/static/images/fabrics/queen-krep-112.webp"
   },
   {
     "id": "cassandra-120",
@@ -69,7 +75,9 @@
     ],
     "badge": "Dokulu Seri",
     "texture_feel": "Belirgin Dokulu",
-    "shrinkage": "%0"
+    "shrinkage": "%0",
+    "image": "/static/images/fabrics/cassandra-120.jpg",
+    "image_webp": "/static/images/fabrics/cassandra-120.webp"
   },
   {
     "id": "charmus-saten-88",
@@ -87,7 +95,9 @@
     ],
     "badge": "Parlak Saten",
     "texture_feel": "Düz & Pürüzsüz",
-    "shrinkage": "%0"
+    "shrinkage": "%0",
+    "image": "/static/images/fabrics/charmus-saten-88.jpg",
+    "image_webp": "/static/images/fabrics/charmus-saten-88.webp"
   },
   {
     "id": "cupra-saten-85",
@@ -105,7 +115,9 @@
     ],
     "badge": "İpeksi Tuşe",
     "texture_feel": "Parlak & İpeksi",
-    "shrinkage": "%0"
+    "shrinkage": "%0",
+    "image": "/static/images/fabrics/cupra-saten-85.jpg",
+    "image_webp": "/static/images/fabrics/cupra-saten-85.webp"
   },
   {
     "id": "yoryo-saten-90",
@@ -123,7 +135,9 @@
     ],
     "badge": "Buruşuk Efekt",
     "texture_feel": "Buruşuk İmajlı & Gevşek",
-    "shrinkage": "%0"
+    "shrinkage": "%0",
+    "image": "/static/images/fabrics/yoryo-saten-90.jpg",
+    "image_webp": "/static/images/fabrics/yoryo-saten-90.webp"
   },
   {
     "id": "channel-saten-120",
@@ -141,7 +155,9 @@
     ],
     "badge": "Tok Saten",
     "texture_feel": "Hafif Pürüzlü & Tok",
-    "shrinkage": "%0"
+    "shrinkage": "%0",
+    "image": "/static/images/fabrics/channel-saten-120.jpg",
+    "image_webp": "/static/images/fabrics/channel-saten-120.webp"
   },
   {
     "id": "bubbly-girl-115",
@@ -159,7 +175,9 @@
     ],
     "badge": "Tırtıklı Doku",
     "texture_feel": "Tırtıklı & Özel Doku",
-    "shrinkage": "%0"
+    "shrinkage": "%0",
+    "image": "/static/images/fabrics/bubbly-girl-115.jpg",
+    "image_webp": "/static/images/fabrics/bubbly-girl-115.webp"
   },
   {
     "id": "zara-saten-160",
@@ -177,7 +195,9 @@
     ],
     "badge": "Damarlı Lüks Saten",
     "texture_feel": "Amorf Damarlı Doku",
-    "shrinkage": "%0"
+    "shrinkage": "%0",
+    "image": "/static/images/fabrics/zara-saten-160.jpg",
+    "image_webp": "/static/images/fabrics/zara-saten-160.webp"
   },
   {
     "id": "luna-65",
@@ -195,7 +215,9 @@
     ],
     "badge": "Bürümcük Dokulu",
     "texture_feel": "Gevşek & Şeffaf",
-    "shrinkage": "%0"
+    "shrinkage": "%0",
+    "image": "/static/images/fabrics/luna-65.jpg",
+    "image_webp": "/static/images/fabrics/luna-65.webp"
   },
   {
     "id": "soft-skin-115",
@@ -213,7 +235,9 @@
     ],
     "badge": "Yumuşak Tuşe",
     "texture_feel": "Düz & İpeksi",
-    "shrinkage": "%0"
+    "shrinkage": "%0",
+    "image": "/static/images/fabrics/soft-skin-115.jpg",
+    "image_webp": "/static/images/fabrics/soft-skin-115.webp"
   },
   {
     "id": "sifon-30-denye",
@@ -231,7 +255,9 @@
     ],
     "badge": "Ultra İnce",
     "texture_feel": "Çok İnce & Şeffaf",
-    "shrinkage": "%0"
+    "shrinkage": "%0",
+    "image": "/static/images/fabrics/sifon-30-denye.jpg",
+    "image_webp": "/static/images/fabrics/sifon-30-denye.webp"
   },
   {
     "id": "fransiz-kadife-240",
@@ -250,7 +276,9 @@
     ],
     "badge": "Geniş En & Lüks Kadife",
     "texture_feel": "Yumuşak & Ağır Kadife",
-    "shrinkage": "%0"
+    "shrinkage": "%0",
+    "image": "/static/images/fabrics/fransiz-kadife-240.jpg",
+    "image_webp": "/static/images/fabrics/fransiz-kadife-240.webp"
   },
   {
     "id": "polyester-keten-145",
@@ -268,7 +296,9 @@
     ],
     "badge": "Doğal Kırçıllı",
     "texture_feel": "Keten Dokulu",
-    "shrinkage": "%1"
+    "shrinkage": "%1",
+    "image": "/static/images/fabrics/polyester-keten-145.jpg",
+    "image_webp": "/static/images/fabrics/polyester-keten-145.webp"
   },
   {
     "id": "poly-poplin-likra-108",
@@ -286,7 +316,9 @@
     ],
     "badge": "Esnek Poplin",
     "texture_feel": "Hafif Esnek & Kutnu Tuşeli",
-    "shrinkage": "%1"
+    "shrinkage": "%1",
+    "image": "/static/images/fabrics/poly-poplin-likra-108.jpg",
+    "image_webp": "/static/images/fabrics/poly-poplin-likra-108.webp"
   },
   {
     "id": "shows-mango-saten-155",
@@ -304,7 +336,9 @@
     ],
     "badge": "Mango Saten",
     "texture_feel": "Parlak & Pürüzsüz",
-    "shrinkage": "%0"
+    "shrinkage": "%0",
+    "image": "/static/images/fabrics/shows-mango-saten-155.jpg",
+    "image_webp": "/static/images/fabrics/shows-mango-saten-155.webp"
   },
   {
     "id": "saten-30-denye-50",
@@ -322,7 +356,9 @@
     ],
     "badge": "İnce Saten Astar",
     "texture_feel": "Çok İnce & Şeffaf Saten",
-    "shrinkage": "%0"
+    "shrinkage": "%0",
+    "image": "/static/images/fabrics/saten-30-denye-50.jpg",
+    "image_webp": "/static/images/fabrics/saten-30-denye-50.webp"
   },
   {
     "id": "lycra-saten-cdc-85",
@@ -340,7 +376,9 @@
     ],
     "badge": "Likralı CDC",
     "texture_feel": "Parlak & Hafif Likralı",
-    "shrinkage": "%0"
+    "shrinkage": "%0",
+    "image": "/static/images/fabrics/lycra-saten-cdc-85.jpg",
+    "image_webp": "/static/images/fabrics/lycra-saten-cdc-85.webp"
   },
   {
     "id": "miracle-72",
@@ -358,7 +396,9 @@
     ],
     "badge": "Mat & Esnek",
     "texture_feel": "Mat & Pürüzsüz",
-    "shrinkage": "%0"
+    "shrinkage": "%0",
+    "image": "/static/images/fabrics/miracle-72.jpg",
+    "image_webp": "/static/images/fabrics/miracle-72.webp"
   },
   {
     "id": "jessica-saten-120",
@@ -376,7 +416,9 @@
     ],
     "badge": "Mat Jessica",
     "texture_feel": "Mat Saten & Likralı",
-    "shrinkage": "%0"
+    "shrinkage": "%0",
+    "image": "/static/images/fabrics/jessica-saten-120.jpg",
+    "image_webp": "/static/images/fabrics/jessica-saten-120.webp"
   },
   {
     "id": "dubai-jessica-130",
@@ -394,7 +436,9 @@
     ],
     "badge": "Dubai Serisi",
     "texture_feel": "Mat & Hafif Pürüzlü",
-    "shrinkage": "%0"
+    "shrinkage": "%0",
+    "image": "/static/images/fabrics/dubai-jessica-130.jpg",
+    "image_webp": "/static/images/fabrics/dubai-jessica-130.webp"
   },
   {
     "id": "full-mat-likra-saten-95",
@@ -412,7 +456,9 @@
     ],
     "badge": "190 cm Dev En",
     "texture_feel": "Full Mat & Transparan",
-    "shrinkage": "%0"
+    "shrinkage": "%0",
+    "image": "/static/images/fabrics/full-mat-likra-saten-95.jpg",
+    "image_webp": "/static/images/fabrics/full-mat-likra-saten-95.webp"
   },
   {
     "id": "mat-likra-saten-95",
@@ -430,7 +476,9 @@
     ],
     "badge": "190 cm Dev En",
     "texture_feel": "Mat Saten & Likralı",
-    "shrinkage": "%0"
+    "shrinkage": "%0",
+    "image": "/static/images/fabrics/mat-likra-saten-95.jpg",
+    "image_webp": "/static/images/fabrics/mat-likra-saten-95.webp"
   },
   {
     "id": "parlak-likra-saten-95",
@@ -448,6 +496,8 @@
     ],
     "badge": "190 cm Dev En",
     "texture_feel": "Parlak Saten & Likralı",
-    "shrinkage": "%0"
+    "shrinkage": "%0",
+    "image": "/static/images/fabrics/parlak-likra-saten-95.jpg",
+    "image_webp": "/static/images/fabrics/parlak-likra-saten-95.webp"
   }
 ]
