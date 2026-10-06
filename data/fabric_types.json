@@ -1,128 +1,453 @@
 [
   {
-    "id": "pamuk-poplin",
-    "name": "100% Pamuk Poplin",
+    "id": "penang-75",
+    "name": "Penang 75' 150",
+    "price_per_meter": 165,
+    "width": "150 cm",
+    "weight": "75 gr/m²",
+    "composition": "%100 Mikrofiber Şifon",
+    "description": "İnce, hafif şeffaf ve pürüzlü dokumayla uçuşan zarif kumaş.",
+    "usage": [
+      "Fular & Şal",
+      "Uçuşan Elbise",
+      "Pareo",
+      "Eşarp"
+    ],
+    "badge": "Hafif & Şeffaf",
+    "texture_feel": "Pürüzlü & Hafif",
+    "shrinkage": "%0"
+  },
+  {
+    "id": "multi-sifon-75",
+    "name": "Multi Şifon 75' 150",
+    "price_per_meter": 170,
+    "width": "150 cm",
+    "weight": "75 gr/m²",
+    "composition": "%100 Polyester Şifon",
+    "description": "İnce, hafif şeffaf ve pürüzlü dokumayla dökümlü tül kumaş.",
+    "usage": [
+      "Eşarp",
+      "Bluz",
+      "Tül Detaylar",
+      "Gece Elbisesi"
+    ],
+    "badge": "Popüler",
+    "texture_feel": "Dökümlü & İnce",
+    "shrinkage": "%0"
+  },
+  {
+    "id": "queen-krep-112",
+    "name": "Queen Krep 112' 150",
+    "price_per_meter": 210,
+    "width": "150 cm",
+    "weight": "112 gr/m²",
+    "composition": "%100 Polyester Krep",
+    "description": "Hafif kalın, pürüzlü ve dökümlü lüks yüzeyli krep doku.",
+    "usage": [
+      "Abiye",
+      "Dökümlü Elbise",
+      "Tunik",
+      "Şık Bluz"
+    ],
+    "badge": "Lüks Krep",
+    "texture_feel": "Pürüzlü & Dökümlü",
+    "shrinkage": "%0"
+  },
+  {
+    "id": "cassandra-120",
+    "name": "Cassandra 120' 150",
+    "price_per_meter": 225,
+    "width": "150 cm",
+    "weight": "120 gr/m²",
+    "composition": "%100 Dokulu Polyester",
+    "description": "Kalın, pürüzlü ve belirgin dokulu zengin yüzeyli kumaş.",
+    "usage": [
+      "Ceket",
+      "Etek",
+      "Takım Elbise",
+      "Dökümlü Pantolon"
+    ],
+    "badge": "Dokulu Seri",
+    "texture_feel": "Belirgin Dokulu",
+    "shrinkage": "%0"
+  },
+  {
+    "id": "charmus-saten-88",
+    "name": "Charmus Saten 88' 150",
+    "price_per_meter": 195,
+    "width": "150 cm",
+    "weight": "88 gr/m²",
+    "composition": "%100 İpeksi Saten",
+    "description": "Düz, parlak ve son derece pürüzsüz yüzeyli saten doku.",
+    "usage": [
+      "Saten Gece Elbisesi",
+      "Pijama Takımı",
+      "Fular",
+      "Gömlek"
+    ],
+    "badge": "Parlak Saten",
+    "texture_feel": "Düz & Pürüzsüz",
+    "shrinkage": "%0"
+  },
+  {
+    "id": "cupra-saten-85",
+    "name": "Cupra Saten 85' 150",
+    "price_per_meter": 205,
+    "width": "150 cm",
+    "weight": "85 gr/m²",
+    "composition": "%100 Kupra Tuşeli Saten",
+    "description": "Düz, parlak ve ipeksi yumuşak dokumasıyla fark yaratan kumaş.",
+    "usage": [
+      "İpeksi Bluz",
+      "Gece Elbisesi",
+      "Sabahlık",
+      "Şal"
+    ],
+    "badge": "İpeksi Tuşe",
+    "texture_feel": "Parlak & İpeksi",
+    "shrinkage": "%0"
+  },
+  {
+    "id": "yoryo-saten-90",
+    "name": "Yoryo Saten 90' 150",
     "price_per_meter": 185,
-    "width": "145 cm",
-    "weight": "125 gr/m²",
-    "composition": "100% Doğal Pamuk",
-    "description": "Nefes alan, yumuşak tuşeli doğal pamuklu kumaş. Gömlek, elbise, bebek giyim ve nevresim için idealdir.",
+    "width": "150 cm",
+    "weight": "90 gr/m²",
+    "composition": "%100 Yoryo Efektli Saten",
+    "description": "Parlak, buruşuk imajlı gevşek ve dökümlü saten yüzeyli.",
+    "usage": [
+      "Trend Bluz",
+      "Dökümlü Elbise",
+      "Pareo",
+      "Şık Kimono"
+    ],
+    "badge": "Buruşuk Efekt",
+    "texture_feel": "Buruşuk İmajlı & Gevşek",
+    "shrinkage": "%0"
+  },
+  {
+    "id": "channel-saten-120",
+    "name": "Channel Saten 120' 150",
+    "price_per_meter": 230,
+    "width": "150 cm",
+    "weight": "120 gr/m²",
+    "composition": "%100 Ağır Saten",
+    "description": "Hafif pürüzlü, orta gramajlı tok saten yüzeyli.",
+    "usage": [
+      "Tok Saten Elbise",
+      "Etek",
+      "Bluz",
+      "Ceket"
+    ],
+    "badge": "Tok Saten",
+    "texture_feel": "Hafif Pürüzlü & Tok",
+    "shrinkage": "%0"
+  },
+  {
+    "id": "bubbly-girl-115",
+    "name": "Bubbly Girl 115' 150",
+    "price_per_meter": 215,
+    "width": "150 cm",
+    "weight": "115 gr/m²",
+    "composition": "%100 Kabartmalı Polyester",
+    "description": "Pürüzlü, dokunulduğunda hafif tırtıklı ve baloncuk dokulu yüzeyli.",
+    "usage": [
+      "Tasarım Elbise",
+      "Etek",
+      "Bluz",
+      "Tunik"
+    ],
+    "badge": "Tırtıklı Doku",
+    "texture_feel": "Tırtıklı & Özel Doku",
+    "shrinkage": "%0"
+  },
+  {
+    "id": "zara-saten-160",
+    "name": "Zara Saten 160' 150",
+    "price_per_meter": 260,
+    "width": "150 cm",
+    "weight": "160 gr/m²",
+    "composition": "%100 Ağır Damarlı Saten",
+    "description": "Saten yüzeyli, üzerinde ince amorf damarlı doku izleri bulunan zengin kumaş.",
+    "usage": [
+      "Lüks Abiye",
+      "Şık Etek",
+      "Ceket",
+      "Özel Tasarım Ürünler"
+    ],
+    "badge": "Damarlı Lüks Saten",
+    "texture_feel": "Amorf Damarlı Doku",
+    "shrinkage": "%0"
+  },
+  {
+    "id": "luna-65",
+    "name": "Luna 65' 150",
+    "price_per_meter": 160,
+    "width": "150 cm",
+    "weight": "65 gr/m²",
+    "composition": "%100 Bürümcük Şifon",
+    "description": "Gevşek, bürümcük kumaşı andırır ve hafif şeffaf yapılı uçuşan kumaş.",
+    "usage": [
+      "Yazlık Elbise",
+      "Plaj Kimonosu",
+      "Eşarp",
+      "Tül"
+    ],
+    "badge": "Bürümcük Dokulu",
+    "texture_feel": "Gevşek & Şeffaf",
+    "shrinkage": "%0"
+  },
+  {
+    "id": "soft-skin-115",
+    "name": "Soft Skin 115' 150",
+    "price_per_meter": 190,
+    "width": "150 cm",
+    "weight": "115 gr/m²",
+    "composition": "%100 Soft İpeksi Polyester",
+    "description": "Düz, hafif ipeksi dokumayla yumuşacık ten dostu kumaş.",
     "usage": [
       "Gömlek",
       "Elbise",
-      "Bebek Giyim",
-      "Nevresim"
+      "Astar",
+      "Pijama"
     ],
-    "badge": "En Çok Satan",
-    "texture_feel": "Yumuşak & Mat",
-    "shrinkage": "%2 - %3"
-  },
-  {
-    "id": "ipek-saten",
-    "name": "Lüks İpek Saten",
-    "price_per_meter": 290,
-    "width": "140 cm",
-    "weight": "110 gr/m²",
-    "composition": "100% İpek Tuşeli Polyester",
-    "description": "Işıltılı, pürüzsüz ve dökümlü lüks kumaş. Gece elbiseleri, fular, pijama takımları ve şık bluzlar için mükemmeldir.",
-    "usage": [
-      "Gece Elbisesi",
-      "Fular & Şal",
-      "Pijama",
-      "Bluz"
-    ],
-    "badge": "Lüks Seri",
-    "texture_feel": "Parlak & Kaygan",
+    "badge": "Yumuşak Tuşe",
+    "texture_feel": "Düz & İpeksi",
     "shrinkage": "%0"
   },
   {
-    "id": "viskon-keten",
-    "name": "Viskon Keten Karışım",
-    "price_per_meter": 240,
-    "width": "145 cm",
-    "weight": "165 gr/m²",
-    "composition": "70% Viskon, 30% Doğal Keten",
-    "description": "Doğal dökümlü, kırışmaya karşı dayanıklı ve serin tutan doku. Kimono, pantolon, tunik ve yazlık elbiseler için en iyi seçim.",
-    "usage": [
-      "Kimono",
-      "Tunik",
-      "Pantolon",
-      "Yazlık Elbise"
-    ],
-    "badge": "Trend Kumaş",
-    "texture_feel": "Doğal Dokulu & Serin",
-    "shrinkage": "%2"
-  },
-  {
-    "id": "sifon",
-    "name": "Uçuşan Şifon",
-    "price_per_meter": 160,
+    "id": "sifon-30-denye",
+    "name": "Şifon 30 Denye 35' 150",
+    "price_per_meter": 145,
     "width": "150 cm",
-    "weight": "75 gr/m²",
-    "composition": "100% Şifon Vual",
-    "description": "Hafif, yarı şeffaf ve rüzgarla dans eden zarif kumaş. Elbise kaplamaları, eşarp, pareo ve tül detaylar için uygundur.",
+    "weight": "35 gr/m²",
+    "composition": "%100 Ultra İnce Şifon",
+    "description": "Çok ince, hafif şeffaf ve pürüzlü dokumayla en tüy siklet kumaş.",
     "usage": [
-      "Eşarp & Şal",
-      "Pareo",
-      "Elbise Detayı",
-      "Tül Perde"
+      "Ultra İnce Tül",
+      "Eşarp",
+      "Duvak",
+      "Elbise Kaplaması"
     ],
-    "badge": "Hafif & Şeffaf",
-    "texture_feel": "Hafif & Uçuşan",
+    "badge": "Ultra İnce",
+    "texture_feel": "Çok İnce & Şeffaf",
     "shrinkage": "%0"
   },
   {
-    "id": "muslin-cift-kat",
-    "name": "Organik Çift Kat Müslin",
-    "price_per_meter": 195,
-    "width": "140 cm",
-    "weight": "135 gr/m²",
-    "composition": "100% Organik Ege Pamuğu",
-    "description": "Kareli kabartma dokulu, süper emici ve yumuşacık. Bebek ürünleri, plaj elbiseleri, pike ve salaş yazlık giyimde liderdir.",
+    "id": "fransiz-kadife-240",
+    "name": "Fransız Kadife 240' 190",
+    "price_per_meter": 350,
+    "width": "190 cm",
+    "weight": "240 gr/m²",
+    "composition": "%100 Fransız Kadife",
+    "description": "Kalın kadife yüzeyli, dokunulduğunda yumuşak, ağır ve son derece lüks (190 cm En).",
     "usage": [
-      "Bebek Kundak & Giyim",
-      "Plaj Elbisesi",
-      "Pike",
-      "Salaş Gömlek"
-    ],
-    "badge": "%100 Organik",
-    "texture_feel": "Kabartmalı & Yumuşak",
-    "shrinkage": "%3 - %4"
-  },
-  {
-    "id": "scuba-dalgic",
-    "name": "Likralı Scuba (Dalgıç)",
-    "price_per_meter": 260,
-    "width": "150 cm",
-    "weight": "280 gr/m²",
-    "composition": "92% Polyester, 8% Elastan",
-    "description": "Tok duruşlu, 4 yana esnek ve formu bozulmayan modern kumaş. Ceket, etek, tayt ve kışlık elbiseler için uygundur.",
-    "usage": [
-      "Ceket & Etek",
-      "Kalem Elbise",
-      "Spor Giyim",
+      "Kışlık Elbise",
+      "Döşemelik",
+      "Fon Perde",
+      "Ceket",
       "Kırlent"
     ],
-    "badge": "Form Koruyucu",
-    "texture_feel": "Esnek & Tok",
+    "badge": "Geniş En & Lüks Kadife",
+    "texture_feel": "Yumuşak & Ağır Kadife",
     "shrinkage": "%0"
   },
   {
-    "id": "kadife-dosemelik",
-    "name": "Soft Kadife / Döşemelik",
-    "price_per_meter": 340,
-    "width": "145 cm",
-    "weight": "320 gr/m²",
-    "composition": "100% Dokuma Kadife",
-    "description": "Yumuşacık tüylü yüzey, leke tutmaz apreli lüks kumaş. Koltuk, kırlent, fon perde ve kaban yapımında harikadır.",
+    "id": "polyester-keten-145",
+    "name": "Polyester Keten 145' 150",
+    "price_per_meter": 220,
+    "width": "150 cm",
+    "weight": "145 gr/m²",
+    "composition": "%100 Keten Görünümlü Polyester",
+    "description": "Ketenimsi karışıma sahip, ekru tonlu ve doğal kırçıllı yapılı kumaş.",
     "usage": [
-      "Fon Perde",
-      "Kırlent & Minder",
-      "Döşemelik",
-      "Kaban"
+      "Keten Gömlek",
+      "Pantolon",
+      "Masa Örtüsü",
+      "Tunik"
     ],
-    "badge": "Ev Tekstili Lüks",
-    "texture_feel": "Kadifemsi & Kalın",
+    "badge": "Doğal Kırçıllı",
+    "texture_feel": "Keten Dokulu",
+    "shrinkage": "%1"
+  },
+  {
+    "id": "poly-poplin-likra-108",
+    "name": "Poly. Poplin Likra 108' 150",
+    "price_per_meter": 195,
+    "width": "150 cm",
+    "weight": "108 gr/m²",
+    "composition": "%96 Polyester, %4 Likra",
+    "description": "Kutnuya yakın dokulu, hafif esnek ve dökümlü yapılı poplin kumaş.",
+    "usage": [
+      "Gömlek",
+      "Likralı Elbise",
+      "Bebek Giyim",
+      "Tunik"
+    ],
+    "badge": "Esnek Poplin",
+    "texture_feel": "Hafif Esnek & Kutnu Tuşeli",
+    "shrinkage": "%1"
+  },
+  {
+    "id": "shows-mango-saten-155",
+    "name": "Shows Mango Saten 155' 150",
+    "price_per_meter": 240,
+    "width": "150 cm",
+    "weight": "155 gr/m²",
+    "composition": "%100 Mango Saten",
+    "description": "Parlak, pürüzsüz saten yüzeyli tok dökümlü kumaş.",
+    "usage": [
+      "Mango Saten Elbise",
+      "Abiye",
+      "Etek",
+      "Şık Bluz"
+    ],
+    "badge": "Mango Saten",
+    "texture_feel": "Parlak & Pürüzsüz",
+    "shrinkage": "%0"
+  },
+  {
+    "id": "saten-30-denye-50",
+    "name": "Saten 30 Denye 50' 150",
+    "price_per_meter": 155,
+    "width": "150 cm",
+    "weight": "50 gr/m²",
+    "composition": "%100 İnce Saten",
+    "description": "Pürüzsüz, çok ince ve şeffaf saten yüzeyli hassas kumaş.",
+    "usage": [
+      "İnce Saten Astar",
+      "Sabahlık",
+      "Fular",
+      "İç Giyim"
+    ],
+    "badge": "İnce Saten Astar",
+    "texture_feel": "Çok İnce & Şeffaf Saten",
+    "shrinkage": "%0"
+  },
+  {
+    "id": "lycra-saten-cdc-85",
+    "name": "Lycra Saten CDC 85' 150",
+    "price_per_meter": 210,
+    "width": "150 cm",
+    "weight": "85 gr/m²",
+    "composition": "%95 Polyester, %5 Likra",
+    "description": "Pürüzsüz, parlak ve hafif likralı esnek saten CDC doku.",
+    "usage": [
+      "Esnek Gece Elbisesi",
+      "Bluz",
+      "Pijama",
+      "Fular"
+    ],
+    "badge": "Likralı CDC",
+    "texture_feel": "Parlak & Hafif Likralı",
+    "shrinkage": "%0"
+  },
+  {
+    "id": "miracle-72",
+    "name": "Miracle 72' 150",
+    "price_per_meter": 175,
+    "width": "150 cm",
+    "weight": "72 gr/m²",
+    "composition": "%94 Polyester, %6 Likra",
+    "description": "Mat, pürüzsüz ve hafif likralı düz yüzeyli esnek Mucize kumaş.",
+    "usage": [
+      "Esnek Bluz",
+      "İç Giyim",
+      "Şal",
+      "Yazlık Ürünler"
+    ],
+    "badge": "Mat & Esnek",
+    "texture_feel": "Mat & Pürüzsüz",
+    "shrinkage": "%0"
+  },
+  {
+    "id": "jessica-saten-120",
+    "name": "Jessica Saten 120' 150",
+    "price_per_meter": 220,
+    "width": "150 cm",
+    "weight": "120 gr/m²",
+    "composition": "%96 Polyester, %4 Likra",
+    "description": "Mat, pürüzsüz ve hafif likralı düz yüzeyli Jessica kumaş.",
+    "usage": [
+      "Mat Saten Elbise",
+      "Etek",
+      "Gömlek",
+      "Pantolon"
+    ],
+    "badge": "Mat Jessica",
+    "texture_feel": "Mat Saten & Likralı",
+    "shrinkage": "%0"
+  },
+  {
+    "id": "dubai-jessica-130",
+    "name": "Dubai Jessica 130' 150",
+    "price_per_meter": 235,
+    "width": "150 cm",
+    "weight": "130 gr/m²",
+    "composition": "%95 Polyester, %5 Likra",
+    "description": "Mat, hafif pürüzlü ve likralı düz yüzeyli Dubai dokusu.",
+    "usage": [
+      "Abaya",
+      "Tunik",
+      "Tesettür Elbise",
+      "Pantolon"
+    ],
+    "badge": "Dubai Serisi",
+    "texture_feel": "Mat & Hafif Pürüzlü",
+    "shrinkage": "%0"
+  },
+  {
+    "id": "full-mat-likra-saten-95",
+    "name": "Full Mat Likra Saten 95' 190",
+    "price_per_meter": 225,
+    "width": "190 cm",
+    "weight": "95 gr/m²",
+    "composition": "%95 Polyester, %5 Likra",
+    "description": "Full mat, saten görünümlü ve hafif transparan yüzeyli (190 cm Dev En).",
+    "usage": [
+      "Geniş Enli Mat Elbise",
+      "Fon Perde",
+      "Etek",
+      "Bluz"
+    ],
+    "badge": "190 cm Dev En",
+    "texture_feel": "Full Mat & Transparan",
+    "shrinkage": "%0"
+  },
+  {
+    "id": "mat-likra-saten-95",
+    "name": "Mat Likra Saten 95' 190",
+    "price_per_meter": 225,
+    "width": "190 cm",
+    "weight": "95 gr/m²",
+    "composition": "%95 Polyester, %5 Likra",
+    "description": "Mat, saten görünümlü, orta gramajlı ve hafif transparan (190 cm Dev En).",
+    "usage": [
+      "Geniş Enli Elbise",
+      "Tunik",
+      "Masa Örtüsü",
+      "Etek"
+    ],
+    "badge": "190 cm Dev En",
+    "texture_feel": "Mat Saten & Likralı",
+    "shrinkage": "%0"
+  },
+  {
+    "id": "parlak-likra-saten-95",
+    "name": "Parlak Likra Saten 95' 190",
+    "price_per_meter": 230,
+    "width": "190 cm",
+    "weight": "95 gr/m²",
+    "composition": "%95 Polyester, %5 Likra",
+    "description": "Parlak, saten görünümlü ve hafif transparan yüzeyli (190 cm Dev En).",
+    "usage": [
+      "Geniş Enli Parlak Saten Elbise",
+      "Abiye",
+      "Masa Örtüsü",
+      "Dekor"
+    ],
+    "badge": "190 cm Dev En",
+    "texture_feel": "Parlak Saten & Likralı",
     "shrinkage": "%0"
   }
 ]
