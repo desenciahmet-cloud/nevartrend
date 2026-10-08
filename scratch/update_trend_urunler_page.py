@@ -1,4 +1,8 @@
-{% extends "base.html" %}
+import os
+
+file_path = r'C:\Users\user\Desktop\nevartrend_ev\templates\trend_urunler.html'
+
+template_html = '''{% extends "base.html" %}
 
 {% block title %}Trend Hazır Tekstil & Butik Ürünler | nevartrend{% endblock %}
 
@@ -170,3 +174,9 @@
 
 </div>
 {% endblock %}
+'''
+
+with open(file_path, 'w', encoding='utf-8') as f:
+    f.write(template_html)
+
+print("Updated templates/trend_urunler.html successfully!")
