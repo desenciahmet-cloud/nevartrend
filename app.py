@@ -2737,19 +2737,32 @@ def render(request: Request, template_name: str, context: dict = None):
 # --- Web Pages ---
 
 @app.get("/", response_class=HTMLResponse)
-async def home_page(request: Request):
-    products = load_json("products.json")
-    fabrics = load_json("fabric_types.json")
-    categories = load_json("categories.json")
-    featured_products = [p for p in products if p.get("featured", False)]
-    new_products = [p for p in products if p.get("is_new", False)]
+async def home_page(request: Request, category: Optional[str] = "all", q: Optional[str] = None):
+    trend_products = load_json("trend_products.json")
+    if not trend_products:
+        trend_products = DEFAULT_TREND_PRODUCTS
+    
+    total_count = len(trend_products)
+    if q:
+        q_clean = q.strip().lower()
+        filtered = [
+            p for p in trend_products 
+            if q_clean in p.get("title", "").lower() 
+            or q_clean in p.get("description", "").lower() 
+            or q_clean in p.get("category_name", "").lower()
+        ]
+    elif category and category != "all":
+        filtered = [p for p in trend_products if p.get("category") == category]
+    else:
+        filtered = trend_products
+        category = "all"
+        
     return render(request, "index.html", {
-        "products": products,
-        "featured_products": featured_products,
-        "new_products": new_products,
-        "fabrics": fabrics,
-        "categories": categories,
-        "active_page": "home"
+        "products": filtered,
+        "selected_category": category,
+        "total_count": total_count,
+        "active_page": "home",
+        "search_query": q or ""
     })
 
 @app.get("/emprime", response_class=HTMLResponse)
@@ -2854,24 +2867,8 @@ async def upload_custom_pattern(file: UploadFile = File(...)):
 
 @app.get("/trend-urunler", response_class=HTMLResponse)
 @app.get("/diger-trend-urunler", response_class=HTMLResponse)
-async def trend_urunler_page(request: Request, category: Optional[str] = "all"):
-    trend_products = load_json("trend_products.json")
-    if not trend_products:
-        trend_products = DEFAULT_TREND_PRODUCTS
-    
-    total_count = len(trend_products)
-    if category and category != "all":
-        filtered = [p for p in trend_products if p.get("category") == category]
-    else:
-        filtered = trend_products
-        category = "all"
-        
-    return render(request, "trend_urunler.html", {
-        "products": filtered,
-        "selected_category": category,
-        "total_count": total_count,
-        "active_page": "trend-urunler"
-    })
+async def trend_urunler_page(request: Request, category: Optional[str] = "all", q: Optional[str] = None):
+    return await home_page(request, category, q)
 
 @app.get("/desenler", response_class=HTMLResponse)
 @app.get("/fabrics", response_class=HTMLResponse)
