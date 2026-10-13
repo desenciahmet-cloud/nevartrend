@@ -2767,21 +2767,10 @@ async def home_page(request: Request, category: Optional[str] = "all", q: Option
 
 @app.get("/emprime", response_class=HTMLResponse)
 @app.get("/emprime-renk-ayrimi", response_class=HTMLResponse)
-async def emprime_page(request: Request):
-    return render(request, "emprime.html", {
-        "active_page": "emprime"
-    })
-
 @app.get("/studyo", response_class=HTMLResponse)
 @app.get("/studio", response_class=HTMLResponse)
-async def studio_page(request: Request):
-    products = load_json("products.json")
-    fabrics = load_json("fabric_types.json")
-    return render(request, "studyo.html", {
-        "products": products,
-        "fabrics": fabrics,
-        "active_page": "studyo"
-    })
+async def redirect_old_studio_emprime():
+    return RedirectResponse(url="/", status_code=302)
 
 @app.get("/hakkimizda", response_class=HTMLResponse)
 async def hakkimizda_page(request: Request):
@@ -2808,23 +2797,10 @@ async def teslimat_kargo_page(request: Request):
     })
 
 @app.get("/kumaslar", response_class=HTMLResponse)
-async def kumaslar_page(request: Request):
-    fabrics = load_json("fabric_types.json")
-    return render(request, "kumaslar.html", {
-        "fabrics": fabrics,
-        "active_page": "kumaslar"
-    })
-
 @app.get("/dijital-baski", response_class=HTMLResponse)
 @app.get("/dijital", response_class=HTMLResponse)
-async def dijital_baski_page(request: Request):
-    products = load_json("products.json")
-    fabrics = load_json("fabric_types.json")
-    return render(request, "dijital_baski.html", {
-        "products": products,
-        "fabrics": fabrics,
-        "active_page": "dijital-baski"
-    })
+async def redirect_old_kumas_dijital():
+    return RedirectResponse(url="/", status_code=302)
 
 @app.post("/api/upload-custom-pattern")
 async def upload_custom_pattern(file: UploadFile = File(...)):
@@ -2872,65 +2848,8 @@ async def trend_urunler_page(request: Request, category: Optional[str] = "all", 
 
 @app.get("/desenler", response_class=HTMLResponse)
 @app.get("/fabrics", response_class=HTMLResponse)
-async def fabrics_catalog(
-    request: Request,
-    category: Optional[str] = "all",
-    fabric: Optional[str] = None,
-    q: Optional[str] = None,
-    sort: Optional[str] = "popular"
-):
-    products = load_json("products.json")
-    fabrics = load_json("fabric_types.json")
-    categories = load_json("categories.json")
-
-    # Normalize category
-    if category in [None, "", "desenler", "all"]:
-        selected_cat = "all"
-        filtered = products
-    elif category == "emprime-desenleri":
-        selected_cat = "emprime-desenleri"
-        filtered = [p for p in products if p.get("separation_ready") or "emprime" in p.get("print_type", "").lower()]
-    else:
-        selected_cat = category
-        filtered = [p for p in products if p.get("category") == category]
-
-    if q:
-        query = q.lower().strip()
-        filtered = [
-            p for p in filtered 
-            if query in p.get("title", "").lower() 
-            or query in p.get("code", "").lower() 
-            or query in p.get("description", "").lower()
-            or any(query in tag.lower() for tag in p.get("tags", []))
-        ]
-
-    if sort == "price_asc":
-        filtered = sorted(filtered, key=lambda x: x.get("base_price", 0))
-    elif sort == "price_desc":
-        filtered = sorted(filtered, key=lambda x: x.get("base_price", 0), reverse=True)
-    elif sort == "rating":
-        filtered = sorted(filtered, key=lambda x: x.get("rating", 0), reverse=True)
-    else:  # popular / default
-        filtered = sorted(filtered, key=lambda x: x.get("sales_count", 0), reverse=True)
-
-    for cat in categories:
-        if cat["id"] == "all":
-            cat["count"] = len(products)
-        elif cat["id"] == "emprime-desenleri":
-            cat["count"] = len([p for p in products if p.get("separation_ready") or "emprime" in p.get("print_type", "").lower()])
-        else:
-            cat["count"] = len([p for p in products if p.get("category") == cat["id"]])
-
-    return render(request, "fabrics.html", {
-        "products": filtered,
-        "fabrics": fabrics,
-        "categories": categories,
-        "selected_category": selected_cat,
-        "selected_fabric": fabric,
-        "search_query": q or "",
-        "selected_sort": sort,
-        "active_page": "desenler"
-    })
+async def fabrics_catalog_redirect():
+    return RedirectResponse(url="/", status_code=302)
 
 @app.get("/product/{product_id}", response_class=HTMLResponse)
 async def product_detail(request: Request, product_id: str):
