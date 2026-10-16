@@ -89,43 +89,68 @@
         </div>
       </div>
 
-      <!-- Step 3: Payment Method (iyzico / 3D Secure simulator) -->
+      <!-- Step 3: Payment Method -->
       <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-4">
         <div class="flex items-center gap-2 text-slate-900 font-bold text-sm border-b border-slate-100 pb-3">
           <span class="w-6 h-6 rounded-full bg-emerald-700 text-white flex items-center justify-center text-xs">3</span>
-          <h3>Ödeme Yöntemi (iyzico Güvenli Altyapı)</h3>
+          <h3>Ödeme Yöntemi</h3>
         </div>
 
         <div class="space-y-4">
-          <div class="flex gap-4 border-b border-slate-100 pb-3 text-xs">
-            <label class="flex items-center gap-2 font-bold text-slate-800 cursor-pointer">
-              <input type="radio" name="payment_method" value="Kredi Kartı (3D Secure)" checked class="text-emerald-600">
-              <span>Kredi / Banka Kartı</span>
+          <!-- Payment Options Selection Cards -->
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+            <label id="label-pay-card" onclick="selectPaymentMethod('card')" class="border-2 border-emerald-600 bg-emerald-50/40 p-3.5 rounded-2xl flex flex-col justify-between cursor-pointer transition">
+              <div class="flex items-center justify-between mb-1.5">
+                <span class="font-bold text-slate-900 flex items-center gap-1.5">
+                  <i data-lucide="credit-card" class="w-4 h-4 text-emerald-700"></i>
+                  Kredi / Banka Kartı
+                </span>
+                <input type="radio" name="payment_method" value="Kredi Kartı (3D Secure)" checked class="text-emerald-600">
+              </div>
+              <span class="text-[11px] text-slate-500">256-Bit 3D Secure</span>
             </label>
-            <label class="flex items-center gap-2 font-bold text-slate-600 cursor-pointer">
-              <input type="radio" name="payment_method" value="Havale / EFT" class="text-emerald-600">
-              <span>Havale / EFT (%3 İndirimli)</span>
+
+            <label id="label-pay-cod" onclick="selectPaymentMethod('cod')" class="border border-slate-200 hover:border-emerald-300 p-3.5 rounded-2xl flex flex-col justify-between cursor-pointer transition">
+              <div class="flex items-center justify-between mb-1.5">
+                <span class="font-bold text-slate-900 flex items-center gap-1.5">
+                  <i data-lucide="truck" class="w-4 h-4 text-emerald-700"></i>
+                  Kapıda Ödeme
+                </span>
+                <input type="radio" name="payment_method" value="Kapıda Ödeme (Nakit / Kart)" class="text-emerald-600">
+              </div>
+              <span class="text-[11px] text-emerald-800 font-semibold">Nakit veya Kredi Kartı</span>
+            </label>
+
+            <label id="label-pay-transfer" onclick="selectPaymentMethod('transfer')" class="border border-slate-200 hover:border-emerald-300 p-3.5 rounded-2xl flex flex-col justify-between cursor-pointer transition">
+              <div class="flex items-center justify-between mb-1.5">
+                <span class="font-bold text-slate-900 flex items-center gap-1.5">
+                  <i data-lucide="building" class="w-4 h-4 text-emerald-700"></i>
+                  Havale / EFT
+                </span>
+                <input type="radio" name="payment_method" value="Havale / EFT" class="text-emerald-600">
+              </div>
+              <span class="text-[11px] text-emerald-700 font-semibold">%3 İndirimli</span>
             </label>
           </div>
 
-          <!-- Card Inputs -->
-          <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-3 text-xs">
+          <!-- 1. Card Inputs Container -->
+          <div id="payment-card-box" class="p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-3 text-xs">
             <div>
               <label class="block font-bold text-slate-700 mb-1">Kart Üzerindeki İsim</label>
-              <input type="text" placeholder="KART SAHİBİNİN ADI SOYADI" class="w-full bg-white border border-slate-200 rounded-xl p-2.5 font-medium uppercase">
+              <input type="text" id="card-holder" placeholder="KART SAHİBİNİN ADI SOYADI" class="w-full bg-white border border-slate-200 rounded-xl p-2.5 font-medium uppercase">
             </div>
             <div>
               <label class="block font-bold text-slate-700 mb-1">Kart Numarası</label>
-              <input type="text" placeholder="**** **** **** ****" maxlength="19" class="w-full bg-white border border-slate-200 rounded-xl p-2.5 font-mono">
+              <input type="text" id="card-number" placeholder="**** **** **** ****" maxlength="19" class="w-full bg-white border border-slate-200 rounded-xl p-2.5 font-mono">
             </div>
             <div class="grid grid-cols-2 gap-3">
               <div>
                 <label class="block font-bold text-slate-700 mb-1">Son Kullanma (AA/YY)</label>
-                <input type="text" placeholder="AA/YY" maxlength="5" class="w-full bg-white border border-slate-200 rounded-xl p-2.5 text-center font-mono">
+                <input type="text" id="card-expiry" placeholder="AA/YY" maxlength="5" class="w-full bg-white border border-slate-200 rounded-xl p-2.5 text-center font-mono">
               </div>
               <div>
                 <label class="block font-bold text-slate-700 mb-1">Güvenlik Kodu (CVV)</label>
-                <input type="password" placeholder="CVV" maxlength="4" class="w-full bg-white border border-slate-200 rounded-xl p-2.5 text-center font-mono">
+                <input type="password" id="card-cvv" placeholder="CVV" maxlength="4" class="w-full bg-white border border-slate-200 rounded-xl p-2.5 text-center font-mono">
               </div>
             </div>
             <div class="flex items-center gap-2 text-[11px] text-emerald-800 font-semibold pt-1">
@@ -133,6 +158,51 @@
               <span>256-Bit SSL ile Güvenli 3D Secure Ödeme Altyapısı</span>
             </div>
           </div>
+
+          <!-- 2. Kapıda Ödeme Info Container -->
+          <div id="payment-cod-box" class="hidden p-5 bg-gradient-to-br from-emerald-50/70 via-slate-50 to-emerald-50/30 rounded-2xl border-2 border-emerald-500/40 space-y-3 text-xs">
+            <div class="flex items-center gap-2.5 text-emerald-950 font-extrabold text-sm">
+              <div class="w-8 h-8 rounded-xl bg-emerald-600 text-white flex items-center justify-center shadow-xs">
+                <i data-lucide="truck" class="w-4 h-4"></i>
+              </div>
+              <span>Kapıda Güvenli Ödeme (Nakit veya Kredi Kartı)</span>
+            </div>
+            <p class="text-slate-600 leading-relaxed text-xs">
+              Sipariş tutarınız, paketiniz anlaşmalı kargo görevlisi tarafından adresinize getirildiğinde <strong>Nakit</strong> veya <strong>Kredi/Banka Kartı</strong> (temassız veya pos) ile kapınızda güvenle tahsil edilir.
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1">
+              <div class="p-3 bg-white rounded-xl border border-emerald-100 flex items-center gap-2.5 shadow-2xs">
+                <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600 shrink-0"></i>
+                <span class="text-[11px] text-slate-700"><strong>Kart ile Kapıda:</strong> Kurye kapınızda mobil POS getirir.</span>
+              </div>
+              <div class="p-3 bg-white rounded-xl border border-emerald-100 flex items-center gap-2.5 shadow-2xs">
+                <i data-lucide="banknote" class="w-4 h-4 text-emerald-600 shrink-0"></i>
+                <span class="text-[11px] text-slate-700"><strong>Nakit Ödeme:</strong> Nakit olarak elden teslim edebilirsiniz.</span>
+              </div>
+            </div>
+            <div class="p-2.5 bg-amber-50 border border-amber-200 rounded-xl text-[11px] text-amber-900 flex items-center gap-2">
+              <i data-lucide="info" class="w-4 h-4 text-amber-600 shrink-0"></i>
+              <span>Sipariş çıkışından önce kargo teyidi için telefon veya SMS ile bilgilendirme yapılacaktır.</span>
+            </div>
+          </div>
+
+          <!-- 3. Havale / EFT Info Container -->
+          <div id="payment-transfer-box" class="hidden p-5 bg-slate-50 rounded-2xl border border-slate-200 space-y-3 text-xs">
+            <div class="flex items-center gap-2 text-slate-900 font-bold text-sm">
+              <i data-lucide="building" class="w-4 h-4 text-emerald-700"></i>
+              <span>Banka Havale &amp; EFT Bilgileri (%3 İndirimli)</span>
+            </div>
+            <p class="text-slate-600 text-xs">
+              Siparişinizi tamamladıktan sonra tutarı aşağıdaki hesaba sipariş numaranızı açıklama kısmına yazarak gönderebilirsiniz:
+            </p>
+            <div class="bg-white p-3.5 rounded-xl border border-slate-200 space-y-1 font-mono text-xs">
+              <div class="text-slate-500 text-[10px]">Banka / Alıcı:</div>
+              <div class="font-bold text-slate-900">Nevartrend Tekstil San. Tic. Ltd. Şti.</div>
+              <div class="text-slate-500 text-[10px] pt-1">IBAN:</div>
+              <div class="font-bold text-emerald-800 tracking-wider">TR12 0006 2000 0001 2345 6789 01</div>
+            </div>
+          </div>
+
         </div>
       </div>
 
@@ -182,6 +252,55 @@
 </div>
 
 <script>
+  function selectPaymentMethod(type) {
+    const cardBox = document.getElementById('payment-card-box');
+    const codBox = document.getElementById('payment-cod-box');
+    const transferBox = document.getElementById('payment-transfer-box');
+
+    const labelCard = document.getElementById('label-pay-card');
+    const labelCod = document.getElementById('label-pay-cod');
+    const labelTransfer = document.getElementById('label-pay-transfer');
+
+    const submitBtn = document.getElementById('submit-btn');
+
+    // Reset styles
+    [labelCard, labelCod, labelTransfer].forEach(l => {
+      l.classList.remove('border-2', 'border-emerald-600', 'bg-emerald-50/40');
+      l.classList.add('border-slate-200');
+    });
+
+    cardBox.classList.add('hidden');
+    codBox.classList.add('hidden');
+    transferBox.classList.add('hidden');
+
+    if (type === 'cod') {
+      labelCod.classList.remove('border-slate-200');
+      labelCod.classList.add('border-2', 'border-emerald-600', 'bg-emerald-50/40');
+      labelCod.querySelector('input').checked = true;
+      codBox.classList.remove('hidden');
+      if (submitBtn) {
+        submitBtn.innerHTML = '<i data-lucide="truck" class="w-4 h-4"></i><span>Kapıda Ödemeli Siparişi Tamamla</span>';
+      }
+    } else if (type === 'transfer') {
+      labelTransfer.classList.remove('border-slate-200');
+      labelTransfer.classList.add('border-2', 'border-emerald-600', 'bg-emerald-50/40');
+      labelTransfer.querySelector('input').checked = true;
+      transferBox.classList.remove('hidden');
+      if (submitBtn) {
+        submitBtn.innerHTML = '<i data-lucide="check" class="w-4 h-4"></i><span>Havale / EFT Siparişini Oluştur</span>';
+      }
+    } else {
+      labelCard.classList.remove('border-slate-200');
+      labelCard.classList.add('border-2', 'border-emerald-600', 'bg-emerald-50/40');
+      labelCard.querySelector('input').checked = true;
+      cardBox.classList.remove('hidden');
+      if (submitBtn) {
+        submitBtn.innerHTML = '<i data-lucide="lock" class="w-4 h-4"></i><span>Siparişi Onayla & Öde</span>';
+      }
+    }
+    if (window.lucide) lucide.createIcons();
+  }
+
   async function submitOrder(e) {
     e.preventDefault();
     const cart = CartEngine.getCart();
@@ -196,7 +315,7 @@
     btn.innerHTML = '<i data-lucide="loader" class="w-4 h-4 animate-spin"></i> Sipariş Oluşturuluyor...';
     if (window.lucide) lucide.createIcons();
 
-    const cargoEl = document.querySelector('input[name="cargo"]:checked');
+    const shippingEl = document.querySelector('input[name="shipping"]:checked') || document.querySelector('input[name="cargo"]:checked');
     const paymentEl = document.querySelector('input[name="payment_method"]:checked');
 
     const payload = {
@@ -206,8 +325,8 @@
       city: document.getElementById('cust-city').value,
       district: document.getElementById('cust-district').value,
       address: document.getElementById('cust-address').value,
-      cargo_company: cargoEl ? cargoEl.value : 'Yurtiçi Kargo',
-      payment_method: paymentEl ? paymentEl.value : 'Kredi Kartı',
+      cargo_company: shippingEl ? shippingEl.value : 'Yurtiçi Kargo',
+      payment_method: paymentEl ? paymentEl.value : 'Kapıda Ödeme (Nakit / Kart)',
       items: cart,
       subtotal: CartEngine.getSubtotal(),
       discount: CartEngine.getDiscount(),

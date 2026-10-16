@@ -2984,6 +2984,14 @@ class CreateOrderRequest(BaseModel):
 async def create_order(req: CreateOrderRequest):
     orders = load_json("orders.json")
     order_id = "NVT-" + uuid.uuid4().hex[:6].upper()
+    
+    if "Kapıda" in req.payment_method:
+        order_status = "Kapıda Ödeme Bekleniyor (Hazırlanıyor)"
+    elif "Havale" in req.payment_method:
+        order_status = "Havale / EFT Bekleniyor"
+    else:
+        order_status = "Ödeme Alındı (Baskı Sırasında)"
+
     new_order = {
         "id": order_id,
         "customer_name": req.customer_name,
@@ -2997,7 +3005,7 @@ async def create_order(req: CreateOrderRequest):
         "discount": req.discount,
         "shipping_fee": req.shipping_fee,
         "total_amount": req.total_amount,
-        "status": "Baskı Sırasına Alındı",
+        "status": order_status,
         "cargo_code": "Hazırlanıyor",
         "created_at": datetime.now().strftime("%Y-%m-%d %H:%M")
     }
