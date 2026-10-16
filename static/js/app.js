@@ -236,9 +236,11 @@ const CartEngine = {
     const drawer = document.getElementById('cart-drawer');
     const overlay = document.getElementById('cart-drawer-overlay');
     if (drawer && overlay) {
+      drawer.classList.remove('invisible', 'pointer-events-none');
       drawer.classList.remove('translate-x-full');
       overlay.classList.remove('hidden');
       setTimeout(function() { overlay.classList.remove('opacity-0'); }, 10);
+      document.body.style.overflow = 'hidden';
     }
   },
 
@@ -248,7 +250,11 @@ const CartEngine = {
     if (drawer && overlay) {
       drawer.classList.add('translate-x-full');
       overlay.classList.add('opacity-0');
-      setTimeout(function() { overlay.classList.add('hidden'); }, 300);
+      setTimeout(function() { 
+        overlay.classList.add('hidden'); 
+        drawer.classList.add('invisible', 'pointer-events-none');
+        document.body.style.overflow = '';
+      }, 300);
     }
   },
 
