@@ -276,28 +276,28 @@
   </main>
 
   <!-- Cart Drawer -->
-  <div id="cart-drawer-overlay" onclick="CartEngine.closeDrawer()" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 hidden opacity-0 transition-opacity duration-300"></div>
-  <aside id="cart-drawer" class="fixed top-0 right-0 h-full w-full max-w-md bg-white z-50 shadow-2xl flex flex-col transform translate-x-full transition-transform duration-300 ease-in-out invisible pointer-events-none">
+  <div id="cart-drawer-overlay" onclick="CartEngine.closeDrawer()" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden opacity-0 transition-opacity duration-300" style="z-index: 9998;"></div>
+  <aside id="cart-drawer" class="fixed top-0 right-0 h-full w-full max-w-md bg-white shadow-2xl flex flex-col transform translate-x-full transition-transform duration-300 ease-in-out invisible pointer-events-none" style="z-index: 9999;">
     <div class="p-4 border-b border-slate-100 flex items-center justify-between bg-slate-50">
       <div class="flex items-center gap-2">
-        <i data-lucide="shopping-bag" class="w-5 h-5 text-sage-700"></i>
+        <i data-lucide="shopping-bag" class="w-5 h-5 text-emerald-800"></i>
         <h3 class="font-bold text-slate-800 text-base">Alışveriş Sepetim</h3>
       </div>
-      <button onclick="CartEngine.closeDrawer()" class="p-1.5 text-slate-400 hover:text-slate-700 rounded-lg hover:bg-slate-200 transition">
+      <button onclick="CartEngine.closeDrawer()" class="p-1.5 text-slate-400 hover:text-slate-700 rounded-lg hover:bg-slate-200 transition" title="Kapat">
         <i data-lucide="x" class="w-5 h-5"></i>
       </button>
     </div>
 
-    <div class="p-4 bg-sage-50/80 border-b border-sage-100">
+    <div class="p-4 bg-emerald-50/70 border-b border-emerald-100">
       <div class="text-xs font-medium text-slate-700 mb-1.5" id="free-shipping-text">
-        Ücretsiz Kargo için <strong class="text-sage-800">1000 TL</strong> daha ekleyin!
+        Ücretsiz Kargo için <strong class="text-emerald-800 font-bold">1000 TL</strong> daha ekleyin!
       </div>
       <div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
-        <div id="free-shipping-bar" class="bg-sage-600 h-full transition-all duration-300" style="width: 0%"></div>
+        <div id="free-shipping-bar" class="bg-[#183c2c] h-full transition-all duration-300" style="width: 0%"></div>
       </div>
     </div>
 
-    <div id="cart-items-container" class="flex-1 overflow-y-auto p-4 space-y-3 divide-y divide-slate-100"></div>
+    <div id="cart-items-container" class="flex-1 overflow-y-auto p-4 space-y-3"></div>
 
     <div class="p-4 border-t border-slate-200 bg-slate-50 space-y-3">
       <div class="flex items-center justify-between text-xs text-slate-500">
@@ -306,18 +306,18 @@
       </div>
       <div class="flex items-center justify-between text-xs text-slate-500">
         <span>Kargo</span>
-        <span class="font-bold text-sage-700 summary-shipping">Ücretsiz</span>
+        <span class="font-bold text-emerald-700 summary-shipping">Ücretsiz</span>
       </div>
       <div class="flex items-center justify-between text-sm font-extrabold text-slate-900 pt-2 border-t border-slate-200">
         <span>Toplam Tutar</span>
-        <span class="text-sage-800 text-lg summary-total">0 TL</span>
+        <span class="text-emerald-800 text-lg font-black summary-total">0 TL</span>
       </div>
 
       <div class="grid grid-cols-2 gap-2 pt-2">
         <a href="/cart" class="py-2.5 px-3 bg-slate-200 hover:bg-slate-300 text-slate-800 text-xs font-bold rounded-xl text-center transition">
           Sepete Git
         </a>
-        <a href="/checkout" class="py-2.5 px-3 bg-sage-700 hover:bg-sage-600 text-white text-xs font-bold rounded-xl text-center transition flex items-center justify-center gap-1">
+        <a href="/checkout" class="py-2.5 px-3 bg-[#183c2c] hover:bg-[#0f281d] text-white text-xs font-bold rounded-xl text-center transition flex items-center justify-center gap-1 shadow-sm">
           <span>Siparişi Tamamla</span>
           <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
         </a>
@@ -509,7 +509,7 @@
     <span class="max-w-0 overflow-hidden group-hover:max-w-xs transition-all duration-500 text-xs font-bold whitespace-nowrap pr-1">WhatsApp Destek</span>
   </a>
 
-  <script src="/static/js/app.js"></script>
+  <script src="/static/js/app.js?v=20261017_cart_drawer_fix"></script>
   <script>
     window.toggleSidebarMenu = function() {
       const drawer = document.getElementById('sidebar-drawer');
